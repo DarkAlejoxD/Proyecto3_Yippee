@@ -3,7 +3,7 @@ using UnityEngine;
 //namespace AddToANamespace
 //{
 //[RequireComponent(typeof(Transform))] //Add this if necessary, delete it otherwise
-public class BaseTemplate : MonoBehaviour
+public class #SCRIPTNAME# : MonoBehaviour
 {
     #region Fields
     private const string ANY_CONST = "";
