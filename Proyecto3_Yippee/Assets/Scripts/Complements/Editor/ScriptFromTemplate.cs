@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using UnityEditor;
 
-public class ScriptFromTemplate : MonoBehaviour
+namespace UtilsComplements
 {
-    // Start is called before the first frame update
-    void Start()
+    public class ScriptFromTemplate
     {
-        
-    }
+        private const string PATH_TO_BASETEMPLATE = "";
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [MenuItem(itemName: "Assets/Create/ScriptTemplates/C# UnityBase Template", isValidateFunction: false, priority = 22)]
+        public static void CreateScriptFromTemplate_BaseTemplate()
+        {
+            ProjectWindowUtil.CreateScriptAssetFromTemplateFile(PATH_TO_BASETEMPLATE, "newScript.cs");
+        }
     }
 }
