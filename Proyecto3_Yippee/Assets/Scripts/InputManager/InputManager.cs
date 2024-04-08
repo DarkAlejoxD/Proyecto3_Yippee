@@ -1,9 +1,10 @@
 using System;
+using UtilsComplements;
 using UnityEngine;
 
 namespace InputController
 {
-    public class InputManager : MonoBehaviour
+    public class InputManager : MonoBehaviour, ISingleton<InputManager>
     {
         private PlayerMap _playerMap;
 
@@ -11,11 +12,15 @@ namespace InputController
         public Action OnJump;
         public Action OnInteract;
 
+        public ISingleton<InputManager> Instance => this;
+
         #region Unity Logic
         private void Awake()
         {
+            Instance.Instantiate();
+
             _playerMap = new();
-            _playerMap.PlayerMove.Enable();
+            _playerMap.PlayerMove.Enable();            
         }
 
         private void Update()
@@ -23,6 +28,11 @@ namespace InputController
             MoveUpdate();
             JumpUpdate();
             InteractUpdate();
+        }
+
+        private void OnDestroy()
+        {
+            Instance.RemoveInstance();
         }
         #endregion
 

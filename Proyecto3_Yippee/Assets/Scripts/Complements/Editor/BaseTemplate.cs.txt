@@ -16,13 +16,7 @@ public class #SCRIPTNAME# : MonoBehaviour
 
     [Header("Section2")]
     private float _attribute2;
-    #endregion
-
-    #region Static Methods
-    public static void StaticMethod()
-    {
-    }
-    #endregion
+    #endregion    
 
     #region Unity Logic
     private void Awake()
@@ -31,6 +25,12 @@ public class #SCRIPTNAME# : MonoBehaviour
 
     private void Update()
     {        
+    }
+    #endregion
+
+    #region Static Methods
+    public static void StaticMethod()
+    {
     }
     #endregion
 

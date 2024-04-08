@@ -1,37 +1,62 @@
-public interface ISingleton<T> where T : class, ISingleton<T>
+namespace UtilsComplements
 {
-    //TODO: Complete this class. Ask a teacher if recommends this style of Singleton o Generic interfaces/classes.
-    private static T _singleton;
-
-    public ISingleton<T> Instance => this;
-    public T Value => (T)this;
-
-    #region Static Fields & Methods
-
-    #endregion
-
-    #region Instance Fields & Methods
-    public sealed void Instantiate()
+    /// <summary>
+    /// Script rewrited.
+    /// Short Version of my ISingleton interface.
+    /// 
+    /// Put Instance.Instantiate() inside the Awake() Method.
+    /// Put Instance.RemoveInstance() inside the OnDestroy Method.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public interface ISingleton<T> where T : class, ISingleton<T>
     {
-        if (_singleton == null || _singleton == default)        
-            _singleton = Value;
-        
-        else
-            Invalidate();        
-    }
+        //TODO: Test it.
+        //TODO: Ask a teacher if recommends this style of Singleton o Generic interfaces/classes.
+        private static T _singleton;
+        private static bool _exists = false;
 
-    public sealed void RemoveInstance()
-    {
-        if (_singleton == Value)        
-            _singleton = null;        
-    }
+        public ISingleton<T> Instance { get; }
+        public T Value => (T)this;
 
-    public void Invalidate()
-    {
-#if UNITY_2022_3_OR_NEWER
-        if(Value is UnityEngine.Component comp)        
-            UnityEngine.Component.Destroy(comp);        
+        #region Static Fields & Methods
+        //Call these functions with ISingleton<T>.xxx();
+        public static bool Exists() => _exists; //(?
+        public static T GetInstance() => _singleton;
+        public static bool GetInstance(out T instance)
+        {
+            instance = _singleton;
+            return !(_singleton == null || _singleton == default);
+        }
+        #endregion
+
+        #region Instance Fields & Methods
+        public void Instantiate()
+        {
+            if (_singleton == null || _singleton == default)
+            {
+                _singleton = Value;
+                _exists = true;
+            }
+            else
+                Invalidate();
+        }
+
+        public void RemoveInstance()
+        {
+            if (_singleton == Value)
+            {
+                _singleton = null;
+                _exists = false;
+            }
+        }
+
+        public void Invalidate()
+        {
+#if UNITY_2022_3_OR_NEWER //It should be working even in older versions, it's just a testing(?
+            if (Value is UnityEngine.Component comp)
+                UnityEngine.Component.Destroy(comp.gameObject);
 #endif
+        }
+        #endregion
     }
-    #endregion
 }

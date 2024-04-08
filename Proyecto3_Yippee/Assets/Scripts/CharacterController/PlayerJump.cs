@@ -1,13 +1,13 @@
-using UnityEngine;
+﻿using UnityEngine;
 using InputController;
 
 namespace CharacterController
 {
-    [RequireComponent(typeof(InputManager))]
-    public class PlayerMovement : MonoBehaviour
+    [RequireComponent(typeof(InputManager), typeof(PlayerMovement))]
+    public class PlayerJump : MonoBehaviour
     {
-        //TODO: Get Design specifications
-        //TODO: Make this movement script
+        //TODO: Get Design Specifications
+        //TODO: Make this class.
         #region Fields
         private const string ANY_CONST = "";
 
