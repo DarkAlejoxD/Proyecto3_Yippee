@@ -22,7 +22,7 @@ namespace UtilsComplements
         //Call these functions with ISingleton<T>.xxx();
         public static bool Exists() => _exists; //(?
         public static T GetInstance() => _singleton;
-        public static bool GetInstance(out T instance)
+        public static bool TryGetInstance(out T instance)
         {
             instance = _singleton;
             return !(_singleton == null || _singleton == default);

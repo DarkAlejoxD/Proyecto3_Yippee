@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UtilsComplements
+namespace UtilsComplements.Cheats
 {
     public abstract class Cheat : MonoBehaviour
     {
@@ -11,11 +11,11 @@ namespace UtilsComplements
             ONCE, REINVOKE, TOOGLEABLE
         }
 
-        [Header("DEBUG")]
+        [Header("DEBUG", order = 22)]
         [SerializeField] private bool DEBUG_TestCheat = false;
 
         private int _cheatIndexControl;
-        private bool _alreadyInvoked;
+        protected bool AlreadyInvoked { get; private set; }
         protected virtual CheatTypeEnum CheatType => CheatTypeEnum.ONCE;
         protected abstract string KeyboardCheatReference { get; }
         protected abstract string GamepadCheatReference { get; }
@@ -25,14 +25,19 @@ namespace UtilsComplements
             _cheatIndexControl = 0;
         }
 
+        protected virtual void Update()
+        {
+            KeyboardCheatUpdate();
+        }
+
         private void KeyboardCheatUpdate()
-        {            
+        {
             if (!Input.anyKeyDown)
                 return;
 
             if (CheatType != CheatTypeEnum.TOOGLEABLE)
             {
-                if (_alreadyInvoked)
+                if (AlreadyInvoked)
                     return;
             }
 
@@ -49,40 +54,37 @@ namespace UtilsComplements
 
             int cheatLenght = KeyboardCheatReference.Length;
 
-            if (_cheatIndexControl >= cheatLenght - 1)
-            {
-                CorrectCombination();
-            }
-            else
-            {
-                _cheatIndexControl++;
-            }
+            if (_cheatIndexControl >= cheatLenght - 1)            
+                CorrectCombination();                
+            
+            else            
+                _cheatIndexControl++;            
         }
 
-        private void CorrectCombination()
+        protected void CorrectCombination()
         {
             switch (CheatType)
             {
                 case CheatTypeEnum.ONCE:
                     ActivateCheat();
-                    _alreadyInvoked = true;
+                    AlreadyInvoked = true;
                     break;
 
                 case CheatTypeEnum.REINVOKE:
-                    _alreadyInvoked = false;
+                    AlreadyInvoked = false;
                     ActivateCheat();
                     break;
 
                 case CheatTypeEnum.TOOGLEABLE:
-                    if (!_alreadyInvoked)
+                    if (!AlreadyInvoked)
                     {
                         ActivateCheat();
-                        _alreadyInvoked = true;
+                        AlreadyInvoked = true;
                     }
                     else
                     {
                         DeactivateCheat();
-                        _alreadyInvoked = false;
+                        AlreadyInvoked = false;
                     }
                     break;
                 default:
@@ -90,6 +92,8 @@ namespace UtilsComplements
                     break;
             }
 
+            if (DEBUG_TestCheat)
+                Debug.Log("CheatActivated");
             _cheatIndexControl = 0;
         }
 
