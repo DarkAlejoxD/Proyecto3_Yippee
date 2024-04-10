@@ -2,10 +2,11 @@
 
 namespace UtilsComplements.Cheats
 {
+    /// <summary>
+    /// Mickey Tool to easy create Cheats
+    /// </summary>
     public abstract class Cheat : MonoBehaviour
     {
-        //TODO: Test this class
-        //TODO: Make a template to easy create cheats
         protected enum CheatTypeEnum
         {
             ONCE, REINVOKE, TOOGLEABLE
