@@ -12,16 +12,11 @@ namespace AvatarController
         //TODO: Linear deceleration or something when the player stops moving decelerates, do it as you want
         //TODO: Subscribe to OnMove del PlayerController
         #region Fields
-        private const string ANY_CONST = "";
 
-        [Header("Section1")]
-        [SerializeField] private float _privateAttribute;
-        public int PublicAttribute;
+        private PlayerController _playerController;
 
-        public float Property => _privateAttribute * PublicAttribute;
 
-        [Header("Section2")]
-        private float _attribute2;
+        
         #endregion
 
         #region Static Methods
@@ -31,8 +26,21 @@ namespace AvatarController
         #endregion
 
         #region Unity Logic
+
+        private void OnEnable()
+        {
+            if( _playerController == null)
+            {
+                _playerController = GetComponent<PlayerController>();
+            }
+
+            _playerController.OnMovement += OnMovement
+        }
+
+
         private void Awake()
         {
+            _playerController = GetComponent<PlayerController>();
         }
 
         private void Update()
@@ -47,8 +55,9 @@ namespace AvatarController
         #endregion
 
         #region Private Methods
-        private void PrivateMethod()
+        private void OnMovement(Vector2 moveInput, PlayerMovementData movementData)
         {
+
         }
         #endregion
     }
