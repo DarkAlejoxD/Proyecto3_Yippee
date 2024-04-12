@@ -18,8 +18,10 @@ namespace AvatarController
         public int PublicAttribute;
         #endregion
 
-        public Action<Vector2, PlayerMovementData> OnMovement; //Vector2 --> direction
+        public Action<Vector2> OnMovement; //Vector2 --> direction
         public Action<bool> OnJump;
+
+        public PlayerData DataContainer => _dataContainer;
 
         #region Unity Logic
         private void OnEnable()
@@ -54,7 +56,7 @@ namespace AvatarController
         #region Private Methods
         private void OnGetInputs(InputValues inputs)
         {
-            OnMovement?.Invoke(inputs.MoveInput, _dataContainer.DefaultMovement);
+            OnMovement?.Invoke(inputs.MoveInput);
             OnJump?.Invoke(inputs.JumpInput);
         }
         #endregion
