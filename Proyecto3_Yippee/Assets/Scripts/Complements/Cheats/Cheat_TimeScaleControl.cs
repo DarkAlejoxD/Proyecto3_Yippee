@@ -45,6 +45,13 @@ namespace UtilsComplements.Cheats
         }
         #endregion
 
+        #region Public Methods
+        public void Invalidate()
+        {
+            Destroy(this);
+        }
+        #endregion
+
         #region Private Methods
         protected override void ActivateCheat()
         {

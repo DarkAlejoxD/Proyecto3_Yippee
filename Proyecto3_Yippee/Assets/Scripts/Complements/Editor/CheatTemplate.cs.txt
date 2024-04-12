@@ -39,6 +39,13 @@ namespace UtilsComplements.Cheats
         }
         #endregion
 
+        //#region Public Methods //Uncomment this if you dont want to delete the gameObject. Destroys only the component.
+        //public void Invalidate()
+        //{
+        //    Destroy(this);
+        //}
+        //#endregion
+
         #region Private Methods
         protected override void ActivateCheat()
         {

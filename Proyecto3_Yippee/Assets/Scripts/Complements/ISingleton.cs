@@ -48,13 +48,22 @@ namespace UtilsComplements
                 _singleton = null;
                 _exists = false;
             }
-        }
+        }        
 
         public void Invalidate()
         {
 #if UNITY_2022_3_OR_NEWER //It should be working even in older versions, it's just a testing(?
             if (Value is UnityEngine.Component comp)
                 UnityEngine.Component.Destroy(comp.gameObject);
+#endif
+        }
+        #endregion
+
+        #region DEBUG
+        public void DEBUG_Test()
+        {
+#if UNITY_2022_3_OR_NEWER //It should be working even in older versions, it's just a testing(?
+                UnityEngine.Debug.Log("Enter Debug");
 #endif
         }
         #endregion

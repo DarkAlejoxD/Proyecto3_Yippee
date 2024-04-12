@@ -6,11 +6,28 @@ namespace InputController
 {
     public class InputManager : MonoBehaviour, ISingleton<InputManager>
     {
-        private PlayerMap _playerMap;
+        public struct InputValues
+        {
+            public Vector2 MoveInput { get; internal set; }
+            public bool JumpInput { get; internal set; }
+            public bool CrounchDiveInput { get; internal set; }
+            public bool InteractInput { get; internal set; }
+            public bool SurvivalInstinct { get; internal set; }
 
-        public Action<Vector2> OnMove;
-        public Action OnJump;
-        public Action OnInteract;
+            public void ResetInputs()
+            {
+                MoveInput = Vector2.zero;
+                JumpInput = false;
+                CrounchDiveInput = false;
+                InteractInput = false;
+                SurvivalInstinct = false;
+            }
+        }
+
+        private PlayerMap _playerMap;
+        private InputValues _inputValues;
+
+        public Action<InputValues> OnInputDetected;
 
         public ISingleton<InputManager> Instance => this;
 
@@ -20,14 +37,22 @@ namespace InputController
             Instance.Instantiate();
 
             _playerMap = new();
-            _playerMap.PlayerMove.Enable();            
+            _playerMap.PlayerMove.Enable();
+            _inputValues = new InputValues();
         }
 
         private void Update()
         {
+            //Read Inputs
+            _inputValues.ResetInputs();
             MoveUpdate();
             JumpUpdate();
+            CrounchDive();
             InteractUpdate();
+            SurvivalInstinct();
+
+            //Send Inputs
+            OnInputDetected?.Invoke(_inputValues);
         }
 
         private void OnDestroy()
@@ -40,27 +65,34 @@ namespace InputController
         private void MoveUpdate()
         {
             Vector2 movement = _playerMap.PlayerMove.Move.ReadValue<Vector2>();
-            if (movement.magnitude > 1) 
+            if (movement.magnitude > 1)
                 movement.Normalize();
 
-            OnMove?.Invoke(movement);
+            _inputValues.MoveInput = movement;
         }
 
         private void JumpUpdate()
         {
             float value = _playerMap.PlayerMove.Jump.ReadValue<float>();
-            bool triggered = value > 0;
-
-            if (triggered)
-                OnJump?.Invoke();
+            _inputValues.JumpInput = value > 0;
         }
 
         private void InteractUpdate()
         {
             bool triggered = _playerMap.PlayerMove.Interact.WasReleasedThisFrame();
+            _inputValues.InteractInput = triggered;
+        }
 
-            if(triggered)
-                OnInteract?.Invoke();
+        private void SurvivalInstinct()
+        {
+            bool triggered = _playerMap.PlayerMove.SurvivalInstinct.WasReleasedThisFrame();
+            _inputValues.SurvivalInstinct = triggered;
+        }
+
+        private void CrounchDive()
+        {
+            bool triggered = _playerMap.PlayerMove.CrouchDive.IsPressed();
+            _inputValues.CrounchDiveInput = triggered;
         }
         #endregion
     }

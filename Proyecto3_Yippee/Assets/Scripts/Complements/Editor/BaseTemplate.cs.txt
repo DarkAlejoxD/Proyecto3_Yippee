@@ -1,7 +1,7 @@
 using UnityEngine;
 
-//namespace AddToANamespace
-//{
+namespace AddToANamespace
+{
 //[RequireComponent(typeof(Transform))] //Add this if necessary, delete it otherwise
 public class #SCRIPTNAME# : MonoBehaviour
 {
@@ -46,4 +46,4 @@ public class #SCRIPTNAME# : MonoBehaviour
     }
     #endregion
 }
-//}
+}
