@@ -6,7 +6,7 @@ using UtilsComplements;
 
 namespace AvatarController
 {
-    [RequireComponent(typeof(InputManager))] //Add this if necessary, delete it otherwise
+    [RequireComponent(typeof(InputManager), typeof(CharacterController))] //Add this if necessary, delete it otherwise
     public class PlayerController : MonoBehaviour
     {
         //Backlog: FSM or something that show every state and every action this state can be predecessor.????

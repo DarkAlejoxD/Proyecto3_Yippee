@@ -3,28 +3,14 @@ using InputController;
 
 namespace AvatarController
 {
-    [RequireComponent(typeof(InputManager), typeof(PlayerMovement))]
+    [RequireComponent(typeof(PlayerController))]
     public class PlayerJump : MonoBehaviour
     {
-        //TODO: Get Design Specifications
+        //TODO: Get Design Specifications: For proto regular jump, for >=alpha mantein to higher
         //TODO: Make this class.
+
         #region Fields
-        private const string ANY_CONST = "";
-
-        [Header("Section1")]
-        [SerializeField] private float _privateAttribute;
-        public int PublicAttribute;
-
-        public float Property => _privateAttribute * PublicAttribute;
-
-        [Header("Section2")]
-        private float _attribute2;
-        #endregion
-
-        #region Static Methods
-        public static void StaticMethod()
-        {
-        }
+        private PlayerController _controller;
         #endregion
 
         #region Unity Logic
@@ -44,7 +30,7 @@ namespace AvatarController
         #endregion
 
         #region Private Methods
-        private void PrivateMethod()
+        private void OnJump(bool active)
         {
         }
         #endregion
