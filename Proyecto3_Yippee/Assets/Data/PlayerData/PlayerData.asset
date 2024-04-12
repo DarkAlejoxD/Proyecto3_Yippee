@@ -13,34 +13,28 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   _defaultMovement:
-    _acceleration: 20
-    _linearDecceleration: 10
+    _acceleration: 40
+    _linearDecceleration: 20
     _minSpeedToMove: 2
-    _maxSpeed: 5
-    _canSprint: 1
-    _sprintMaxSpeed: 5
+    _maxSpeed: 6
     _canJump: 1
   _pushingMovement:
     _acceleration: 20
     _linearDecceleration: 10
     _minSpeedToMove: 2
     _maxSpeed: 5
-    _canSprint: 0
-    _sprintMaxSpeed: 5
     _canJump: 0
   _crounchMovement:
     _acceleration: 20
     _linearDecceleration: 10
     _minSpeedToMove: 2
     _maxSpeed: 5
-    _canSprint: 0
-    _sprintMaxSpeed: 5
     _canJump: 0
   _onAirMovement:
     _acceleration: 20
     _linearDecceleration: 10
     _minSpeedToMove: 2
     _maxSpeed: 5
-    _canSprint: 0
-    _sprintMaxSpeed: 5
     _canJump: 0
+  _jumpValues:
+    a: 0
