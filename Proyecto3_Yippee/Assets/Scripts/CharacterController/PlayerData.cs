@@ -28,16 +28,16 @@ namespace CharacterController.Data
         [SerializeField] internal float _linearDecceleration = 10;
         [SerializeField] internal float _minSpeedToMove = 2;
         [SerializeField] internal float _maxSpeed = 5;
-        [SerializeField] internal bool _canSprint = true;
-        [SerializeField] internal float _sprintMaxSpeed = 5;
+        //[SerializeField] internal bool _canSprint = true;
+        //[SerializeField] internal float _sprintMaxSpeed = 5;
         [SerializeField] internal bool _canJump = true;
 
         public float Acceleration => _acceleration;
         public float LinearDecceleration => _linearDecceleration;
         public float MinSpeedToMove => _minSpeedToMove;
         public float MaxSpeed => _maxSpeed;
-        public bool CanSprint => _canSprint;
-        public float SprintMaxSpeed => _sprintMaxSpeed;
+        //public bool CanSprint => _canSprint;
+        //public float SprintMaxSpeed => _sprintMaxSpeed;
         public bool CanJump => _canJump;
     }
 }

@@ -6,24 +6,6 @@ namespace InputController
 {
     public class InputManager : MonoBehaviour, ISingleton<InputManager>
     {
-        public struct InputValues
-        {
-            public Vector2 MoveInput { get; internal set; }
-            public bool JumpInput { get; internal set; }
-            public bool CrounchDiveInput { get; internal set; }
-            public bool InteractInput { get; internal set; }
-            public bool SurvivalInstinct { get; internal set; }
-
-            public void ResetInputs()
-            {
-                MoveInput = Vector2.zero;
-                JumpInput = false;
-                CrounchDiveInput = false;
-                InteractInput = false;
-                SurvivalInstinct = false;
-            }
-        }
-
         private PlayerMap _playerMap;
         private InputValues _inputValues;
 
@@ -95,5 +77,23 @@ namespace InputController
             _inputValues.CrounchDiveInput = triggered;
         }
         #endregion
+    }
+
+    public struct InputValues
+    {
+        public Vector2 MoveInput { get; internal set; }
+        public bool JumpInput { get; internal set; }
+        public bool CrounchDiveInput { get; internal set; }
+        public bool InteractInput { get; internal set; }
+        public bool SurvivalInstinct { get; internal set; }
+
+        public void ResetInputs()
+        {
+            MoveInput = Vector2.zero;
+            JumpInput = false;
+            CrounchDiveInput = false;
+            InteractInput = false;
+            SurvivalInstinct = false;
+        }
     }
 }

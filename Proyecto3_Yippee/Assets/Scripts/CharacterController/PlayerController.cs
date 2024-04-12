@@ -1,24 +1,46 @@
+using System;
 using UnityEngine;
+using CharacterController.Data;
+using InputController;
+using UtilsComplements;
 
 namespace CharacterController
 {
-    //[RequireComponent(typeof(Transform))] //Add this if necessary, delete it otherwise
+    //[RequireComponent(typeof(InputManager))] //Add this if necessary, delete it otherwise
     public class PlayerController : MonoBehaviour
     {
-        //TODO: FSM or something that show every state and every action this state can be predecessor.
+        //Backlog: FSM or something that show every state and every action this state can be predecessor.????
+
+        //TODO: 
         #region Fields
         [Header("Data")]
-        [SerializeField] private float _dataContainer;
+        [SerializeField] private PlayerData _dataContainer;
         public int PublicAttribute;
         #endregion
 
+        public delegate void MovementDelegate(Vector2 direction, PlayerMovementData data);
+        public MovementDelegate OnMovement;
+
         #region Unity Logic
-        private void Awake()
+        private void OnEnable()
         {
+            if(!ISingleton<InputManager>.TryGetInstance(out var inputManager))
+                return;
+
+            inputManager.OnInputDetected += OnGetInputs;
         }
 
-        private void Update()
+        private void OnDisable()
         {
+            if (!ISingleton<InputManager>.TryGetInstance(out var inputManager))
+                return;
+
+            inputManager.OnInputDetected -= OnGetInputs;
+        }
+
+        private void OnGetInputs(InputValues inputs)
+        {
+            OnMovement?.Invoke(inputs.MoveInput, _dataContainer.DefaultMovement);
         }
         #endregion
 
