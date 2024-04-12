@@ -15,6 +15,7 @@ namespace AvatarController.Data
             [SerializeField] internal float _linearDecceleration = 10;
             [SerializeField] internal float _minSpeedToMove = 2;
             [SerializeField] internal float _maxSpeed = 5;
+            [SerializeField] internal float _rotationLerp = 5;
             //[SerializeField] internal bool _canSprint = true;
             //[SerializeField] internal float _sprintMaxSpeed = 5;
             [SerializeField] internal bool _canJump = true;
@@ -27,6 +28,7 @@ namespace AvatarController.Data
             public float LinearDecceleration => _linearDecceleration;
             public float MinSpeedToMove => _minSpeedToMove;
             public float MaxSpeed => _maxSpeed;
+            public float RotationLerp => _rotationLerp;
             //public bool CanSprint => _canSprint;
             //public float SprintMaxSpeed => _sprintMaxSpeed;
             public bool CanJump => _canJump;
@@ -55,6 +57,21 @@ namespace AvatarController.Data
             public float TimePressed => _timePressed;
             public float TimeToReachHeight => _timeToReachHeight;
         }
+        #endregion 
+        
+        #region Dive Nested Class
+        [Serializable]
+        public class DiveValues
+        {
+            [SerializeField] private float _startingSpeed;
+            [SerializeField] private float _airDeceleration;
+            [SerializeField] private float _groundDeceleration;
+
+            
+            public float StartingSpeed => _startingSpeed;
+            public float AirDeceleration => _airDeceleration;
+            public float GroundDeceleration => _groundDeceleration;
+        }
         #endregion
 
         private const int SPACES = 10;
@@ -73,8 +90,10 @@ namespace AvatarController.Data
 
         #region JumpValues
         [SerializeField, Space(SPACES)] JumpValues _jumpValues;
+        [SerializeField, Space(SPACES)] DiveValues _diveValues;
         
         public JumpValues DefaultJumpValues => _jumpValues;
+        public DiveValues DefaultDiveValues => _diveValues;
         #endregion
     }
 }
