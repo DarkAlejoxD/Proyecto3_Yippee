@@ -34,7 +34,7 @@ namespace AvatarController
                 _playerController = GetComponent<PlayerController>();
             }
 
-            _playerController.OnMovement += OnMovement
+            _playerController.OnMovement += OnMovement;
         }
 
 
@@ -55,7 +55,7 @@ namespace AvatarController
         #endregion
 
         #region Private Methods
-        private void OnMovement(Vector2 moveInput, PlayerMovementData movementData)
+        private void OnMovement(Vector2 moveInput)
         {
 
         }
