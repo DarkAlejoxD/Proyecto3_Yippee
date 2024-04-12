@@ -14,7 +14,7 @@ namespace AvatarController
         #region Fields
 
         private PlayerController _playerController;
-
+        private PlayerData Data => _playerController.DataContainer;
 
         
         #endregion
