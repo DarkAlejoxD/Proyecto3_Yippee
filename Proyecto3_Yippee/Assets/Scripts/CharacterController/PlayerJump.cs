@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using InputController;
 
-namespace CharacterController
+namespace AvatarController
 {
     [RequireComponent(typeof(InputManager), typeof(PlayerMovement))]
     public class PlayerJump : MonoBehaviour

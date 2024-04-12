@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace CharacterController.Data
+namespace AvatarController.Data
 {
     [CreateAssetMenu(fileName = "New PlayerData", menuName = "GameData/PlayerData", order = 1)]
     public class PlayerData : ScriptableObject

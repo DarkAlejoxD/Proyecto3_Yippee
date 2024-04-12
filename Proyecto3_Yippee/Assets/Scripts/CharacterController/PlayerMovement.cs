@@ -1,16 +1,16 @@
 using UnityEngine;
-using InputController;
+using AvatarController.Data;
 
-namespace CharacterController
+namespace AvatarController
 {
-    using Data;
-    [RequireComponent(typeof(InputManager))]
+    [RequireComponent(typeof(PlayerController), typeof(CharacterController))]
     public class PlayerMovement : MonoBehaviour
     {
         //TODO: Make this movement script
         //TODO: Get PlayerData from PlayerController or whereever
         //TODO: Movement by acceleration, See Playetmovement from atka
         //TODO: Linear deceleration or something when the player stops moving decelerates, do it as you want
+        //TODO: Subscribe to OnMove del PlayerController
         #region Fields
         private const string ANY_CONST = "";
 

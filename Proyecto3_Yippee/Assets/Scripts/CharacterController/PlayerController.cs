@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
-using CharacterController.Data;
+using AvatarController.Data;
 using InputController;
 using UtilsComplements;
 
-namespace CharacterController
+namespace AvatarController
 {
-    //[RequireComponent(typeof(InputManager))] //Add this if necessary, delete it otherwise
+    [RequireComponent(typeof(InputManager))] //Add this if necessary, delete it otherwise
     public class PlayerController : MonoBehaviour
     {
         //Backlog: FSM or something that show every state and every action this state can be predecessor.????
@@ -18,13 +18,13 @@ namespace CharacterController
         public int PublicAttribute;
         #endregion
 
-        public delegate void MovementDelegate(Vector2 direction, PlayerMovementData data);
-        public MovementDelegate OnMovement;
+        public Action<Vector2, PlayerMovementData> OnMovement; //Vector2 --> direction
+        public Action<bool> OnJump;
 
         #region Unity Logic
         private void OnEnable()
         {
-            if(!ISingleton<InputManager>.TryGetInstance(out var inputManager))
+            if (!ISingleton<InputManager>.TryGetInstance(out var inputManager))
                 return;
 
             inputManager.OnInputDetected += OnGetInputs;
@@ -36,11 +36,6 @@ namespace CharacterController
                 return;
 
             inputManager.OnInputDetected -= OnGetInputs;
-        }
-
-        private void OnGetInputs(InputValues inputs)
-        {
-            OnMovement?.Invoke(inputs.MoveInput, _dataContainer.DefaultMovement);
         }
         #endregion
 
@@ -57,8 +52,10 @@ namespace CharacterController
         #endregion
 
         #region Private Methods
-        private void PrivateMethod()
+        private void OnGetInputs(InputValues inputs)
         {
+            OnMovement?.Invoke(inputs.MoveInput, _dataContainer.DefaultMovement);
+            OnJump?.Invoke(inputs.JumpInput);
         }
         #endregion
     }
