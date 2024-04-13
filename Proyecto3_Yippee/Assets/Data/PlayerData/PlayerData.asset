@@ -50,14 +50,15 @@ MonoBehaviour:
     _maxAngularSpeed: 0
   _jumpValues:
     _minHeight: 0
-    _maxHeight: 0
+    _maxHeight: 2.4
     _timePressed: 0
     _timeToReachHeight: 0
-    _coyoteTime: 0
-    DEBUG_drawHeight: 0
-    DEBUG_drawCurve: 0
-    DEBUG_definitionOfJump: 0
-    DEBUG_forwardMovementPct: 0
+    _coyoteTime: 0.4
+    DEBUG_drawHeight: 1
+    DEBUG_drawCurve: 1
+    DEBUG_definitionOfJump: 8
+    DEBUG_forwardMovementPct: 1
+    DEBUG_drawCoyote: 0
   _diveValues:
     _startingSpeed: 2
     _airDeceleration: 5

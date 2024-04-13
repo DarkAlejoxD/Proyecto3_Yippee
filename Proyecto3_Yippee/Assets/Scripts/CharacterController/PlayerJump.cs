@@ -156,7 +156,7 @@ namespace AvatarController
             DrawHeight();
             DrawCurve();
             DrawCoyoteCurve();
-        }        
+        }
 
         private void DrawHeight()
         {
@@ -193,11 +193,16 @@ namespace AvatarController
 
             Color color = Color.blue;
 
+            //Time calculus
+            //v = v0 + a * t
+            //0 = vel + g * t --> t = vel / g
+            float time = Mathf.Abs(GetVelocity() / Gravity);
+
             GizmosUtilities.DrawCurveProperties curveProperties =
                 new(GizmosUtilities.DrawCurveProperties.DefaultValues)
                 {
                     MinValue = 0,
-                    MaxValue = DataContainer.DefaultJumpValues.TimeToReachHeight * 2,
+                    MaxValue = time * 2,
                     DefinitionOfCurve = DataContainer.DefaultJumpValues.DEBUG_definitionOfJump
                 };
 
