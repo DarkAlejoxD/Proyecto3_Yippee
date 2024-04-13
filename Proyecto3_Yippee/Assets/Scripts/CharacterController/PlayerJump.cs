@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using AvatarController.Data;
 using UtilsComplements.Editor;
-using System;
 
 namespace AvatarController
 {

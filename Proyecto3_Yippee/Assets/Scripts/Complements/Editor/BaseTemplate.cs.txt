@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AddToANamespace
+namespace DefaultNamespace //add it to a concrete namespace
 {
 //[RequireComponent(typeof(Transform))] //Add this if necessary, delete it otherwise
 public class #SCRIPTNAME# : MonoBehaviour
