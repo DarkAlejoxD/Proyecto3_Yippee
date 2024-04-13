@@ -17,6 +17,7 @@ MonoBehaviour:
     _linearDecceleration: 20
     _minSpeedToMove: 2
     _maxSpeed: 6
+    _rotationLerp: 0.25
     _canJump: 1
     _angularAcceleration: 0
     _maxAngularSpeed: 0
@@ -25,6 +26,7 @@ MonoBehaviour:
     _linearDecceleration: 10
     _minSpeedToMove: 2
     _maxSpeed: 5
+    _rotationLerp: 5
     _canJump: 0
     _angularAcceleration: 0
     _maxAngularSpeed: 0
@@ -33,6 +35,7 @@ MonoBehaviour:
     _linearDecceleration: 10
     _minSpeedToMove: 2
     _maxSpeed: 5
+    _rotationLerp: 5
     _canJump: 0
     _angularAcceleration: 0
     _maxAngularSpeed: 0
@@ -41,17 +44,21 @@ MonoBehaviour:
     _linearDecceleration: 10
     _minSpeedToMove: 2
     _maxSpeed: 5
+    _rotationLerp: 5
     _canJump: 0
     _angularAcceleration: 0
     _maxAngularSpeed: 0
   _jumpValues:
-    _minHeight: -0.03
-    _maxHeight: 1.87
+    _minHeight: 0
+    _maxHeight: 0
     _timePressed: 0
-    _timeToReachHeight: 0.62
-    _coyoteTime: 0.3
+    _timeToReachHeight: 0
+    _coyoteTime: 0
     DEBUG_drawHeight: 0
     DEBUG_drawCurve: 0
-    DEBUG_definitionOfJump: 8
-    DEBUG_forwardMovementPct: 1
-    DEBUG_drawCoyote: 0
+    DEBUG_definitionOfJump: 0
+    DEBUG_forwardMovementPct: 0
+  _diveValues:
+    _startingSpeed: 2
+    _airDeceleration: 5
+    _groundDeceleration: 20

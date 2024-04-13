@@ -1,5 +1,7 @@
 using UnityEngine;
 using AvatarController.Data;
+using UnityEngine.Playables;
+using UnityEngine.Windows;
 
 namespace AvatarController
 {
@@ -42,6 +44,11 @@ namespace AvatarController
             _playerController.OnMovement += OnMovement;
         }
 
+        private void OnDisable()
+        {
+            _playerController.OnMovement -= OnMovement;
+        }
+
 
         private void Awake()
         {
@@ -58,6 +65,7 @@ namespace AvatarController
         private void Update()
         {
             Deceleration();
+            FaceDirection();
         }
         #endregion
 
@@ -77,6 +85,11 @@ namespace AvatarController
 
             movement = right * moveInput.x;
             movement += forward * moveInput.y;
+
+            if (moveInput.magnitude == 0)
+            {
+                movement = Vector3.zero;
+            }
 
             movement.Normalize();
             AcceleratedMovement(movement);
@@ -108,14 +121,31 @@ namespace AvatarController
                 _velocity += Time.deltaTime * Data.DefaultMovement.Acceleration * movement;
             }
 
+
+
             motion = Time.deltaTime * _velocity;
 
+            if (_velocity.magnitude < Data.DefaultMovement.MinSpeedToMove)
+            {
+                motion = Vector3.zero;
+            }
             _characterController.Move(motion);
         }
 
         private void Deceleration()
         {
-            _velocity -= Time.deltaTime * Data.DefaultMovement.LinearDecceleration * (_velocity.normalized);
+            if (_velocity.magnitude > 0)
+                _velocity -= Time.deltaTime * Data.DefaultMovement.LinearDecceleration * (_velocity.normalized);
+        }
+
+
+        private void FaceDirection()
+        {
+            if (_velocity.magnitude > Data.DefaultMovement.MinSpeedToMove)
+            {
+                Quaternion desiredRotation = Quaternion.LookRotation(_velocity.normalized);
+                transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Data.DefaultMovement.RotationLerp);
+            }
         }
         #endregion
     }
