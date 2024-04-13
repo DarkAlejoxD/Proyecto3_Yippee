@@ -9,9 +9,10 @@ namespace AvatarController
     public class PlayerDive : MonoBehaviour
 {
     #region Fields
-    private PlayerController _playerController;
-    private CharacterController _characterController;
+        private PlayerController _playerController;
+        private CharacterController _characterController;
         private PlayerMovement _playerMovement;
+        private Animator _animator;
         
         private PlayerData Data => _playerController.DataContainer;
 
@@ -21,9 +22,9 @@ namespace AvatarController
 
 
         private Vector3 _velocity;
-        #endregion
+    #endregion
 
-        #region Unity Logic
+    #region Unity Logic
 
         private void OnEnable()
         {
@@ -45,6 +46,7 @@ namespace AvatarController
             _playerController = GetComponent<PlayerController>();
             _characterController = GetComponent<CharacterController>();
             _playerMovement = GetComponent<PlayerMovement>();
+            _animator = GetComponent<Animator>();
         }
 
     private void Update()
@@ -85,6 +87,12 @@ namespace AvatarController
             _playerMovement.enabled = false;
             _isDiving = true;
 
+            //DEBUG
+                _animator.SetBool("Dive", true);
+                _animator.SetBool("Idle", false);
+                _characterController.height = 1;
+            //
+
             //TODO: reduce in half the hitbox?
         }
 
@@ -97,6 +105,12 @@ namespace AvatarController
             {
                 _playerMovement.enabled = true;
                 _isDiving = false;
+
+                //DEBUG
+                    _animator.SetBool("Dive", false);
+                    _animator.SetBool("Idle", true);
+                    _characterController.height = 2;
+                //
             }
 
             _characterController.Move(_velocity);
