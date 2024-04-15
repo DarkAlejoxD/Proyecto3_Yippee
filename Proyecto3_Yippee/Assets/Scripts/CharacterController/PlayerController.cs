@@ -29,6 +29,7 @@ namespace AvatarController
         public Action<bool> OnDive;
         public Action<bool> OnInteract;
         public Action<bool> OnInspect;
+        public Action<bool> OnSprint;
 
         public PlayerData DataContainer => _dataContainer;
         public bool IsGrounded => _playerJump.IsGrounded;
@@ -64,6 +65,7 @@ namespace AvatarController
 
         #region Public Methods
 
+        //For PROTO, change when FSM
         public void EnablePushingMode(Vector3 dir)
         {
             _characterController.enabled = false;
@@ -96,6 +98,7 @@ namespace AvatarController
             OnDive?.Invoke(inputs.CrounchDiveInput);
             OnInteract?.Invoke(inputs.InteractInput);
             OnInspect?.Invoke(inputs.GhostViewInput);
+            OnSprint?.Invoke(inputs.SprintInput);
         }
         #endregion
     }

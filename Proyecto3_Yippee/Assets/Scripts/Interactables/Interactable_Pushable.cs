@@ -26,13 +26,6 @@ namespace Interactable //add it to a concrete namespace
         {
             base.Interact();
 
-            //TODO: Select closest push point and tp player to it
-            
-
-            //TODO: Block horizontal movement
-            //TODO: Block Jump
-            //TODO: Limites?
-            //Subscribe to OnMove
             if(_isGrabbed )
             {
                 LetGo();
@@ -41,10 +34,6 @@ namespace Interactable //add it to a concrete namespace
             {
                 Grab();
             }
-            
-
-            
-
         }
 
         private void Grab()

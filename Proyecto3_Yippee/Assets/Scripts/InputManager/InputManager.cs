@@ -32,6 +32,7 @@ namespace InputController
             CrounchDive();
             InteractUpdate();
             GhostViewUpdate();
+            SprintUpdate();
 
             //Send Inputs
             OnInputDetected?.Invoke(_inputValues);
@@ -76,6 +77,12 @@ namespace InputController
             bool triggered = _playerMap.PlayerMove.CrouchDive.IsPressed();
             _inputValues.CrounchDiveInput = triggered;
         }
+
+        private void SprintUpdate()
+        {
+            bool triggered = _playerMap.PlayerMove.Sprint.IsPressed();
+            _inputValues.SprintInput = triggered;
+        }
         #endregion
     }
 
@@ -86,6 +93,7 @@ namespace InputController
         public bool CrounchDiveInput { get; internal set; }
         public bool InteractInput { get; internal set; }
         public bool GhostViewInput { get; internal set; }
+        public bool SprintInput { get; internal set; }
 
         public void ResetInputs()
         {
@@ -94,6 +102,7 @@ namespace InputController
             CrounchDiveInput = false;
             InteractInput = false;
             GhostViewInput = false;
+            SprintInput = false;
         }
     }
 }

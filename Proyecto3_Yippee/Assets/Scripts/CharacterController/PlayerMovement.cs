@@ -18,14 +18,11 @@ namespace AvatarController
         private PlayerData Data => _playerController.DataContainer;
 
         private Camera CurrentCamera => Camera.main; //TODO: Change this
+        private float _maxSpeed;
         
         #endregion
 
-        #region Static Methods
-        public static void StaticMethod()
-        {
-        }
-        #endregion
+        
 
         #region Unity Logic
 
@@ -37,11 +34,13 @@ namespace AvatarController
             }
 
             _playerController.OnMovement += OnMovement;
+            _playerController.OnSprint += OnSprint;
         }
 
         private void OnDisable()
         {
             _playerController.OnMovement -= OnMovement;
+            _playerController.OnSprint -= OnSprint;
         }
 
 
@@ -55,6 +54,7 @@ namespace AvatarController
         private void Start()
         {
             _velocity = Vector3.zero;
+            _maxSpeed = Data.DefaultMovement.MaxSpeed;
         }
 
         private void Update()
@@ -120,7 +120,7 @@ namespace AvatarController
         {
             Vector3 motion;
 
-            if(_velocity.magnitude < Data.DefaultMovement.MaxSpeed)
+            if(_velocity.magnitude < _maxSpeed)
             {
                 _velocity += Time.deltaTime * Data.DefaultMovement.Acceleration * movement;
             }
@@ -148,6 +148,18 @@ namespace AvatarController
             if (_velocity.magnitude > Data.DefaultMovement.MinSpeedToMove)
             {
                 FaceDirection(_velocity.normalized);
+            }
+        }
+
+        private void OnSprint(bool active)
+        {
+            if (active)
+            {
+                _maxSpeed = Data.DefaultMovement.SprintMaxSpeed;
+            }
+            else
+            {
+                _maxSpeed = Data.DefaultMovement.MaxSpeed;
             }
         }
         #endregion
