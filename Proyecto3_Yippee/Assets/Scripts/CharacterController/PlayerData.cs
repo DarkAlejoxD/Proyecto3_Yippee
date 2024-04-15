@@ -63,8 +63,8 @@ namespace AvatarController.Data
             public float GravityMultiplier => _gravityMultiplier;
             public float DownGravityMultiplier => _downGravityMultiplier;
         }
-        #endregion 
-        
+        #endregion
+
         #region Dive Nested Class
         [Serializable]
         public class DiveValues
@@ -73,7 +73,7 @@ namespace AvatarController.Data
             [SerializeField] private float _airDeceleration;
             [SerializeField] private float _groundDeceleration;
 
-            
+
             public float StartingSpeed => _startingSpeed;
             public float AirDeceleration => _airDeceleration;
             public float GroundDeceleration => _groundDeceleration;
@@ -87,14 +87,21 @@ namespace AvatarController.Data
             [SerializeField] private float _interactionRange;
             //[SerializeField] private float _interactionCooldown;
 
-
             public float InteractionRange => _interactionRange;
-            //public float InteractionCooldown => _interactionCooldown;
-            
+            //public float InteractionCooldown => _interactionCooldown;            
+        }
+        #endregion
+
+        #region Instinct Nested Class
+        [Serializable]
+        public class OtherValues
+        {
+            public float RandomValue;
         }
         #endregion
 
         private const int SPACES = 6;
+
         #region Movement Fields
         [Header("Movement Attributes")]
         [SerializeField, Space(SPACES)] private PlayerMovementData _defaultMovement;
@@ -112,7 +119,7 @@ namespace AvatarController.Data
         [SerializeField, Space(SPACES)] JumpValues _jumpValues;
 
         [SerializeField, Space(SPACES)] DiveValues _diveValues;
-        
+
         public JumpValues DefaultJumpValues => _jumpValues;
         public DiveValues DefaultDiveValues => _diveValues;
 
@@ -120,8 +127,17 @@ namespace AvatarController.Data
         [Header("Interaction Attributes")]
         [SerializeField, Space(SPACES)] InteractionValues _interactionValues;
         public InteractionValues DefaultInteractionValues => _interactionValues;
-        
+        #endregion
 
+        #region Other Values
+        [SerializeField] private OtherValues _otherValues;
+
+        /// <summary>
+        /// Contains:
+        ///     - Interact
+        ///     - Blablabla
+        /// </summary>
+        public OtherValues DefOtherValues => _otherValues;
         #endregion
     }
 }

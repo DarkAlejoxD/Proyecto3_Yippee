@@ -58,7 +58,7 @@ namespace AvatarController
             OnJump?.Invoke(inputs.JumpInput);
             OnDive?.Invoke(inputs.CrounchDiveInput);
             OnInteract?.Invoke(inputs.InteractInput);
-            OnInspect?.Invoke(inputs.SurvivalInstinct);
+            OnInspect?.Invoke(inputs.GhostViewInput);
         }
         #endregion
     }

@@ -31,7 +31,7 @@ namespace InputController
             JumpUpdate();
             CrounchDive();
             InteractUpdate();
-            SurvivalInstinct();
+            GhostViewUpdate();
 
             //Send Inputs
             OnInputDetected?.Invoke(_inputValues);
@@ -65,10 +65,10 @@ namespace InputController
             _inputValues.InteractInput = triggered;
         }
 
-        private void SurvivalInstinct()
+        private void GhostViewUpdate()
         {
             bool triggered = _playerMap.PlayerMove.SurvivalInstinct.WasReleasedThisFrame();
-            _inputValues.SurvivalInstinct = triggered;
+            _inputValues.GhostViewInput = triggered;
         }
 
         private void CrounchDive()
@@ -85,7 +85,7 @@ namespace InputController
         public bool JumpInput { get; internal set; }
         public bool CrounchDiveInput { get; internal set; }
         public bool InteractInput { get; internal set; }
-        public bool SurvivalInstinct { get; internal set; }
+        public bool GhostViewInput { get; internal set; }
 
         public void ResetInputs()
         {
@@ -93,7 +93,7 @@ namespace InputController
             JumpInput = false;
             CrounchDiveInput = false;
             InteractInput = false;
-            SurvivalInstinct = false;
+            GhostViewInput = false;
         }
     }
 }

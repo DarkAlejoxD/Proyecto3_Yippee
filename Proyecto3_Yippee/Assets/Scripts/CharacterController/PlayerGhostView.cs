@@ -3,19 +3,12 @@ using UnityEngine;
 namespace AvatarController //add it to a concrete namespace
 {
     [RequireComponent(typeof(PlayerController))] //Add this if necessary, delete it otherwise
-    public class PlayerInstinct : MonoBehaviour
+    public class PlayerGhostView : MonoBehaviour
     {
         #region Fields
-        private const string ANY_CONST = "";
-
-        [Header("Section1")]
+        [Header("A")]
         [SerializeField] private float _privateAttribute;
         public int PublicAttribute;
-
-        public float Property => _privateAttribute * PublicAttribute;
-
-        [Header("Section2")]
-        private float _attribute2;
         #endregion
 
         #region Unity Logic
