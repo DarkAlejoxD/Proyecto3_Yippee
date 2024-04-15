@@ -269,8 +269,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5fd3b9ecbe22646a541fad1e803fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interactionLayer:
+    serializedVersion: 2
+    m_Bits: 512
   _interactionPoint: {fileID: 4101275666303341500}
   _interactionRadius: 1.5
+  gizmosColor: {r: 0.8584906, g: 0.44949272, b: 0.56573874, a: 0.3137255}
 --- !u!1 &1485022401205759791
 GameObject:
   m_ObjectHideFlags: 0
