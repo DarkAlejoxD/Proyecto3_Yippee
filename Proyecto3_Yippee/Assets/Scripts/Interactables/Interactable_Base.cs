@@ -24,23 +24,23 @@ namespace Interactable //add it to a concrete namespace
 
         #region Public Methods
        
-        public void Interact()
+        public virtual void Interact()
         {
             Debug.Log($"Interacted with {name}");
         }
 
-        public bool CanInteract()
+        public virtual bool CanInteract()
         {
             return true;
         }
 
-        public void Select()
+        public virtual void Select()
         {
             Debug.Log($"{name} is selected");
             _outlineMaterial.SetInt("_ShowOutline", 1);
         }
 
-        public void Unselect()
+        public virtual void Unselect()
         {
             _outlineMaterial.SetInt("_ShowOutline", 0);
         }
