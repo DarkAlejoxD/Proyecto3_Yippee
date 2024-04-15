@@ -92,8 +92,6 @@ namespace AvatarController
                 _animator.SetBool("Idle", false);
                 _characterController.height = 1;
             //
-
-            //TODO: reduce in half the hitbox?
         }
 
         private void DivingMovement()

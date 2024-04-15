@@ -52,7 +52,7 @@ namespace AvatarController
 
         private void Awake()
         {
-            Application.targetFrameRate = 20;
+            Application.targetFrameRate = 60;
             _playerController = GetComponent<PlayerController>();
             _characterController = GetComponent<CharacterController>();
         }
