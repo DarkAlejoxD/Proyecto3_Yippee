@@ -15,7 +15,7 @@ namespace AvatarController
         private PlayerController _controller;
         private CharacterController _characterController;
 
-        [Header("Contro")]
+        [Header("Control")]
         private float _velocityY;
         private bool _onGround;
         private float _lastTimeInGround;

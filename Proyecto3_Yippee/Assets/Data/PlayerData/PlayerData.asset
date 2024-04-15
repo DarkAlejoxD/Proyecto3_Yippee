@@ -62,8 +62,12 @@ MonoBehaviour:
     DEBUG_forwardMovementPct: 1
     DEBUG_drawCoyote: 0
   _diveValues:
-    _startingSpeed: 30
+    _startingSpeed: 20
     _airDeceleration: 40
-    _groundDeceleration: 20
+    _groundDeceleration: 60
   _interactionValues:
     _interactionRange: 4
+  _otherValues:
+    _ghostViewCooldown: 0.3
+    _ghostViewRadius: 3.8
+    DEBUG_ShowGhostRadius: 1

@@ -22,7 +22,7 @@ namespace AvatarController
         public Action<bool> OnJump;
         public Action<bool> OnDive;
         public Action<bool> OnInteract;
-        public Action<bool> OnInspect;
+        public Action<bool> OnGhostView;
 
         public PlayerData DataContainer => _dataContainer;
 
@@ -34,7 +34,7 @@ namespace AvatarController
 
             inputManager.OnInputDetected += OnGetInputs;
 
-            OnInspect += (bool a) => { if(a)Debug.Log("Inspect"); };
+            //OnInspect += (bool a) => { if(a)Debug.Log("Inspect"); };
         }
 
         private void OnDisable()
@@ -53,7 +53,7 @@ namespace AvatarController
             OnJump?.Invoke(inputs.JumpInput);
             OnDive?.Invoke(inputs.CrounchDiveInput);
             OnInteract?.Invoke(inputs.InteractInput);
-            OnInspect?.Invoke(inputs.GhostViewInput);
+            OnGhostView?.Invoke(inputs.GhostViewInput);
         }
         #endregion
     }

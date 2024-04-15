@@ -1,4 +1,10 @@
+using System.Collections;
 using UnityEngine;
+using AvatarController.Data;
+using GhostView;
+#if UNITY_EDITOR
+using UtilsComplements.Editor;
+#endif
 
 namespace AvatarController //add it to a concrete namespace
 {
@@ -6,37 +12,66 @@ namespace AvatarController //add it to a concrete namespace
     public class PlayerGhostView : MonoBehaviour
     {
         #region Fields
-        [Header("A")]
-        [SerializeField] private float _privateAttribute;
-        public int PublicAttribute;
+        private bool _canInspect;
+
+        private PlayerController _controller;
+        private PlayerData DataContainer => _controller.DataContainer;
         #endregion
 
         #region Unity Logic
-        private void Awake()
+        private void OnEnable()
         {
+            if (_controller == null)
+                _controller = GetComponent<PlayerController>();
+
+            _controller.OnGhostView += Inspect;
+            _canInspect = true;
         }
 
-        private void Update()
+        private void OnDisable()
         {
-        }
-        #endregion
+            if (_controller == null)
+                _controller = GetComponent<PlayerController>();
 
-        #region Static Methods
-        public static void StaticMethod()
-        {
-        }
-        #endregion
-
-        #region Public Methods
-        public void PublicMethod()
-        {
+            _controller.OnGhostView -= Inspect;
         }
         #endregion
 
         #region Private Methods
-        private void PrivateMethod()
+        private void Inspect(bool value)
         {
+            if (!value)
+                return;
+
+            if (!_canInspect)
+                return;
+
+            GhostViewManager.RequestGhostView(transform.position, DataContainer.DefOtherValues.GhostViewRadius);
+            StartCoroutine(GhostViewCooldownCoroutine());
         }
+
+        private IEnumerator GhostViewCooldownCoroutine()
+        {
+            _canInspect = false;
+            yield return new WaitForSeconds(DataContainer.DefOtherValues.GhostViewCooldown);
+            _canInspect = true;
+        }
+        #endregion
+
+        #region DEBUG
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            if (_controller == null)
+                return;
+
+            GizmosUtilities.DrawSphereProperties prop = new(GizmosUtilities.DrawSphereProperties.DefaultProperty);
+            prop.Radius = DataContainer.DefOtherValues.GhostViewRadius;
+
+            GizmosUtilities.DrawSphere(transform.position, Color.magenta, prop,
+                                       DataContainer.DefOtherValues.DEBUG_ShowGhostRadius);
+        }
+#endif
         #endregion
     }
 }

@@ -96,7 +96,14 @@ namespace AvatarController.Data
         [Serializable]
         public class OtherValues
         {
-            public float RandomValue;
+            [Header("GhostViewValues")]
+            [SerializeField, Min(0.01f)] private float _ghostViewCooldown;
+            [SerializeField, Min(0.01f)] private float _ghostViewRadius;
+
+            [Header("DEBUG")]
+            public bool DEBUG_ShowGhostRadius;
+            public float GhostViewCooldown => _ghostViewCooldown;
+            public float GhostViewRadius => _ghostViewRadius;
         }
         #endregion
 
@@ -123,7 +130,7 @@ namespace AvatarController.Data
         public JumpValues DefaultJumpValues => _jumpValues;
         public DiveValues DefaultDiveValues => _diveValues;
 
-        [Space]
+        //[Space]
         [Header("Interaction Attributes")]
         [SerializeField, Space(SPACES)] InteractionValues _interactionValues;
         public InteractionValues DefaultInteractionValues => _interactionValues;
@@ -134,8 +141,7 @@ namespace AvatarController.Data
 
         /// <summary>
         /// Contains:
-        ///     - Interact
-        ///     - Blablabla
+        ///     - GhostView
         /// </summary>
         public OtherValues DefOtherValues => _otherValues;
         #endregion
