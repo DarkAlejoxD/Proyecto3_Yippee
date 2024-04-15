@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour, ISingleton<GameManager>
     public ISingleton<GameManager> Instance => this;
     private PlayerController _playerInstance;
 
-    public PlayerController PlayerInstance;
+    public PlayerController PlayerInstance => _playerInstance;
 
     private void Awake()
     {

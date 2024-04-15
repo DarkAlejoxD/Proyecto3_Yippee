@@ -44,6 +44,11 @@ namespace AvatarController
 
             inputManager.OnInputDetected -= OnGetInputs;
         }
+
+        private void Awake()
+        {
+            ISingleton<GameManager>.GetInstance().SetPlayerInstance(this);
+        }
         #endregion
 
         #region Private Methods
