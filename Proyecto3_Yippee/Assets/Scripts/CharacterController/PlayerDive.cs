@@ -103,7 +103,7 @@ namespace AvatarController
             _velocity -= Time.deltaTime * deceleration * _velocity.normalized;
 
 
-            if (_isGrounded) Debug.Log("Dive Grounded");
+           
 
             if (_velocity.magnitude < 0.1f)
             {

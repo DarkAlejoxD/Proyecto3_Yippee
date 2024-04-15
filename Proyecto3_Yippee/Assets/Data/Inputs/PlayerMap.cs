@@ -310,7 +310,7 @@ namespace InputController
                 {
                     ""name"": """",
                     ""id"": ""79c4b5b0-68eb-49fb-a566-912eb752ffb3"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

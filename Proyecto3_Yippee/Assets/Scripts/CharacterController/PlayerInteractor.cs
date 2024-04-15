@@ -1,49 +1,65 @@
+using AvatarController;
+using AvatarController.Data;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
-namespace DefaultNamespace //add it to a concrete namespace
+namespace AvatarController.Interaction 
 {
-//[RequireComponent(typeof(Transform))] //Add this if necessary, delete it otherwise
-public class PlayerInteractor : MonoBehaviour
-{
-    #region Fields
-    private const string ANY_CONST = "";
-
-    [Header("Section1")]
-    [SerializeField] private float _privateAttribute;
-    public int PublicAttribute;    
-
-    public float Property => _privateAttribute * PublicAttribute;
-
-    [Header("Section2")]
-    private float _attribute2;
-    #endregion    
-
-    #region Unity Logic
-    private void Awake()
-    {                
-    }
-
-    private void Update()
-    {        
-    }
-    #endregion
-
-    #region Static Methods
-    public static void StaticMethod()
+    [RequireComponent(typeof(PlayerController), typeof(CharacterController))]
+    public class PlayerInteractor : MonoBehaviour
     {
-    }
-    #endregion
+        #region Fields
+        private PlayerController _playerController;
+        private PlayerData Data => _playerController.DataContainer;
+        #endregion
 
-    #region Public Methods
-    public void PublicMethod()
-    {
-    }
-    #endregion
+        #region Unity Logic
+        private void OnEnable()
+        {
+            if (_playerController == null)
+                _playerController = GetComponent<PlayerController>();
 
-    #region Private Methods
-    private void PrivateMethod()
-    {
+            _playerController.OnInteract += OnInteract;
+        }
+
+        private void OnDisable()
+        {
+            if (_playerController == null)
+                _playerController = GetComponent<PlayerController>();
+
+            _playerController.OnInteract -= OnInteract;
+        }
+
+        private void Awake()
+        {    
+            _playerController = GetComponent<PlayerController>();
+        }
+
+        private void Update()
+        {      
+          
+        }
+        #endregion
+
+
+        #region Public Methods
+        public void PublicMethod()
+        {
+
+        }
+        #endregion
+
+        #region Private Methods
+        private void OnInteract(bool active)
+        {
+            if (!active) return;
+
+            //TODO: CAST SPHERE
+            //TODO: CHECK INTERACTABLE
+            //TODO: MAKE INTERACTION
+            Debug.Log("Interaction Input");
+
+        }
+        #endregion
     }
-    #endregion
-}
 }
