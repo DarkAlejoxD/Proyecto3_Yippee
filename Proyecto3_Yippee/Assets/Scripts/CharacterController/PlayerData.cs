@@ -39,23 +39,25 @@ namespace AvatarController.Data
         [Serializable]
         public class JumpValues
         {
-            [SerializeField] private float _minHeight;
-            [SerializeField, HideInInspector] private float _maxHeight;
-            [SerializeField, HideInInspector] private float _timePressed;
-            [SerializeField] private float _timeToReachHeight;
+            [SerializeField, HideInInspector, Min(0.1f)] private float _minHeight;
+            [SerializeField, Min(0.1f)] private float _maxHeight;
+            [SerializeField, Min(0.1f), HideInInspector] private float _timePressed;
+            [SerializeField, Min(0.1f), HideInInspector] private float _timeToReachHeight;
             [SerializeField, Min(0.01f)] private float _coyoteTime;
 
             [Header("DEBUG")]
-            [SerializeField] public bool DEBUG_drawHeight;
-            [SerializeField] public bool DEBUG_drawCurve;
-            [SerializeField] public float DEBUG_definitionOfJump;
+            public bool DEBUG_drawHeight;
+            public bool DEBUG_drawCurve;
+            [Range(0, 50)] public int DEBUG_definitionOfJump;
             [Tooltip("Draws the definition depending on the percentage of the max speed the player has")]
-            [SerializeField, Range(0, 1)] public float DEBUG_forwardMovementPct;
+            [Range(0, 1)] public float DEBUG_forwardMovementPct;
+            [HideInInspector] public bool DEBUG_drawCoyote;
 
             public float MinHeight => _minHeight;
             public float MaxHeight => _maxHeight;
             public float TimePressed => _timePressed;
             public float TimeToReachHeight => _timeToReachHeight;
+            public float CoyoteTime => _coyoteTime;
         }
         #endregion 
         
@@ -90,6 +92,7 @@ namespace AvatarController.Data
 
         #region JumpValues
         [SerializeField, Space(SPACES)] JumpValues _jumpValues;
+
         [SerializeField, Space(SPACES)] DiveValues _diveValues;
         
         public JumpValues DefaultJumpValues => _jumpValues;
