@@ -59,7 +59,7 @@ namespace Interactable //add it to a concrete namespace
             _player.transform.SetParent(transform, true);
             _isGrabbed = true;
 
-            _player.EnablePushingMode();
+            _player.EnablePushingMode(GetDirection());
 
         }
 
@@ -86,6 +86,14 @@ namespace Interactable //add it to a concrete namespace
             Vector3 dir = transform.position - _grabbedPoint.position;
             dir.Normalize();
 
+            return dir;
+        }
+
+        private Vector3 GetDirectionAbsolute()
+        {
+            Vector3 dir = transform.position - _grabbedPoint.position;
+            dir.Normalize();
+
             dir = new Vector3(Mathf.Abs(dir.x), 0, Mathf.Abs(dir.z));
 
             return dir;
@@ -95,7 +103,7 @@ namespace Interactable //add it to a concrete namespace
         {
             Vector3 movement = Vector3.zero;            
 
-            movement = GetDirection() * input.y * (_player.DataContainer.DefaultMovement.MaxSpeed / 2) * Time.deltaTime;
+            movement = GetDirectionAbsolute() * input.y * (_player.DataContainer.DefaultMovement.MaxSpeed / 2) * Time.deltaTime;
             transform.position += movement;
         }
 

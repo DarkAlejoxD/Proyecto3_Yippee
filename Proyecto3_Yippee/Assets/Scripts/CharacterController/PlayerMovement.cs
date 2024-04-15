@@ -65,8 +65,15 @@ namespace AvatarController
         #endregion
 
         #region Public Methods
-        public void PublicMethod()
+        public void StopVelocity()
         {
+            _velocity = Vector3.zero;
+        }
+
+        public void FaceDirection(Vector3 dir)
+        {
+            Quaternion desiredRotation = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Data.DefaultMovement.RotationLerp);
         }
         #endregion
 
@@ -140,8 +147,7 @@ namespace AvatarController
         {
             if (_velocity.magnitude > Data.DefaultMovement.MinSpeedToMove)
             {
-                Quaternion desiredRotation = Quaternion.LookRotation(_velocity.normalized);
-                transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Data.DefaultMovement.RotationLerp);
+                FaceDirection(_velocity.normalized);
             }
         }
         #endregion

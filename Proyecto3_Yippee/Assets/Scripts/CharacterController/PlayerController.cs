@@ -64,11 +64,15 @@ namespace AvatarController
 
         #region Public Methods
 
-        public void EnablePushingMode()
+        public void EnablePushingMode(Vector3 dir)
         {
             _characterController.enabled = false;
             _playerDive.enabled = false;
             _playerJump.enabled = false;
+
+            Quaternion desiredRotation = Quaternion.LookRotation(dir);
+            transform.rotation = desiredRotation;
+            _playerMovement.StopVelocity();
             _playerMovement.enabled = false;
         }
         
@@ -78,6 +82,8 @@ namespace AvatarController
             _playerDive.enabled = true;
             _playerJump.enabled = true;
             _playerMovement.enabled = true;
+            _playerMovement.StopVelocity();
+
         }
 
         #endregion
