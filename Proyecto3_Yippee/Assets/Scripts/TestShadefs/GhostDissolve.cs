@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UtilsComplements;
 
 namespace GameShaders //add it to a concrete namespace
 {
+    [Obsolete("Not util for the prototype")]
     public class GhostDissolve : MonoBehaviour, ISingleton<GhostDissolve>
     {
         #region Fields

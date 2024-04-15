@@ -182,7 +182,7 @@ namespace AvatarController
         Vector3 lastPos = Vector3.zero;
         Vector3 lastDir = Vector3.zero;
 
-        private void DrawCurve()
+        private void DrawCurve() //TODO: Represent the actual curve with the gravity twink
         {
             if (Application.isPlaying)
             {

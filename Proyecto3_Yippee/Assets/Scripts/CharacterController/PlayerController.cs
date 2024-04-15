@@ -22,6 +22,7 @@ namespace AvatarController
         public Action<bool> OnJump;
         public Action<bool> OnDive;
         public Action<bool> OnInteract;
+        public Action<bool> OnInspect;
 
         public PlayerData DataContainer => _dataContainer;
 
@@ -32,6 +33,8 @@ namespace AvatarController
                 return;
 
             inputManager.OnInputDetected += OnGetInputs;
+
+            OnInspect += (bool a) => { if(a)Debug.Log("Inspect"); };
         }
 
         private void OnDisable()
@@ -43,25 +46,14 @@ namespace AvatarController
         }
         #endregion
 
-        #region Static Methods
-        public static void StaticMethod()
-        {
-        }
-        #endregion
-
-        #region Public Methods
-        public void PublicMethod()
-        {
-        }
-        #endregion
-
         #region Private Methods
-        private void OnGetInputs(InputValues inputs)
+        private void OnGetInputs(InputValues inputs) //TODO: Separate States
         {
             OnMovement?.Invoke(inputs.MoveInput);
             OnJump?.Invoke(inputs.JumpInput);
             OnDive?.Invoke(inputs.CrounchDiveInput);
             OnInteract?.Invoke(inputs.InteractInput);
+            OnInspect?.Invoke(inputs.SurvivalInstinct);
         }
         #endregion
     }
