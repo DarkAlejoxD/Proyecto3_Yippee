@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   _defaultMovement:
-    _acceleration: 60
-    _linearDecceleration: 40
+    _acceleration: 70
+    _linearDecceleration: 50
     _minSpeedToMove: 2
     _maxSpeed: 8
     _rotationLerp: 0.25
+    _canSprint: 1
+    _sprintMaxSpeed: 14
     _canJump: 1
     _angularAcceleration: 0
     _maxAngularSpeed: 0
@@ -27,6 +29,8 @@ MonoBehaviour:
     _minSpeedToMove: 2
     _maxSpeed: 5
     _rotationLerp: 5
+    _canSprint: 1
+    _sprintMaxSpeed: 5
     _canJump: 0
     _angularAcceleration: 0
     _maxAngularSpeed: 0
@@ -36,6 +40,8 @@ MonoBehaviour:
     _minSpeedToMove: 2
     _maxSpeed: 5
     _rotationLerp: 5
+    _canSprint: 1
+    _sprintMaxSpeed: 5
     _canJump: 0
     _angularAcceleration: 0
     _maxAngularSpeed: 0
@@ -45,6 +51,8 @@ MonoBehaviour:
     _minSpeedToMove: 2
     _maxSpeed: 5
     _rotationLerp: 5
+    _canSprint: 1
+    _sprintMaxSpeed: 5
     _canJump: 0
     _angularAcceleration: 0
     _maxAngularSpeed: 0
@@ -67,3 +75,5 @@ MonoBehaviour:
     _groundDeceleration: 20
   _interactionValues:
     _interactionRange: 4
+  _otherValues:
+    RandomValue: 0
