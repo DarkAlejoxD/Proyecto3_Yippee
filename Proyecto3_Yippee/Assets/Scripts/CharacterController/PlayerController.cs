@@ -15,9 +15,12 @@ namespace AvatarController
         #region Fields
         [Header("Data")]
         [SerializeField] private PlayerData _dataContainer;
-
+        private CharacterController _characterController;
 
         public bool isPushing = false;
+        private PlayerMovement _playerMovement;
+        private PlayerJump _playerJump;
+        private PlayerDive _playerDive;
 
         #endregion
 
@@ -28,6 +31,7 @@ namespace AvatarController
         public Action<bool> OnInspect;
 
         public PlayerData DataContainer => _dataContainer;
+        public bool IsGrounded => _playerJump.IsGrounded;
 
         #region Unity Logic
         private void OnEnable()
@@ -51,7 +55,31 @@ namespace AvatarController
         private void Awake()
         {
             ISingleton<GameManager>.GetInstance().SetPlayerInstance(this);
+            _playerMovement = GetComponent<PlayerMovement>();
+            _playerJump = GetComponent<PlayerJump>();
+            _characterController = GetComponent<CharacterController>();
+            _playerDive = GetComponent<PlayerDive>();
         }
+        #endregion
+
+        #region Public Methods
+
+        public void EnablePushingMode()
+        {
+            _characterController.enabled = false;
+            _playerDive.enabled = false;
+            _playerJump.enabled = false;
+            _playerMovement.enabled = false;
+        }
+        
+        public void DisablePushingMode()
+        {
+            _characterController.enabled = true;
+            _playerDive.enabled = true;
+            _playerJump.enabled = true;
+            _playerMovement.enabled = true;
+        }
+
         #endregion
 
         #region Private Methods

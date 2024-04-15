@@ -50,19 +50,26 @@ namespace Interactable //add it to a concrete namespace
         private void Grab()
         {
             _grabbedPoint = _pushPoints[GetClosestPushPoint()];
-            _player.transform.position = _grabbedPoint.position;
+
+            Vector3 pos = _grabbedPoint.position;
+            pos.y = _player.transform.position.y;
+            _player.transform.position = pos;
+
             _player.OnMovement += OnMove;
-            _player.transform.SetParent(transform);
+            _player.transform.SetParent(transform, true);
             _isGrabbed = true;
 
-            _player.isPushing = true;
+            _player.EnablePushingMode();
+
         }
 
         private void LetGo()
         {
             _player.OnMovement -= OnMove;
             _isGrabbed = false;
-            _player.isPushing = false;
+            _player.DisablePushingMode();
+            _player.transform.SetParent(null, true);
+
         }
 
         #endregion
@@ -79,6 +86,8 @@ namespace Interactable //add it to a concrete namespace
             Vector3 dir = transform.position - _grabbedPoint.position;
             dir.Normalize();
 
+            dir = new Vector3(Mathf.Abs(dir.x), 0, Mathf.Abs(dir.z));
+
             return dir;
         }
 
@@ -86,7 +95,7 @@ namespace Interactable //add it to a concrete namespace
         {
             Vector3 movement = Vector3.zero;            
 
-            movement = GetDirection() * input.y * 5 * Time.deltaTime;
+            movement = GetDirection() * input.y * (_player.DataContainer.DefaultMovement.MaxSpeed / 2) * Time.deltaTime;
             transform.position += movement;
         }
 
