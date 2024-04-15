@@ -20,6 +20,7 @@ namespace AvatarController
 
         public Action<Vector2> OnMovement; //Vector2 --> direction
         public Action<bool> OnJump;
+        public Action<bool> OnDive;
 
         public PlayerData DataContainer => _dataContainer;
 
@@ -58,6 +59,7 @@ namespace AvatarController
         {
             OnMovement?.Invoke(inputs.MoveInput);
             OnJump?.Invoke(inputs.JumpInput);
+            OnDive?.Invoke(inputs.CrounchDiveInput);
         }
         #endregion
     }

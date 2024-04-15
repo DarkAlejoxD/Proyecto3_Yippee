@@ -22,7 +22,7 @@ namespace AvatarController
         private bool _jumped;
 
         private PlayerData DataContainer => _controller.DataContainer;
-        private float Gravity => Physics.gravity.y;
+        private float Gravity => Physics.gravity.y * DataContainer.DefaultJumpValues.GravityMultiplier;
         #endregion
 
         #region Unity Logic
@@ -46,13 +46,16 @@ namespace AvatarController
 
             _controller.OnJump -= OnJump;
         }
-        #endregion
-
-        #region Public Methods
-
         private void Update()
         {
             UpdateVy();
+        }
+        #endregion
+
+        #region Public Methods
+        public void StopVelocity()
+        {
+            _velocityY = 0;
         }
         #endregion
 
@@ -79,8 +82,12 @@ namespace AvatarController
             {
                 _onGround = false;
             }
+            
+            if(_velocityY < 0)
+                _velocityY += Gravity * Time.deltaTime * DataContainer.DefaultJumpValues.DownGravityMultiplier;
+            else
+                _velocityY += Gravity * Time.deltaTime;
 
-            _velocityY += Gravity * Time.deltaTime;
         }
 
         private void OnJump(bool active)

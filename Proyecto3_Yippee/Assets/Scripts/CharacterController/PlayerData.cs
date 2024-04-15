@@ -44,6 +44,8 @@ namespace AvatarController.Data
             [SerializeField, Min(0.1f), HideInInspector] private float _timePressed;
             [SerializeField, Min(0.1f), HideInInspector] private float _timeToReachHeight;
             [SerializeField, Min(0.01f)] private float _coyoteTime;
+            [SerializeField] private float _gravityMultiplier = 2.0f;
+            [SerializeField] private float _downGravityMultiplier = 1.5f;
 
             [Header("DEBUG")]
             public bool DEBUG_drawHeight;
@@ -58,6 +60,8 @@ namespace AvatarController.Data
             public float TimePressed => _timePressed;
             public float TimeToReachHeight => _timeToReachHeight;
             public float CoyoteTime => _coyoteTime;
+            public float GravityMultiplier => _gravityMultiplier;
+            public float DownGravityMultiplier => _downGravityMultiplier;
         }
         #endregion 
         
@@ -76,7 +80,21 @@ namespace AvatarController.Data
         }
         #endregion
 
-        private const int SPACES = 10;
+        #region Interaction Nested Class
+        [Serializable]
+        public class InteractionValues
+        {
+            [SerializeField] private float _interactionRange;
+            //[SerializeField] private float _interactionCooldown;
+
+
+            public float InteractionRange => _interactionRange;
+            //public float InteractionCooldown => _interactionCooldown;
+            
+        }
+        #endregion
+
+        private const int SPACES = 6;
         #region Movement Fields
         [Header("Movement Attributes")]
         [SerializeField, Space(SPACES)] private PlayerMovementData _defaultMovement;
@@ -97,6 +115,13 @@ namespace AvatarController.Data
         
         public JumpValues DefaultJumpValues => _jumpValues;
         public DiveValues DefaultDiveValues => _diveValues;
+
+        [Space]
+        [Header("Interaction Attributes")]
+        [SerializeField, Space(SPACES)] InteractionValues _interactionValues;
+        public InteractionValues DefaultInteractionValues => _interactionValues;
+        
+
         #endregion
     }
 }

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   _defaultMovement:
-    _acceleration: 40
-    _linearDecceleration: 20
+    _acceleration: 60
+    _linearDecceleration: 40
     _minSpeedToMove: 2
-    _maxSpeed: 6
+    _maxSpeed: 8
     _rotationLerp: 0.25
     _canJump: 1
     _angularAcceleration: 0
@@ -54,12 +54,16 @@ MonoBehaviour:
     _timePressed: 0
     _timeToReachHeight: 0
     _coyoteTime: 0.4
+    _gravityMultiplier: 3
+    _downGravityMultiplier: 1.5
     DEBUG_drawHeight: 1
     DEBUG_drawCurve: 1
     DEBUG_definitionOfJump: 8
     DEBUG_forwardMovementPct: 1
     DEBUG_drawCoyote: 0
   _diveValues:
-    _startingSpeed: 0.76
-    _airDeceleration: 0.84
-    _groundDeceleration: 8.6
+    _startingSpeed: 30
+    _airDeceleration: 40
+    _groundDeceleration: 20
+  _interactionValues:
+    _interactionRange: 4
