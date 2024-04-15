@@ -18,14 +18,11 @@ namespace AvatarController
         private PlayerData Data => _playerController.DataContainer;
 
         private Camera CurrentCamera => Camera.main; //TODO: Change this
+        private float _maxSpeed;
         
         #endregion
 
-        #region Static Methods
-        public static void StaticMethod()
-        {
-        }
-        #endregion
+        
 
         #region Unity Logic
 
@@ -37,11 +34,13 @@ namespace AvatarController
             }
 
             _playerController.OnMovement += OnMovement;
+            _playerController.OnSprint += OnSprint;
         }
 
         private void OnDisable()
         {
             _playerController.OnMovement -= OnMovement;
+            _playerController.OnSprint -= OnSprint;
         }
 
 
@@ -55,6 +54,7 @@ namespace AvatarController
         private void Start()
         {
             _velocity = Vector3.zero;
+            _maxSpeed = Data.DefaultMovement.MaxSpeed;
         }
 
         private void Update()
@@ -65,14 +65,23 @@ namespace AvatarController
         #endregion
 
         #region Public Methods
-        public void PublicMethod()
+        public void StopVelocity()
         {
+            _velocity = Vector3.zero;
+        }
+
+        public void FaceDirection(Vector3 dir)
+        {
+            Quaternion desiredRotation = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Data.DefaultMovement.RotationLerp);
         }
         #endregion
 
         #region Private Methods
         private void OnMovement(Vector2 moveInput)
         {
+            if (_playerController.isPushing) return; //PROTO
+
             Vector3 forward = CalculateForward();
             Vector3 right = CalculateRight();
 
@@ -111,7 +120,7 @@ namespace AvatarController
         {
             Vector3 motion;
 
-            if(_velocity.magnitude < Data.DefaultMovement.MaxSpeed)
+            if(_velocity.magnitude < _maxSpeed)
             {
                 _velocity += Time.deltaTime * Data.DefaultMovement.Acceleration * movement;
             }
@@ -138,8 +147,19 @@ namespace AvatarController
         {
             if (_velocity.magnitude > Data.DefaultMovement.MinSpeedToMove)
             {
-                Quaternion desiredRotation = Quaternion.LookRotation(_velocity.normalized);
-                transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Data.DefaultMovement.RotationLerp);
+                FaceDirection(_velocity.normalized);
+            }
+        }
+
+        private void OnSprint(bool active)
+        {
+            if (active)
+            {
+                _maxSpeed = Data.DefaultMovement.SprintMaxSpeed;
+            }
+            else
+            {
+                _maxSpeed = Data.DefaultMovement.MaxSpeed;
             }
         }
         #endregion

@@ -23,6 +23,8 @@ namespace AvatarController
 
         private PlayerData DataContainer => _controller.DataContainer;
         private float Gravity => Physics.gravity.y * DataContainer.DefaultJumpValues.GravityMultiplier;
+
+        public bool IsGrounded => _onGround;
         #endregion
 
         #region Unity Logic

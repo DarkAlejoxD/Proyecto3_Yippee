@@ -73,6 +73,15 @@ namespace InputController
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""e32f4a67-00f6-4e27-ae1c-bfb56bad21a5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -298,23 +307,34 @@ namespace InputController
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d4d6bbaf-04ac-4058-bf25-fc4c0cbebc48"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Crouch/Dive"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""79c4b5b0-68eb-49fb-a566-912eb752ffb3"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Crouch/Dive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee287d3d-196b-421b-be6e-d85266952fff"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9a1166a8-9531-44ee-9a96-fa55dbc6e1ea"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -358,6 +378,7 @@ namespace InputController
             m_PlayerMove_CrouchDive = m_PlayerMove.FindAction("Crouch/Dive", throwIfNotFound: true);
             m_PlayerMove_Interact = m_PlayerMove.FindAction("Interact", throwIfNotFound: true);
             m_PlayerMove_SurvivalInstinct = m_PlayerMove.FindAction("SurvivalInstinct", throwIfNotFound: true);
+            m_PlayerMove_Sprint = m_PlayerMove.FindAction("Sprint", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -424,6 +445,7 @@ namespace InputController
         private readonly InputAction m_PlayerMove_CrouchDive;
         private readonly InputAction m_PlayerMove_Interact;
         private readonly InputAction m_PlayerMove_SurvivalInstinct;
+        private readonly InputAction m_PlayerMove_Sprint;
         public struct PlayerMoveActions
         {
             private @PlayerMap m_Wrapper;
@@ -433,6 +455,7 @@ namespace InputController
             public InputAction @CrouchDive => m_Wrapper.m_PlayerMove_CrouchDive;
             public InputAction @Interact => m_Wrapper.m_PlayerMove_Interact;
             public InputAction @SurvivalInstinct => m_Wrapper.m_PlayerMove_SurvivalInstinct;
+            public InputAction @Sprint => m_Wrapper.m_PlayerMove_Sprint;
             public InputActionMap Get() { return m_Wrapper.m_PlayerMove; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -457,6 +480,9 @@ namespace InputController
                 @SurvivalInstinct.started += instance.OnSurvivalInstinct;
                 @SurvivalInstinct.performed += instance.OnSurvivalInstinct;
                 @SurvivalInstinct.canceled += instance.OnSurvivalInstinct;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
             }
 
             private void UnregisterCallbacks(IPlayerMoveActions instance)
@@ -476,6 +502,9 @@ namespace InputController
                 @SurvivalInstinct.started -= instance.OnSurvivalInstinct;
                 @SurvivalInstinct.performed -= instance.OnSurvivalInstinct;
                 @SurvivalInstinct.canceled -= instance.OnSurvivalInstinct;
+                @Sprint.started -= instance.OnSprint;
+                @Sprint.performed -= instance.OnSprint;
+                @Sprint.canceled -= instance.OnSprint;
             }
 
             public void RemoveCallbacks(IPlayerMoveActions instance)
@@ -518,6 +547,7 @@ namespace InputController
             void OnCrouchDive(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
             void OnSurvivalInstinct(InputAction.CallbackContext context);
+            void OnSprint(InputAction.CallbackContext context);
         }
     }
 }

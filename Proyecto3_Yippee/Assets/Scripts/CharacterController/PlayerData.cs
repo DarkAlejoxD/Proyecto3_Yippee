@@ -16,8 +16,8 @@ namespace AvatarController.Data
             [SerializeField] internal float _minSpeedToMove = 2;
             [SerializeField] internal float _maxSpeed = 5;
             [SerializeField] internal float _rotationLerp = 5;
-            //[SerializeField] internal bool _canSprint = true;
-            //[SerializeField] internal float _sprintMaxSpeed = 5;
+            [SerializeField] internal bool _canSprint = true;
+            [SerializeField] internal float _sprintMaxSpeed = 5;
             [SerializeField] internal bool _canJump = true;
 
             [Header("Rotation Attributes")]
@@ -29,8 +29,8 @@ namespace AvatarController.Data
             public float MinSpeedToMove => _minSpeedToMove;
             public float MaxSpeed => _maxSpeed;
             public float RotationLerp => _rotationLerp;
-            //public bool CanSprint => _canSprint;
-            //public float SprintMaxSpeed => _sprintMaxSpeed;
+            public bool CanSprint => _canSprint;
+            public float SprintMaxSpeed => _sprintMaxSpeed;
             public bool CanJump => _canJump;
         }
         #endregion
