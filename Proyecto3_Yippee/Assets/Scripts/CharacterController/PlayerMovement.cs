@@ -73,6 +73,8 @@ namespace AvatarController
         #region Private Methods
         private void OnMovement(Vector2 moveInput)
         {
+            if (_playerController.isPushing) return; //PROTO
+
             Vector3 forward = CalculateForward();
             Vector3 right = CalculateRight();
 

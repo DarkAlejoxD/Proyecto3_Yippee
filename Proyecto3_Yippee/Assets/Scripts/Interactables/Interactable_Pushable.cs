@@ -31,7 +31,6 @@ namespace Interactable //add it to a concrete namespace
 
             //TODO: Block horizontal movement
             //TODO: Block Jump
-            //TODO: Set parent to player
             //TODO: Limites?
             //Subscribe to OnMove
             if(_isGrabbed )
@@ -41,7 +40,6 @@ namespace Interactable //add it to a concrete namespace
             else
             {
                 Grab();
-
             }
             
 
@@ -54,14 +52,17 @@ namespace Interactable //add it to a concrete namespace
             _grabbedPoint = _pushPoints[GetClosestPushPoint()];
             _player.transform.position = _grabbedPoint.position;
             _player.OnMovement += OnMove;
+            _player.transform.SetParent(transform);
             _isGrabbed = true;
+
+            _player.isPushing = true;
         }
 
         private void LetGo()
         {
             _player.OnMovement -= OnMove;
             _isGrabbed = false;
-
+            _player.isPushing = false;
         }
 
         #endregion

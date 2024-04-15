@@ -15,7 +15,10 @@ namespace AvatarController
         #region Fields
         [Header("Data")]
         [SerializeField] private PlayerData _dataContainer;
-        public int PublicAttribute;
+
+
+        public bool isPushing = false;
+
         #endregion
 
         public Action<Vector2> OnMovement; //Vector2 --> direction
