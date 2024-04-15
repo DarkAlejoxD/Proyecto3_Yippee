@@ -24,7 +24,7 @@ namespace AvatarController //add it to a concrete namespace
             if (_controller == null)
                 _controller = GetComponent<PlayerController>();
 
-            _controller.OnGhostView += Inspect;
+            _controller.OnInspect += Inspect;
             _canInspect = true;
         }
 
@@ -33,7 +33,7 @@ namespace AvatarController //add it to a concrete namespace
             if (_controller == null)
                 _controller = GetComponent<PlayerController>();
 
-            _controller.OnGhostView -= Inspect;
+            _controller.OnInspect -= Inspect;
         }
         #endregion
 
