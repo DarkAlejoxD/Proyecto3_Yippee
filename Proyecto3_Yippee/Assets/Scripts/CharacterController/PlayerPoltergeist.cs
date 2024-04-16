@@ -1,21 +1,31 @@
 using UnityEngine;
 
-namespace DefaultNamespace //add it to a concrete namespace
-{    
-    public class #SCRIPTNAME# : MonoBehaviour
+namespace AvatarController //add it to a concrete namespace
+{
+    //[RequireComponent(typeof(Transform))] //Add this if necessary, delete it otherwise
+    public class PlayerPoltergeist : MonoBehaviour
     {
         #region Fields
+        private const string ANY_CONST = "";
+
         [Header("Section1")]
         [SerializeField] private float _privateAttribute;
-        #endregion    
+        public int PublicAttribute;
+
+        public float Property => _privateAttribute * PublicAttribute;
+
+        [Header("Section2")]
+        private float _attribute2;
+        #endregion
 
         #region Unity Logic
         private void Awake()
-        {                
+        {
+            
         }
 
         private void Update()
-        {        
+        {
         }
         #endregion
 
