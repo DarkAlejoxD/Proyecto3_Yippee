@@ -8,25 +8,6 @@ namespace UtilsComplements.Editor
     public static class GizmosUtilities
     {
         #region DrawSphere
-        public struct DrawSphereProperties
-        {
-            public float Radius { get; set; }
-
-            public static DrawSphereProperties DefaultProperty { get; private set; }
-
-            static DrawSphereProperties()
-            {
-                DefaultProperty = new DrawSphereProperties()
-                {
-                    Radius = 1
-                };
-            }
-
-            public DrawSphereProperties(DrawSphereProperties copy)
-            {
-                Radius = copy.Radius;
-            }
-        }
 
         public static void DrawSphere(Vector3 origin, bool drawControl = true)
         {
@@ -35,17 +16,17 @@ namespace UtilsComplements.Editor
 
         public static void DrawSphere(Vector3 origin, Color gizmosColor, bool drawControl = true)
         {
-            DrawSphere(origin, gizmosColor, DrawSphereProperties.DefaultProperty, drawControl);
+            DrawSphere(origin, gizmosColor, 1 , drawControl);
         }
 
-        public static void DrawSphere(Vector3 origin, Color gizmosColor, DrawSphereProperties properties,
+        public static void DrawSphere(Vector3 origin, Color gizmosColor, float radius,
                                       bool drawControl = true)
         {
             if (!drawControl)
                 return;
 
             Gizmos.color = gizmosColor;
-            Gizmos.DrawWireSphere(origin, properties.Radius);
+            Gizmos.DrawWireSphere(origin, radius);
             Gizmos.color = Color.white;
         }
         #endregion

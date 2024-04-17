@@ -65,10 +65,8 @@ namespace AvatarController //add it to a concrete namespace
             if (_controller == null)
                 return;
 
-            GizmosUtilities.DrawSphereProperties prop = new(GizmosUtilities.DrawSphereProperties.DefaultProperty);
-            prop.Radius = DataContainer.DefOtherValues.GhostViewRadius;
-
-            GizmosUtilities.DrawSphere(transform.position, Color.magenta, prop,
+            GizmosUtilities.DrawSphere(transform.position, Color.magenta,
+                                       DataContainer.DefOtherValues.GhostViewRadius,
                                        DataContainer.DefOtherValues.DEBUG_ShowGhostRadius);
         }
 #endif

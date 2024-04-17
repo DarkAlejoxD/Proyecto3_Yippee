@@ -1,7 +1,5 @@
 using UnityEngine;
 using AvatarController.Data;
-using UnityEngine.Playables;
-using UnityEngine.Windows;
 
 namespace AvatarController
 {
@@ -9,20 +7,15 @@ namespace AvatarController
     public class PlayerMovement : MonoBehaviour
     {
         #region Fields
-
         private Vector3 _velocity;
-
 
         private PlayerController _playerController;
         private CharacterController _characterController;
         private PlayerData Data => _playerController.DataContainer;
 
-        private Camera CurrentCamera => Camera.main; //TODO: Change this
-        private float _maxSpeed;
-        
-        #endregion
-
-        
+        private Camera CurrentCamera => Camera.main; //TODO: Change this //Don't need
+        private float _maxSpeed;        
+        #endregion        
 
         #region Unity Logic
 
@@ -141,7 +134,6 @@ namespace AvatarController
             if (_velocity.magnitude > 0)
                 _velocity -= Time.deltaTime * Data.DefaultMovement.LinearDecceleration * (_velocity.normalized);
         }
-
 
         private void FaceDirection()
         {

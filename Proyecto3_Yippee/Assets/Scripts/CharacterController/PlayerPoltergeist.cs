@@ -1,7 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using AvatarController.Data;
 using Poltergeist;
-using System.Collections;
+using UtilsComplements.Editor;
 
 namespace AvatarController
 {
@@ -16,6 +17,7 @@ namespace AvatarController
 
         private bool _canEnterPoltegeist;
         private PlayerData DataContainer => _controller.DataContainer;
+        private Transform CameraTransform => Camera.main.transform;
         #endregion
 
         #region Unity Logic
@@ -58,17 +60,45 @@ namespace AvatarController
         {
             StartCoroutine(PolterCooldownCoroutine());
             _controller.RequestTeleport(_evaluatedPoltergeistZone.transform.position);
+            _evaluatedPoltergeistZone.ObjectAttached.isKinematic = true;
         }
 
-        private void PoltergeistModeUpdate(Vector2 xzDirection, float yDirection)
+        private void PoltergeistModeUpdate(Vector2 xzDirection, float yDirection) //Maybe encapsulate some funcitons?? idk toi cansado jefe
         {
+            //Transform the input by the camera
+            Vector3 forward = CameraTransform.forward;
+            forward.y = 0;
+            forward.Normalize();
+            Vector3 right = CameraTransform.right;
+            right.y = 0;
+            right.Normalize();
 
+            Vector3 movement = xzDirection.x * forward + xzDirection.y * right + yDirection * Vector3.up;
+            movement.Normalize();
+
+
+            //Realize the movment
+            Rigidbody rb = _evaluatedPoltergeistZone.ObjectAttached;
+            Vector3 motion = DataContainer.DefOtherValues.Speed * Time.deltaTime * movement;
+            Vector3 newPos = rb.position + motion;
+
+            //Check if is far
+            float distance = Vector3.Distance(transform.position, newPos);
+            if (distance > DataContainer.DefOtherValues.PoltergeistRadius)
+            {
+                Vector3 direction = newPos - transform.position;
+                direction.Normalize();
+                newPos = transform.position + direction * DataContainer.DefOtherValues.PoltergeistRadius;
+            }
+
+            rb.MovePosition(newPos);
         }
 
         private void ExitPoltergeistMode(bool value)
         {
             if (value)
             {
+                _evaluatedPoltergeistZone.ObjectAttached.isKinematic = _evaluatedPoltergeistZone.StartedKinematic;
                 _evaluatedPoltergeistZone = null;
                 _controller.RequestChangeState(_lastState);
             }
@@ -80,6 +110,20 @@ namespace AvatarController
             yield return new WaitForSeconds(DataContainer.DefOtherValues.PoltergeistCD);
             _canEnterPoltegeist = true;
         }
+        #endregion
+
+        #region DEBUG
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            if (!_controller)
+                _controller = GetComponent<PlayerController>();
+
+            GizmosUtilities.DrawSphere(transform.position, Color.magenta,
+                                       DataContainer.DefOtherValues.PoltergeistRadius,
+                                       DataContainer.DefOtherValues.DEBUG_DrawPoltergeistRadius);
+        }
+#endif
         #endregion
     }
 }

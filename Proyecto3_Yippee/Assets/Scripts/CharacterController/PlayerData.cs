@@ -113,12 +113,14 @@ namespace AvatarController.Data
             [SerializeField, Min(0.01f), Tooltip("Security Cooldown to not spam it")]
             private float _poltergeistCooldown;
             [SerializeField, Min(0.01f)] private float _poltergeistRadius;
+            [SerializeField, Min(0.01f)] private float _speed;
 
             public float PoltergeistCD => _poltergeistCooldown;
             public float PoltergeistRadius => _poltergeistRadius;
+            public float Speed => _speed;   
 
             [Header("DEBUG Poltergeist")]
-            private bool DEBUG_DrawPoltergeistRadius = true;
+            public bool DEBUG_DrawPoltergeistRadius = true;
         }
         #endregion        
 

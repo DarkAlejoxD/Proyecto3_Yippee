@@ -168,15 +168,9 @@ namespace AvatarController
 
         private void DrawHeight()
         {
-            GizmosUtilities.DrawSphereProperties sphereProperties =
-                new(GizmosUtilities.DrawSphereProperties.DefaultProperty)
-                {
-                    Radius = 0.3f
-                };
-
             Vector3 height = lastPos + Vector3.up * DataContainer.DefaultJumpValues.MaxHeight;
             Color color = Color.green;
-            GizmosUtilities.DrawSphere(height, color, sphereProperties,
+            GizmosUtilities.DrawSphere(height, color, 0.3f,
                                        DataContainer.DefaultJumpValues.DEBUG_drawHeight);
         }
 

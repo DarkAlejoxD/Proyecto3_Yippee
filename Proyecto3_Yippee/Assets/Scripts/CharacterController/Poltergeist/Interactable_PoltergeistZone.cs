@@ -9,13 +9,17 @@ namespace Poltergeist
     {
         #region Fields
         [Header("References")]
-        [SerializeField] private PoltergeistObject _objectAttached;
+        [SerializeField] private Rigidbody _objectAttached;
+
+        public Rigidbody ObjectAttached => _objectAttached;
+        public bool StartedKinematic { get; private set; }
         #endregion
 
         #region Unity Logic
         protected override void Awake()
         {
             GetComponent<Collider>().isTrigger = true;
+            StartedKinematic = _objectAttached.isKinematic;
         }
         #endregion
 
