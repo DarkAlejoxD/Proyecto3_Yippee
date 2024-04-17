@@ -44,7 +44,7 @@ namespace AvatarController
         #region Unity Logic
         private void Awake()
         {
-            ISingleton<GameManager>.GetInstance().SetPlayerInstance(this);
+            GameManager.GetGameManager().SetPlayerInstance(this);
             _playerMovement = GetComponent<PlayerMovement>();
             _playerJump = GetComponent<PlayerJump>();
             _characterController = GetComponent<CharacterController>();

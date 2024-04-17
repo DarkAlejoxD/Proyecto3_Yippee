@@ -13,9 +13,11 @@ namespace AvatarController //add it to a concrete namespace
     {
         #region Fields
         private bool _canInspect;
-
         private PlayerController _controller;
         private PlayerData DataContainer => _controller.DataContainer;
+
+        [Header("DEBUG")]
+        [SerializeField] private Color DEBUG_GizmosColor;
         #endregion
 
         #region Unity Logic
@@ -63,9 +65,9 @@ namespace AvatarController //add it to a concrete namespace
         private void OnDrawGizmos()
         {
             if (_controller == null)
-                return;
+                _controller = GetComponent<PlayerController>();
 
-            GizmosUtilities.DrawSphere(transform.position, Color.magenta,
+            GizmosUtilities.DrawSphere(transform.position, DEBUG_GizmosColor,
                                        DataContainer.DefOtherValues.GhostViewRadius,
                                        DataContainer.DefOtherValues.DEBUG_ShowGhostRadius);
         }

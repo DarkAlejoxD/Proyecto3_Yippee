@@ -18,6 +18,9 @@ namespace AvatarController
         private bool _canEnterPoltegeist;
         private PlayerData DataContainer => _controller.DataContainer;
         private Transform CameraTransform => Camera.main.transform;
+
+        [Header("DEBUG")]
+        [SerializeField] private Color DEBUG_gizmosColor;
         #endregion
 
         #region Unity Logic
@@ -126,10 +129,10 @@ namespace AvatarController
             if (!_controller)
                 _controller = GetComponent<PlayerController>();
 
-            GizmosUtilities.DrawSphere(transform.position, Color.magenta,
+            GizmosUtilities.DrawSphere(transform.position, DEBUG_gizmosColor,
                                        DataContainer.DefOtherValues.PoltergeistRadius,
                                        DataContainer.DefOtherValues.DEBUG_DrawPoltergeistRadius);
-            GizmosUtilities.DrawSphere(transform.position, Color.magenta,
+            GizmosUtilities.DrawSphere(transform.position, DEBUG_gizmosColor,
                                        DataContainer.DefOtherValues.PlayerRadius,
                                        DataContainer.DefOtherValues.DEBUG_DrawPoltergeistRadius);
 
