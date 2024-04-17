@@ -20,11 +20,14 @@ namespace AvatarController
         private bool _onGround;
         private float _lastTimeInGround;
         private bool _jumped;
+        private bool _useGravity = true;
 
         private PlayerData DataContainer => _controller.DataContainer;
         private float Gravity => Physics.gravity.y * DataContainer.DefaultJumpValues.GravityMultiplier;
 
         public bool IsGrounded => _onGround;
+        public bool IsFailling => _velocityY < 0;
+
         #endregion
 
         #region Unity Logic
@@ -59,11 +62,23 @@ namespace AvatarController
         {
             _velocityY = 0;
         }
+
+        public void StopGravity()
+        {
+            StopVelocity();
+            _useGravity = false;
+        }
+        public void EnableGravity()
+        {
+            _useGravity = true;
+        }
         #endregion
 
         #region Private Methods
         private void UpdateVy()
         {
+            if (!_useGravity) return;
+
             float variation = _velocityY * Time.deltaTime;
 
             CollisionFlags movement = _characterController.Move(new Vector3(0, variation, 0));
