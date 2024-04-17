@@ -14,7 +14,11 @@ namespace AvatarController
         private PlayerData Data => _playerController.DataContainer;
 
         private Camera CurrentCamera => Camera.main; //TODO: Change this //Don't need
-        private float _maxSpeed;        
+        private float _maxSpeed;
+
+        private bool _grabbingLedge;
+        private Vector3 _ledgeForward;
+
         #endregion        
 
         #region Unity Logic
@@ -68,6 +72,17 @@ namespace AvatarController
             Quaternion desiredRotation = Quaternion.LookRotation(dir);
             transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Data.DefaultMovement.RotationLerp);
         }
+
+        public void SetGrabbingLedgeMode(Vector3 ledgeForward)
+        {
+            _ledgeForward = ledgeForward;
+            _grabbingLedge = true;
+        }
+
+        public void DisableGrabbingLedgeMode()
+        {
+            _grabbingLedge = false;
+        }
         #endregion
 
         #region Private Methods
@@ -75,8 +90,18 @@ namespace AvatarController
         {
             if (_playerController.isPushing) return; //PROTO
 
-            Vector3 forward = CalculateForward();
-            Vector3 right = CalculateRight();
+            Vector3 forward = Vector3.zero;
+            Vector3 right = Vector3.zero;
+
+            if (!_grabbingLedge)
+            {
+                forward  = CalculateForward();
+                right = CalculateRight();
+            }
+            else
+            {
+                right = CalculateRight(_ledgeForward);
+            }
 
             Vector3 movement = Vector3.zero;
 
@@ -108,6 +133,14 @@ namespace AvatarController
             return right;
         }
 
+        private Vector3 CalculateRight(Vector3 ledgeForward)
+        {
+            Vector3 right = Vector3.Cross(ledgeForward, transform.up);
+            right.y = 0;
+            right.Normalize();
+            return right;
+        }
+
 
         private void AcceleratedMovement(Vector3 movement)
         {
@@ -117,8 +150,6 @@ namespace AvatarController
             {
                 _velocity += Time.deltaTime * Data.DefaultMovement.Acceleration * movement;
             }
-
-
 
             motion = Time.deltaTime * _velocity;
 
@@ -137,6 +168,7 @@ namespace AvatarController
 
         private void FaceDirection()
         {
+            if (_grabbingLedge) return;
             if (_velocity.magnitude > Data.DefaultMovement.MinSpeedToMove)
             {
                 FaceDirection(_velocity.normalized);
