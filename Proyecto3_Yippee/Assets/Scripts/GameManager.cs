@@ -1,7 +1,5 @@
-using AvatarController;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using AvatarController;
 using UtilsComplements;
 
 public class GameManager : MonoBehaviour, ISingleton<GameManager>
@@ -28,6 +26,16 @@ public class GameManager : MonoBehaviour, ISingleton<GameManager>
     private void OnDestroy()
     {
         Instance.RemoveInstance();
+    }
+
+    public static GameManager GetGameManager()
+    {
+        if (ISingleton<GameManager>.TryGetInstance(out var manager))        
+            return manager;
+
+        //It should set itself as the singleton, so this part the code will only triggered once
+        var go = new GameObject("GameManager");
+        return go.AddComponent<GameManager>(); 
     }
 
     public void SetPlayerInstance(PlayerController player)
