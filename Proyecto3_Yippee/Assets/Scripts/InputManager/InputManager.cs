@@ -33,6 +33,7 @@ namespace InputController
             InteractUpdate();
             GhostViewUpdate();
             SprintUpdate();
+            CancelUpdate();
 
             //Send Inputs
             OnInputDetected?.Invoke(_inputValues);
@@ -83,6 +84,12 @@ namespace InputController
             bool triggered = _playerMap.PlayerMove.Sprint.IsPressed();
             _inputValues.SprintInput = triggered;
         }
+
+        private void CancelUpdate()
+        {
+            bool triggered = _playerMap.PlayerMove.Cancel.WasReleasedThisFrame();
+            _inputValues.CancelInput = triggered;
+        }
         #endregion
     }
 
@@ -94,6 +101,7 @@ namespace InputController
         public bool InteractInput { get; internal set; }
         public bool GhostViewInput { get; internal set; }
         public bool SprintInput { get; internal set; }
+        public bool CancelInput { get; internal set; }
 
         public void ResetInputs()
         {
@@ -103,6 +111,7 @@ namespace InputController
             InteractInput = false;
             GhostViewInput = false;
             SprintInput = false;
+            CancelInput = false;
         }
     }
 }

@@ -10,6 +10,15 @@ public class GameManager : MonoBehaviour, ISingleton<GameManager>
     private PlayerController _playerInstance;
 
     public PlayerController PlayerInstance => _playerInstance;
+    public static PlayerController Player
+    {
+        get
+        {
+            if(!ISingleton<GameManager>.TryGetInstance(out var manager))
+                return null;
+            return manager.PlayerInstance;
+        }
+    }
 
     private void Awake()
     {

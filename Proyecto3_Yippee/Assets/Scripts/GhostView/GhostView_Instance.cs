@@ -5,7 +5,7 @@ using UtilsComplements;
 
 namespace GhostView
 {
-    [RequireComponent(typeof(Collider))]
+    [SelectionBase]
     public class GhostView_Instance : MonoBehaviour
     {
         #region Fields
@@ -35,7 +35,7 @@ namespace GhostView
         private void Awake()
         {
             _renderer = _art.GetComponent<Renderer>();
-            _collider = GetComponent<Collider>();
+            TryGetComponent(out _collider);
             GhostViewManager.OnActivateGhostView += GhostView;
         }
 
@@ -48,12 +48,14 @@ namespace GhostView
         {
             if (_inversed)
             {
-                _collider.enabled = true;
+                if (_collider)
+                    _collider.enabled = true;
                 _art.gameObject.SetActive(true);
             }
             else
             {
-                _collider.enabled = false;
+                if (_collider)
+                    _collider.enabled = false;
                 _art.gameObject.SetActive(false);
             }
         }
@@ -89,7 +91,8 @@ namespace GhostView
 
             if (_inversed)
             {
-                _collider.enabled = false;
+                if (_collider)
+                    _collider.enabled = false;
                 StartCoroutine(DissapearCoroutine(() =>
                 {
                     _art.gameObject.SetActive(false);
@@ -98,7 +101,8 @@ namespace GhostView
                         _art.gameObject.SetActive(true);
                         StartCoroutine(AppearCoroutine(() =>
                         {
-                            _collider.enabled = true;
+                            if (_collider)
+                                _collider.enabled = true;
                             ThisMaterialPropertyBlock.SetColor(COLOR_ID, _startColor);
                             _renderer.SetPropertyBlock(ThisMaterialPropertyBlock);
                         }, false));
@@ -107,16 +111,18 @@ namespace GhostView
             }
             else
             {
+                if (_collider)
+                    _collider.enabled = true;
                 _art.gameObject.SetActive(true);
-                _collider.enabled = true;
                 StartCoroutine(AppearCoroutine(() =>
                 {
                     StartCoroutine(StayCoroutine(() =>
                     {
                         StartCoroutine(DissapearCoroutine(() =>
                         {
+                            if (_collider)
+                                _collider.enabled = false;
                             _art.gameObject.SetActive(false);
-                            _collider.enabled = false;
                             ThisMaterialPropertyBlock.SetColor(COLOR_ID, _startColor);
                             _renderer.SetPropertyBlock(ThisMaterialPropertyBlock);
                         }));

@@ -6,6 +6,8 @@ namespace AvatarController.Data
     [CreateAssetMenu(fileName = "New PlayerData", menuName = "GameData/PlayerData", order = 1)]
     public class PlayerData : ScriptableObject
     {
+        private const int SPACES = 6;
+
         #region Player Movement Nested Class
         [Serializable]
         public class PlayerMovementData
@@ -92,7 +94,7 @@ namespace AvatarController.Data
         }
         #endregion
 
-        #region Instinct Nested Class
+        #region OtherValues Nested Class
         [Serializable]
         public class OtherValues
         {
@@ -100,14 +102,25 @@ namespace AvatarController.Data
             [SerializeField, Min(0.01f)] private float _ghostViewCooldown;
             [SerializeField, Min(0.01f)] private float _ghostViewRadius;
 
-            [Header("DEBUG")]
-            public bool DEBUG_ShowGhostRadius;
             public float GhostViewCooldown => _ghostViewCooldown;
             public float GhostViewRadius => _ghostViewRadius;
-        }
-        #endregion
 
-        private const int SPACES = 6;
+            [Header("DEBUG GhostView")]
+            public bool DEBUG_ShowGhostRadius;
+
+
+            [Header("Poltergeist")]
+            [SerializeField, Min(0.01f), Tooltip("Security Cooldown to not spam it")]
+            private float _poltergeistCooldown;
+            [SerializeField, Min(0.01f)] private float _poltergeistRadius;
+
+            public float PoltergeistCD => _poltergeistCooldown;
+            public float PoltergeistRadius => _poltergeistRadius;
+
+            [Header("DEBUG Poltergeist")]
+            private bool DEBUG_DrawPoltergeistRadius = true;
+        }
+        #endregion        
 
         #region Movement Fields
         [Header("Movement Attributes")]
@@ -142,6 +155,7 @@ namespace AvatarController.Data
         /// <summary>
         /// Contains:
         ///     - GhostView
+        ///     - Poltergeist
         /// </summary>
         public OtherValues DefOtherValues => _otherValues;
         #endregion
