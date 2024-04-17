@@ -73,13 +73,15 @@ MonoBehaviour:
     _startingSpeed: 20
     _airDeceleration: 40
     _groundDeceleration: 60
+    _cooldown: 1
   _interactionValues:
     _interactionRange: 4
   _otherValues:
     _ghostViewCooldown: 0.3
-    _ghostViewRadius: 3.8
-    DEBUG_ShowGhostRadius: 1
+    _ghostViewRadius: 20
+    DEBUG_ShowGhostRadius: 0
     _poltergeistCooldown: 5
     _poltergeistRadius: 10
+    _playerRadius: 2.25
     _speed: 5
     DEBUG_DrawPoltergeistRadius: 1

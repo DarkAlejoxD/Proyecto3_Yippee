@@ -60,7 +60,7 @@ namespace AvatarController
         {
             StartCoroutine(PolterCooldownCoroutine());
             _controller.RequestTeleport(_evaluatedPoltergeistZone.transform.position);
-            _evaluatedPoltergeistZone.ObjectAttached.isKinematic = true;
+            _evaluatedPoltergeistZone.ObjectAttached.useGravity = false;
         }
 
         private void PoltergeistModeUpdate(Vector2 xzDirection, float yDirection) //Maybe encapsulate some funcitons?? idk toi cansado jefe
@@ -73,11 +73,11 @@ namespace AvatarController
             right.y = 0;
             right.Normalize();
 
-            Vector3 movement = xzDirection.x * forward + xzDirection.y * right + yDirection * Vector3.up;
+            Vector3 movement = xzDirection.y * forward + xzDirection.x * right + yDirection * Vector3.up;
             movement.Normalize();
 
 
-            //Realize the movment
+            //Realize the movement
             Rigidbody rb = _evaluatedPoltergeistZone.ObjectAttached;
             Vector3 motion = DataContainer.DefOtherValues.Speed * Time.deltaTime * movement;
             Vector3 newPos = rb.position + motion;
@@ -91,14 +91,21 @@ namespace AvatarController
                 newPos = transform.position + direction * DataContainer.DefOtherValues.PoltergeistRadius;
             }
 
+            if (distance < DataContainer.DefOtherValues.PlayerRadius)
+            {
+                Vector3 direction = newPos - transform.position;
+                direction.Normalize();
+                newPos = transform.position + direction * DataContainer.DefOtherValues.PlayerRadius;
+            }
             rb.MovePosition(newPos);
+            rb.velocity = Vector3.zero;
         }
 
         private void ExitPoltergeistMode(bool value)
         {
             if (value)
             {
-                _evaluatedPoltergeistZone.ObjectAttached.isKinematic = _evaluatedPoltergeistZone.StartedKinematic;
+                _evaluatedPoltergeistZone.ObjectAttached.useGravity = _evaluatedPoltergeistZone.StartedUseGravity;
                 _evaluatedPoltergeistZone = null;
                 _controller.RequestChangeState(_lastState);
             }
@@ -122,6 +129,10 @@ namespace AvatarController
             GizmosUtilities.DrawSphere(transform.position, Color.magenta,
                                        DataContainer.DefOtherValues.PoltergeistRadius,
                                        DataContainer.DefOtherValues.DEBUG_DrawPoltergeistRadius);
+            GizmosUtilities.DrawSphere(transform.position, Color.magenta,
+                                       DataContainer.DefOtherValues.PlayerRadius,
+                                       DataContainer.DefOtherValues.DEBUG_DrawPoltergeistRadius);
+
         }
 #endif
         #endregion

@@ -74,11 +74,12 @@ namespace AvatarController.Data
             [SerializeField] private float _startingSpeed;
             [SerializeField] private float _airDeceleration;
             [SerializeField] private float _groundDeceleration;
-
+            [SerializeField] private float _cooldown;
 
             public float StartingSpeed => _startingSpeed;
             public float AirDeceleration => _airDeceleration;
             public float GroundDeceleration => _groundDeceleration;
+            public float Cooldown => _cooldown;
         }
         #endregion
 
@@ -113,11 +114,13 @@ namespace AvatarController.Data
             [SerializeField, Min(0.01f), Tooltip("Security Cooldown to not spam it")]
             private float _poltergeistCooldown;
             [SerializeField, Min(0.01f)] private float _poltergeistRadius;
+            [SerializeField, Min(0.01f)] private float _playerRadius;
             [SerializeField, Min(0.01f)] private float _speed;
 
             public float PoltergeistCD => _poltergeistCooldown;
             public float PoltergeistRadius => _poltergeistRadius;
-            public float Speed => _speed;   
+            public float PlayerRadius => _playerRadius;
+            public float Speed => _speed;
 
             [Header("DEBUG Poltergeist")]
             public bool DEBUG_DrawPoltergeistRadius = true;
@@ -128,8 +131,8 @@ namespace AvatarController.Data
         [Header("Movement Attributes")]
         [SerializeField, Space(SPACES)] private PlayerMovementData _defaultMovement;
         [SerializeField, Space(SPACES), HideInInspector] private PlayerMovementData _pushingMovement;
-        [SerializeField, Space(SPACES)] private PlayerMovementData _crounchMovement;
-        [SerializeField, Space(SPACES)] private PlayerMovementData _onAirMovement;
+        [SerializeField, Space(SPACES), HideInInspector] private PlayerMovementData _crounchMovement;
+        [SerializeField, Space(SPACES), HideInInspector] private PlayerMovementData _onAirMovement;
 
         public PlayerMovementData DefaultMovement => _defaultMovement;
         public PlayerMovementData PushingMovement => _pushingMovement;
@@ -144,15 +147,13 @@ namespace AvatarController.Data
 
         public JumpValues DefaultJumpValues => _jumpValues;
         public DiveValues DefaultDiveValues => _diveValues;
-
-        //[Space]
-        [Header("Interaction Attributes")]
-        [SerializeField, Space(SPACES)] InteractionValues _interactionValues;
-        public InteractionValues DefaultInteractionValues => _interactionValues;
         #endregion
 
         #region Other Values
-        [SerializeField] private OtherValues _otherValues;
+        [Header("Interaction Attributes")]
+        [SerializeField, Space(SPACES)] InteractionValues _interactionValues;
+        [SerializeField, Space(SPACES)] private OtherValues _otherValues;
+        public InteractionValues DefaultInteractionValues => _interactionValues;
 
         /// <summary>
         /// Contains:

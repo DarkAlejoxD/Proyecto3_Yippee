@@ -116,8 +116,11 @@ namespace AvatarController
         public void RequestChangeState(PlayerStates nextState)
         {
             var currentState = _playerBrain[_currentState];
-            if (_currentState != nextState && nextState == PlayerStates.OnPoltergeist)
+            if (_currentState == nextState)
+                return;
+            if (nextState == PlayerStates.OnPoltergeist)
                 OnPoltergeistEnter?.Invoke();
+
             _currentState = currentState.RequestChangeState(nextState);
         }
 
@@ -180,6 +183,7 @@ namespace AvatarController
 
     /// <summary>
     /// Proto FSM
+    /// Lo hice yo y ya me está dando asco, después del proto lo reescribiré
     /// </summary>
     public class PlayerStateForFSM
     {
