@@ -35,9 +35,9 @@ namespace AvatarController
         public Action<Vector2, float> OnPoltergeistStay;
         public Action<bool> OnPoltergeistExit;
 
+        private PlayerStates _currentState;
         private Dictionary<PlayerStates, PlayerStateForFSM> _playerBrain;
 
-        public PlayerStates _currentState { get; private set; }
         public PlayerData DataContainer => _dataContainer;
         public bool IsGrounded => _playerJump.IsGrounded;
 
@@ -54,10 +54,16 @@ namespace AvatarController
         private void Start()
         {
             _playerBrain = new Dictionary<PlayerStates, PlayerStateForFSM>();
-            PlayerStateForFSM onGround = new(PlayerStates.OnGround, PlayerStates.OnPoltergeist);
+            PlayerStateForFSM onGround = new(PlayerStates.OnGround, new PlayerStates[]
+            {
+                PlayerStates.OnPoltergeist,
+                PlayerStates.OnDive
+            });
+            PlayerStateForFSM onDive = new(PlayerStates.OnDive, PlayerStates.OnGround);
             PlayerStateForFSM onPoltergeist = new(PlayerStates.OnPoltergeist, PlayerStates.OnGround);
 
             _playerBrain.Add(PlayerStates.OnGround, onGround);
+            _playerBrain.Add(PlayerStates.OnDive, onDive);
             _playerBrain.Add(PlayerStates.OnPoltergeist, onPoltergeist);
         }
 
@@ -118,6 +124,7 @@ namespace AvatarController
         public void RequestChangeState(PlayerStates nextState, out PlayerStates lastState)
         {
             lastState = _currentState;
+            Debug.Log($"Reach {lastState} ");
             RequestChangeState(nextState);
         }
 
@@ -145,6 +152,8 @@ namespace AvatarController
                         OnPoltergeistExit?.Invoke(inputs.CancelInput);
                     }
                     break;
+                case PlayerStates.OnDive:
+                    break;
                 default:
                     {
                         OnMovement?.Invoke(inputs.MoveInput);
@@ -162,10 +171,10 @@ namespace AvatarController
 
     public enum PlayerStates // Provisional
     {
-        OnGround,
+        OnGround, // Default State
         //OnJumping, to create the regulable jumpp
         //OnAir,
-        //OnDive,
+        OnDive,
         OnPoltergeist
     }
 

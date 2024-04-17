@@ -16,6 +16,7 @@ namespace AvatarController
         private Animator _animator;
 
         private PlayerData Data => _playerController.DataContainer;
+        private PlayerStates _lastState = PlayerStates.OnGround;
 
 
         private bool _isDiving;
@@ -86,6 +87,7 @@ namespace AvatarController
             _velocity = forward * Data.DefaultDiveValues.StartingSpeed;
             _playerMovement.enabled = false;
             _isDiving = true;
+            _playerController.RequestChangeState(PlayerStates.OnDive, out _lastState);
 
             _playerJump.StopVelocity();
 
@@ -107,6 +109,8 @@ namespace AvatarController
             {
                 _playerMovement.enabled = true;
                 _isDiving = false;
+                Debug.Log("Reach");
+                _playerController.RequestChangeState(_lastState);
 
                 //DEBUG
                 _animator.SetBool("Dive", false);
@@ -115,7 +119,7 @@ namespace AvatarController
                 //
             }
 
-            _characterController.Move(_velocity * Time.deltaTime); 
+            _characterController.Move(_velocity * Time.deltaTime);
         }
 
         private void CheckGrounded()
