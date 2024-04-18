@@ -123,19 +123,20 @@ namespace AvatarController.LedgeGrabbing
         private void GrabLedge()
         {
             _jumpController.StopGravity();
+            _jumpController.SetLedgeGrab(true);
             GetComponent<PlayerMovement>().SetGrabbingLedgeMode(_hitInfo.normal);
             transform.rotation = Quaternion.LookRotation(-_hitInfo.normal);
 
             _grabbingLedge = true;
         }
 
-        private void LetGoLedge()
+        public void LetGoLedge()
         {
             GetComponent<PlayerMovement>().DisableGrabbingLedgeMode();
             _jumpController.EnableGravity();
+            _jumpController.SetLedgeGrab(false);
             _ledgeDetected = false;
             _grabbingLedge = false;
-
         }
 
         #endregion
