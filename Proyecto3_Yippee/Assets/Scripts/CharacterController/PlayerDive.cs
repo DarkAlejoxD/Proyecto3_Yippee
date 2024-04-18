@@ -1,6 +1,7 @@
 using AvatarController;
 using AvatarController.Data;
 using UnityEngine;
+using static UtilsComplements.AsyncTimer;
 
 namespace AvatarController
 {
@@ -15,17 +16,27 @@ namespace AvatarController
         private PlayerJump _playerJump;
         private Animator _animator;
 
-        private PlayerData Data => _playerController.DataContainer;
-
+        private Vector3 _velocity;
 
         private bool _isDiving;
         private bool _isGrounded;
+        private bool _canDive;
 
-
-        private Vector3 _velocity;
+        private PlayerStates _lastState = PlayerStates.OnGround;
+        private PlayerData Data => _playerController.DataContainer;
         #endregion
 
         #region Unity Logic
+        private void Awake()
+        {
+            _playerController = GetComponent<PlayerController>();
+            _characterController = GetComponent<CharacterController>();
+            _playerMovement = GetComponent<PlayerMovement>();
+            _animator = GetComponent<Animator>();
+            _playerJump = GetComponent<PlayerJump>();
+
+            _canDive = true;
+        }
 
         private void OnEnable()
         {
@@ -40,15 +51,6 @@ namespace AvatarController
         private void OnDisable()
         {
             _playerController.OnDive -= OnDive;
-        }
-
-        private void Awake()
-        {
-            _playerController = GetComponent<PlayerController>();
-            _characterController = GetComponent<CharacterController>();
-            _playerMovement = GetComponent<PlayerMovement>();
-            _animator = GetComponent<Animator>();
-            _playerJump = GetComponent<PlayerJump>();
         }
 
         private void Update()
@@ -74,6 +76,9 @@ namespace AvatarController
 
         private void OnDive(bool active)
         {
+            if (!_canDive)
+                return;
+
             if (!active) return;
 
             if (_isDiving)
@@ -86,8 +91,17 @@ namespace AvatarController
             _velocity = forward * Data.DefaultDiveValues.StartingSpeed;
             _playerMovement.enabled = false;
             _isDiving = true;
+            PlayerStates lastState;
+            _playerController.RequestChangeState(PlayerStates.OnDive, out lastState);
+            if (lastState != PlayerStates.OnDive)
+                _lastState = lastState;
 
             _playerJump.StopVelocity();
+            _canDive = false;
+            StartCoroutine(TimerCoroutine(Data.DefaultDiveValues.Cooldown, () =>
+            {
+                _canDive = true;
+            }));
 
             //DEBUG
             _animator.SetBool("Dive", true);
@@ -107,6 +121,8 @@ namespace AvatarController
             {
                 _playerMovement.enabled = true;
                 _isDiving = false;
+                Debug.Log("Reach");
+                _playerController.RequestChangeState(_lastState);
 
                 //DEBUG
                 _animator.SetBool("Dive", false);
@@ -115,7 +131,7 @@ namespace AvatarController
                 //
             }
 
-            _characterController.Move(_velocity * Time.deltaTime); 
+            _characterController.Move(_velocity * Time.deltaTime);
         }
 
         private void CheckGrounded()
