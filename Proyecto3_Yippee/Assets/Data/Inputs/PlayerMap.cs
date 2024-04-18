@@ -272,6 +272,17 @@ namespace InputController
                 },
                 {
                     ""name"": """",
+                    ""id"": ""cbe41d19-990f-4fe9-bb8a-e73c8da64282"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SurvivalInstinct"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""e36985ba-5f8d-4a09-a9fc-fbca188fb529"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
