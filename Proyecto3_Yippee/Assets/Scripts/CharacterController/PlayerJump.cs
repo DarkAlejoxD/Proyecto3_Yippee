@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using AvatarController.Data;
 using UtilsComplements.Editor;
+using AvatarController.LedgeGrabbing;
 
 namespace AvatarController
 {
@@ -21,6 +22,7 @@ namespace AvatarController
         private float _lastTimeInGround;
         private bool _jumped;
         private bool _useGravity = true;
+        private bool _grabbingLedge;
 
         private PlayerData DataContainer => _controller.DataContainer;
         private float Gravity => Physics.gravity.y * DataContainer.DefaultJumpValues.GravityMultiplier;
@@ -72,6 +74,11 @@ namespace AvatarController
         {
             _useGravity = true;
         }
+
+        public void SetLedgeGrab(bool b)
+        {
+            _grabbingLedge = b;
+        }
         #endregion
 
         #region Private Methods
@@ -120,6 +127,9 @@ namespace AvatarController
 
         private bool CanJump()
         {
+            if (_grabbingLedge)
+                return true;
+
             if (_onGround)
                 return true;
 
@@ -137,6 +147,11 @@ namespace AvatarController
             _velocityY = GetVelocity();
             _jumped = true;
 
+            if (_grabbingLedge)
+            {
+                GetComponent<PlayerLedgeGrab>().LetGoLedge();
+            }
+
             #region DEBUG
 #if UNITY_EDITOR
             lastPos = transform.position;
@@ -144,6 +159,7 @@ namespace AvatarController
 #endif
             #endregion
         }
+
 
         private float GetVelocity()
         {
