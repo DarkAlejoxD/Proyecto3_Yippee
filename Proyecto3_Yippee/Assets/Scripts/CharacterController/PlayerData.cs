@@ -130,11 +130,13 @@ namespace AvatarController.Data
         #region Movement Fields
         [Header("Movement Attributes")]
         [SerializeField, Space(SPACES)] private PlayerMovementData _defaultMovement;
+        [SerializeField, Space(SPACES)] private PlayerMovementData _grabbingLedgeMovement;
         [SerializeField, Space(SPACES), HideInInspector] private PlayerMovementData _pushingMovement;
         [SerializeField, Space(SPACES), HideInInspector] private PlayerMovementData _crounchMovement;
         [SerializeField, Space(SPACES), HideInInspector] private PlayerMovementData _onAirMovement;
 
         public PlayerMovementData DefaultMovement => _defaultMovement;
+        public PlayerMovementData GrabbingLedgeMovement => _grabbingLedgeMovement;
         public PlayerMovementData PushingMovement => _pushingMovement;
         public PlayerMovementData CrounchMovement => _crounchMovement;
         public PlayerMovementData OnAirMovement => _onAirMovement;

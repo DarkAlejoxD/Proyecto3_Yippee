@@ -145,8 +145,14 @@ namespace AvatarController
         private void AcceleratedMovement(Vector3 movement)
         {
             Vector3 motion;
+            
+            float maxSpeed = _maxSpeed;
+            if(_grabbingLedge) maxSpeed = Data.GrabbingLedgeMovement.MaxSpeed; //DEBUG
 
-            if(_velocity.magnitude < _maxSpeed)
+
+
+
+            if (_velocity.magnitude < maxSpeed)
             {
                 _velocity += Time.deltaTime * Data.DefaultMovement.Acceleration * movement;
             }
