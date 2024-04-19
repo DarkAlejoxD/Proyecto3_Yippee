@@ -11,6 +11,9 @@ namespace AvatarController.LedgeGrabbing
         [SerializeField] private Transform _chestRayOrigin;
         [SerializeField] private float _rayLength = 0.75f;
         [SerializeField] private float _edgeRayLength = 1.5f;
+        [SerializeField] private float _positionToWallOffset = 0.5f;
+        [SerializeField] private LayerMask _grabbableLayers;
+
 
         [SerializeField] private float _sideEdgeDetectionOffset = 0.5f;
 
@@ -77,8 +80,8 @@ namespace AvatarController.LedgeGrabbing
             Ray rayR = new Ray(transform.position + transform.right * _sideEdgeDetectionOffset, transform.forward);
             Ray rayL = new Ray(transform.position - transform.right * _sideEdgeDetectionOffset, transform.forward);
 
-            _rightEdgeReached = Physics.Raycast(rayR, _edgeRayLength);
-            _leftEdgeReached = Physics.Raycast(rayL, _edgeRayLength);
+            _rightEdgeReached = Physics.Raycast(rayR, _edgeRayLength, _grabbableLayers);
+            _leftEdgeReached = Physics.Raycast(rayL, _edgeRayLength, _grabbableLayers);
 
 
             bool edgeReached = !_rightEdgeReached || !_leftEdgeReached;
@@ -92,7 +95,7 @@ namespace AvatarController.LedgeGrabbing
 
         private bool CastRay(Ray ray)
         {
-            return Physics.Raycast(ray, out _hitInfo, _rayLength);
+            return Physics.Raycast(ray, out _hitInfo, _rayLength, _grabbableLayers);
         }
 
 
@@ -149,6 +152,17 @@ namespace AvatarController.LedgeGrabbing
             {
                 transform.rotation = rot;
                 GetComponent<PlayerMovement>().SetGrabbingLedgeMode(_hitInfo.normal);
+
+                //update position
+                GetComponent<PlayerMovement>().enabled = false;
+                Vector3 pos = _hitInfo.point;
+                pos.y = transform.position.y;
+                pos.z += _positionToWallOffset * _hitInfo.normal.z;
+                pos.x += _positionToWallOffset * _hitInfo.normal.x;
+
+                transform.position = pos;
+                GetComponent<PlayerMovement>().enabled = true;
+
             }
         }
 
