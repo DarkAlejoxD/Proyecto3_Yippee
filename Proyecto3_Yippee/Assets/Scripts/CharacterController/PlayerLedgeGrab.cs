@@ -9,7 +9,8 @@ namespace AvatarController.LedgeGrabbing
     {
         [SerializeField] private Transform _headRayOrigin;
         [SerializeField] private Transform _chestRayOrigin;
-        [SerializeField] private float _rayLength = 0.25f;
+        [SerializeField] private float _rayLength = 0.75f;
+        [SerializeField] private float _edgeRayLength = 1.5f;
 
         [SerializeField] private float _sideEdgeDetectionOffset = 0.5f;
 
@@ -45,12 +46,13 @@ namespace AvatarController.LedgeGrabbing
         {
             if (!_jumpController.IsFailling && !_grabbingLedge) return;
             
-            CastCheckerRays();      
+            CastCheckerRays();
             HandleLedgeLogic();
 
             if (_grabbingLedge)
             {
                 //Cast dos raycast a los lados para detectar cuando llegamos a un borde y no dejar moverse?
+                HandleNormalRotation();
                 CastEdgeDetectionRays();
             }
         }
@@ -66,6 +68,8 @@ namespace AvatarController.LedgeGrabbing
 
             _headHit = CastRay(_headRay);
             _chestHit = CastRay(_chestRay);
+
+            Debug.Log(_hitInfo.normal);
         }
 
         private void CastEdgeDetectionRays()
@@ -73,8 +77,8 @@ namespace AvatarController.LedgeGrabbing
             Ray rayR = new Ray(transform.position + transform.right * _sideEdgeDetectionOffset, transform.forward);
             Ray rayL = new Ray(transform.position - transform.right * _sideEdgeDetectionOffset, transform.forward);
 
-            _rightEdgeReached = Physics.Raycast(rayR, _rayLength);
-            _leftEdgeReached = Physics.Raycast(rayL, _rayLength);
+            _rightEdgeReached = Physics.Raycast(rayR, _edgeRayLength);
+            _leftEdgeReached = Physics.Raycast(rayL, _edgeRayLength);
 
 
             bool edgeReached = !_rightEdgeReached || !_leftEdgeReached;
@@ -125,7 +129,6 @@ namespace AvatarController.LedgeGrabbing
             _jumpController.StopGravity();
             _jumpController.SetLedgeGrab(true);
             GetComponent<PlayerMovement>().SetGrabbingLedgeMode(_hitInfo.normal);
-            transform.rotation = Quaternion.LookRotation(-_hitInfo.normal);
 
             _grabbingLedge = true;
         }
@@ -137,6 +140,16 @@ namespace AvatarController.LedgeGrabbing
             _jumpController.SetLedgeGrab(false);
             _ledgeDetected = false;
             _grabbingLedge = false;
+        }
+
+        private void HandleNormalRotation()
+        {
+            Quaternion rot = Quaternion.LookRotation(-_hitInfo.normal);
+            if(transform.rotation != rot)
+            {
+                transform.rotation = rot;
+                GetComponent<PlayerMovement>().SetGrabbingLedgeMode(_hitInfo.normal);
+            }
         }
 
         #endregion
@@ -171,12 +184,12 @@ namespace AvatarController.LedgeGrabbing
             Vector3 pos = transform.position + transform.right * _sideEdgeDetectionOffset;
 
             Gizmos.color = _rightEdgeReached ? Color.green : Color.red;
-            Gizmos.DrawLine(pos, pos + transform.forward * _rayLength);
+            Gizmos.DrawLine(pos, pos + transform.forward * _edgeRayLength);
 
             pos = transform.position - transform.right * _sideEdgeDetectionOffset;
 
             Gizmos.color = _chestHit ? Color.green : Color.red;
-            Gizmos.DrawLine(pos, pos + transform.forward * _rayLength);
+            Gizmos.DrawLine(pos, pos + transform.forward * _edgeRayLength);
         }
 
         #endregion
