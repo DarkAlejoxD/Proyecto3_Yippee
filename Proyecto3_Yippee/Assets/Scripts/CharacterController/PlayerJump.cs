@@ -242,7 +242,7 @@ namespace AvatarController
                 new(GizmosUtilities.DrawCurveProperties.DefaultValues)
                 {
                     MinValue = 0,
-                    MaxValue = time *2,
+                    MaxValue = time * 2,
                     DefinitionOfCurve = DataContainer.DefaultJumpValues.DEBUG_definitionOfJump
                 };
 
@@ -269,7 +269,7 @@ namespace AvatarController
             //float timeWhen0 = Mathf.Abs(vel / accA);
             float y;
             //if (time <= timeWhen0)
-                y = lastPos.y + vel * time + accA / 2 * time * time;
+            y = lastPos.y + vel * time + accA / 2 * time * time;
             //else
             //{
             //    float yPosVel0 = lastPos.y + vel * timeWhen0 + accA / 2 * timeWhen0 * timeWhen0;

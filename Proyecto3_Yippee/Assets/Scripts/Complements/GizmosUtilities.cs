@@ -16,7 +16,7 @@ namespace UtilsComplements.Editor
 
         public static void DrawSphere(Vector3 origin, Color gizmosColor, bool drawControl = true)
         {
-            DrawSphere(origin, gizmosColor, 1 , drawControl);
+            DrawSphere(origin, gizmosColor, 1, drawControl);
         }
 
         public static void DrawSphere(Vector3 origin, Color gizmosColor, float radius,
@@ -45,11 +45,12 @@ namespace UtilsComplements.Editor
             public float DotRadius { get; set; }
             public int DottedLinesSpace { get; set; }
 
-            public static DrawCurveProperties DefaultValues { get; private set; }
+            static DrawCurveProperties _defaultValues;
+            public static DrawCurveProperties DefaultValues => new DrawCurveProperties(_defaultValues);
 
             static DrawCurveProperties()
             {
-                DefaultValues = new DrawCurveProperties()
+                _defaultValues = new DrawCurveProperties()
                 {
                     MinValue = 0,
                     MaxValue = 1,
