@@ -73,6 +73,24 @@ namespace InputController
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""e32f4a67-00f6-4e27-ae1c-bfb56bad21a5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""ac11ea11-f614-440a-8ac7-5a33639f40d5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -233,7 +251,7 @@ namespace InputController
                 {
                     ""name"": """",
                     ""id"": ""b4b0811a-fc6b-420c-864f-9d10b8a61fd3"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -248,6 +266,17 @@ namespace InputController
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
+                    ""action"": ""SurvivalInstinct"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cbe41d19-990f-4fe9-bb8a-e73c8da64282"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""SurvivalInstinct"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -298,23 +327,78 @@ namespace InputController
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d4d6bbaf-04ac-4058-bf25-fc4c0cbebc48"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Crouch/Dive"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""79c4b5b0-68eb-49fb-a566-912eb752ffb3"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Crouch/Dive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee287d3d-196b-421b-be6e-d85266952fff"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9a1166a8-9531-44ee-9a96-fa55dbc6e1ea"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""39ff74a7-c6f1-480b-bbfc-a0b4dcd699d1"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f7eb4b83-1dd9-44c8-b36a-68dbfac446e5"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef2404ba-d4c9-4894-9f4a-bb46d4ce59b5"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d8be7d4-e3c4-40bf-83be-76b64bb31e06"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -358,6 +442,8 @@ namespace InputController
             m_PlayerMove_CrouchDive = m_PlayerMove.FindAction("Crouch/Dive", throwIfNotFound: true);
             m_PlayerMove_Interact = m_PlayerMove.FindAction("Interact", throwIfNotFound: true);
             m_PlayerMove_SurvivalInstinct = m_PlayerMove.FindAction("SurvivalInstinct", throwIfNotFound: true);
+            m_PlayerMove_Sprint = m_PlayerMove.FindAction("Sprint", throwIfNotFound: true);
+            m_PlayerMove_Cancel = m_PlayerMove.FindAction("Cancel", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -424,6 +510,8 @@ namespace InputController
         private readonly InputAction m_PlayerMove_CrouchDive;
         private readonly InputAction m_PlayerMove_Interact;
         private readonly InputAction m_PlayerMove_SurvivalInstinct;
+        private readonly InputAction m_PlayerMove_Sprint;
+        private readonly InputAction m_PlayerMove_Cancel;
         public struct PlayerMoveActions
         {
             private @PlayerMap m_Wrapper;
@@ -433,6 +521,8 @@ namespace InputController
             public InputAction @CrouchDive => m_Wrapper.m_PlayerMove_CrouchDive;
             public InputAction @Interact => m_Wrapper.m_PlayerMove_Interact;
             public InputAction @SurvivalInstinct => m_Wrapper.m_PlayerMove_SurvivalInstinct;
+            public InputAction @Sprint => m_Wrapper.m_PlayerMove_Sprint;
+            public InputAction @Cancel => m_Wrapper.m_PlayerMove_Cancel;
             public InputActionMap Get() { return m_Wrapper.m_PlayerMove; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -457,6 +547,12 @@ namespace InputController
                 @SurvivalInstinct.started += instance.OnSurvivalInstinct;
                 @SurvivalInstinct.performed += instance.OnSurvivalInstinct;
                 @SurvivalInstinct.canceled += instance.OnSurvivalInstinct;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
             }
 
             private void UnregisterCallbacks(IPlayerMoveActions instance)
@@ -476,6 +572,12 @@ namespace InputController
                 @SurvivalInstinct.started -= instance.OnSurvivalInstinct;
                 @SurvivalInstinct.performed -= instance.OnSurvivalInstinct;
                 @SurvivalInstinct.canceled -= instance.OnSurvivalInstinct;
+                @Sprint.started -= instance.OnSprint;
+                @Sprint.performed -= instance.OnSprint;
+                @Sprint.canceled -= instance.OnSprint;
+                @Cancel.started -= instance.OnCancel;
+                @Cancel.performed -= instance.OnCancel;
+                @Cancel.canceled -= instance.OnCancel;
             }
 
             public void RemoveCallbacks(IPlayerMoveActions instance)
@@ -518,6 +620,8 @@ namespace InputController
             void OnCrouchDive(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
             void OnSurvivalInstinct(InputAction.CallbackContext context);
+            void OnSprint(InputAction.CallbackContext context);
+            void OnCancel(InputAction.CallbackContext context);
         }
     }
 }

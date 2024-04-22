@@ -1,6 +1,7 @@
 using AvatarController;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UtilsComplements;
 
 namespace Interactable //add it to a concrete namespace
 {
@@ -8,25 +9,55 @@ namespace Interactable //add it to a concrete namespace
     public class Interactable_Pushable : Interactable_Base
     {
         [SerializeField] private Transform[] _pushPoints;
+        private Transform _grabbedPoint;
         private PlayerController _player;
 
+        private bool _isGrabbed;
+
         #region Public Methods
+
+        private void Start()
+        {
+            _player = ISingleton<GameManager>.GetInstance().PlayerInstance;
+        }
+
 
         public override void Interact()
         {
             base.Interact();
 
-            //TODO: Select closest push point and tp player to it
-            Transform t;
+            if(_isGrabbed )
+            {
+                LetGo();
+            }
+            else
+            {
+                Grab();
+            }
+        }
 
-            //TODO: Block horizontal movement
-            //TODO: Block Jump
-            //TODO: Set parent to player
-            //TODO: Limites?
-            
-            
+        private void Grab()
+        {
+            _grabbedPoint = _pushPoints[GetClosestPushPoint()];
 
-            
+            Vector3 pos = _grabbedPoint.position;
+            pos.y = _player.transform.position.y;
+            _player.transform.position = pos;
+
+            _player.OnMovement += OnMove;
+            _player.transform.SetParent(transform, true);
+            _isGrabbed = true;
+
+            _player.EnablePushingMode(GetDirection());
+
+        }
+
+        private void LetGo()
+        {
+            _player.OnMovement -= OnMove;
+            _isGrabbed = false;
+            _player.DisablePushingMode();
+            _player.transform.SetParent(null, true);
 
         }
 
@@ -37,6 +68,32 @@ namespace Interactable //add it to a concrete namespace
         private int GetClosestPushPoint()
         {
             return MathUtils.GetClosestPoint(_player.transform.position, _pushPoints);
+        }
+
+        private Vector3 GetDirection()
+        {
+            Vector3 dir = transform.position - _grabbedPoint.position;
+            dir.Normalize();
+
+            return dir;
+        }
+
+        private Vector3 GetDirectionAbsolute()
+        {
+            Vector3 dir = transform.position - _grabbedPoint.position;
+            dir.Normalize();
+
+            dir = new Vector3(Mathf.Abs(dir.x), 0, Mathf.Abs(dir.z));
+
+            return dir;
+        }
+
+        private void OnMove(Vector2 input)
+        {
+            Vector3 movement = Vector3.zero;            
+
+            movement = GetDirectionAbsolute() * input.y * (_player.DataContainer.DefaultMovement.MaxSpeed / 2) * Time.deltaTime;
+            transform.position += movement;
         }
 
         #endregion

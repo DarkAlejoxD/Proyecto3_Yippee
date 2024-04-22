@@ -31,7 +31,9 @@ namespace InputController
             JumpUpdate();
             CrounchDive();
             InteractUpdate();
-            SurvivalInstinct();
+            GhostViewUpdate();
+            SprintUpdate();
+            CancelUpdate();
 
             //Send Inputs
             OnInputDetected?.Invoke(_inputValues);
@@ -65,16 +67,28 @@ namespace InputController
             _inputValues.InteractInput = triggered;
         }
 
-        private void SurvivalInstinct()
+        private void GhostViewUpdate()
         {
             bool triggered = _playerMap.PlayerMove.SurvivalInstinct.WasReleasedThisFrame();
-            _inputValues.SurvivalInstinct = triggered;
+            _inputValues.GhostViewInput = triggered;
         }
 
         private void CrounchDive()
         {
             bool triggered = _playerMap.PlayerMove.CrouchDive.IsPressed();
             _inputValues.CrounchDiveInput = triggered;
+        }
+
+        private void SprintUpdate()
+        {
+            bool triggered = _playerMap.PlayerMove.Sprint.IsPressed();
+            _inputValues.SprintInput = triggered;
+        }
+
+        private void CancelUpdate()
+        {
+            bool triggered = _playerMap.PlayerMove.Cancel.WasReleasedThisFrame();
+            _inputValues.CancelInput = triggered;
         }
         #endregion
     }
@@ -85,7 +99,9 @@ namespace InputController
         public bool JumpInput { get; internal set; }
         public bool CrounchDiveInput { get; internal set; }
         public bool InteractInput { get; internal set; }
-        public bool SurvivalInstinct { get; internal set; }
+        public bool GhostViewInput { get; internal set; }
+        public bool SprintInput { get; internal set; }
+        public bool CancelInput { get; internal set; }
 
         public void ResetInputs()
         {
@@ -93,7 +109,9 @@ namespace InputController
             JumpInput = false;
             CrounchDiveInput = false;
             InteractInput = false;
-            SurvivalInstinct = false;
+            GhostViewInput = false;
+            SprintInput = false;
+            CancelInput = false;
         }
     }
 }

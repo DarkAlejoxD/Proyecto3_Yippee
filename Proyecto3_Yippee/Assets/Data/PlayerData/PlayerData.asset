@@ -13,11 +13,24 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   _defaultMovement:
-    _acceleration: 60
-    _linearDecceleration: 40
+    _acceleration: 70
+    _linearDecceleration: 50
     _minSpeedToMove: 2
     _maxSpeed: 8
     _rotationLerp: 0.25
+    _canSprint: 1
+    _sprintMaxSpeed: 14
+    _canJump: 1
+    _angularAcceleration: 0
+    _maxAngularSpeed: 0
+  _grabbingLedgeMovement:
+    _acceleration: 10
+    _linearDecceleration: 10
+    _minSpeedToMove: 1
+    _maxSpeed: 2
+    _rotationLerp: 5
+    _canSprint: 0
+    _sprintMaxSpeed: 5
     _canJump: 1
     _angularAcceleration: 0
     _maxAngularSpeed: 0
@@ -27,6 +40,8 @@ MonoBehaviour:
     _minSpeedToMove: 2
     _maxSpeed: 5
     _rotationLerp: 5
+    _canSprint: 1
+    _sprintMaxSpeed: 5
     _canJump: 0
     _angularAcceleration: 0
     _maxAngularSpeed: 0
@@ -36,6 +51,8 @@ MonoBehaviour:
     _minSpeedToMove: 2
     _maxSpeed: 5
     _rotationLerp: 5
+    _canSprint: 1
+    _sprintMaxSpeed: 5
     _canJump: 0
     _angularAcceleration: 0
     _maxAngularSpeed: 0
@@ -45,6 +62,8 @@ MonoBehaviour:
     _minSpeedToMove: 2
     _maxSpeed: 5
     _rotationLerp: 5
+    _canSprint: 1
+    _sprintMaxSpeed: 5
     _canJump: 0
     _angularAcceleration: 0
     _maxAngularSpeed: 0
@@ -62,8 +81,18 @@ MonoBehaviour:
     DEBUG_forwardMovementPct: 1
     DEBUG_drawCoyote: 0
   _diveValues:
-    _startingSpeed: 30
+    _startingSpeed: 20
     _airDeceleration: 40
-    _groundDeceleration: 20
+    _groundDeceleration: 60
+    _cooldown: 1
   _interactionValues:
     _interactionRange: 4
+  _otherValues:
+    _ghostViewCooldown: 0.3
+    _ghostViewRadius: 61.7
+    DEBUG_ShowGhostRadius: 1
+    _poltergeistCooldown: 5
+    _poltergeistRadius: 10
+    _playerRadius: 2.25
+    _speed: 5
+    DEBUG_DrawPoltergeistRadius: 0

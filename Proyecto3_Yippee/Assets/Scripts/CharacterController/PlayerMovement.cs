@@ -1,7 +1,5 @@
 using UnityEngine;
 using AvatarController.Data;
-using UnityEngine.Playables;
-using UnityEngine.Windows;
 
 namespace AvatarController
 {
@@ -9,23 +7,19 @@ namespace AvatarController
     public class PlayerMovement : MonoBehaviour
     {
         #region Fields
-
         private Vector3 _velocity;
-
 
         private PlayerController _playerController;
         private CharacterController _characterController;
         private PlayerData Data => _playerController.DataContainer;
 
-        private Camera CurrentCamera => Camera.main; //TODO: Change this
-        
-        #endregion
+        private Camera CurrentCamera => Camera.main; //TODO: Change this //Don't need
+        private float _maxSpeed;
 
-        #region Static Methods
-        public static void StaticMethod()
-        {
-        }
-        #endregion
+        private bool _grabbingLedge;
+        private Vector3 _ledgeForward;
+
+        #endregion        
 
         #region Unity Logic
 
@@ -37,11 +31,13 @@ namespace AvatarController
             }
 
             _playerController.OnMovement += OnMovement;
+            _playerController.OnSprint += OnSprint;
         }
 
         private void OnDisable()
         {
             _playerController.OnMovement -= OnMovement;
+            _playerController.OnSprint -= OnSprint;
         }
 
 
@@ -55,6 +51,7 @@ namespace AvatarController
         private void Start()
         {
             _velocity = Vector3.zero;
+            _maxSpeed = Data.DefaultMovement.MaxSpeed;
         }
 
         private void Update()
@@ -65,16 +62,46 @@ namespace AvatarController
         #endregion
 
         #region Public Methods
-        public void PublicMethod()
+        public void StopVelocity()
         {
+            _velocity = Vector3.zero;
+        }
+
+        public void FaceDirection(Vector3 dir)
+        {
+            Quaternion desiredRotation = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Data.DefaultMovement.RotationLerp);
+        }
+
+        public void SetGrabbingLedgeMode(Vector3 ledgeForward)
+        {
+            _ledgeForward = ledgeForward;
+            _grabbingLedge = true;
+        }
+
+        public void DisableGrabbingLedgeMode()
+        {
+            _grabbingLedge = false;
         }
         #endregion
 
         #region Private Methods
         private void OnMovement(Vector2 moveInput)
         {
-            Vector3 forward = CalculateForward();
-            Vector3 right = CalculateRight();
+            if (_playerController.isPushing) return; //PROTO
+
+            Vector3 forward = Vector3.zero;
+            Vector3 right = Vector3.zero;
+
+            if (!_grabbingLedge)
+            {
+                forward  = CalculateForward();
+                right = CalculateRight();
+            }
+            else
+            {
+                right = CalculateRight(_ledgeForward);
+            }
 
             Vector3 movement = Vector3.zero;
 
@@ -106,17 +133,29 @@ namespace AvatarController
             return right;
         }
 
+        private Vector3 CalculateRight(Vector3 ledgeForward)
+        {
+            Vector3 right = Vector3.Cross(ledgeForward, transform.up);
+            right.y = 0;
+            right.Normalize();
+            return right;
+        }
+
 
         private void AcceleratedMovement(Vector3 movement)
         {
             Vector3 motion;
+            
+            float maxSpeed = _maxSpeed;
+            if(_grabbingLedge) maxSpeed = Data.GrabbingLedgeMovement.MaxSpeed; //DEBUG
 
-            if(_velocity.magnitude < Data.DefaultMovement.MaxSpeed)
+
+
+
+            if (_velocity.magnitude < maxSpeed)
             {
                 _velocity += Time.deltaTime * Data.DefaultMovement.Acceleration * movement;
             }
-
-
 
             motion = Time.deltaTime * _velocity;
 
@@ -133,13 +172,24 @@ namespace AvatarController
                 _velocity -= Time.deltaTime * Data.DefaultMovement.LinearDecceleration * (_velocity.normalized);
         }
 
-
         private void FaceDirection()
         {
+            if (_grabbingLedge) return;
             if (_velocity.magnitude > Data.DefaultMovement.MinSpeedToMove)
             {
-                Quaternion desiredRotation = Quaternion.LookRotation(_velocity.normalized);
-                transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Data.DefaultMovement.RotationLerp);
+                FaceDirection(_velocity.normalized);
+            }
+        }
+
+        private void OnSprint(bool active)
+        {
+            if (active)
+            {
+                _maxSpeed = Data.DefaultMovement.SprintMaxSpeed;
+            }
+            else
+            {
+                _maxSpeed = Data.DefaultMovement.MaxSpeed;
             }
         }
         #endregion

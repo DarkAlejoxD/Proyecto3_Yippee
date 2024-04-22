@@ -1,7 +1,5 @@
-using AvatarController;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using AvatarController;
 using UtilsComplements;
 
 public class GameManager : MonoBehaviour, ISingleton<GameManager>
@@ -9,28 +7,35 @@ public class GameManager : MonoBehaviour, ISingleton<GameManager>
     public ISingleton<GameManager> Instance => this;
     private PlayerController _playerInstance;
 
-    public PlayerController PlayerInstance;
+    public PlayerController PlayerInstance => _playerInstance;
+    public static PlayerController Player
+    {
+        get
+        {
+            if(!ISingleton<GameManager>.TryGetInstance(out var manager))
+                return null;
+            return manager.PlayerInstance;
+        }
+    }
 
     private void Awake()
     {
         Instance.Instantiate();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnDestroy()
     {
         Instance.RemoveInstance();
+    }
+
+    public static GameManager GetGameManager()
+    {
+        if (ISingleton<GameManager>.TryGetInstance(out var manager))        
+            return manager;
+
+        //It should set itself as the singleton, so this part the code will only triggered once
+        var go = new GameObject("GameManager");
+        return go.AddComponent<GameManager>(); 
     }
 
     public void SetPlayerInstance(PlayerController player)

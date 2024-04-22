@@ -6,11 +6,11 @@ namespace UtilsComplements
     /// 
     /// Put Instance.Instantiate() inside the Awake() Method.
     /// Put Instance.RemoveInstance() inside the OnDestroy Method.
+    /// Override Invalidate() method if necessary
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface ISingleton<T> where T : class, ISingleton<T>
     {
-        //TODO: Test it.
         //TODO: Ask a teacher if recommends this style of Singleton o Generic interfaces/classes.
         private static T _singleton;
         private static bool _exists = false;
@@ -55,15 +55,6 @@ namespace UtilsComplements
 #if UNITY_2022_3_OR_NEWER //It should be working even in older versions, it's just a testing(?
             if (Value is UnityEngine.Component comp)
                 UnityEngine.Component.Destroy(comp.gameObject);
-#endif
-        }
-        #endregion
-
-        #region DEBUG
-        public void DEBUG_Test()
-        {
-#if UNITY_2022_3_OR_NEWER //It should be working even in older versions, it's just a testing(?
-                UnityEngine.Debug.Log("Enter Debug");
 #endif
         }
         #endregion

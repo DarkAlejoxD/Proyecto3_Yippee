@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
@@ -9,14 +8,14 @@ namespace UtilsComplements.Cheats
 {
     public class Cheat_Reset : Cheat, ISingleton<Cheat_Reset>
     {
-        private const string KEYBOARD_CHEAT_CODE = "RES";
+        private const string KEYBOARD_CHEAT_CODE = "RESTART";
         private const string GAMEPAD_CHEAT_CODE = "[Insert code without spaces]";
 
         public ISingleton<Cheat_Reset> Instance => this;
 
         protected override string KeyboardCheatReference => KEYBOARD_CHEAT_CODE;
         protected override string GamepadCheatReference => GAMEPAD_CHEAT_CODE;
-        //protected override CheatTypeEnum CheatType => base.CheatType;
+        protected override CheatTypeEnum CheatType => CheatTypeEnum.REINVOKE;
 
         #region UnityLogic
 

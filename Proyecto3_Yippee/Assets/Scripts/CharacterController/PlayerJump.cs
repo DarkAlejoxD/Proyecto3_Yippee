@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using AvatarController.Data;
 using UtilsComplements.Editor;
+using AvatarController.LedgeGrabbing;
 
 namespace AvatarController
 {
@@ -15,14 +16,20 @@ namespace AvatarController
         private PlayerController _controller;
         private CharacterController _characterController;
 
-        [Header("Contro")]
+        [Header("Control")]
         private float _velocityY;
         private bool _onGround;
         private float _lastTimeInGround;
         private bool _jumped;
+        private bool _useGravity = true;
+        private bool _grabbingLedge;
 
         private PlayerData DataContainer => _controller.DataContainer;
         private float Gravity => Physics.gravity.y * DataContainer.DefaultJumpValues.GravityMultiplier;
+
+        public bool IsGrounded => _onGround;
+        public bool IsFailling => _velocityY < 0;
+
         #endregion
 
         #region Unity Logic
@@ -57,11 +64,28 @@ namespace AvatarController
         {
             _velocityY = 0;
         }
+
+        public void StopGravity()
+        {
+            StopVelocity();
+            _useGravity = false;
+        }
+        public void EnableGravity()
+        {
+            _useGravity = true;
+        }
+
+        public void SetLedgeGrab(bool b)
+        {
+            _grabbingLedge = b;
+        }
         #endregion
 
         #region Private Methods
         private void UpdateVy()
         {
+            if (!_useGravity) return;
+
             float variation = _velocityY * Time.deltaTime;
 
             CollisionFlags movement = _characterController.Move(new Vector3(0, variation, 0));
@@ -82,8 +106,8 @@ namespace AvatarController
             {
                 _onGround = false;
             }
-            
-            if(_velocityY < 0)
+
+            if (_velocityY < 0)
                 _velocityY += Gravity * Time.deltaTime * DataContainer.DefaultJumpValues.DownGravityMultiplier;
             else
                 _velocityY += Gravity * Time.deltaTime;
@@ -103,6 +127,9 @@ namespace AvatarController
 
         private bool CanJump()
         {
+            if (_grabbingLedge)
+                return true;
+
             if (_onGround)
                 return true;
 
@@ -120,6 +147,11 @@ namespace AvatarController
             _velocityY = GetVelocity();
             _jumped = true;
 
+            if (_grabbingLedge)
+            {
+                GetComponent<PlayerLedgeGrab>().LetGoLedge();
+            }
+
             #region DEBUG
 #if UNITY_EDITOR
             lastPos = transform.position;
@@ -127,6 +159,7 @@ namespace AvatarController
 #endif
             #endregion
         }
+
 
         private float GetVelocity()
         {
@@ -166,15 +199,9 @@ namespace AvatarController
 
         private void DrawHeight()
         {
-            GizmosUtilities.DrawSphereProperties sphereProperties =
-                new(GizmosUtilities.DrawSphereProperties.DefaultProperty)
-                {
-                    Radius = 0.3f
-                };
-
             Vector3 height = lastPos + Vector3.up * DataContainer.DefaultJumpValues.MaxHeight;
             Color color = Color.green;
-            GizmosUtilities.DrawSphere(height, color, sphereProperties,
+            GizmosUtilities.DrawSphere(height, color, 0.3f,
                                        DataContainer.DefaultJumpValues.DEBUG_drawHeight);
         }
 
@@ -203,6 +230,13 @@ namespace AvatarController
             //v = v0 + a * t
             //0 = vel + g * t --> t = vel / g
             float time = Mathf.Abs(GetVelocity() / Gravity);
+            //Seconde time Calculus
+            //x = x0 + a/2 * time? * time?
+            //time = mathf.sqrt((x - x0)*2/a);
+            //float secondTime = (0 - DataContainer.DefaultJumpValues.MaxHeight) * 2
+            //                   / (Gravity * DataContainer.DefaultJumpValues.DownGravityMultiplier);
+            //;
+            //secondTime = Mathf.Sqrt(Mathf.Abs(secondTime));
 
             GizmosUtilities.DrawCurveProperties curveProperties =
                 new(GizmosUtilities.DrawCurveProperties.DefaultValues)
@@ -227,9 +261,22 @@ namespace AvatarController
             Vector3 yPos = Vector3.zero;
 
             #region Y Axis
+            float accA = Gravity;
+            ////float accB = Gravity * DataContainer.DefaultJumpValues.DownGravityMultiplier;
             float vel = GetVelocity();
+            //v = v0 + a*t; 
+            //v = 0; v0 = vel; a = gravity;
+            //float timeWhen0 = Mathf.Abs(vel / accA);
+            float y;
+            //if (time <= timeWhen0)
+            y = lastPos.y + vel * time + accA / 2 * time * time;
+            //else
+            //{
+            //    float yPosVel0 = lastPos.y + vel * timeWhen0 + accA / 2 * timeWhen0 * timeWhen0;
+            //    float dt = (time - timeWhen0);
+            //    y = yPosVel0 + accB * dt * dt;
+            //}
 
-            float y = lastPos.y + vel * time + Gravity / 2 * time * time;
             yPos = new(0, y, 0);
             #endregion
 
