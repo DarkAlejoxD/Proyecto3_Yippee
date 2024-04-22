@@ -1,4 +1,3 @@
-using AvatarController;
 using AvatarController.Data;
 using UnityEngine;
 using static UtilsComplements.AsyncTimer;
@@ -6,7 +5,6 @@ using static UtilsComplements.AsyncTimer;
 namespace AvatarController
 {
     [RequireComponent(typeof(PlayerController), typeof(CharacterController))]
-
     public class PlayerDive : MonoBehaviour
     {
         #region Fields
@@ -106,7 +104,7 @@ namespace AvatarController
             //DEBUG
             _animator.SetBool("Dive", true);
             _animator.SetBool("Idle", false);
-            _characterController.height = 1;
+            _characterController.height = 1; //Put it in DataValues?
             //
         }
 
@@ -128,6 +126,7 @@ namespace AvatarController
                 _animator.SetBool("Dive", false);
                 _animator.SetBool("Idle", true);
                 _characterController.height = 2;
+                _velocity = Vector3.zero;
                 //
             }
 
