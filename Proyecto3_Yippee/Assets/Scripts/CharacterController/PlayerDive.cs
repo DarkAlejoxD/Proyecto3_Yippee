@@ -104,7 +104,7 @@ namespace AvatarController
             //DEBUG
             _animator.SetBool("Dive", true);
             _animator.SetBool("Idle", false);
-            _characterController.height = 1 * Data.DefOtherValues.ScaleMultiplicator;
+            _characterController.height = 1;
             //
         }
 
@@ -125,7 +125,7 @@ namespace AvatarController
                 //DEBUG
                 _animator.SetBool("Dive", false);
                 _animator.SetBool("Idle", true);
-                _characterController.height = 2 * Data.DefOtherValues.ScaleMultiplicator;
+                _characterController.height = 2;
                 //
             }
 
