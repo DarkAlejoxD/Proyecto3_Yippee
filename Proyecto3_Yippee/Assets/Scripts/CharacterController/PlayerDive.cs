@@ -1,4 +1,3 @@
-using AvatarController;
 using AvatarController.Data;
 using UnityEngine;
 using static UtilsComplements.AsyncTimer;
@@ -6,7 +5,6 @@ using static UtilsComplements.AsyncTimer;
 namespace AvatarController
 {
     [RequireComponent(typeof(PlayerController), typeof(CharacterController))]
-
     public class PlayerDive : MonoBehaviour
     {
         #region Fields

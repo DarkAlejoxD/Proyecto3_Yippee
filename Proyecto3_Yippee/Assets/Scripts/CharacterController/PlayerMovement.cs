@@ -32,6 +32,7 @@ namespace AvatarController
 
             _playerController.OnMovement += OnMovement;
             _playerController.OnSprint += OnSprint;
+            _velocity = Vector3.zero;
         }
 
         private void OnDisable()
