@@ -1,6 +1,7 @@
+using UnityEngine;
 using AvatarController;
 using AvatarController.Data;
-using UnityEngine;
+using AvatarController.PlayerFSM;
 using static UtilsComplements.AsyncTimer;
 
 namespace AvatarController
@@ -92,9 +93,8 @@ namespace AvatarController
             _playerMovement.enabled = false;
             _isDiving = true;
             PlayerStates lastState;
-            _playerController.RequestChangeState(PlayerStates.OnDive, out lastState);
-            if (lastState != PlayerStates.OnDive)
-                _lastState = lastState;
+            //_playerController.RequestChangeState(PlayerStates.OnDive, out lastState);
+
 
             _playerJump.StopVelocity();
             _canDive = false;
@@ -122,7 +122,7 @@ namespace AvatarController
                 _playerMovement.enabled = true;
                 _isDiving = false;
                 Debug.Log("Reach");
-                _playerController.RequestChangeState(_lastState);
+                //_playerController.RequestChangeState(_lastState);
 
                 //DEBUG
                 _animator.SetBool("Dive", false);

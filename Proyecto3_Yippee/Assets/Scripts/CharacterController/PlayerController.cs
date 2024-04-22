@@ -3,8 +3,7 @@ using UnityEngine;
 using AvatarController.Data;
 using InputController;
 using UtilsComplements;
-using System.Linq;
-using System.Collections.Generic;
+using AvatarController.PlayerFSM;
 
 namespace AvatarController
 {
@@ -36,7 +35,7 @@ namespace AvatarController
         public Action<bool> OnPoltergeistExit;
 
         private PlayerStates _currentState;
-        private Dictionary<PlayerStates, PlayerStateForFSM> _playerBrain;
+        //private Dictionary<PlayerStates, PlayerStateForFSM> _playerBrain;
 
         public PlayerData DataContainer => _dataContainer;
         public bool IsGrounded => _playerJump.IsGrounded;
@@ -53,18 +52,23 @@ namespace AvatarController
 
         private void Start()
         {
-            _playerBrain = new Dictionary<PlayerStates, PlayerStateForFSM>();
-            PlayerStateForFSM onGround = new(PlayerStates.OnGround, new PlayerStates[]
-            {
-                PlayerStates.OnPoltergeist,
-                PlayerStates.OnDive
-            });
-            PlayerStateForFSM onDive = new(PlayerStates.OnDive, PlayerStates.OnGround);
-            PlayerStateForFSM onPoltergeist = new(PlayerStates.OnPoltergeist, PlayerStates.OnGround);
+            FSMInit();
+        }
 
-            _playerBrain.Add(PlayerStates.OnGround, onGround);
-            _playerBrain.Add(PlayerStates.OnDive, onDive);
-            _playerBrain.Add(PlayerStates.OnPoltergeist, onPoltergeist);
+        private void FSMInit()
+        {
+            //_playerBrain = new Dictionary<PlayerStates, PlayerStateForFSM>();
+            //PlayerStateForFSM onGround = new(PlayerStates.OnGround, new PlayerStates[]
+            //{
+            //    PlayerStates.OnPoltergeist,
+            //    PlayerStates.OnDive
+            //});
+            //PlayerStateForFSM onDive = new(PlayerStates.OnDive, PlayerStates.OnGround);
+            //PlayerStateForFSM onPoltergeist = new(PlayerStates.OnPoltergeist, PlayerStates.OnGround);
+
+            //_playerBrain.Add(PlayerStates.OnGround, onGround);
+            //_playerBrain.Add(PlayerStates.OnDive, onDive);
+            //_playerBrain.Add(PlayerStates.OnPoltergeist, onPoltergeist);
         }
 
         private void OnEnable()
@@ -112,25 +116,6 @@ namespace AvatarController
         }
 
         #region Proto FSM
-        //Proto FSM, only used for the poltergeist, rewrtie the fsm and that
-        public void RequestChangeState(PlayerStates nextState)
-        {
-            var currentState = _playerBrain[_currentState];
-            if (_currentState == nextState)
-                return;
-            if (nextState == PlayerStates.OnPoltergeist)
-                OnPoltergeistEnter?.Invoke();
-
-            _currentState = currentState.RequestChangeState(nextState);
-        }
-
-        public void RequestChangeState(PlayerStates nextState, out PlayerStates lastState)
-        {
-            lastState = _currentState;
-            Debug.Log($"Reach {lastState} ");
-            RequestChangeState(nextState);
-        }
-
         public void RequestTeleport(Vector3 position)
         {
             EnablePushingMode(transform.forward);//hardcoded maybe?
@@ -164,53 +149,11 @@ namespace AvatarController
                         OnDive?.Invoke(inputs.CrounchDiveInput);
                         OnInteract?.Invoke(inputs.InteractInput);
                         OnGhostView?.Invoke(inputs.GhostViewInput);
-                        OnSprint?.Invoke(inputs.SprintInput);
+                        //OnSprint?.Invoke(inputs.SprintInput);
                     }
                     break;
             }
         }
         #endregion
-    }
-
-    public enum PlayerStates // Provisional
-    {
-        OnGround, // Default State
-        //OnJumping, to create the regulable jumpp
-        //OnAir,
-        OnDive,
-        OnPoltergeist
-    }
-
-    /// <summary>
-    /// Proto FSM
-    /// Lo hice yo y ya me está dando asco, después del proto lo reescribiré
-    /// </summary>
-    public class PlayerStateForFSM
-    {
-        public readonly PlayerStates SelfState;
-        public readonly PlayerStates[] NextStates;
-
-        public PlayerStateForFSM(PlayerStates selfState, PlayerStates[] nextStates)
-        {
-            SelfState = selfState;
-            NextStates = nextStates;
-        }
-
-        public PlayerStateForFSM(PlayerStates selfState, PlayerStates nextState)
-        {
-            SelfState = selfState;
-            NextStates = new PlayerStates[]
-            {
-                nextState
-            };
-        }
-
-        public PlayerStates RequestChangeState(PlayerStates nextState)
-        {
-            if (NextStates.Contains(nextState))
-                return nextState;
-            else
-                return SelfState;
-        }
     }
 }

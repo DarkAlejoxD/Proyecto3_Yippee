@@ -39,10 +39,7 @@ namespace InputController
             OnInputDetected?.Invoke(_inputValues);
         }
 
-        private void OnDestroy()
-        {
-            Instance.RemoveInstance();
-        }
+        private void OnDestroy() => Instance.RemoveInstance();
         #endregion
 
         #region Private Methods
