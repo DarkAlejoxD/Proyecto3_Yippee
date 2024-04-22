@@ -16,7 +16,7 @@ MonoBehaviour:
     _acceleration: 70
     _linearDecceleration: 50
     _minSpeedToMove: 2
-    _maxSpeed: 14
+    _maxSpeed: 8
     _rotationLerp: 0.25
     _canSprint: 1
     _sprintMaxSpeed: 14
@@ -69,15 +69,15 @@ MonoBehaviour:
     _maxAngularSpeed: 0
   _jumpValues:
     _minHeight: 0
-    _maxHeight: 4
+    _maxHeight: 2.4
     _timePressed: 0
     _timeToReachHeight: 0
     _coyoteTime: 0.4
     _gravityMultiplier: 3
     _downGravityMultiplier: 1.5
-    DEBUG_drawHeight: 1
-    DEBUG_drawCurve: 1
-    DEBUG_definitionOfJump: 10
+    DEBUG_drawHeight: 0
+    DEBUG_drawCurve: 0
+    DEBUG_definitionOfJump: 8
     DEBUG_forwardMovementPct: 1
     DEBUG_drawCoyote: 0
   _diveValues:
@@ -88,11 +88,12 @@ MonoBehaviour:
   _interactionValues:
     _interactionRange: 4
   _otherValues:
+    _scaleMultiplicator: 0.1
     _ghostViewCooldown: 0.3
     _ghostViewRadius: 61.7
-    DEBUG_ShowGhostRadius: 1
+    DEBUG_ShowGhostRadius: 0
     _poltergeistCooldown: 5
     _poltergeistRadius: 10
     _playerRadius: 2.25
     _speed: 5
-    DEBUG_DrawPoltergeistRadius: 1
+    DEBUG_DrawPoltergeistRadius: 0

@@ -164,7 +164,7 @@ namespace AvatarController
             {
                 motion = Vector3.zero;
             }
-            _characterController.Move(motion);
+            _characterController.Move(motion * Data.DefOtherValues.ScaleMultiplicator);
         }
 
         private void Deceleration()

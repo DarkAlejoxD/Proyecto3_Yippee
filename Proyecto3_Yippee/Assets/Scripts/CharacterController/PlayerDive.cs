@@ -104,7 +104,7 @@ namespace AvatarController
             //DEBUG
             _animator.SetBool("Dive", true);
             _animator.SetBool("Idle", false);
-            _characterController.height = 1; //Put it in DataValues?
+            _characterController.height = 1;
             //
         }
 
@@ -126,11 +126,11 @@ namespace AvatarController
                 _animator.SetBool("Dive", false);
                 _animator.SetBool("Idle", true);
                 _characterController.height = 2;
-                _velocity = Vector3.zero;
                 //
             }
 
-            _characterController.Move(_velocity * Time.deltaTime);
+            Vector3 motion = _velocity * Time.deltaTime * Data.DefOtherValues.ScaleMultiplicator;
+            _characterController.Move(motion);
         }
 
         private void CheckGrounded()
