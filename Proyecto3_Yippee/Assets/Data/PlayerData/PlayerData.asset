@@ -16,7 +16,7 @@ MonoBehaviour:
     _acceleration: 70
     _linearDecceleration: 50
     _minSpeedToMove: 2
-    _maxSpeed: 8
+    _maxSpeed: 14
     _rotationLerp: 0.25
     _canSprint: 1
     _sprintMaxSpeed: 14
@@ -69,7 +69,7 @@ MonoBehaviour:
     _maxAngularSpeed: 0
   _jumpValues:
     _minHeight: 0
-    _maxHeight: 2.4
+    _maxHeight: 4
     _timePressed: 0
     _timeToReachHeight: 0
     _coyoteTime: 0.4
