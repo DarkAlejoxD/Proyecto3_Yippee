@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace FSM
 {
@@ -12,42 +11,51 @@ namespace FSM
     {
         private Dictionary<TKey, TValue> _keyValuePairs;
         protected TValue _currentState;
+        protected TValue _lastState;
 
-        public FSM_Base()
+        #region FSM Logic
+        public FSM_Base(TKey rootKey, TValue rootState)
         {
-            _keyValuePairs = new Dictionary<TKey, TValue>();
             OnEnter();
+            _keyValuePairs = new Dictionary<TKey, TValue>();
+            _keyValuePairs.Add(rootKey, rootState);
+            _currentState = rootState;
+            _currentState.OnEnter();
         }
 
+        public virtual bool CanTransition() => true;
         public abstract void OnEnter();
-        public void OnStay()
-        {
-            throw new NotImplementedException();
-        }
+        public virtual void OnStay() => _currentState.OnStay();
         public abstract void OnExit();
+        #endregion
 
+        #region Public Methods
         public void AddState(TKey key, TValue value)
         {
             if (!_keyValuePairs.ContainsKey(key))
-            {
                 _keyValuePairs.Add(key, value);
-            }
+
             else
-            {
                 DEBUG_Warning("You are trying to add an existing key");
-            }
         }
 
-        public void ForceChange(TKey key)
+        public void ForceChange(TKey state)
         {
-            if (_keyValuePairs.ContainsKey(key))
-            {
+            if (_keyValuePairs.ContainsKey(state))
+                ChangeState(state);
 
-            }
             else
-            {
                 DEBUG_Warning("This key doesn't exist, remain in the same state");
-            }
+        }
+
+        #endregion
+
+        protected virtual void ChangeState(TKey state)
+        {
+            _currentState.OnExit();
+            _lastState = _currentState;
+            _currentState = _keyValuePairs[state];
+            _currentState.OnEnter();
         }
 
         protected static void DEBUG_Warning(string text)
@@ -56,7 +64,5 @@ namespace FSM
             UnityEngine.Debug.LogWarning(text);
 #endif
         }
-
-        public virtual bool CanTransition() => true;        
     }
 }

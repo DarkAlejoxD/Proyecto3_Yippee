@@ -9,6 +9,12 @@ namespace AvatarController.PlayerFSM
     public abstract class PlayerState : IState
     {
         public InputValue _inputs;
+        protected PlayerController _playerController;
+
+        public PlayerState(PlayerController playerController)
+        {
+            _playerController = playerController;
+        }
 
         public virtual bool CanTransition() => true;
         public abstract void OnEnter();
