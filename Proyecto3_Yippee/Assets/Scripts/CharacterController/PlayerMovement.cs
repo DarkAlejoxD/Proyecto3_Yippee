@@ -25,7 +25,7 @@ namespace AvatarController
 
         private void OnEnable()
         {
-            if( _playerController == null)
+            if (_playerController == null)
             {
                 _playerController = GetComponent<PlayerController>();
             }
@@ -95,7 +95,7 @@ namespace AvatarController
 
             if (!_grabbingLedge)
             {
-                forward  = CalculateForward();
+                forward = CalculateForward();
                 right = CalculateRight();
             }
             else
@@ -145,9 +145,9 @@ namespace AvatarController
         private void AcceleratedMovement(Vector3 movement)
         {
             Vector3 motion;
-            
+
             float maxSpeed = _maxSpeed;
-            if(_grabbingLedge) maxSpeed = Data.GrabbingLedgeMovement.MaxSpeed; //DEBUG
+            if (_grabbingLedge) maxSpeed = Data.GrabbingLedgeMovement.MaxSpeed; //DEBUG
 
 
 
@@ -163,7 +163,7 @@ namespace AvatarController
             {
                 motion = Vector3.zero;
             }
-            _characterController.Move(motion);
+            _characterController.Move(motion * Data.DefOtherValues.ScaleMultiplicator);
         }
 
         private void Deceleration()

@@ -88,7 +88,7 @@ namespace AvatarController
 
             float variation = _velocityY * Time.deltaTime;
 
-            CollisionFlags movement = _characterController.Move(new Vector3(0, variation, 0));
+            CollisionFlags movement = _characterController.Move(new Vector3(0, variation, 0) * DataContainer.DefOtherValues.ScaleMultiplicator);
 
             if (movement == (CollisionFlags.Above))
             {
@@ -199,7 +199,7 @@ namespace AvatarController
 
         private void DrawHeight()
         {
-            Vector3 height = lastPos + Vector3.up * DataContainer.DefaultJumpValues.MaxHeight;
+            Vector3 height = lastPos + Vector3.up * DataContainer.DefaultJumpValues.MaxHeight * DataContainer.DefOtherValues.ScaleMultiplicator;
             Color color = Color.green;
             GizmosUtilities.DrawSphere(height, color, 0.3f,
                                        DataContainer.DefaultJumpValues.DEBUG_drawHeight);
@@ -269,7 +269,8 @@ namespace AvatarController
             //float timeWhen0 = Mathf.Abs(vel / accA);
             float y;
             //if (time <= timeWhen0)
-            y = lastPos.y + vel * time + accA / 2 * time * time;
+            y = lastPos.y + vel * DataContainer.DefOtherValues.ScaleMultiplicator * time +
+                accA * DataContainer.DefOtherValues.ScaleMultiplicator / 2 * time * time;
             //else
             //{
             //    float yPosVel0 = lastPos.y + vel * timeWhen0 + accA / 2 * timeWhen0 * timeWhen0;
@@ -282,7 +283,8 @@ namespace AvatarController
 
             #region XY Axis
             float speed = DataContainer.DefaultMovement.MaxSpeed *
-                          DataContainer.DefaultJumpValues.DEBUG_forwardMovementPct;
+                          DataContainer.DefaultJumpValues.DEBUG_forwardMovementPct *
+                          DataContainer.DefOtherValues.ScaleMultiplicator;
 
             Vector3 direction = lastDir;
             Vector3 pos = lastPos;
