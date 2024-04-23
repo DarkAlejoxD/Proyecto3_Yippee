@@ -1,5 +1,5 @@
 ﻿using FSM;
-using UnityEngine.InputSystem;
+using InputController;
 
 namespace AvatarController.PlayerFSM
 {
@@ -8,7 +8,7 @@ namespace AvatarController.PlayerFSM
     /// </summary>
     public abstract class PlayerState : IState
     {
-        public InputValue _inputs;
+        public InputValues _inputs;
         protected PlayerController _playerController;
 
         public abstract string Name { get; }
@@ -18,11 +18,11 @@ namespace AvatarController.PlayerFSM
             _playerController = playerController;
         }
 
-        public virtual bool CanTransition() => true;
-        public abstract void OnEnter();
-        public void ReadInputs(InputValue inputs) => _inputs = inputs;
+        public virtual bool CanAutoTransition() => true;
+        public virtual void OnEnter() { }
+        public void ReadInputs(InputValues inputs) => _inputs = inputs;
         public void OnStay() => OnPlayerStay(_inputs);
-        public abstract void OnPlayerStay(InputValue inputs);
-        public abstract void OnExit();
+        public abstract void OnPlayerStay(InputValues inputs);
+        public virtual void OnExit() { }
     }
 }

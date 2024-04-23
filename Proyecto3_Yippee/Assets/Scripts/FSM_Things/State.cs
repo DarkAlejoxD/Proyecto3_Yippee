@@ -10,7 +10,7 @@ namespace FSM
         void OnExit();
         void OnStay();
 
-        bool CanTransition();
+        bool CanAutoTransition();
     }
 
     public class State : IState
@@ -33,7 +33,7 @@ namespace FSM
             NAME = name;
         }
 
-        public virtual bool CanTransition() => true;
+        public virtual bool CanAutoTransition() => true;
 
         public void OnEnter() => OnEnterDelegate?.Invoke();
 

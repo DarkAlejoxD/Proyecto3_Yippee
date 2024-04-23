@@ -23,7 +23,6 @@ namespace AvatarController
         private bool _isGrounded;
         private bool _canDive;
 
-        private PlayerStates _lastState = PlayerStates.OnGround;
         private PlayerData Data => _playerController.DataContainer;
         #endregion
 
@@ -61,16 +60,7 @@ namespace AvatarController
                 DivingMovement();
                 CheckGrounded();
             }
-
         }
-        #endregion
-
-        #region Static Methods
-
-        #endregion
-
-        #region Public Methods
-
         #endregion
 
         #region Private Methods
@@ -92,9 +82,6 @@ namespace AvatarController
             _velocity = forward * Data.DefaultDiveValues.StartingSpeed;
             _playerMovement.enabled = false;
             _isDiving = true;
-            PlayerStates lastState;
-            //_playerController.RequestChangeState(PlayerStates.OnDive, out lastState);
-
 
             _playerJump.StopVelocity();
             _canDive = false;
@@ -122,7 +109,6 @@ namespace AvatarController
                 _playerMovement.enabled = true;
                 _isDiving = false;
                 Debug.Log("Reach");
-                //_playerController.RequestChangeState(_lastState);
 
                 //DEBUG
                 _animator.SetBool("Dive", false);

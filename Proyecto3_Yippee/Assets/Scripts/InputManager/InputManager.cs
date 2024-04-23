@@ -6,10 +6,10 @@ namespace InputController
 {
     public class InputManager : MonoBehaviour, ISingleton<InputManager>
     {
+        public Action<InputValues> OnInputDetected;
+
         private PlayerMap _playerMap;
         private InputValues _inputValues;
-
-        public Action<InputValues> OnInputDetected;
 
         public ISingleton<InputManager> Instance => this;
 

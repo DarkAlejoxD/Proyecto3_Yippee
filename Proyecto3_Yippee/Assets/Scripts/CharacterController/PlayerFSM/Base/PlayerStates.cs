@@ -2,9 +2,12 @@
 {
     public enum PlayerStates
     {
-        OnPoltergeist,
-        OnDive,
         OnGround,
-        OnAir
+        Jumping,
+        OnAir,
+        OnDive,
+
+        Pushing,
+        OnPoltergeist
     }
 }

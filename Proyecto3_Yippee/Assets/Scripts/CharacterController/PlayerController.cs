@@ -1,30 +1,22 @@
 using System;
 using UnityEngine;
 using AvatarController.Data;
+using AvatarController.PlayerFSM;
 using InputController;
 using UtilsComplements;
-using AvatarController.PlayerFSM;
 
 namespace AvatarController
 {
-    [RequireComponent(typeof(InputManager), typeof(CharacterController))] //Add this if necessary, delete it otherwise
+    [RequireComponent(typeof(InputManager), typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
-        //Backlog: FSM or something that show every state and every action this state can be predecessor.????
-
-        //TODO: 
         #region Fields
         [Header("Data")]
         [SerializeField] private PlayerData _dataContainer;
         private CharacterController _characterController;
 
-        public bool isPushing = false;
-        private PlayerMovement _playerMovement;
-        private PlayerJump _playerJump;
-        private PlayerDive _playerDive;
-        #endregion
-
-        public Action<Vector2> OnMovement; //Vector2 --> direction
+        [Header("Delegates")]
+        public Action<Vector2> OnMovement;
         public Action<bool> OnJump;
         public Action<bool> OnDive;
         public Action<bool> OnInteract;
@@ -34,8 +26,15 @@ namespace AvatarController
         public Action<Vector2, float> OnPoltergeistStay;
         public Action<bool> OnPoltergeistExit;
 
-        private PlayerStates _currentState;
-        //private Dictionary<PlayerStates, PlayerStateForFSM> _playerBrain;
+        [Header("Random Attributes")]
+        public bool isPushing = false;
+        private PlayerMovement _playerMovement;
+        private PlayerJump _playerJump;
+        private PlayerDive _playerDive;
+
+        [Header("FSM")]
+        private FSM_Player _playerFSM;
+        #endregion
 
         public PlayerData DataContainer => _dataContainer;
         public bool IsGrounded => _playerJump.IsGrounded;
@@ -48,28 +47,9 @@ namespace AvatarController
             _playerJump = GetComponent<PlayerJump>();
             _characterController = GetComponent<CharacterController>();
             _playerDive = GetComponent<PlayerDive>();
-        }
 
-        private void Start()
-        {
             FSMInit();
-        }
-
-        private void FSMInit()
-        {
-            //_playerBrain = new Dictionary<PlayerStates, PlayerStateForFSM>();
-            //PlayerStateForFSM onGround = new(PlayerStates.OnGround, new PlayerStates[]
-            //{
-            //    PlayerStates.OnPoltergeist,
-            //    PlayerStates.OnDive
-            //});
-            //PlayerStateForFSM onDive = new(PlayerStates.OnDive, PlayerStates.OnGround);
-            //PlayerStateForFSM onPoltergeist = new(PlayerStates.OnPoltergeist, PlayerStates.OnGround);
-
-            //_playerBrain.Add(PlayerStates.OnGround, onGround);
-            //_playerBrain.Add(PlayerStates.OnDive, onDive);
-            //_playerBrain.Add(PlayerStates.OnPoltergeist, onPoltergeist);
-        }
+        }        
 
         private void OnEnable()
         {
@@ -77,8 +57,6 @@ namespace AvatarController
                 return;
 
             inputManager.OnInputDetected += OnGetInputs;
-
-            //OnInspect += (bool a) => { if(a)Debug.Log("Inspect"); };
         }
 
         private void OnDisable()
@@ -91,9 +69,7 @@ namespace AvatarController
         #endregion
 
         #region Public Methods
-
-        //For PROTO, change when FSM
-        public void EnablePushingMode(Vector3 dir)
+        public void BlockMovement(Vector3 dir)
         {
             _characterController.enabled = false;
             _playerDive.enabled = false;
@@ -105,7 +81,7 @@ namespace AvatarController
             _playerMovement.enabled = false;
         }
 
-        public void DisablePushingMode()
+        public void UnBlockMovement()
         {
             _characterController.enabled = true;
             _playerDive.enabled = true;
@@ -115,44 +91,55 @@ namespace AvatarController
 
         }
 
-        #region Proto FSM
         public void RequestTeleport(Vector3 position)
         {
-            EnablePushingMode(transform.forward);//hardcoded maybe?
+            BlockMovement(transform.forward);
             transform.position = position;
-            DisablePushingMode();
+            UnBlockMovement();
         }
-        #endregion
 
         #endregion
 
         #region Private Methods
+        private void FSMInit()
+        {
+            _playerFSM = new();
+
+            _playerFSM.SetRoot(PlayerStates.OnGround, new PlayerState_DefaultMovement(this));
+
+            _playerFSM.OnEnter();
+        }
+
         private void OnGetInputs(InputValues inputs) //TODO: Separate States
         {
-            switch (_currentState)
-            {
-                case PlayerStates.OnPoltergeist:
-                    {
-                        float upDown = 0;
-                        if (inputs.JumpInput) upDown += 1;
-                        if (inputs.CrounchDiveInput) upDown -= 1;
-                        OnPoltergeistStay?.Invoke(inputs.MoveInput, upDown);
-                        OnPoltergeistExit?.Invoke(inputs.CancelInput);
-                    }
-                    break;
-                case PlayerStates.OnDive:
-                    break;
-                default:
-                    {
-                        OnMovement?.Invoke(inputs.MoveInput);
-                        OnJump?.Invoke(inputs.JumpInput);
-                        OnDive?.Invoke(inputs.CrounchDiveInput);
-                        OnInteract?.Invoke(inputs.InteractInput);
-                        OnGhostView?.Invoke(inputs.GhostViewInput);
-                        //OnSprint?.Invoke(inputs.SprintInput);
-                    }
-                    break;
-            }
+            _playerFSM.StayPlayer(inputs);
+
+            #region OLD
+            //switch (_currentState)
+            //{
+            //    case PlayerStates.OnPoltergeist:
+            //        {
+            //            float upDown = 0;
+            //            if (inputs.JumpInput) upDown += 1;
+            //            if (inputs.CrounchDiveInput) upDown -= 1;
+            //            OnPoltergeistStay?.Invoke(inputs.MoveInput, upDown);
+            //            OnPoltergeistExit?.Invoke(inputs.CancelInput);
+            //        }
+            //        break;
+            //    case PlayerStates.OnDive:
+            //        break;
+            //    default:
+            //        {
+            //            OnMovement?.Invoke(inputs.MoveInput);
+            //            OnJump?.Invoke(inputs.JumpInput);
+            //            OnDive?.Invoke(inputs.CrounchDiveInput);
+            //            OnInteract?.Invoke(inputs.InteractInput);
+            //            OnGhostView?.Invoke(inputs.GhostViewInput);
+            //            //OnSprint?.Invoke(inputs.SprintInput);
+            //        }
+            //        break;
+            //}
+            #endregion
         }
         #endregion
     }

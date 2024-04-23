@@ -9,6 +9,7 @@ namespace FSM
     /// <typeparam name="IState"></typeparam>
     public class FSM_Base<TKey, TValue> : IState where TValue : IState
     {
+        //TODO: Test it
         private struct AutoTransition
         {
             public Transition TransitionTo;
@@ -50,9 +51,9 @@ namespace FSM
             NAME = name;
         }
 
-        private IState this[TKey key] => _keyStatePair[key];
+        protected TValue this[TKey key] => _keyStatePair[key];
 
-        public virtual bool CanTransition() => true;
+        public virtual bool CanAutoTransition() => true;
         public virtual void OnEnter()
         { }
         public virtual void OnStay()
@@ -125,7 +126,7 @@ namespace FSM
                 return;
             }
 
-            if (!this[_currentState].CanTransition())
+            if (!this[_currentState].CanAutoTransition())
                 return;
 
             ChangeState(state);
@@ -158,7 +159,7 @@ namespace FSM
                 return;
             }
 
-            if (!this[_currentState].CanTransition())
+            if (!this[_currentState].CanAutoTransition())
                 return;
 
             var list = _autoTransitions[_currentState];

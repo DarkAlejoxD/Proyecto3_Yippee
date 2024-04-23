@@ -1,4 +1,4 @@
-﻿using UnityEngine.InputSystem;
+﻿using InputController;
 
 namespace AvatarController.PlayerFSM
 {
@@ -15,17 +15,18 @@ namespace AvatarController.PlayerFSM
 
         public override void OnEnter()
         {
-            throw new System.NotImplementedException();
+            _playerController.UnBlockMovement();
+            //If necessary change the playerMovementData
         }
 
-        public override void OnPlayerStay(InputValue inputs)
+        public override void OnPlayerStay(InputValues inputs)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public override void OnExit()
-        {
-            throw new System.NotImplementedException();
+            _playerController.OnMovement?.Invoke(inputs.MoveInput);
+            _playerController.OnJump?.Invoke(inputs.JumpInput);
+            _playerController.OnDive?.Invoke(inputs.CrounchDiveInput);
+            _playerController.OnInteract?.Invoke(inputs.InteractInput);
+            _playerController.OnGhostView?.Invoke(inputs.GhostViewInput);
+            //OnSprint?.Invoke(inputs.SprintInput);
         }
     }
 }
