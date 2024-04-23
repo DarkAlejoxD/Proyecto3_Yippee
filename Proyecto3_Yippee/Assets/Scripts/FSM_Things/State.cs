@@ -61,6 +61,4 @@ namespace FSM
             OnEndAction = onEndAction;
         }
     }
-
-
 }

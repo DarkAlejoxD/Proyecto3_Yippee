@@ -1,19 +1,24 @@
 using System;
 using UnityEngine;
-using AvatarController.Data;
-using AvatarController.PlayerFSM;
 using InputController;
 using UtilsComplements;
+using AvatarController.Data;
+using AvatarController.PlayerFSM;
+using FSM;
 
 namespace AvatarController
 {
     [RequireComponent(typeof(InputManager), typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
+        //TODO: Make this class control VelocityXY
+        //TODO: Make this class control Gravity and VelocityY
         #region Fields
         [Header("Data")]
         [SerializeField] private PlayerData _dataContainer;
         private CharacterController _characterController;
+
+        public PlayerData DataContainer => _dataContainer;
 
         [Header("Delegates")]
         public Action<Vector2> OnMovement;
@@ -27,29 +32,41 @@ namespace AvatarController
         public Action<bool> OnPoltergeistExit;
 
         [Header("Random Attributes")]
-        public bool isPushing = false;
-        private PlayerMovement _playerMovement;
+        //public bool isPushing = false;
+        //private PlayerMovement _playerMovement;
         private PlayerJump _playerJump;
-        private PlayerDive _playerDive;
+        //private PlayerDive _playerDive;
+
+        //public bool IsGrounded => _playerJump.IsGrounded;
+
+        [Header("Velocity Attributes")]
+        internal Vector3 Velocity;
+        internal float VelocityY;
+        private bool _useGravity;
+
+        internal float Gravity => Physics.gravity.y * DataContainer.DefaultJumpValues.GravityMultiplier;
 
         [Header("FSM")]
         private FSM_Player _playerFSM;
-        #endregion
 
-        public PlayerData DataContainer => _dataContainer;
-        public bool IsGrounded => _playerJump.IsGrounded;
+        public PlayerStates CurrentState => _playerFSM.CurrentState;
+
+        [Header("DEBUG")]
+        [SerializeField] TMPro.TMP_Text DEBUG_TextTest;
+        #endregion
 
         #region Unity Logic
         private void Awake()
         {
             GameManager.GetGameManager().SetPlayerInstance(this);
-            _playerMovement = GetComponent<PlayerMovement>();
-            _playerJump = GetComponent<PlayerJump>();
             _characterController = GetComponent<CharacterController>();
-            _playerDive = GetComponent<PlayerDive>();
+
+            _playerJump = GetComponent<PlayerJump>();
+            //_playerMovement = GetComponent<PlayerMovement>();
+            //_playerDive = GetComponent<PlayerDive>();
 
             FSMInit();
-        }        
+        }
 
         private void OnEnable()
         {
@@ -66,38 +83,70 @@ namespace AvatarController
 
             inputManager.OnInputDetected -= OnGetInputs;
         }
+
+        private void Start()
+        {
+            Velocity = Vector3.zero;
+            VelocityY = 0;
+            if (DEBUG_TextTest)
+                DEBUG_TextTest.text = "";
+        }
+
+        private void Update()
+        {
+#if UNITY_EDITOR
+            if (!DEBUG_TextTest)
+                return;
+            if (!_playerFSM.Equals(null))
+                DEBUG_TextTest.text = "Current State: " + _playerFSM.CurrentState.ToString();
+#endif
+        }
         #endregion
 
         #region Public Methods
+        public void BlockMovement() => _characterController.enabled = false;
+
+        public void UnBlockMovement() => _characterController.enabled = true;
+
+        /// <summary></summary>
+        /// <param name="dir"> the direction the player should look at when block</param>
         public void BlockMovement(Vector3 dir)
         {
-            _characterController.enabled = false;
-            _playerDive.enabled = false;
-            _playerJump.enabled = false;
+            BlockMovement();
 
             Quaternion desiredRotation = Quaternion.LookRotation(dir);
             transform.rotation = desiredRotation;
-            _playerMovement.StopVelocity();
-            _playerMovement.enabled = false;
-        }
-
-        public void UnBlockMovement()
-        {
-            _characterController.enabled = true;
-            _playerDive.enabled = true;
-            _playerJump.enabled = true;
-            _playerMovement.enabled = true;
-            _playerMovement.StopVelocity();
-
         }
 
         public void RequestTeleport(Vector3 position)
         {
-            BlockMovement(transform.forward);
+            BlockMovement();
+            StopVelocity();
+            StopFalling();
             transform.position = position;
             UnBlockMovement();
         }
 
+        public void RequestTeleport(Vector3 position, Vector3 forward)
+        {
+            BlockMovement(forward);
+            StopVelocity();
+            StopFalling();
+            transform.position = position;
+            UnBlockMovement();
+        }
+
+        public void StopVelocity() => Velocity = Vector3.zero;
+
+        public void StopFalling() => VelocityY = 0;
+
+        public void SetGravityActive(bool state) => _useGravity = state;
+
+        public void ForceChangeState(PlayerStates state) => _playerFSM.ForceChange(state);
+
+        public void RequestChangeState(PlayerStates state) => _playerFSM.RequestChange(state);
+
+        public void ReturnState() => _playerFSM.ReturnLastState();
         #endregion
 
         #region Private Methods
@@ -106,6 +155,23 @@ namespace AvatarController
             _playerFSM = new();
 
             _playerFSM.SetRoot(PlayerStates.OnGround, new PlayerState_DefaultMovement(this));
+            _playerFSM.AddState(PlayerStates.OnAir, new PlayerState_OnAir(this));
+
+            Transition toAir = new Transition(() =>
+            {
+                return !_playerJump.CanJump();
+            });
+
+            Transition grounded = new Transition(() =>
+            {
+                return _playerJump.IsGrounded;
+            });
+
+            _playerFSM.AddAutoTransition(PlayerStates.OnGround, toAir, PlayerStates.OnAir);
+            _playerFSM.AddAutoTransition(PlayerStates.OnAir, grounded, PlayerStates.OnGround);
+
+            //Manual Transitions should be named here:
+            // - When grab a GrabLedge and LetGoLedge
 
             _playerFSM.OnEnter();
         }

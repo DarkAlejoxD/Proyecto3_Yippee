@@ -125,7 +125,7 @@ namespace AvatarController
             Jump();
         }
 
-        private bool CanJump()
+        internal bool CanJump()
         {
             if (_grabbingLedge)
                 return true;

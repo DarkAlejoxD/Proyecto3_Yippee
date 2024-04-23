@@ -3,10 +3,11 @@
 namespace FSM
 {
     /// <summary>
-    /// WIP
+    /// Base to easy create FSM
+    /// Maybe can be optimized
     /// </summary>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="IState"></typeparam>
+    /// <typeparam name="TKey">Key, probably you can use any type as key</typeparam>
+    /// <typeparam name="TValue">The value you wanna save and implement IState, you can use IState as TValue or use the FSM_Default Class</typeparam>
     public class FSM_Base<TKey, TValue> : IState where TValue : IState
     {
         //TODO: Test it
@@ -32,8 +33,8 @@ namespace FSM
         private readonly string NAME;
 
         public string Name => NAME;
-        public IState CurrentState => _keyStatePair[_currentState];
-        public IState LastState => _keyStatePair[_lastState];
+        public TKey CurrentState => _currentState;
+        public TKey LastState => _lastState;
 
         #region FSM Logic
         public FSM_Base(string name = "Default FSM")
@@ -54,16 +55,14 @@ namespace FSM
         protected TValue this[TKey key] => _keyStatePair[key];
 
         public virtual bool CanAutoTransition() => true;
-        public virtual void OnEnter()
-        { }
+        public virtual void OnEnter() => this[_currentState].OnEnter();
         public virtual void OnStay()
         {
             this[_currentState].OnStay();
             TransitionsUpdate();
         }
 
-        public virtual void OnExit()
-        { }
+        public virtual void OnExit() => this[_currentState].OnExit();
         #endregion
 
         #region Public Methods
@@ -109,6 +108,10 @@ namespace FSM
             this[_currentState].OnEnter();
         }
 
+        /// <summary>
+        /// Use this if you don't care if the current state is currently doing something
+        /// </summary>
+        /// <param name="state"></param>
         public void ForceChange(TKey state)
         {
             if (_keyStatePair.ContainsKey(state))
@@ -118,6 +121,10 @@ namespace FSM
                 DEBUG_Warning("This key doesn't exist, remain in the same state");
         }
 
+        /// <summary>
+        /// Use this if you do care if the current state is currently doing smthgh
+        /// </summary>
+        /// <param name="state"></param>
         public void RequestChange(TKey state)
         {
             if (!_keyStatePair.ContainsKey(state))
@@ -131,9 +138,18 @@ namespace FSM
 
             ChangeState(state);
         }
+
+        public void ReturnLastState()
+        {
+            TKey handler = _currentState;
+            this[_currentState].OnExit();
+            _currentState = _lastState;
+            _lastState = handler;
+            this[_currentState].OnEnter();
+        }
         #endregion
 
-        protected virtual void ChangeState(TKey state)
+        protected void ChangeState(TKey state)
         {
             if (state.Equals(_currentState))
             {
@@ -146,7 +162,7 @@ namespace FSM
             _currentState = state;
             this[_currentState].OnEnter();
             _autoTransition = true;
-        }
+        }        
 
         protected void TransitionsUpdate()
         {
@@ -182,5 +198,13 @@ namespace FSM
             UnityEngine.Debug.LogWarning(text);
 #endif
         }
+    }
+
+    /// <summary>
+    /// Shortcut to the FSM_Base where the state is the base state
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
+    public class FSM_Default<TKey> : FSM_Base<TKey, IState>
+    {
     }
 }
