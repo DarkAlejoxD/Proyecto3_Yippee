@@ -16,20 +16,20 @@ namespace AvatarController
         private PlayerController _controller;
         private CharacterController _characterController;
 
-        [Header("Control")]
-        private float _velocityY;
-        private bool _onGround;
+        [Header("Control")]        
         private float _lastTimeInGround;
         private bool _jumped;
-        private bool _useGravity = true;
         private bool _grabbingLedge;
 
         private PlayerData DataContainer => _controller.DataContainer;
-        private float Gravity => Physics.gravity.y * DataContainer.DefaultJumpValues.GravityMultiplier;
-
-        public bool IsGrounded => _onGround;
-        public bool IsFailling => _velocityY < 0;
-
+        private float VelocityY
+        {
+            get => _controller.VelocityY;
+            set => _controller.VelocityY = value;
+        }
+        private float Gravity => _controller.Gravity;
+        public bool IsGrounded => _controller.OnGround;
+        public bool IsFailling => VelocityY < 0;
         #endregion
 
         #region Unity Logic
@@ -53,67 +53,25 @@ namespace AvatarController
 
             _controller.OnJump -= OnJump;
         }
+
         private void Update()
         {
-            UpdateVy();
+            if (IsGrounded)
+            {
+                _lastTimeInGround = Time.time;
+                _jumped = false;
+            }
         }
         #endregion
 
         #region Public Methods
-        public void StopVelocity()
+        public void SetLedgeGrab(bool value)
         {
-            _velocityY = 0;
-        }
-
-        public void StopGravity()
-        {
-            StopVelocity();
-            _useGravity = false;
-        }
-        public void EnableGravity()
-        {
-            _useGravity = true;
-        }
-
-        public void SetLedgeGrab(bool b)
-        {
-            _grabbingLedge = b;
+            _grabbingLedge = value;
         }
         #endregion
 
         #region Private Methods
-        private void UpdateVy()
-        {
-            if (!_useGravity) return;
-
-            float variation = _velocityY * Time.deltaTime;
-
-            CollisionFlags movement = _characterController.Move(new Vector3(0, variation, 0));
-
-            if (movement == (CollisionFlags.Above))
-            {
-                _velocityY = 0;
-            }
-
-            if (movement == CollisionFlags.Below)
-            {
-                _onGround = true;
-                _lastTimeInGround = Time.time;
-                _jumped = false;
-                _velocityY = 0;
-            }
-            else
-            {
-                _onGround = false;
-            }
-
-            if (_velocityY < 0)
-                _velocityY += Gravity * Time.deltaTime * DataContainer.DefaultJumpValues.DownGravityMultiplier;
-            else
-                _velocityY += Gravity * Time.deltaTime;
-
-        }
-
         private void OnJump(bool active)
         {
             if (!active)
@@ -130,7 +88,7 @@ namespace AvatarController
             if (_grabbingLedge)
                 return true;
 
-            if (_onGround)
+            if (IsGrounded)
                 return true;
 
             if (_jumped)
@@ -144,7 +102,7 @@ namespace AvatarController
 
         private void Jump()
         {
-            _velocityY = GetVelocity();
+            VelocityY = GetVelocity();
             _jumped = true;
 
             if (_grabbingLedge)

@@ -13,8 +13,6 @@ namespace AvatarController
         #region Fields
         private PlayerController _playerController;
         private CharacterController _characterController;
-        private PlayerMovement _playerMovement;
-        private PlayerJump _playerJump;
         private Animator _animator;
 
         private Vector3 _velocity;
@@ -31,19 +29,15 @@ namespace AvatarController
         {
             _playerController = GetComponent<PlayerController>();
             _characterController = GetComponent<CharacterController>();
-            _playerMovement = GetComponent<PlayerMovement>();
             _animator = GetComponent<Animator>();
-            _playerJump = GetComponent<PlayerJump>();
 
             _canDive = true;
         }
 
         private void OnEnable()
         {
-            if (_playerController == null)
-            {
-                _playerController = GetComponent<PlayerController>();
-            }
+            if (_playerController == null)            
+                _playerController = GetComponent<PlayerController>();            
 
             _playerController.OnDive += OnDive;
         }
@@ -80,10 +74,9 @@ namespace AvatarController
             forward.Normalize();
 
             _velocity = forward * Data.DefaultDiveValues.StartingSpeed;
-            _playerMovement.enabled = false;
             _isDiving = true;
 
-            _playerJump.StopVelocity();
+            _playerController.StopVelocity();
             _canDive = false;
             StartCoroutine(TimerCoroutine(Data.DefaultDiveValues.Cooldown, () =>
             {
@@ -106,7 +99,6 @@ namespace AvatarController
 
             if (_velocity.magnitude < 0.1f)
             {
-                _playerMovement.enabled = true;
                 _isDiving = false;
                 Debug.Log("Reach");
 
@@ -120,10 +112,7 @@ namespace AvatarController
             _characterController.Move(_velocity * Time.deltaTime);
         }
 
-        private void CheckGrounded()
-        {
-            _isGrounded = _characterController.isGrounded;
-        }
+        private void CheckGrounded() => _isGrounded = _characterController.isGrounded;
 
         #endregion
     }

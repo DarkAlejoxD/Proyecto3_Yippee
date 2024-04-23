@@ -28,6 +28,7 @@ namespace AvatarController.LedgeGrabbing
         private bool _grabbingLedge;
 
         private PlayerJump _jumpController;
+        private PlayerController _playerController;
 
         public bool GrabingLedge => _grabbingLedge;
 
@@ -40,6 +41,7 @@ namespace AvatarController.LedgeGrabbing
         private void Awake()
         {
             _jumpController = GetComponent<PlayerJump>();
+            _playerController = GetComponent<PlayerController>();
         }
 
 
@@ -127,10 +129,10 @@ namespace AvatarController.LedgeGrabbing
 
         private void GrabLedge()
         {
-            _jumpController.StopGravity();
+            _playerController.SetGravityActive(false);
             _jumpController.SetLedgeGrab(true);
             GetComponent<PlayerMovement>().SetGrabbingLedgeMode(_hitInfo.normal);
-            GetComponent<PlayerController>().ForceChangeState(PlayerStates.Grabbing);
+            _playerController.ForceChangeState(PlayerStates.Grabbing);
             _grabbingLedge = true;
 
         }
@@ -138,8 +140,8 @@ namespace AvatarController.LedgeGrabbing
         public void LetGoLedge()
         {
             GetComponent<PlayerMovement>().DisableGrabbingLedgeMode();
-            GetComponent<PlayerController>().ReturnState();
-            _jumpController.EnableGravity();
+            _playerController.ReturnState();
+            _playerController.SetGravityActive(true);
             _jumpController.SetLedgeGrab(false);
             _ledgeDetected = false;
             _grabbingLedge = false;

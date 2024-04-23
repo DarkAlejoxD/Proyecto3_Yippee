@@ -12,7 +12,6 @@ namespace AvatarController
     public class PlayerController : MonoBehaviour
     {
         //TODO: Make this class control VelocityXY
-        //TODO: Make this class control Gravity and VelocityY
         #region Fields
         [Header("Data")]
         [SerializeField] private PlayerData _dataContainer;
@@ -43,6 +42,7 @@ namespace AvatarController
         internal Vector3 Velocity;
         internal float VelocityY;
         private bool _useGravity;
+        internal bool OnGround;
 
         internal float Gravity => Physics.gravity.y * DataContainer.DefaultJumpValues.GravityMultiplier;
 
@@ -100,6 +100,7 @@ namespace AvatarController
             if (!_playerFSM.Equals(null))
                 DEBUG_TextTest.text = "Current State: " + _playerFSM.CurrentState.ToString();
 #endif
+            UpdateVy();
         }
         #endregion
 
@@ -140,7 +141,11 @@ namespace AvatarController
 
         public void StopFalling() => VelocityY = 0;
 
-        public void SetGravityActive(bool state) => _useGravity = state;
+        public void SetGravityActive(bool state)
+        {
+            _useGravity = state;
+            if (!state) StopVelocity();
+        }
 
         public void ForceChangeState(PlayerStates state) => _playerFSM.ForceChange(state);
 
@@ -156,6 +161,7 @@ namespace AvatarController
 
             _playerFSM.SetRoot(PlayerStates.OnGround, new PlayerState_DefaultMovement(this));
             _playerFSM.AddState(PlayerStates.OnAir, new PlayerState_OnAir(this));
+            _playerFSM.AddState(PlayerStates.Grabbing, new PlayerState_Grabbing(this));
 
             Transition toAir = new Transition(() =>
             {
@@ -164,7 +170,7 @@ namespace AvatarController
 
             Transition grounded = new Transition(() =>
             {
-                return _playerJump.IsGrounded;
+                return OnGround;
             });
 
             _playerFSM.AddAutoTransition(PlayerStates.OnGround, toAir, PlayerStates.OnAir);
@@ -206,6 +212,35 @@ namespace AvatarController
             //        break;
             //}
             #endregion
+        }
+
+        private void UpdateVy()
+        {
+            if (!_useGravity) return;
+
+            float variation = VelocityY * Time.deltaTime;
+
+            CollisionFlags movement = _characterController.Move(new Vector3(0, variation, 0));
+
+            if (movement == (CollisionFlags.Above))
+            {
+                VelocityY = 0;
+            }
+
+            if (movement == CollisionFlags.Below)
+            {
+                OnGround = true;                
+                VelocityY = 0;
+            }
+            else
+            {
+                OnGround = false;
+            }
+
+            if (VelocityY < 0)
+                VelocityY += Gravity * Time.deltaTime * DataContainer.DefaultJumpValues.DownGravityMultiplier;
+            else
+                VelocityY += Gravity * Time.deltaTime;
         }
         #endregion
     }
