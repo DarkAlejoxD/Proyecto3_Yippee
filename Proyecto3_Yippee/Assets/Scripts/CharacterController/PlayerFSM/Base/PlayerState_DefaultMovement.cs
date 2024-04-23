@@ -7,6 +7,8 @@ namespace AvatarController.PlayerFSM
     /// </summary>
     public class PlayerState_DefaultMovement : PlayerState
     {
+        public override string Name => "Default Movement";
+
         public PlayerState_DefaultMovement(PlayerController playerController) : base(playerController)
         {
         }

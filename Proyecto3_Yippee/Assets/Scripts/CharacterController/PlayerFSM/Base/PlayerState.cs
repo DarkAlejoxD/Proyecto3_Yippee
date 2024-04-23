@@ -11,6 +11,8 @@ namespace AvatarController.PlayerFSM
         public InputValue _inputs;
         protected PlayerController _playerController;
 
+        public abstract string Name { get; }
+
         public PlayerState(PlayerController playerController)
         {
             _playerController = playerController;
