@@ -16,7 +16,7 @@ namespace AvatarController
         private PlayerController _controller;
         private CharacterController _characterController;
 
-        [Header("Control")]        
+        [Header("Control")]
         private float _lastTimeInGround;
         private bool _jumped;
         private bool _grabbingLedge;
@@ -145,14 +145,14 @@ namespace AvatarController
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            if (_controller == null)
-            {
-                _controller = GetComponent<PlayerController>();
-            }
+            //if (_controller == null)
+            //{
+            //    _controller = GetComponent<PlayerController>();
+            //}
 
-            DrawHeight();
-            DrawCurve();
-            DrawCoyoteCurve();
+            //DrawHeight();
+            //DrawCurve();
+            //DrawCoyoteCurve();
         }
 
         private void DrawHeight()
