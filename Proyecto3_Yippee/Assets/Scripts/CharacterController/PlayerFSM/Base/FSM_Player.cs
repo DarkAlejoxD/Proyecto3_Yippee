@@ -10,6 +10,10 @@ namespace AvatarController.PlayerFSM
     public class FSM_Player : FSM_Base<PlayerStates, PlayerState>
     {
         //TODO: Test, and maybe write all the logic here?
+        public FSM_Player(string name = "FSM_Player") : base(name)
+        {
+        }
+
         public void StayPlayer(InputValues inputs)
         {
             this[_currentState].OnPlayerStay(inputs);

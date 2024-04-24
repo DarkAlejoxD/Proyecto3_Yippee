@@ -50,6 +50,7 @@ namespace AvatarController
         private FSM_Player _playerFSM;
 
         public PlayerStates CurrentState => _playerFSM.CurrentState;
+        public PlayerStates LastState => _playerFSM.LastState;
 
         [Header("DEBUG")]
         [SerializeField] TMPro.TMP_Text DEBUG_TextTest;
@@ -88,19 +89,21 @@ namespace AvatarController
         {
             Velocity = Vector3.zero;
             VelocityY = 0;
+            _useGravity = true;
             if (DEBUG_TextTest)
                 DEBUG_TextTest.text = "";
         }
 
         private void Update()
         {
+            UpdateVy();
+
 #if UNITY_EDITOR
             if (!DEBUG_TextTest)
                 return;
             if (!_playerFSM.Equals(null))
-                DEBUG_TextTest.text = "Current State: " + _playerFSM.CurrentState.ToString();
+                DEBUG_TextTest.text = "Current State: " + _playerFSM.Name;
 #endif
-            UpdateVy();
         }
         #endregion
 
@@ -162,6 +165,7 @@ namespace AvatarController
             _playerFSM.SetRoot(PlayerStates.OnGround, new PlayerState_DefaultMovement(this));
             _playerFSM.AddState(PlayerStates.OnAir, new PlayerState_OnAir(this));
             _playerFSM.AddState(PlayerStates.Grabbing, new PlayerState_Grabbing(this));
+            _playerFSM.AddState(PlayerStates.OnDive, new PlayerState_OnDive(this));
 
             Transition toAir = new Transition(() =>
             {
@@ -229,7 +233,7 @@ namespace AvatarController
 
             if (movement == CollisionFlags.Below)
             {
-                OnGround = true;                
+                OnGround = true;
                 VelocityY = 0;
             }
             else

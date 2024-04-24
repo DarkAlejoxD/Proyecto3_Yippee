@@ -32,7 +32,7 @@ namespace FSM
 
         private readonly string NAME;
 
-        public string Name => NAME;
+        public string Name => NAME + this[CurrentState].Name;
         public TKey CurrentState => _currentState;
         public TKey LastState => _lastState;
 
@@ -162,7 +162,7 @@ namespace FSM
             _currentState = state;
             this[_currentState].OnEnter();
             _autoTransition = true;
-        }        
+        }
 
         protected void TransitionsUpdate()
         {
@@ -203,7 +203,7 @@ namespace FSM
     /// <summary>
     /// Shortcut to the FSM_Base where the state is the base state
     /// </summary>
-    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TKey">The key value you wanna index your FSM</typeparam>
     public class FSM_Default<TKey> : FSM_Base<TKey, IState>
     {
     }

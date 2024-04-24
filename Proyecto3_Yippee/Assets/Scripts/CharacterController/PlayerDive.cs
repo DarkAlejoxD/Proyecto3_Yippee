@@ -13,11 +13,10 @@ namespace AvatarController
         #region Fields
         private PlayerController _playerController;
         private CharacterController _characterController;
-        private Animator _animator;
 
         private Vector3 _velocity;
 
-        private bool _isDiving;
+        public bool IsDiving { get; private set; }
         private bool _isGrounded;
         private bool _canDive;
 
@@ -29,15 +28,14 @@ namespace AvatarController
         {
             _playerController = GetComponent<PlayerController>();
             _characterController = GetComponent<CharacterController>();
-            _animator = GetComponent<Animator>();
 
             _canDive = true;
         }
 
         private void OnEnable()
         {
-            if (_playerController == null)            
-                _playerController = GetComponent<PlayerController>();            
+            if (_playerController == null)
+                _playerController = GetComponent<PlayerController>();
 
             _playerController.OnDive += OnDive;
         }
@@ -49,7 +47,7 @@ namespace AvatarController
 
         private void Update()
         {
-            if (_isDiving)
+            if (IsDiving)
             {
                 DivingMovement();
                 CheckGrounded();
@@ -66,7 +64,7 @@ namespace AvatarController
 
             if (!active) return;
 
-            if (_isDiving)
+            if (IsDiving)
                 return;
 
             Vector3 forward = transform.forward;
@@ -74,19 +72,15 @@ namespace AvatarController
             forward.Normalize();
 
             _velocity = forward * Data.DefaultDiveValues.StartingSpeed;
-            _isDiving = true;
+            IsDiving = true;
 
             _playerController.StopVelocity();
+            _playerController.ForceChangeState(PlayerStates.OnDive);
             _canDive = false;
             StartCoroutine(TimerCoroutine(Data.DefaultDiveValues.Cooldown, () =>
             {
                 _canDive = true;
             }));
-
-            //DEBUG
-            _animator.SetBool("Dive", true);
-            _animator.SetBool("Idle", false);
-            _characterController.height = 1;
             //
         }
 
@@ -99,13 +93,12 @@ namespace AvatarController
 
             if (_velocity.magnitude < 0.1f)
             {
-                _isDiving = false;
+                IsDiving = false;
                 Debug.Log("Reach");
 
-                //DEBUG
-                _animator.SetBool("Dive", false);
-                _animator.SetBool("Idle", true);
-                _characterController.height = 2;
+                //DEBUG //Moved to the PlayeState_OnDive.OnExit()
+                //_animator.SetBool("Dive", false);
+                //_animator.SetBool("Idle", true);
                 //
             }
 
