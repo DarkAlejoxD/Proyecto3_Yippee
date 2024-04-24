@@ -7,18 +7,23 @@ namespace AvatarController
     public class PlayerMovement : MonoBehaviour
     {
         #region Fields
-        private Vector3 _velocity;
-
+        [Header("References")]
         private PlayerController _playerController;
         private CharacterController _characterController;
-        private PlayerData Data => _playerController.DataContainer;
 
+        private PlayerData Data => _playerController.DataContainer;
+        private Vector3 Velocity
+        {
+            get => _playerController.Velocity;
+            set => _playerController.Velocity = value;
+        }
         private Camera CurrentCamera => Camera.main; //TODO: Change this //Don't need
+
+        [Header("Some attributes")]
         private float _maxSpeed;
 
         private bool _grabbingLedge;
         private Vector3 _ledgeForward;
-
         #endregion        
 
         #region Unity Logic
@@ -26,9 +31,7 @@ namespace AvatarController
         private void OnEnable()
         {
             if (_playerController == null)
-            {
                 _playerController = GetComponent<PlayerController>();
-            }
 
             _playerController.OnMovement += OnMovement;
             _playerController.OnSprint += OnSprint;
@@ -51,7 +54,6 @@ namespace AvatarController
 
         private void Start()
         {
-            _velocity = Vector3.zero;
             _maxSpeed = Data.DefaultMovement.MaxSpeed;
         }
 
@@ -62,12 +64,7 @@ namespace AvatarController
         }
         #endregion
 
-        #region Public Methods
-        public void StopVelocity()
-        {
-            _velocity = Vector3.zero;
-        }
-
+        #region Public Methods      
         public void FaceDirection(Vector3 dir)
         {
             Quaternion desiredRotation = Quaternion.LookRotation(dir);
@@ -89,7 +86,7 @@ namespace AvatarController
         #region Private Methods
         private void OnMovement(Vector2 moveInput)
         {
-            if (_playerController.isPushing) return; //PROTO
+            //if (_playerController.isPushing) return; //PROTO
 
             Vector3 forward = Vector3.zero;
             Vector3 right = Vector3.zero;
@@ -150,48 +147,38 @@ namespace AvatarController
             float maxSpeed = _maxSpeed;
             if (_grabbingLedge) maxSpeed = Data.GrabbingLedgeMovement.MaxSpeed; //DEBUG
 
+            if (Velocity.magnitude < maxSpeed)
+                Velocity += Time.deltaTime * Data.DefaultMovement.Acceleration * movement;
 
+            motion = Time.deltaTime * Velocity;
 
-
-            if (_velocity.magnitude < maxSpeed)
-            {
-                _velocity += Time.deltaTime * Data.DefaultMovement.Acceleration * movement;
-            }
-
-            motion = Time.deltaTime * _velocity;
-
-            if (_velocity.magnitude < Data.DefaultMovement.MinSpeedToMove)
-            {
+            if (Velocity.magnitude < Data.DefaultMovement.MinSpeedToMove)
                 motion = Vector3.zero;
-            }
+            
             _characterController.Move(motion * Data.DefOtherValues.ScaleMultiplicator);
         }
 
         private void Deceleration()
         {
-            if (_velocity.magnitude > 0)
-                _velocity -= Time.deltaTime * Data.DefaultMovement.LinearDecceleration * (_velocity.normalized);
+            if (Velocity.magnitude > 0)
+                Velocity -= Time.deltaTime * Data.DefaultMovement.LinearDecceleration * (Velocity.normalized);
         }
 
         private void FaceDirection()
         {
             if (_grabbingLedge) return;
-            if (_velocity.magnitude > Data.DefaultMovement.MinSpeedToMove)
-            {
-                FaceDirection(_velocity.normalized);
-            }
+
+            if (Velocity.magnitude > Data.DefaultMovement.MinSpeedToMove)
+                FaceDirection(Velocity.normalized);
         }
 
         private void OnSprint(bool active)
         {
             if (active)
-            {
                 _maxSpeed = Data.DefaultMovement.SprintMaxSpeed;
-            }
+
             else
-            {
                 _maxSpeed = Data.DefaultMovement.MaxSpeed;
-            }
         }
         #endregion
     }

@@ -1,31 +1,26 @@
 using System;
 using UnityEngine;
-using AvatarController.Data;
 using InputController;
 using UtilsComplements;
-using System.Linq;
-using System.Collections.Generic;
+using AvatarController.Data;
+using AvatarController.PlayerFSM;
+using FSM;
 
 namespace AvatarController
 {
-    [RequireComponent(typeof(InputManager), typeof(CharacterController))] //Add this if necessary, delete it otherwise
+    [RequireComponent(typeof(InputManager), typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
-        //Backlog: FSM or something that show every state and every action this state can be predecessor.????
-
-        //TODO: 
+        //TODO: Make this class control VelocityXY
         #region Fields
         [Header("Data")]
         [SerializeField] private PlayerData _dataContainer;
         private CharacterController _characterController;
 
-        public bool isPushing = false;
-        private PlayerMovement _playerMovement;
-        private PlayerJump _playerJump;
-        private PlayerDive _playerDive;
-        #endregion
+        public PlayerData DataContainer => _dataContainer;
 
-        public Action<Vector2> OnMovement; //Vector2 --> direction
+        [Header("Delegates")]
+        public Action<Vector2> OnMovement;
         public Action<bool> OnJump;
         public Action<bool> OnDive;
         public Action<bool> OnInteract;
@@ -35,36 +30,43 @@ namespace AvatarController
         public Action<Vector2, float> OnPoltergeistStay;
         public Action<bool> OnPoltergeistExit;
 
-        private PlayerStates _currentState;
-        private Dictionary<PlayerStates, PlayerStateForFSM> _playerBrain;
+        [Header("Random Attributes")]
+        //public bool isPushing = false;
+        //private PlayerMovement _playerMovement;
+        private PlayerJump _playerJump;
+        //private PlayerDive _playerDive;
 
-        public PlayerData DataContainer => _dataContainer;
-        public bool IsGrounded => _playerJump.IsGrounded;
+        //public bool IsGrounded => _playerJump.IsGrounded;
+
+        [Header("Velocity Attributes")]
+        internal Vector3 Velocity;
+        internal float VelocityY;
+        private bool _useGravity;
+        internal bool OnGround;
+
+        internal float Gravity => Physics.gravity.y * DataContainer.DefaultJumpValues.GravityMultiplier;
+
+        [Header("FSM")]
+        private FSM_Player _playerFSM;
+
+        public PlayerStates CurrentState => _playerFSM.CurrentState;
+        public PlayerStates LastState => _playerFSM.LastState;
+
+        [Header("DEBUG")]
+        [SerializeField] TMPro.TMP_Text DEBUG_TextTest;
+        #endregion
 
         #region Unity Logic
         private void Awake()
         {
             GameManager.GetGameManager().SetPlayerInstance(this);
-            _playerMovement = GetComponent<PlayerMovement>();
-            _playerJump = GetComponent<PlayerJump>();
             _characterController = GetComponent<CharacterController>();
-            _playerDive = GetComponent<PlayerDive>();
-        }
 
-        private void Start()
-        {
-            _playerBrain = new Dictionary<PlayerStates, PlayerStateForFSM>();
-            PlayerStateForFSM onGround = new(PlayerStates.OnGround, new PlayerStates[]
-            {
-                PlayerStates.OnPoltergeist,
-                PlayerStates.OnDive
-            });
-            PlayerStateForFSM onDive = new(PlayerStates.OnDive, PlayerStates.OnGround);
-            PlayerStateForFSM onPoltergeist = new(PlayerStates.OnPoltergeist, PlayerStates.OnGround);
+            _playerJump = GetComponent<PlayerJump>();
+            //_playerMovement = GetComponent<PlayerMovement>();
+            //_playerDive = GetComponent<PlayerDive>();
 
-            _playerBrain.Add(PlayerStates.OnGround, onGround);
-            _playerBrain.Add(PlayerStates.OnDive, onDive);
-            _playerBrain.Add(PlayerStates.OnPoltergeist, onPoltergeist);
+            FSMInit();
         }
 
         private void OnEnable()
@@ -73,8 +75,6 @@ namespace AvatarController
                 return;
 
             inputManager.OnInputDetected += OnGetInputs;
-
-            //OnInspect += (bool a) => { if(a)Debug.Log("Inspect"); };
         }
 
         private void OnDisable()
@@ -84,133 +84,168 @@ namespace AvatarController
 
             inputManager.OnInputDetected -= OnGetInputs;
         }
+
+        private void Start()
+        {
+            Velocity = Vector3.zero;
+            VelocityY = 0;
+            _useGravity = true;
+            if (DEBUG_TextTest)
+                DEBUG_TextTest.text = "";
+        }
+
+        private void Update()
+        {
+            UpdateVy();
+
+#if UNITY_EDITOR
+            if (!DEBUG_TextTest)
+                return;
+            if (!_playerFSM.Equals(null))
+                DEBUG_TextTest.text = "Current State: " + _playerFSM.Name;
+#endif
+        }
         #endregion
 
         #region Public Methods
+        public void BlockMovement() => _characterController.enabled = false;
 
-        //For PROTO, change when FSM
-        public void EnablePushingMode(Vector3 dir)
+        public void UnBlockMovement() => _characterController.enabled = true;
+
+        /// <summary></summary>
+        /// <param name="dir"> the direction the player should look at when block</param>
+        public void BlockMovement(Vector3 dir)
         {
-            _characterController.enabled = false;
-            _playerDive.enabled = false;
-            _playerJump.enabled = false;
+            BlockMovement();
 
             Quaternion desiredRotation = Quaternion.LookRotation(dir);
             transform.rotation = desiredRotation;
-            _playerMovement.StopVelocity();
-            _playerMovement.enabled = false;
-        }
-
-        public void DisablePushingMode()
-        {
-            _characterController.enabled = true;
-            _playerDive.enabled = true;
-            _playerJump.enabled = true;
-            _playerMovement.enabled = true;
-            _playerMovement.StopVelocity();
-
-        }
-
-        #region Proto FSM
-        //Proto FSM, only used for the poltergeist, rewrtie the fsm and that
-        public void RequestChangeState(PlayerStates nextState)
-        {
-            var currentState = _playerBrain[_currentState];
-            if (_currentState == nextState)
-                return;
-            if (nextState == PlayerStates.OnPoltergeist)
-                OnPoltergeistEnter?.Invoke();
-
-            _currentState = currentState.RequestChangeState(nextState);
-        }
-
-        public void RequestChangeState(PlayerStates nextState, out PlayerStates lastState)
-        {
-            lastState = _currentState;
-            Debug.Log($"Reach {lastState} ");
-            RequestChangeState(nextState);
         }
 
         public void RequestTeleport(Vector3 position)
         {
-            EnablePushingMode(transform.forward);//hardcoded maybe?
+            BlockMovement();
+            StopVelocity();
+            StopFalling();
             transform.position = position;
-            DisablePushingMode();
+            UnBlockMovement();
         }
-        #endregion
 
+        public void RequestTeleport(Vector3 position, Vector3 forward)
+        {
+            BlockMovement(forward);
+            StopVelocity();
+            StopFalling();
+            transform.position = position;
+            UnBlockMovement();
+        }
+
+        public void StopVelocity() => Velocity = Vector3.zero;
+
+        public void StopFalling() => VelocityY = 0;
+
+        public void SetGravityActive(bool state)
+        {
+            _useGravity = state;
+            if (!state) StopVelocity();
+        }
+
+        public void ForceChangeState(PlayerStates state) => _playerFSM.ForceChange(state);
+
+        public void RequestChangeState(PlayerStates state) => _playerFSM.RequestChange(state);
+
+        public void ReturnState() => _playerFSM.ReturnLastState();
         #endregion
 
         #region Private Methods
+        private void FSMInit()
+        {
+            _playerFSM = new();
+
+            _playerFSM.SetRoot(PlayerStates.OnGround, new PlayerState_DefaultMovement(this));
+            _playerFSM.AddState(PlayerStates.OnAir, new PlayerState_OnAir(this));
+            _playerFSM.AddState(PlayerStates.Grabbing, new PlayerState_Grabbing(this));
+            _playerFSM.AddState(PlayerStates.OnDive, new PlayerState_OnDive(this));
+
+            Transition toAir = new Transition(() =>
+            {
+                return !_playerJump.CanJump();
+            });
+
+            Transition grounded = new Transition(() =>
+            {
+                return OnGround;
+            });
+
+            _playerFSM.AddAutoTransition(PlayerStates.OnGround, toAir, PlayerStates.OnAir);
+            _playerFSM.AddAutoTransition(PlayerStates.OnAir, grounded, PlayerStates.OnGround);
+
+            //Manual Transitions should be named here:
+            // - When grab a GrabLedge and LetGoLedge
+
+            _playerFSM.OnEnter();
+        }
+
         private void OnGetInputs(InputValues inputs) //TODO: Separate States
         {
-            switch (_currentState)
+            _playerFSM.StayPlayer(inputs);
+
+            #region OLD
+            //switch (_currentState)
+            //{
+            //    case PlayerStates.OnPoltergeist:
+            //        {
+            //            float upDown = 0;
+            //            if (inputs.JumpInput) upDown += 1;
+            //            if (inputs.CrounchDiveInput) upDown -= 1;
+            //            OnPoltergeistStay?.Invoke(inputs.MoveInput, upDown);
+            //            OnPoltergeistExit?.Invoke(inputs.CancelInput);
+            //        }
+            //        break;
+            //    case PlayerStates.OnDive:
+            //        break;
+            //    default:
+            //        {
+            //            OnMovement?.Invoke(inputs.MoveInput);
+            //            OnJump?.Invoke(inputs.JumpInput);
+            //            OnDive?.Invoke(inputs.CrounchDiveInput);
+            //            OnInteract?.Invoke(inputs.InteractInput);
+            //            OnGhostView?.Invoke(inputs.GhostViewInput);
+            //            //OnSprint?.Invoke(inputs.SprintInput);
+            //        }
+            //        break;
+            //}
+            #endregion
+        }
+
+        private void UpdateVy()
+        {
+            if (!_useGravity) return;
+
+            float variation = VelocityY * Time.deltaTime;
+
+            CollisionFlags movement = _characterController.Move(new Vector3(0, variation, 0));
+
+            if (movement == (CollisionFlags.Above))
             {
-                case PlayerStates.OnPoltergeist:
-                    {
-                        float upDown = 0;
-                        if (inputs.JumpInput) upDown += 1;
-                        if (inputs.CrounchDiveInput) upDown -= 1;
-                        OnPoltergeistStay?.Invoke(inputs.MoveInput, upDown);
-                        OnPoltergeistExit?.Invoke(inputs.CancelInput);
-                    }
-                    break;
-                case PlayerStates.OnDive:
-                    break;
-                default:
-                    {
-                        OnMovement?.Invoke(inputs.MoveInput);
-                        OnJump?.Invoke(inputs.JumpInput);
-                        OnDive?.Invoke(inputs.CrounchDiveInput);
-                        OnInteract?.Invoke(inputs.InteractInput);
-                        OnGhostView?.Invoke(inputs.GhostViewInput);
-                        OnSprint?.Invoke(inputs.SprintInput);
-                    }
-                    break;
+                VelocityY = 0;
             }
+
+            if (movement == CollisionFlags.Below)
+            {
+                OnGround = true;
+                VelocityY = 0;
+            }
+            else
+            {
+                OnGround = false;
+            }
+
+            if (VelocityY < 0)
+                VelocityY += Gravity * Time.deltaTime * DataContainer.DefaultJumpValues.DownGravityMultiplier;
+            else
+                VelocityY += Gravity * Time.deltaTime;
         }
         #endregion
-    }
-
-    public enum PlayerStates // Provisional
-    {
-        OnGround, // Default State
-        //OnJumping, to create the regulable jumpp
-        //OnAir,
-        OnDive,
-        OnPoltergeist
-    }
-
-    /// <summary>
-    /// Proto FSM
-    /// Lo hice yo y ya me está dando asco, después del proto lo reescribiré
-    /// </summary>
-    public class PlayerStateForFSM
-    {
-        public readonly PlayerStates SelfState;
-        public readonly PlayerStates[] NextStates;
-
-        public PlayerStateForFSM(PlayerStates selfState, PlayerStates[] nextStates)
-        {
-            SelfState = selfState;
-            NextStates = nextStates;
-        }
-
-        public PlayerStateForFSM(PlayerStates selfState, PlayerStates nextState)
-        {
-            SelfState = selfState;
-            NextStates = new PlayerStates[]
-            {
-                nextState
-            };
-        }
-
-        public PlayerStates RequestChangeState(PlayerStates nextState)
-        {
-            if (NextStates.Contains(nextState))
-                return nextState;
-            else
-                return SelfState;
-        }
     }
 }

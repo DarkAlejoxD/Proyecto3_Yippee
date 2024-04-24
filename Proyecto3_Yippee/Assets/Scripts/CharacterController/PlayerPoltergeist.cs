@@ -13,7 +13,6 @@ namespace AvatarController
         [Header("References")]
         private Interactable_PoltergeistZone _evaluatedPoltergeistZone;
         private PlayerController _controller;
-        private PlayerStates _lastState;
 
         private bool _canEnterPoltegeist;
         private PlayerData DataContainer => _controller.DataContainer;
@@ -54,7 +53,6 @@ namespace AvatarController
             if (!_canEnterPoltegeist)
                 return;
             _evaluatedPoltergeistZone = zone;
-            _controller.RequestChangeState(PlayerStates.OnPoltergeist, out _lastState);
         }
         #endregion
 
@@ -110,7 +108,6 @@ namespace AvatarController
             {
                 _evaluatedPoltergeistZone.ObjectAttached.useGravity = _evaluatedPoltergeistZone.StartedUseGravity;
                 _evaluatedPoltergeistZone = null;
-                _controller.RequestChangeState(_lastState);
             }
         }
 
