@@ -90,11 +90,10 @@ namespace AvatarController
 
             _velocity -= Time.deltaTime * deceleration * _velocity.normalized;
 
-            if (_velocity.magnitude < 0.1f)
+            if (_velocity.magnitude < Data.DefaultDiveValues.MinSpeedThreshold)
             {
                 IsDiving = false;
-                Debug.Log("Reach");
-
+                Debug.Log("Reach");                
                 //DEBUG //Moved to the PlayeState_OnDive.OnExit()
                 //_animator.SetBool("Dive", false);
                 //_animator.SetBool("Idle", true);

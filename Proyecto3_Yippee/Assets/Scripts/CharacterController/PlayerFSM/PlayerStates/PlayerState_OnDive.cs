@@ -11,8 +11,6 @@ namespace AvatarController.PlayerFSM
         private CharacterController _characterController;
         private PlayerDive _playerDive;
 
-        private PlayerStates _lastState;
-
         public PlayerState_OnDive(PlayerController playerController) : base(playerController)
         {
             _verifyAnimator = new(playerController.gameObject);
@@ -24,7 +22,6 @@ namespace AvatarController.PlayerFSM
         {
             base.OnEnter();
             _characterController.height = 1;
-            _lastState = _playerController.LastState;
 
             if (!_verifyAnimator)
                 return;
@@ -41,8 +38,11 @@ namespace AvatarController.PlayerFSM
             //_playerController.OnInteract?.Invoke(inputs.InteractInput);
             //_playerController.OnGhostView?.Invoke(inputs.GhostViewInput); //??
             //OnSprint?.Invoke(inputs.SprintInput);
+            if (_characterController.isGrounded) //Maybe send a raycast?
+                _playerController.RequestChangeState(PlayerStates.OnGround);
 
-            _playerController.RequestChangeState(_lastState);
+            else
+                _playerController.RequestChangeState(PlayerStates.OnAir);
         }
 
         public override void OnExit()

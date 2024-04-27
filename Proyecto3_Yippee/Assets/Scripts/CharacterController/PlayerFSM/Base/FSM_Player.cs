@@ -16,8 +16,8 @@ namespace AvatarController.PlayerFSM
 
         public void StayPlayer(InputValues inputs)
         {
-            this[_currentState].OnPlayerStay(inputs);
             TransitionsUpdate();
+            this[_currentState].OnPlayerStay(inputs);
         }
     }
 }
