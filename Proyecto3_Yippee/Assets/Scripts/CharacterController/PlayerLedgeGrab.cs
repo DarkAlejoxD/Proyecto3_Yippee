@@ -1,10 +1,9 @@
-using AvatarController;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using AvatarController.PlayerFSM;
 
 namespace AvatarController.LedgeGrabbing
 {
+    [RequireComponent(typeof(PlayerJump), typeof(PlayerMovement), typeof(PlayerController))]
     public class PlayerLedgeGrab : MonoBehaviour
     {
         [SerializeField] private Transform _headRayOrigin;
@@ -13,7 +12,6 @@ namespace AvatarController.LedgeGrabbing
         [SerializeField] private float _edgeRayLength = 1.5f;
         [SerializeField] private float _positionToWallOffset = 0.5f;
         [SerializeField] private LayerMask _grabbableLayers;
-
 
         [SerializeField] private float _sideEdgeDetectionOffset = 0.5f;
 
@@ -30,6 +28,7 @@ namespace AvatarController.LedgeGrabbing
         private bool _grabbingLedge;
 
         private PlayerJump _jumpController;
+        private PlayerController _playerController;
 
         public bool GrabingLedge => _grabbingLedge;
 
@@ -42,13 +41,14 @@ namespace AvatarController.LedgeGrabbing
         private void Awake()
         {
             _jumpController = GetComponent<PlayerJump>();
+            _playerController = GetComponent<PlayerController>();
         }
 
 
         void Update()
         {
             if (!_jumpController.IsFailling && !_grabbingLedge) return;
-            
+
             CastCheckerRays();
             HandleLedgeLogic();
 
@@ -85,7 +85,7 @@ namespace AvatarController.LedgeGrabbing
 
 
             bool edgeReached = !_rightEdgeReached || !_leftEdgeReached;
-            if(edgeReached)
+            if (edgeReached)
             {
                 //No poder moverse para allá
                 //O caer
@@ -129,17 +129,19 @@ namespace AvatarController.LedgeGrabbing
 
         private void GrabLedge()
         {
-            _jumpController.StopGravity();
+            _playerController.SetGravityActive(false);
             _jumpController.SetLedgeGrab(true);
             GetComponent<PlayerMovement>().SetGrabbingLedgeMode(_hitInfo.normal);
-
+            _playerController.ForceChangeState(PlayerStates.Grabbing);
             _grabbingLedge = true;
+
         }
 
         public void LetGoLedge()
         {
             GetComponent<PlayerMovement>().DisableGrabbingLedgeMode();
-            _jumpController.EnableGravity();
+            _playerController.ReturnState();
+            _playerController.SetGravityActive(true);
             _jumpController.SetLedgeGrab(false);
             _ledgeDetected = false;
             _grabbingLedge = false;
@@ -148,7 +150,7 @@ namespace AvatarController.LedgeGrabbing
         private void HandleNormalRotation()
         {
             Quaternion rot = Quaternion.LookRotation(-_hitInfo.normal);
-            if(transform.rotation != rot)
+            if (transform.rotation != rot)
             {
                 transform.rotation = rot;
                 GetComponent<PlayerMovement>().SetGrabbingLedgeMode(_hitInfo.normal);
@@ -173,10 +175,10 @@ namespace AvatarController.LedgeGrabbing
         {
             if (!Application.isPlaying) return;
 
-            if(ShowLedgeDetectionRays)
+            if (ShowLedgeDetectionRays)
                 DrawLedgeDetectionRays();
 
-            if(_grabbingLedge)
+            if (_grabbingLedge)
                 DrawEdgeDetectionRays();
 
         }

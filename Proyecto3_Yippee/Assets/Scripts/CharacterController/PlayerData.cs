@@ -75,10 +75,13 @@ namespace AvatarController.Data
             [SerializeField] private float _airDeceleration;
             [SerializeField] private float _groundDeceleration;
             [SerializeField] private float _cooldown;
+            [Tooltip("If speed is inferior to this threshold, it should return to normal")]
+            [SerializeField] private float _speedThreshold = 0.2f;
 
             public float StartingSpeed => _startingSpeed;
             public float AirDeceleration => _airDeceleration;
             public float GroundDeceleration => _groundDeceleration;
+            public float MinSpeedThreshold => _speedThreshold;
             public float Cooldown => _cooldown;
         }
         #endregion
@@ -99,6 +102,14 @@ namespace AvatarController.Data
         [Serializable]
         public class OtherValues
         {
+            #region Scale
+            [Header("Scale")]
+            [SerializeField, Range(0.01f, 1)] private float _scaleMultiplicator;
+
+            public float ScaleMultiplicator => _scaleMultiplicator;
+            #endregion
+
+            #region Ghost
             [Header("GhostViewValues")]
             [SerializeField, Min(0.01f)] private float _ghostViewCooldown;
             [SerializeField, Min(0.01f)] private float _ghostViewRadius;
@@ -108,8 +119,9 @@ namespace AvatarController.Data
 
             [Header("DEBUG GhostView")]
             public bool DEBUG_ShowGhostRadius;
+            #endregion
 
-
+            #region Poltergeist
             [Header("Poltergeist")]
             [SerializeField, Min(0.01f), Tooltip("Security Cooldown to not spam it")]
             private float _poltergeistCooldown;
@@ -124,6 +136,7 @@ namespace AvatarController.Data
 
             [Header("DEBUG Poltergeist")]
             public bool DEBUG_DrawPoltergeistRadius = true;
+            #endregion
         }
         #endregion        
 

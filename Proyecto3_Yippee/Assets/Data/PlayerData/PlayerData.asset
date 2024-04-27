@@ -21,8 +21,8 @@ MonoBehaviour:
     _canSprint: 1
     _sprintMaxSpeed: 14
     _canJump: 1
-    _angularAcceleration: 0
-    _maxAngularSpeed: 0
+    _angularAcceleration: 0.13
+    _maxAngularSpeed: 0.07
   _grabbingLedgeMovement:
     _acceleration: 10
     _linearDecceleration: 10
@@ -75,8 +75,8 @@ MonoBehaviour:
     _coyoteTime: 0.4
     _gravityMultiplier: 3
     _downGravityMultiplier: 1.5
-    DEBUG_drawHeight: 1
-    DEBUG_drawCurve: 1
+    DEBUG_drawHeight: 0
+    DEBUG_drawCurve: 0
     DEBUG_definitionOfJump: 8
     DEBUG_forwardMovementPct: 1
     DEBUG_drawCoyote: 0
@@ -85,12 +85,14 @@ MonoBehaviour:
     _airDeceleration: 40
     _groundDeceleration: 60
     _cooldown: 1
+    _speedThreshold: 0.2
   _interactionValues:
     _interactionRange: 4
   _otherValues:
+    _scaleMultiplicator: 0.1
     _ghostViewCooldown: 0.3
     _ghostViewRadius: 61.7
-    DEBUG_ShowGhostRadius: 1
+    DEBUG_ShowGhostRadius: 0
     _poltergeistCooldown: 5
     _poltergeistRadius: 10
     _playerRadius: 2.25
