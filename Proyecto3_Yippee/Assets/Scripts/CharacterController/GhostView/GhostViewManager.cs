@@ -1,9 +1,8 @@
 using System;
-using Unity.Collections;
 using UnityEngine;
 using UtilsComplements;
 
-namespace GhostView //add it to a concrete namespace
+namespace GhostView
 {
     public class GhostViewManager : MonoBehaviour, ISingleton<GhostViewManager>
     {
