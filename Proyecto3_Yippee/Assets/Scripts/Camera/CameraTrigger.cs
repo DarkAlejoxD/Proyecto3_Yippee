@@ -7,13 +7,13 @@ using UtilsComplements;
 public class CameraTrigger : MonoBehaviour
 {
     private CameraManager _manager;
-    private CinemachineVirtualCamera _cam;
+    [SerializeField] private CinemachineVirtualCamera _cam;
     [SerializeField] private bool isStartingCamera = false;
 
 
     private void Awake()
     {
-        _cam = GetComponentInChildren<CinemachineVirtualCamera>();
+        //_cam = GetComponentInChildren<CinemachineVirtualCamera>();
 
         
 
@@ -28,10 +28,10 @@ public class CameraTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+            Debug.Log("Camera confiner entered");
         if (other.CompareTag("Player"))
         {
             _manager.SwitchCameras(_cam);
-            Debug.Log("Camera confiner entered");
         }
     }
 }

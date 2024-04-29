@@ -33,7 +33,7 @@ public class CameraManager : MonoBehaviour, ISingleton<CameraManager>
     }
     private void OnDestroy()
     {
-        Instance.Invalidate();
+        Instance.RemoveInstance();
     }
 
     public void SwitchCameras(CinemachineVirtualCamera cam)
