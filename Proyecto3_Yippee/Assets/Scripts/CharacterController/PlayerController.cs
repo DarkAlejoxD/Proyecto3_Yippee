@@ -16,6 +16,7 @@ namespace AvatarController
         [Header("Data")]
         [SerializeField] private PlayerData _dataContainer;
         private CharacterController _characterController;
+        private InputManager _inputManager;
 
         public PlayerData DataContainer => _dataContainer;
 
@@ -61,6 +62,7 @@ namespace AvatarController
         {
             GameManager.GetGameManager().SetPlayerInstance(this);
             _characterController = GetComponent<CharacterController>();
+            _inputManager = GetComponent<InputManager>();
 
             _playerJump = GetComponent<PlayerJump>();
             //_playerMovement = GetComponent<PlayerMovement>();
@@ -71,18 +73,18 @@ namespace AvatarController
 
         private void OnEnable()
         {
-            if (!ISingleton<InputManager>.TryGetInstance(out var inputManager))
-                return;
+            if (_inputManager == null)
+                _inputManager = GetComponent<InputManager>();
 
-            inputManager.OnInputDetected += OnGetInputs;
+            _inputManager.OnInputDetected += OnGetInputs;
         }
 
         private void OnDisable()
         {
-            if (!ISingleton<InputManager>.TryGetInstance(out var inputManager))
-                return;
+            if (_inputManager == null)
+                _inputManager = GetComponent<InputManager>();
 
-            inputManager.OnInputDetected -= OnGetInputs;
+            _inputManager.OnInputDetected -= OnGetInputs;
         }
 
         private void Start()
@@ -182,6 +184,7 @@ namespace AvatarController
 
             //Manual Transitions should be named here:
             // - When grab a GrabLedge and LetGoLedge
+            // - Dive enter and exit
 
             _playerFSM.OnEnter();
         }
@@ -224,13 +227,11 @@ namespace AvatarController
 
             float variation = VelocityY * Time.deltaTime;
 
-            CollisionFlags movement = _characterController.Move(new Vector3(0, variation, 0) * 
+            CollisionFlags movement = _characterController.Move(new Vector3(0, variation, 0) *
                                                                 DataContainer.DefOtherValues.ScaleMultiplicator);
 
-            if (movement == (CollisionFlags.Above))
-            {
-                VelocityY = 0;
-            }
+            if (movement == (CollisionFlags.Above))            
+                VelocityY = 0;            
 
             if (movement == CollisionFlags.Below)
             {

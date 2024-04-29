@@ -12,6 +12,8 @@ namespace InputController
         public bool SprintInput { get; internal set; }
         public bool CancelInput { get; internal set; }
 
+
+
         public void ResetInputs()
         {
             MoveInput = Vector2.zero;

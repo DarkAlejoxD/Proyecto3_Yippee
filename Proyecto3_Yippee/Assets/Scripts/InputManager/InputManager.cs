@@ -84,7 +84,8 @@ namespace InputController
 
         private void CancelUpdate()
         {
-            bool triggered = _playerMap.PlayerMove.Cancel.WasReleasedThisFrame();
+            bool triggered = false;
+            
             _inputValues.CancelInput = triggered;
         }
         #endregion
