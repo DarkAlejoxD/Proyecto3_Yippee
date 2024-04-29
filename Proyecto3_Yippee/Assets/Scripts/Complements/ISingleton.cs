@@ -62,9 +62,14 @@ namespace UtilsComplements
 
     public static class Singleton
     {
-        //public static T GetSingleton<T>() where T : ISingleton<T>
-        //{
-        //    return ISingleton<T>.GetInstance();
-        //}
+        public static T GetSingleton<T>() where T : class, ISingleton<T>
+        {
+            return ISingleton<T>.GetInstance();
+        }
+
+        public static bool TryGetInstance<T>(out T instance) where T : class, ISingleton<T>
+        {
+            return ISingleton<T>.TryGetInstance(out instance);
+        }
     }
 }
