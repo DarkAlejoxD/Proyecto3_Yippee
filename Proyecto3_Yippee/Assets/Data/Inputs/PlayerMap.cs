@@ -82,15 +82,6 @@ namespace InputController
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Cancel"",
-                    ""type"": ""Button"",
-                    ""id"": ""ac11ea11-f614-440a-8ac7-5a33639f40d5"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -357,48 +348,393 @@ namespace InputController
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Poltergeist"",
+            ""id"": ""cf70e77f-04e1-44d2-a169-730f596ac2c1"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""d52655ba-8112-4cc9-8cd8-2f9e21ade626"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""39ff74a7-c6f1-480b-bbfc-a0b4dcd699d1"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""e2cb03bb-2ccd-4203-99ed-f41ce9c2d052"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Accept"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce377685-d04a-4d6b-92da-7746f0d0ab2a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""f9dc8d63-6763-4dea-80b8-15201349a6e1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""YAxis"",
+                    ""type"": ""Value"",
+                    ""id"": ""d3b53d64-0c8f-4fa0-9e15-47ecb6cbc911"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""2db77228-0c47-4244-9ec1-bb192e8de712"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Cancel"",
-                    ""isComposite"": false,
+                    ""groups"": """",
+                    ""action"": ""YAxis"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""f7eb4b83-1dd9-44c8-b36a-68dbfac446e5"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""name"": ""positive"",
+                    ""id"": ""69313c76-a558-4b6b-b0fb-2c62dae97351"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Cancel"",
+                    ""action"": ""YAxis"",
                     ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""78da6f9a-ab55-4171-ae03-e0a4a44b0312"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""YAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""c1986033-78b9-4538-a01a-197606971435"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""YAxis"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""ef2404ba-d4c9-4894-9f4a-bb46d4ce59b5"",
-                    ""path"": ""<Gamepad>/start"",
+                    ""name"": ""positive"",
+                    ""id"": ""59371d36-bb13-420a-83c3-975b4e62068a"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Cancel"",
+                    ""action"": ""YAxis"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""7d8be7d4-e3c4-40bf-83be-76b64bb31e06"",
+                    ""name"": ""negative"",
+                    ""id"": ""869c6590-f60f-4f2b-b0b4-b529fd285773"",
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
+                    ""action"": ""YAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""c643a695-5620-486f-b49b-d3ff6b6ccd1d"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""YAxis"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""58b8daee-cecb-4184-ac50-f4b3d8bf6800"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""YAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""94a161e9-6c48-43fd-8f01-d37d42c1f0fb"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""YAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""13e98d01-04c9-4480-93a5-86b85a59353b"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""43260b62-6370-4f4d-ba38-476eb02232ec"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca8b75af-c6fb-4d01-811e-21c40ba26a53"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Accept"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb976277-6f60-4675-9a9a-0a0fd391b6f1"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Accept"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b4f2c226-4777-45db-94e3-82db67a96cc5"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""331280bd-2ae8-40b4-858d-749ac7685528"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""ff348dd7-21e3-4d4b-9c03-beda1c894477"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""723f749b-5eea-4a14-9700-993839327e7c"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""05e7a6f4-c77b-4acd-a0b2-a378852cef8c"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""ed35319c-0def-4f88-8861-edb015c60170"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""9e9621ec-7c0a-4bdc-a36d-5318eb97311d"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""fdda7c31-4eb2-40bf-b5e2-dc744f6fe296"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""e84552b7-6f08-4c94-a73f-a90842dd8140"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""33a47806-2d23-4aa5-981a-46bdf066a6b1"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""9ea4c5bc-9a8e-4103-ad44-19ed34cb5978"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""233a4fc4-a899-4e91-9369-54db8fcfa502"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a362142a-30ab-4f35-978b-45ac56e9613f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""86030c0b-788a-4c9f-b9df-5d71fa844f01"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Pause"",
+            ""id"": ""ecaf7696-a4a9-43da-bc9e-2b59f1db5632"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause/Unpause"",
+                    ""type"": ""Button"",
+                    ""id"": ""3ffadcf2-c278-4da4-a116-5c5f39f0ee42"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f8e488ac-4b42-431d-a4af-5db610d6b454"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Pause/Unpause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd74e6d6-d3d1-4c2b-9fec-719e2ef42c5a"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause/Unpause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -443,7 +779,16 @@ namespace InputController
             m_PlayerMove_Interact = m_PlayerMove.FindAction("Interact", throwIfNotFound: true);
             m_PlayerMove_SurvivalInstinct = m_PlayerMove.FindAction("SurvivalInstinct", throwIfNotFound: true);
             m_PlayerMove_Sprint = m_PlayerMove.FindAction("Sprint", throwIfNotFound: true);
-            m_PlayerMove_Cancel = m_PlayerMove.FindAction("Cancel", throwIfNotFound: true);
+            // Poltergeist
+            m_Poltergeist = asset.FindActionMap("Poltergeist", throwIfNotFound: true);
+            m_Poltergeist_Move = m_Poltergeist.FindAction("Move", throwIfNotFound: true);
+            m_Poltergeist_Select = m_Poltergeist.FindAction("Select", throwIfNotFound: true);
+            m_Poltergeist_Accept = m_Poltergeist.FindAction("Accept", throwIfNotFound: true);
+            m_Poltergeist_Cancel = m_Poltergeist.FindAction("Cancel", throwIfNotFound: true);
+            m_Poltergeist_YAxis = m_Poltergeist.FindAction("YAxis", throwIfNotFound: true);
+            // Pause
+            m_Pause = asset.FindActionMap("Pause", throwIfNotFound: true);
+            m_Pause_PauseUnpause = m_Pause.FindAction("Pause/Unpause", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -511,7 +856,6 @@ namespace InputController
         private readonly InputAction m_PlayerMove_Interact;
         private readonly InputAction m_PlayerMove_SurvivalInstinct;
         private readonly InputAction m_PlayerMove_Sprint;
-        private readonly InputAction m_PlayerMove_Cancel;
         public struct PlayerMoveActions
         {
             private @PlayerMap m_Wrapper;
@@ -522,7 +866,6 @@ namespace InputController
             public InputAction @Interact => m_Wrapper.m_PlayerMove_Interact;
             public InputAction @SurvivalInstinct => m_Wrapper.m_PlayerMove_SurvivalInstinct;
             public InputAction @Sprint => m_Wrapper.m_PlayerMove_Sprint;
-            public InputAction @Cancel => m_Wrapper.m_PlayerMove_Cancel;
             public InputActionMap Get() { return m_Wrapper.m_PlayerMove; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -550,9 +893,6 @@ namespace InputController
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
-                @Cancel.started += instance.OnCancel;
-                @Cancel.performed += instance.OnCancel;
-                @Cancel.canceled += instance.OnCancel;
             }
 
             private void UnregisterCallbacks(IPlayerMoveActions instance)
@@ -575,9 +915,6 @@ namespace InputController
                 @Sprint.started -= instance.OnSprint;
                 @Sprint.performed -= instance.OnSprint;
                 @Sprint.canceled -= instance.OnSprint;
-                @Cancel.started -= instance.OnCancel;
-                @Cancel.performed -= instance.OnCancel;
-                @Cancel.canceled -= instance.OnCancel;
             }
 
             public void RemoveCallbacks(IPlayerMoveActions instance)
@@ -595,6 +932,130 @@ namespace InputController
             }
         }
         public PlayerMoveActions @PlayerMove => new PlayerMoveActions(this);
+
+        // Poltergeist
+        private readonly InputActionMap m_Poltergeist;
+        private List<IPoltergeistActions> m_PoltergeistActionsCallbackInterfaces = new List<IPoltergeistActions>();
+        private readonly InputAction m_Poltergeist_Move;
+        private readonly InputAction m_Poltergeist_Select;
+        private readonly InputAction m_Poltergeist_Accept;
+        private readonly InputAction m_Poltergeist_Cancel;
+        private readonly InputAction m_Poltergeist_YAxis;
+        public struct PoltergeistActions
+        {
+            private @PlayerMap m_Wrapper;
+            public PoltergeistActions(@PlayerMap wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Move => m_Wrapper.m_Poltergeist_Move;
+            public InputAction @Select => m_Wrapper.m_Poltergeist_Select;
+            public InputAction @Accept => m_Wrapper.m_Poltergeist_Accept;
+            public InputAction @Cancel => m_Wrapper.m_Poltergeist_Cancel;
+            public InputAction @YAxis => m_Wrapper.m_Poltergeist_YAxis;
+            public InputActionMap Get() { return m_Wrapper.m_Poltergeist; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PoltergeistActions set) { return set.Get(); }
+            public void AddCallbacks(IPoltergeistActions instance)
+            {
+                if (instance == null || m_Wrapper.m_PoltergeistActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_PoltergeistActionsCallbackInterfaces.Add(instance);
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
+                @Accept.started += instance.OnAccept;
+                @Accept.performed += instance.OnAccept;
+                @Accept.canceled += instance.OnAccept;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
+                @YAxis.started += instance.OnYAxis;
+                @YAxis.performed += instance.OnYAxis;
+                @YAxis.canceled += instance.OnYAxis;
+            }
+
+            private void UnregisterCallbacks(IPoltergeistActions instance)
+            {
+                @Move.started -= instance.OnMove;
+                @Move.performed -= instance.OnMove;
+                @Move.canceled -= instance.OnMove;
+                @Select.started -= instance.OnSelect;
+                @Select.performed -= instance.OnSelect;
+                @Select.canceled -= instance.OnSelect;
+                @Accept.started -= instance.OnAccept;
+                @Accept.performed -= instance.OnAccept;
+                @Accept.canceled -= instance.OnAccept;
+                @Cancel.started -= instance.OnCancel;
+                @Cancel.performed -= instance.OnCancel;
+                @Cancel.canceled -= instance.OnCancel;
+                @YAxis.started -= instance.OnYAxis;
+                @YAxis.performed -= instance.OnYAxis;
+                @YAxis.canceled -= instance.OnYAxis;
+            }
+
+            public void RemoveCallbacks(IPoltergeistActions instance)
+            {
+                if (m_Wrapper.m_PoltergeistActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IPoltergeistActions instance)
+            {
+                foreach (var item in m_Wrapper.m_PoltergeistActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_PoltergeistActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public PoltergeistActions @Poltergeist => new PoltergeistActions(this);
+
+        // Pause
+        private readonly InputActionMap m_Pause;
+        private List<IPauseActions> m_PauseActionsCallbackInterfaces = new List<IPauseActions>();
+        private readonly InputAction m_Pause_PauseUnpause;
+        public struct PauseActions
+        {
+            private @PlayerMap m_Wrapper;
+            public PauseActions(@PlayerMap wrapper) { m_Wrapper = wrapper; }
+            public InputAction @PauseUnpause => m_Wrapper.m_Pause_PauseUnpause;
+            public InputActionMap Get() { return m_Wrapper.m_Pause; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PauseActions set) { return set.Get(); }
+            public void AddCallbacks(IPauseActions instance)
+            {
+                if (instance == null || m_Wrapper.m_PauseActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_PauseActionsCallbackInterfaces.Add(instance);
+                @PauseUnpause.started += instance.OnPauseUnpause;
+                @PauseUnpause.performed += instance.OnPauseUnpause;
+                @PauseUnpause.canceled += instance.OnPauseUnpause;
+            }
+
+            private void UnregisterCallbacks(IPauseActions instance)
+            {
+                @PauseUnpause.started -= instance.OnPauseUnpause;
+                @PauseUnpause.performed -= instance.OnPauseUnpause;
+                @PauseUnpause.canceled -= instance.OnPauseUnpause;
+            }
+
+            public void RemoveCallbacks(IPauseActions instance)
+            {
+                if (m_Wrapper.m_PauseActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IPauseActions instance)
+            {
+                foreach (var item in m_Wrapper.m_PauseActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_PauseActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public PauseActions @Pause => new PauseActions(this);
         private int m_GamepadSchemeIndex = -1;
         public InputControlScheme GamepadScheme
         {
@@ -621,7 +1082,18 @@ namespace InputController
             void OnInteract(InputAction.CallbackContext context);
             void OnSurvivalInstinct(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
+        }
+        public interface IPoltergeistActions
+        {
+            void OnMove(InputAction.CallbackContext context);
+            void OnSelect(InputAction.CallbackContext context);
+            void OnAccept(InputAction.CallbackContext context);
             void OnCancel(InputAction.CallbackContext context);
+            void OnYAxis(InputAction.CallbackContext context);
+        }
+        public interface IPauseActions
+        {
+            void OnPauseUnpause(InputAction.CallbackContext context);
         }
     }
 }

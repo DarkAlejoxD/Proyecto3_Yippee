@@ -6,10 +6,10 @@ namespace InputController
 {
     public class InputManager : MonoBehaviour, ISingleton<InputManager>
     {
+        public Action<InputValues> OnInputDetected;
+
         private PlayerMap _playerMap;
         private InputValues _inputValues;
-
-        public Action<InputValues> OnInputDetected;
 
         public ISingleton<InputManager> Instance => this;
 
@@ -39,10 +39,7 @@ namespace InputController
             OnInputDetected?.Invoke(_inputValues);
         }
 
-        private void OnDestroy()
-        {
-            Instance.RemoveInstance();
-        }
+        private void OnDestroy() => Instance.RemoveInstance();
         #endregion
 
         #region Private Methods
@@ -87,31 +84,10 @@ namespace InputController
 
         private void CancelUpdate()
         {
-            bool triggered = _playerMap.PlayerMove.Cancel.WasReleasedThisFrame();
+            bool triggered = false;
+            
             _inputValues.CancelInput = triggered;
         }
         #endregion
-    }
-
-    public struct InputValues
-    {
-        public Vector2 MoveInput { get; internal set; }
-        public bool JumpInput { get; internal set; }
-        public bool CrounchDiveInput { get; internal set; }
-        public bool InteractInput { get; internal set; }
-        public bool GhostViewInput { get; internal set; }
-        public bool SprintInput { get; internal set; }
-        public bool CancelInput { get; internal set; }
-
-        public void ResetInputs()
-        {
-            MoveInput = Vector2.zero;
-            JumpInput = false;
-            CrounchDiveInput = false;
-            InteractInput = false;
-            GhostViewInput = false;
-            SprintInput = false;
-            CancelInput = false;
-        }
     }
 }
