@@ -1,7 +1,7 @@
 ﻿using FSM;
 using InputController;
 
-namespace AvatarController.PlayerFSM
+namespace AvatarController.PlayerFSM //Adaption of the FSM to the playerstats
 {
     /// <summary>
     /// Call ReadInputs before OnStay

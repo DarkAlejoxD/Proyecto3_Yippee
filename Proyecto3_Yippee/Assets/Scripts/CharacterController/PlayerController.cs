@@ -48,7 +48,7 @@ namespace AvatarController
         internal float Gravity => Physics.gravity.y * DataContainer.DefaultJumpValues.GravityMultiplier;
 
         [Header("FSM")]
-        private FSM_Player _playerFSM;
+        private FSM_Player<PlayerStates> _playerFSM;
 
         public PlayerStates CurrentState => _playerFSM.CurrentState;
         public PlayerStates LastState => _playerFSM.LastState;
@@ -230,8 +230,8 @@ namespace AvatarController
             CollisionFlags movement = _characterController.Move(new Vector3(0, variation, 0) *
                                                                 DataContainer.DefOtherValues.ScaleMultiplicator);
 
-            if (movement == (CollisionFlags.Above))            
-                VelocityY = 0;            
+            if (movement == (CollisionFlags.Above))
+                VelocityY = 0;
 
             if (movement == CollisionFlags.Below)
             {

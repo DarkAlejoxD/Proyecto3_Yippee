@@ -10,6 +10,7 @@ namespace InputController
         public bool InteractInput { get; internal set; }
         public bool GhostViewInput { get; internal set; }
         public bool SprintInput { get; internal set; }
+        public bool Poltergeist { get; internal set; }
 
         public Vector2 PoltergeistXZAxis { get; internal set; }
         public bool AcceptCancelInput { get; internal set; }

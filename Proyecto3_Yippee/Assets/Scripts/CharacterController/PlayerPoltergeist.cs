@@ -29,22 +29,22 @@ namespace AvatarController
             _canEnterPoltegeist = true;
         }
 
-        //private void OnEnable()
-        //{
-        //    if (_controller == null)
-        //        _controller = GetComponent<PlayerController>();
+        private void OnEnable()
+        {
+            if (_controller == null)
+                _controller = GetComponent<PlayerController>();
 
-        //    _controller.OnPoltergeistEnter += EnterPoltergeistMode;
-        //    _controller.OnPoltergeistStay += PoltergeistModeUpdate;
-        //    _controller.OnPoltergeistExit += ExitPoltergeistMode;
-        //}
+            _controller.OnPoltergeistEnter += EnterPoltergeistMode;
+            _controller.OnPoltergeistStay += PoltergeistModeUpdate;
+            _controller.OnPoltergeistExit += ExitPoltergeistMode;
+        }
 
-        //private void OnDisable()
-        //{
-        //    _controller.OnPoltergeistEnter -= EnterPoltergeistMode;
-        //    _controller.OnPoltergeistStay -= PoltergeistModeUpdate;
-        //    _controller.OnPoltergeistExit -= ExitPoltergeistMode;
-        //}
+        private void OnDisable()
+        {
+            _controller.OnPoltergeistEnter -= EnterPoltergeistMode;
+            _controller.OnPoltergeistStay -= PoltergeistModeUpdate;
+            _controller.OnPoltergeistExit -= ExitPoltergeistMode;
+        }
         #endregion
 
         #region Public Methods

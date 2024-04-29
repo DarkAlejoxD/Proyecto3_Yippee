@@ -8,9 +8,17 @@ namespace Poltergeist
     {
         private void OnEnable()
         {
-            if(Singleton.TryGetInstance(out PoltergeistManager manager))
+            if (Singleton.TryGetInstance(out PoltergeistManager manager))
             {
+                manager.AddPoltergeist(this);
+            }
+        }
 
+        private void OnDisable()
+        {
+            if (Singleton.TryGetInstance(out PoltergeistManager manager))
+            {
+                manager.RemovePoltergeist(this);
             }
         }
     }

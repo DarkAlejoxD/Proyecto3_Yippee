@@ -381,6 +381,15 @@ namespace InputController
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""735be263-7b24-4a91-870b-ffc146dbd16f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -625,6 +634,28 @@ namespace InputController
                     ""action"": ""Select/Deselect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""112196bc-edf0-468a-a415-649c5a845f33"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b9205ee-d78c-4738-9d4a-3e595c77bfe5"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -711,6 +742,7 @@ namespace InputController
             m_Poltergeist_Move = m_Poltergeist.FindAction("Move", throwIfNotFound: true);
             m_Poltergeist_SelectDeselect = m_Poltergeist.FindAction("Select/Deselect", throwIfNotFound: true);
             m_Poltergeist_YAxis = m_Poltergeist.FindAction("YAxis", throwIfNotFound: true);
+            m_Poltergeist_Cancel = m_Poltergeist.FindAction("Cancel", throwIfNotFound: true);
             // Pause
             m_Pause = asset.FindActionMap("Pause", throwIfNotFound: true);
             m_Pause_PauseUnpause = m_Pause.FindAction("Pause/Unpause", throwIfNotFound: true);
@@ -864,6 +896,7 @@ namespace InputController
         private readonly InputAction m_Poltergeist_Move;
         private readonly InputAction m_Poltergeist_SelectDeselect;
         private readonly InputAction m_Poltergeist_YAxis;
+        private readonly InputAction m_Poltergeist_Cancel;
         public struct PoltergeistActions
         {
             private @PlayerMap m_Wrapper;
@@ -871,6 +904,7 @@ namespace InputController
             public InputAction @Move => m_Wrapper.m_Poltergeist_Move;
             public InputAction @SelectDeselect => m_Wrapper.m_Poltergeist_SelectDeselect;
             public InputAction @YAxis => m_Wrapper.m_Poltergeist_YAxis;
+            public InputAction @Cancel => m_Wrapper.m_Poltergeist_Cancel;
             public InputActionMap Get() { return m_Wrapper.m_Poltergeist; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -889,6 +923,9 @@ namespace InputController
                 @YAxis.started += instance.OnYAxis;
                 @YAxis.performed += instance.OnYAxis;
                 @YAxis.canceled += instance.OnYAxis;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
             }
 
             private void UnregisterCallbacks(IPoltergeistActions instance)
@@ -902,6 +939,9 @@ namespace InputController
                 @YAxis.started -= instance.OnYAxis;
                 @YAxis.performed -= instance.OnYAxis;
                 @YAxis.canceled -= instance.OnYAxis;
+                @Cancel.started -= instance.OnCancel;
+                @Cancel.performed -= instance.OnCancel;
+                @Cancel.canceled -= instance.OnCancel;
             }
 
             public void RemoveCallbacks(IPoltergeistActions instance)
@@ -997,6 +1037,7 @@ namespace InputController
             void OnMove(InputAction.CallbackContext context);
             void OnSelectDeselect(InputAction.CallbackContext context);
             void OnYAxis(InputAction.CallbackContext context);
+            void OnCancel(InputAction.CallbackContext context);
         }
         public interface IPauseActions
         {
