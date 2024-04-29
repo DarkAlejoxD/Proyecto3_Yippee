@@ -365,27 +365,9 @@ namespace InputController
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Select"",
+                    ""name"": ""Select/Deselect"",
                     ""type"": ""Button"",
                     ""id"": ""e2cb03bb-2ccd-4203-99ed-f41ce9c2d052"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Accept"",
-                    ""type"": ""Button"",
-                    ""id"": ""ce377685-d04a-4d6b-92da-7746f0d0ab2a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Cancel"",
-                    ""type"": ""Button"",
-                    ""id"": ""f9dc8d63-6763-4dea-80b8-15201349a6e1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -416,7 +398,7 @@ namespace InputController
                 {
                     ""name"": ""positive"",
                     ""id"": ""69313c76-a558-4b6b-b0fb-2c62dae97351"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -427,43 +409,10 @@ namespace InputController
                 {
                     ""name"": ""negative"",
                     ""id"": ""78da6f9a-ab55-4171-ae03-e0a4a44b0312"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""YAxis"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""c1986033-78b9-4538-a01a-197606971435"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""YAxis"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""59371d36-bb13-420a-83c3-975b4e62068a"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""YAxis"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""869c6590-f60f-4f2b-b0b4-b529fd285773"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
                     ""action"": ""YAxis"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -482,7 +431,7 @@ namespace InputController
                 {
                     ""name"": ""positive"",
                     ""id"": ""58b8daee-cecb-4184-ac50-f4b3d8bf6800"",
-                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -493,57 +442,13 @@ namespace InputController
                 {
                     ""name"": ""negative"",
                     ""id"": ""94a161e9-6c48-43fd-8f01-d37d42c1f0fb"",
-                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""YAxis"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""13e98d01-04c9-4480-93a5-86b85a59353b"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Cancel"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""43260b62-6370-4f4d-ba38-476eb02232ec"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Cancel"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ca8b75af-c6fb-4d01-811e-21c40ba26a53"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Accept"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fb976277-6f60-4675-9a9a-0a0fd391b6f1"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Accept"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -684,7 +589,7 @@ namespace InputController
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Select"",
+                    ""action"": ""Select/Deselect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -695,7 +600,29 @@ namespace InputController
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Select"",
+                    ""action"": ""Select/Deselect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1899a014-7777-404f-b1b7-c307ed9ebf0d"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Select/Deselect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11725f52-1975-4212-86a8-e4bd593adfa9"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Select/Deselect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -782,9 +709,7 @@ namespace InputController
             // Poltergeist
             m_Poltergeist = asset.FindActionMap("Poltergeist", throwIfNotFound: true);
             m_Poltergeist_Move = m_Poltergeist.FindAction("Move", throwIfNotFound: true);
-            m_Poltergeist_Select = m_Poltergeist.FindAction("Select", throwIfNotFound: true);
-            m_Poltergeist_Accept = m_Poltergeist.FindAction("Accept", throwIfNotFound: true);
-            m_Poltergeist_Cancel = m_Poltergeist.FindAction("Cancel", throwIfNotFound: true);
+            m_Poltergeist_SelectDeselect = m_Poltergeist.FindAction("Select/Deselect", throwIfNotFound: true);
             m_Poltergeist_YAxis = m_Poltergeist.FindAction("YAxis", throwIfNotFound: true);
             // Pause
             m_Pause = asset.FindActionMap("Pause", throwIfNotFound: true);
@@ -937,18 +862,14 @@ namespace InputController
         private readonly InputActionMap m_Poltergeist;
         private List<IPoltergeistActions> m_PoltergeistActionsCallbackInterfaces = new List<IPoltergeistActions>();
         private readonly InputAction m_Poltergeist_Move;
-        private readonly InputAction m_Poltergeist_Select;
-        private readonly InputAction m_Poltergeist_Accept;
-        private readonly InputAction m_Poltergeist_Cancel;
+        private readonly InputAction m_Poltergeist_SelectDeselect;
         private readonly InputAction m_Poltergeist_YAxis;
         public struct PoltergeistActions
         {
             private @PlayerMap m_Wrapper;
             public PoltergeistActions(@PlayerMap wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Poltergeist_Move;
-            public InputAction @Select => m_Wrapper.m_Poltergeist_Select;
-            public InputAction @Accept => m_Wrapper.m_Poltergeist_Accept;
-            public InputAction @Cancel => m_Wrapper.m_Poltergeist_Cancel;
+            public InputAction @SelectDeselect => m_Wrapper.m_Poltergeist_SelectDeselect;
             public InputAction @YAxis => m_Wrapper.m_Poltergeist_YAxis;
             public InputActionMap Get() { return m_Wrapper.m_Poltergeist; }
             public void Enable() { Get().Enable(); }
@@ -962,15 +883,9 @@ namespace InputController
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Select.started += instance.OnSelect;
-                @Select.performed += instance.OnSelect;
-                @Select.canceled += instance.OnSelect;
-                @Accept.started += instance.OnAccept;
-                @Accept.performed += instance.OnAccept;
-                @Accept.canceled += instance.OnAccept;
-                @Cancel.started += instance.OnCancel;
-                @Cancel.performed += instance.OnCancel;
-                @Cancel.canceled += instance.OnCancel;
+                @SelectDeselect.started += instance.OnSelectDeselect;
+                @SelectDeselect.performed += instance.OnSelectDeselect;
+                @SelectDeselect.canceled += instance.OnSelectDeselect;
                 @YAxis.started += instance.OnYAxis;
                 @YAxis.performed += instance.OnYAxis;
                 @YAxis.canceled += instance.OnYAxis;
@@ -981,15 +896,9 @@ namespace InputController
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
                 @Move.canceled -= instance.OnMove;
-                @Select.started -= instance.OnSelect;
-                @Select.performed -= instance.OnSelect;
-                @Select.canceled -= instance.OnSelect;
-                @Accept.started -= instance.OnAccept;
-                @Accept.performed -= instance.OnAccept;
-                @Accept.canceled -= instance.OnAccept;
-                @Cancel.started -= instance.OnCancel;
-                @Cancel.performed -= instance.OnCancel;
-                @Cancel.canceled -= instance.OnCancel;
+                @SelectDeselect.started -= instance.OnSelectDeselect;
+                @SelectDeselect.performed -= instance.OnSelectDeselect;
+                @SelectDeselect.canceled -= instance.OnSelectDeselect;
                 @YAxis.started -= instance.OnYAxis;
                 @YAxis.performed -= instance.OnYAxis;
                 @YAxis.canceled -= instance.OnYAxis;
@@ -1086,9 +995,7 @@ namespace InputController
         public interface IPoltergeistActions
         {
             void OnMove(InputAction.CallbackContext context);
-            void OnSelect(InputAction.CallbackContext context);
-            void OnAccept(InputAction.CallbackContext context);
-            void OnCancel(InputAction.CallbackContext context);
+            void OnSelectDeselect(InputAction.CallbackContext context);
             void OnYAxis(InputAction.CallbackContext context);
         }
         public interface IPauseActions

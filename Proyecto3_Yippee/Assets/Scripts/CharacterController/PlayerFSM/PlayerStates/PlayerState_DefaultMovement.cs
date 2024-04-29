@@ -1,4 +1,5 @@
 ﻿using InputController;
+using UtilsComplements;
 
 namespace AvatarController.PlayerFSM
 {
@@ -27,6 +28,37 @@ namespace AvatarController.PlayerFSM
             _playerController.OnInteract?.Invoke(inputs.InteractInput);
             _playerController.OnGhostView?.Invoke(inputs.GhostViewInput);
             //OnSprint?.Invoke(inputs.SprintInput);
+        }
+    }
+
+    public class PlayerState_Poltergeist : PlayerState
+    {
+        public override string Name => "Default Movement";
+        private Verify<PlayerPoltergeist> _playerPoltergeist;
+
+        public PlayerState_Poltergeist(PlayerController playerController) : base(playerController)
+        {
+            _playerPoltergeist = new(playerController.gameObject);
+
+            if (_playerPoltergeist)
+                _playerPoltergeist.Component.enabled = false;
+        }
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            _playerPoltergeist.Component.enabled = true;
+        }
+
+        public override void OnPlayerStay(InputValues inputs)
+        {
+
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            _playerPoltergeist.Component.enabled = false;
         }
     }
 }

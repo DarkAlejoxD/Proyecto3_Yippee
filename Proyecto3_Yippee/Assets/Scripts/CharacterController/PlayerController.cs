@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using InputController;
-using UtilsComplements;
 using AvatarController.Data;
 using AvatarController.PlayerFSM;
 using FSM;
@@ -27,6 +26,7 @@ namespace AvatarController
         public Action<bool> OnInteract;
         public Action<bool> OnGhostView;
         public Action<bool> OnSprint;
+
         public Action OnPoltergeistEnter;
         public Action<Vector2, float> OnPoltergeistStay;
         public Action<bool> OnPoltergeistExit;

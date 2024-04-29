@@ -1,8 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using AvatarController.Data;
-using Poltergeist;
 using UtilsComplements.Editor;
+using Poltergeist;
 
 namespace AvatarController
 {
@@ -76,7 +76,6 @@ namespace AvatarController
 
             Vector3 movement = xzDirection.y * forward + xzDirection.x * right + yDirection * Vector3.up;
             movement.Normalize();
-
 
             //Realize the movement
             Rigidbody rb = _evaluatedPoltergeistZone.ObjectAttached;
