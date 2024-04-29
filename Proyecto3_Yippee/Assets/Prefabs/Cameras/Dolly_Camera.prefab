@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1078517386511967523}
   - component: {fileID: 6739263734473363245}
+  - component: {fileID: 4539153804979898737}
   m_Layer: 0
   m_Name: Dolly_Camera
   m_TagString: Untagged
@@ -45,17 +46,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a200b19ca1a9685429ed7e043c28e904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Resolution: 5
+  m_Resolution: 10
   m_Appearance:
     pathColor: {r: 0, g: 1, b: 0, a: 1}
     inactivePathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     width: 0.2
   m_Looped: 0
   m_Waypoints:
-  - position: {x: -2.2232761, y: 4.5, z: -5}
+  - position: {x: 13.2038355, y: 2.0587125, z: -4.254521}
     roll: 0
-  - position: {x: 18.937336, y: 4.5, z: -5}
+  - position: {x: 18.995687, y: 2.2243094, z: -4.4596086}
     roll: 0
+--- !u!114 &4539153804979898737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617657818036005422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9c2341856b8a943ae77d3918ec955e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraSmooth: 10
+  _yOffset: -1.5
+  _maxDistanceToPlayer: 1.5
+  _minDistanceToPlayer: 1
 --- !u!1 &4611639890272728362
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,14 +98,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4611639890272728362}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.19996412, y: 0.3736123, z: -0.08282785, w: 0.90198}
-  m_LocalPosition: {x: -2.9300027, y: 4.5, z: -4.999999}
+  m_LocalRotation: {x: 0.08416684, y: -0.91369206, z: 0.24653305, w: 0.31193617}
+  m_LocalPosition: {x: 18.95253, y: 2.2230754, z: -4.458081}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8750433356266142831}
   m_Father: {fileID: 1078517386511967523}
-  m_LocalEulerAnglesHint: {x: 25, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 30.2, y: -142.3, z: 0}
 --- !u!114 &9121779751720483783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +127,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 45
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -186,9 +203,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 6739263734473363245}
-  m_PathPosition: 9.293276
+  m_PathPosition: 5.1946435
   m_PositionUnits: 1
-  m_PathOffset: {x: 0, y: 0, z: -10}
+  m_PathOffset: {x: 0, y: 0, z: 0.56}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1

@@ -72,7 +72,7 @@ namespace AvatarController.LedgeGrabbing
             _headHit = CastRay(_headRay);
             _chestHit = CastRay(_chestRay);
 
-            Debug.Log(_hitInfo.normal);
+            //Debug.Log(_hitInfo.normal);
         }
 
         private void CastEdgeDetectionRays()

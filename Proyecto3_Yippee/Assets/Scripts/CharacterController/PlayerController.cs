@@ -45,7 +45,7 @@ namespace AvatarController
         private bool _useGravity;
         internal bool OnGround;
 
-        internal float Gravity => Physics.gravity.y;
+        internal float Gravity => Physics.gravity.y * DataContainer.DefaultJumpValues.GravityMultiplier;
 
         [Header("FSM")]
         private FSM_Player _playerFSM;
