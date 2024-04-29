@@ -13,7 +13,7 @@ namespace UtilsComplements
 
             foreach (var item in list)
             {
-                if (!item.TryGetComponent<MeshCollider>(out var a))
+                if (!item.TryGetComponent<Collider>(out var a))
                 {
                     item.gameObject.AddComponent<MeshCollider>();
                 }
