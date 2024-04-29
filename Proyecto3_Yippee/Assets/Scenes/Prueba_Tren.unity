@@ -1937,18 +1937,33 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1078517386511967523, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.46258
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078517386511967523, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.46258
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078517386511967523, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.46258
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078517386511967523, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.6
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 1078517386511967523, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 54.3
+      value: 7.2
       objectReference: {fileID: 0}
     - target: {fileID: 1078517386511967523, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -216.1
+      value: 48.1
       objectReference: {fileID: 0}
     - target: {fileID: 1078517386511967523, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
@@ -1988,17 +2003,17 @@ PrefabInstance:
     - target: {fileID: 1995424560347464748, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32.90741
+      value: -2.0720348
       objectReference: {fileID: 0}
     - target: {fileID: 1995424560347464748, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -50.470722
+      value: -0.2500009
       objectReference: {fileID: 0}
     - target: {fileID: 1995424560347464748, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.33073902
+      value: 0.100336716
       objectReference: {fileID: 0}
     - target: {fileID: 1995424560347464748, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
@@ -2103,32 +2118,32 @@ PrefabInstance:
     - target: {fileID: 6739263734473363245, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
       propertyPath: m_Waypoints.Array.data[1].position.x
-      value: -135.92984
+      value: -65.314896
       objectReference: {fileID: 0}
     - target: {fileID: 6739263734473363245, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
       propertyPath: m_Waypoints.Array.data[1].position.y
-      value: -0.24999903
+      value: 4.0536575
       objectReference: {fileID: 0}
     - target: {fileID: 6739263734473363245, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
       propertyPath: m_Waypoints.Array.data[1].position.z
-      value: 1.2924191
+      value: 1.2924362
       objectReference: {fileID: 0}
     - target: {fileID: 6739263734473363245, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
       propertyPath: m_Waypoints.Array.data[2].position.x
-      value: -138.43826
+      value: -60.82308
       objectReference: {fileID: 0}
     - target: {fileID: 6739263734473363245, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
       propertyPath: m_Waypoints.Array.data[2].position.y
-      value: -44.35881
+      value: -44.358807
       objectReference: {fileID: 0}
     - target: {fileID: 6739263734473363245, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
       propertyPath: m_Waypoints.Array.data[2].position.z
-      value: 0.7732863
+      value: 8.655147
       objectReference: {fileID: 0}
     - target: {fileID: 6739263734473363245, guid: 84f3bf1c1396d9c4b84b6449232c46c6,
         type: 3}
@@ -2268,7 +2283,7 @@ Transform:
   m_GameObject: {fileID: 1552762857}
   serializedVersion: 2
   m_LocalRotation: {x: -0.022665279, y: 0.976383, z: -0.17216156, w: -0.128542}
-  m_LocalPosition: {x: 10.211004, y: 3.829277, z: -213.56142}
+  m_LocalPosition: {x: -9.041121, y: 7.0843544, z: 48.1373}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
