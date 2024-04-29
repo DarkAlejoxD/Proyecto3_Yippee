@@ -142,6 +142,7 @@ namespace AvatarController.LedgeGrabbing
             GetComponent<PlayerMovement>().DisableGrabbingLedgeMode();
             _playerController.ReturnState();
             _playerController.SetGravityActive(true);
+            _playerController.ForceChangeState(PlayerStates.OnGround);
             _jumpController.SetLedgeGrab(false);
             _ledgeDetected = false;
             _grabbingLedge = false;
