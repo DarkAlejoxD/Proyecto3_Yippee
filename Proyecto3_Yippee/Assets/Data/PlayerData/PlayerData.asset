@@ -21,8 +21,8 @@ MonoBehaviour:
     _canSprint: 1
     _sprintMaxSpeed: 14
     _canJump: 1
-    _angularAcceleration: 0
-    _maxAngularSpeed: 0
+    _angularAcceleration: 0.13
+    _maxAngularSpeed: 0.07
   _grabbingLedgeMovement:
     _acceleration: 10
     _linearDecceleration: 10
@@ -85,6 +85,7 @@ MonoBehaviour:
     _airDeceleration: 40
     _groundDeceleration: 60
     _cooldown: 1
+    _speedThreshold: 0.2
   _interactionValues:
     _interactionRange: 4
   _otherValues:

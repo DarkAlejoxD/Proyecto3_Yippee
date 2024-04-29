@@ -1,8 +1,4 @@
-using AvatarController;
-using AvatarController.Data;
 using Interactable;
-using System;
-using UnityEditor;
 using UnityEngine;
 
 namespace AvatarController.Interaction 
@@ -75,7 +71,7 @@ namespace AvatarController.Interaction
         private void OnInteract(bool active)
         {
             if (!active) return;
-            if (!_playerController.IsGrounded) return;
+            //if (!_playerController.IsGrounded) return;
 
             if(_selectedInteractable != null)
             {

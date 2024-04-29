@@ -48,7 +48,7 @@ namespace Interactable //add it to a concrete namespace
             _player.transform.SetParent(transform, true);
             _isGrabbed = true;
 
-            _player.EnablePushingMode(GetDirection());
+            _player.BlockMovement(GetDirection());
 
         }
 
@@ -56,7 +56,7 @@ namespace Interactable //add it to a concrete namespace
         {
             _player.OnMovement -= OnMove;
             _isGrabbed = false;
-            _player.DisablePushingMode();
+            _player.UnBlockMovement();
             _player.transform.SetParent(null, true);
 
         }
