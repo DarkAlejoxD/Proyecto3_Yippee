@@ -1,10 +1,14 @@
 using UnityEditor;
+using UnityEngine;
 
-[CustomEditor(typeof(TestingAround)), CustomPreview(typeof(TestingAround))]
+[CustomEditor(typeof(TestStruct)), CustomPreview(typeof(TestingAround))]
 public class TestingAroundEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        //base.OnInspectorGUI();
+        if(GUILayout.Button("Put collider to every Mesh Renderer"))
+        {
+            
+        }
     }
 }
