@@ -1,8 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using AvatarController.Data;
-using Poltergeist;
 using UtilsComplements.Editor;
+using Poltergeist;
 
 namespace AvatarController
 {
@@ -59,9 +59,9 @@ namespace AvatarController
         #region Private Methods
         private void EnterPoltergeistMode()
         {
-            StartCoroutine(PolterCooldownCoroutine());
-            _controller.RequestTeleport(_evaluatedPoltergeistZone.transform.position);
-            _evaluatedPoltergeistZone.ObjectAttached.useGravity = false;
+            //StartCoroutine(PolterCooldownCoroutine());
+            //_controller.RequestTeleport(_evaluatedPoltergeistZone.transform.position);
+            //_evaluatedPoltergeistZone.ObjectAttached.useGravity = false;
         }
 
         private void PoltergeistModeUpdate(Vector2 xzDirection, float yDirection) //Maybe encapsulate some funcitons?? idk toi cansado jefe
@@ -77,9 +77,8 @@ namespace AvatarController
             Vector3 movement = xzDirection.y * forward + xzDirection.x * right + yDirection * Vector3.up;
             movement.Normalize();
 
-
             //Realize the movement
-            Rigidbody rb = _evaluatedPoltergeistZone.ObjectAttached;
+            Rigidbody rb = null;// _evaluatedPoltergeistZone.ObjectAttached;
             Vector3 motion = DataContainer.DefOtherValues.Speed * Time.deltaTime * movement;
             Vector3 newPos = rb.position + motion;
 
@@ -104,11 +103,11 @@ namespace AvatarController
 
         private void ExitPoltergeistMode(bool value)
         {
-            if (value)
-            {
-                _evaluatedPoltergeistZone.ObjectAttached.useGravity = _evaluatedPoltergeistZone.StartedUseGravity;
-                _evaluatedPoltergeistZone = null;
-            }
+            //if (value)
+            //{
+            //    _evaluatedPoltergeistZone.ObjectAttached.useGravity = _evaluatedPoltergeistZone.StartedUseGravity;
+            //    _evaluatedPoltergeistZone = null;
+            //}
         }
 
         private IEnumerator PolterCooldownCoroutine()

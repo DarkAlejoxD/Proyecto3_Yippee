@@ -1,6 +1,6 @@
 using System;
-using UtilsComplements;
 using UnityEngine;
+using UtilsComplements;
 
 namespace InputController
 {
@@ -19,7 +19,8 @@ namespace InputController
             Instance.Instantiate();
 
             _playerMap = new();
-            _playerMap.PlayerMove.Enable();
+            SetPlayerMapActive(true);
+            SetPoltergeistActive(false);
             _inputValues = new InputValues();
         }
 
@@ -27,19 +28,43 @@ namespace InputController
         {
             //Read Inputs
             _inputValues.ResetInputs();
+
+            //PlayerMove
             MoveUpdate();
             JumpUpdate();
             CrounchDive();
+            SprintUpdate();
             InteractUpdate();
             GhostViewUpdate();
-            SprintUpdate();
-            CancelUpdate();
+
+            //PoltergeistMove
+            AcceptCancelUpdate();
+            PoltergeistMovementUpdate();
+            PoltergeistYMovementUpdate();
 
             //Send Inputs
             OnInputDetected?.Invoke(_inputValues);
         }
 
         private void OnDestroy() => Instance.RemoveInstance();
+        #endregion
+
+        #region Public Methods
+        public void SetPlayerMapActive(bool value)
+        {
+            if (value)
+                _playerMap.PlayerMove.Enable();
+            else
+                _playerMap.PlayerMove.Disable();
+        }
+
+        public void SetPoltergeistActive(bool value)
+        {
+            if (value)
+                _playerMap.Poltergeist.Enable();
+            else
+                _playerMap.Poltergeist.Disable();
+        }
         #endregion
 
         #region Private Methods
@@ -82,11 +107,27 @@ namespace InputController
             _inputValues.SprintInput = triggered;
         }
 
-        private void CancelUpdate()
+        private void AcceptCancelUpdate()
         {
-            bool triggered = false;
-            
-            _inputValues.CancelInput = triggered;
+            bool triggered = _playerMap.Poltergeist.SelectDeselect.WasReleasedThisFrame();
+
+            _inputValues.AcceptCancelInput = triggered;
+        }
+
+        private void PoltergeistMovementUpdate()
+        {
+            Vector2 movement = _playerMap.Poltergeist.Move.ReadValue<Vector2>();
+            if (movement.magnitude > 1)
+                movement.Normalize();
+
+            _inputValues.PoltergeistXZAxis = movement;
+        }
+
+        private void PoltergeistYMovementUpdate()
+        {
+            float y = _playerMap.Poltergeist.YAxis.ReadValue<float>();
+
+            _inputValues.PoltergeistYAxis = y;
         }
         #endregion
     }

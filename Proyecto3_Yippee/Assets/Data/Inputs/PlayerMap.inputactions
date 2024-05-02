@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Poltergeist",
+                    "type": "Button",
+                    "id": "2115b088-960b-4b8a-8e16-7aed2e1ca003",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -218,7 +227,7 @@
                 {
                     "name": "",
                     "id": "b4b0811a-fc6b-420c-864f-9d10b8a61fd3",
-                    "path": "<Keyboard>/1",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -324,6 +333,28 @@
                     "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b7054650-9646-4530-9e19-c1d9a3eb34a1",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Poltergeist",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "84e036cd-fd55-49ca-b946-f195e3680b90",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Poltergeist",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -341,27 +372,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Select",
+                    "name": "Select/Deselect",
                     "type": "Button",
                     "id": "e2cb03bb-2ccd-4203-99ed-f41ce9c2d052",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Accept",
-                    "type": "Button",
-                    "id": "ce377685-d04a-4d6b-92da-7746f0d0ab2a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Cancel",
-                    "type": "Button",
-                    "id": "f9dc8d63-6763-4dea-80b8-15201349a6e1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -375,6 +388,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "735be263-7b24-4a91-870b-ffc146dbd16f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -392,7 +414,7 @@
                 {
                     "name": "positive",
                     "id": "69313c76-a558-4b6b-b0fb-2c62dae97351",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -403,43 +425,10 @@
                 {
                     "name": "negative",
                     "id": "78da6f9a-ab55-4171-ae03-e0a4a44b0312",
-                    "path": "<Keyboard>/leftCtrl",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "YAxis",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "1D Axis",
-                    "id": "c1986033-78b9-4538-a01a-197606971435",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "YAxis",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "positive",
-                    "id": "59371d36-bb13-420a-83c3-975b4e62068a",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "YAxis",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "negative",
-                    "id": "869c6590-f60f-4f2b-b0b4-b529fd285773",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
                     "action": "YAxis",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -458,7 +447,7 @@
                 {
                     "name": "positive",
                     "id": "58b8daee-cecb-4184-ac50-f4b3d8bf6800",
-                    "path": "<Gamepad>/rightStick/up",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -469,57 +458,13 @@
                 {
                     "name": "negative",
                     "id": "94a161e9-6c48-43fd-8f01-d37d42c1f0fb",
-                    "path": "<Gamepad>/rightStick/down",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "YAxis",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "13e98d01-04c9-4480-93a5-86b85a59353b",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Cancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "43260b62-6370-4f4d-ba38-476eb02232ec",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Cancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ca8b75af-c6fb-4d01-811e-21c40ba26a53",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Accept",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fb976277-6f60-4675-9a9a-0a0fd391b6f1",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Accept",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -660,7 +605,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Select",
+                    "action": "Select/Deselect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -671,7 +616,51 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Select",
+                    "action": "Select/Deselect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1899a014-7777-404f-b1b7-c307ed9ebf0d",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Select/Deselect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "11725f52-1975-4212-86a8-e4bd593adfa9",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Select/Deselect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "112196bc-edf0-468a-a415-649c5a845f33",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b9205ee-d78c-4738-9d4a-3e595c77bfe5",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
