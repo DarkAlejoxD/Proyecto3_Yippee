@@ -7,19 +7,19 @@ namespace Poltergeist
     [RequireComponent(typeof(Collider))]
     public class Interactable_PoltergeistZone : Interactable_Base
     {
-        #region Fields
-        [Header("References")]
-        [SerializeField] private Rigidbody _objectAttached;
+        //#region Fields
+        //[Header("References")]
+        //[SerializeField] private Rigidbody _objectAttached;
 
-        public Rigidbody ObjectAttached => _objectAttached;
-        public bool StartedUseGravity { get; private set; }
-        #endregion
+        //public Rigidbody ObjectAttached => _objectAttached;
+        //public bool StartedUseGravity { get; private set; }
+        //#endregion
 
         #region Unity Logic
         protected override void Awake()
         {
-            GetComponent<Collider>().isTrigger = true;
-            StartedUseGravity = _objectAttached.useGravity;
+            //GetComponent<Collider>().isTrigger = true;
+            //StartedUseGravity = _objectAttached.useGravity;
         }
         #endregion
 
@@ -27,8 +27,8 @@ namespace Poltergeist
         public override void Interact()
         {
             base.Interact();
-            var playerPolt = GameManager.Player.GetComponent<PlayerPoltergeist>();
-            playerPolt.TryEnterPoltergeist(this);
+            //var playerPolt = GameManager.Player.GetComponent<PlayerPoltergeist>();
+            //playerPolt.TryEnterPoltergeist(this);
         }
         #endregion
     }
