@@ -13,11 +13,8 @@ namespace AvatarController.PlayerFSM
         public override void OnPlayerStay(InputValues inputs)
         {
             _playerController.OnMovement?.Invoke(inputs.MoveInput);
-            //_playerController.OnJump?.Invoke(inputs.JumpInput);
             _playerController.OnDive?.Invoke(inputs.CrounchDiveInput);
-            //_playerController.OnInteract?.Invoke(inputs.InteractInput);
-            _playerController.OnGhostView?.Invoke(inputs.GhostViewInput); //??
-            //OnSprint?.Invoke(inputs.SprintInput);
+            _playerController.OnGhostView?.Invoke(inputs.GhostViewInput);
         }
     }
 }

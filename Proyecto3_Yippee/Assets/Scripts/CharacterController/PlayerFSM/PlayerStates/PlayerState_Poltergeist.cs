@@ -1,5 +1,6 @@
 ﻿using InputController;
 using Poltergeist;
+using UtilsComplements;
 using static UtilsComplements.AsyncTimer;
 
 namespace AvatarController.PlayerFSM
@@ -14,6 +15,7 @@ namespace AvatarController.PlayerFSM
         public override string Name => "Default Movement";
         private PoltergeistStates _currentState;
         private bool _canChangeState = false;
+        private Poltergeist_Item _item;
 
         public PlayerState_Poltergeist(PlayerController playerController) : base(playerController)
         {
@@ -33,23 +35,30 @@ namespace AvatarController.PlayerFSM
             _playerController.OnPoltergeistEnter?.Invoke();
 
             CameraPolter.ActivatePolterMode();
+
+            if (Singleton.TryGetInstance(out PoltergeistManager manager))
+            {
+                manager.StartPoltergeist(_playerController.transform, 2);
+            }
         }
 
         public override void OnPlayerStay(InputValues inputs)
         {
-            switch (_currentState)
-            {
-                case PoltergeistStates.Selecting:
+            //switch (_currentState)
+            //{
+            //    case PoltergeistStates.Selecting:
 
 
-                    break;
-                case PoltergeistStates.Manipulating:
+            //        break;
+            //    case PoltergeistStates.Manipulating:
 
 
-                    break;
-            }
+            //        break;
+            //}
 
-            if (inputs.InteractInput)
+
+
+            if (inputs.Cancel)
             {
                 _playerController.RequestChangeState(PlayerStates.OnGround);
             }
@@ -60,6 +69,10 @@ namespace AvatarController.PlayerFSM
             base.OnExit();
             CameraPolter.DeactivatePolterMode();
             _playerController.EndPoltergeist();
+            if (Singleton.TryGetInstance(out PoltergeistManager manager))
+            {
+                manager.EndPoltergeist();
+            }
         }
 
         public override bool CanAutoTransition()

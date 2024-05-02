@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UtilsComplements;
+using static UtilsComplements.AsyncTimer;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -12,11 +13,16 @@ namespace Poltergeist
         [Header("Lists")]
         private List<Poltergeist_Item> _poltergeistList = new();
         private Poltergeist_Item[] _evaluatedPoltergeists;
+        internal Poltergeist_Item _evaluatedPoltergeist;
 
         private int _indexControl;
         private bool _evaluating;
 
+        [Header("Attributes")]
+        [SerializeField, Min(0.01f)] private float _timerToDie = 2;
+
         public ISingleton<PoltergeistManager> Instance => this;
+        public Poltergeist_Item EvaluatedPoltergeist => _evaluatedPoltergeist;
 
         #region Unity Logic
         private void Awake()
@@ -30,14 +36,14 @@ namespace Poltergeist
         #endregion
 
         #region Public Methods
-        #region Private Methods
+
         /// <summary>
         /// Should be triggered at the beginning of the poltergeistMode
         /// </summary>
         public void StartPoltergeist(Transform target, float radius)
         {
             _evaluating = false;
-            _evaluatedPoltergeists = GetNearPoltergeist(target, radius);
+            //_evaluatedPoltergeists = GetNearPoltergeist(target, radius);
             _indexControl = -1;
         }
 
@@ -47,11 +53,18 @@ namespace Poltergeist
         {
             if (_indexControl < 0) // if it's not initialized
             {
-
                 return null;
             }
 
             return null;
+        }
+
+        public void EndPoltergeist()
+        {
+            StartCoroutine(TimerCoroutine(_timerToDie, () =>
+            {
+                _evaluatedPoltergeist.EndPoltergeist();
+            })); ;
         }
 
         internal void AddPoltergeist(Poltergeist_Item item)
@@ -74,6 +87,7 @@ namespace Poltergeist
         }
         #endregion
 
+        #region Private Methods
         private Poltergeist_Item[] GetNearPoltergeist(Transform target, float radius)
         {
             //Check nullity
@@ -133,7 +147,7 @@ namespace Poltergeist
             }
 
             return sortedList;
-        }        
+        }
         #endregion
 
         #region DEBUG

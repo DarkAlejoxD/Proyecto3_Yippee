@@ -3,6 +3,7 @@ using UnityEngine;
 using InputController;
 using AvatarController.Data;
 using AvatarController.PlayerFSM;
+using static UtilsComplements.AsyncTimer;
 using FSM;
 
 namespace AvatarController
@@ -39,6 +40,9 @@ namespace AvatarController
 
         //public bool IsGrounded => _playerJump.IsGrounded;
 
+        [Header("CanTransitionValues")]
+        private bool _canActivatePoltergeist;
+
         [Header("Velocity Attributes")]
         internal Vector3 Velocity;
         internal float VelocityY;
@@ -49,7 +53,6 @@ namespace AvatarController
 
         [Header("FSM")]
         private FSM_Player<PlayerStates> _playerFSM;
-
 
         public PlayerStates CurrentState => _playerFSM.CurrentState;
         public PlayerStates LastState => _playerFSM.LastState;
@@ -93,6 +96,7 @@ namespace AvatarController
             Velocity = Vector3.zero;
             VelocityY = 0;
             _useGravity = true;
+            _canActivatePoltergeist = true;
             if (DEBUG_TextTest)
                 DEBUG_TextTest.text = "";
         }
@@ -155,7 +159,17 @@ namespace AvatarController
 
         internal void ForceChangeState(PlayerStates state) => _playerFSM.ForceChange(state);
 
-        internal void RequestChangeState(PlayerStates state) => _playerFSM.RequestChange(state);
+        internal void RequestChangeState(PlayerStates state)
+        {
+            if (state == PlayerStates.OnPoltergeist)
+            {
+                if (!_canActivatePoltergeist)
+                {
+                    return;
+                }
+            }
+            _playerFSM.RequestChange(state);
+        }
 
         internal void ReturnState() => _playerFSM.ReturnLastState();
 
@@ -169,6 +183,10 @@ namespace AvatarController
         {
             _inputManager.SetPlayerMapActive(true);
             _inputManager.SetPoltergeistActive(false);
+
+            _canActivatePoltergeist = false;
+            StartCoroutine(TimerCoroutine(_dataContainer.DefPoltValues.PoltergeistCD,
+                                          () => _canActivatePoltergeist = true));
         }
         #endregion
 
@@ -199,6 +217,8 @@ namespace AvatarController
             //Manual Transitions should be named here:
             // - When grab a GrabLedge and LetGoLedge
             // - Dive enter and exit
+            // - OnPoltergeistEnter --> OnGroundState
+            // - OnPoltergeistExit --> OnPoltergeist
 
             _playerFSM.OnEnter();
         }

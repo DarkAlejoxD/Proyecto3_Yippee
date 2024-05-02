@@ -36,6 +36,7 @@ namespace InputController
             SprintUpdate();
             InteractUpdate();
             GhostViewUpdate();
+            PoltActiveUpdate();
 
             //PoltergeistMove
             PolterCancelUpdate();
@@ -110,7 +111,7 @@ namespace InputController
 
         private void PoltActiveUpdate()
         {
-            bool triggered = _playerMap.PlayerMove.Poltergeist.IsPressed();
+            bool triggered = _playerMap.PlayerMove.Poltergeist.WasReleasedThisFrame();
             _inputValues.Poltergeist = triggered;
         }
 

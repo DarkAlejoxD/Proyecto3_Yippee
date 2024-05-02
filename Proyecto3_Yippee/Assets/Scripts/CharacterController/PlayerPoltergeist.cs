@@ -1,8 +1,6 @@
-using System.Collections;
 using UnityEngine;
 using AvatarController.Data;
 using UtilsComplements.Editor;
-using Poltergeist;
 
 namespace AvatarController
 {
@@ -35,14 +33,12 @@ namespace AvatarController
 
             _controller.OnPoltergeistEnter += EnterPoltergeistMode;
             _controller.OnPoltergeistStay += PoltergeistModeUpdate;
-            _controller.OnPoltergeistExit += ExitPoltergeistMode;
         }
 
         private void OnDisable()
         {
             _controller.OnPoltergeistEnter -= EnterPoltergeistMode;
             _controller.OnPoltergeistStay -= PoltergeistModeUpdate;
-            _controller.OnPoltergeistExit -= ExitPoltergeistMode;
         }
         #endregion
 
@@ -50,7 +46,6 @@ namespace AvatarController
         private void EnterPoltergeistMode()
         {
             //StartCoroutine(PolterCooldownCoroutine());
-            //_controller.RequestTeleport(_evaluatedPoltergeistZone.transform.position);
             //_evaluatedPoltergeistZone.ObjectAttached.useGravity = false;
         }
 
@@ -89,15 +84,6 @@ namespace AvatarController
             //}
             //rb.MovePosition(newPos);
             //rb.velocity = Vector3.zero;
-        }
-
-        private void ExitPoltergeistMode(bool value)
-        {
-            //if (value)
-            //{
-            //    _evaluatedPoltergeistZone.ObjectAttached.useGravity = _evaluatedPoltergeistZone.StartedUseGravity;
-            //    _evaluatedPoltergeistZone = null;
-            //}
         }
         #endregion
 
