@@ -14,6 +14,7 @@ namespace Poltergeist
         private Poltergeist_Item[] _evaluatedPoltergeists;
 
         private int _indexControl;
+        private bool _evaluating;
 
         public ISingleton<PoltergeistManager> Instance => this;
 
@@ -22,6 +23,7 @@ namespace Poltergeist
         {
             _poltergeistList = new();
             Instance.Instantiate();
+            _evaluating = false;
         }
 
         private void OnDestroy() => Instance.RemoveInstance();
@@ -34,7 +36,22 @@ namespace Poltergeist
         /// </summary>
         public void StartPoltergeist(Transform target, float radius)
         {
+            _evaluating = false;
             _evaluatedPoltergeists = GetNearPoltergeist(target, radius);
+            _indexControl = -1;
+        }
+
+        /// <summary> Get next node </summary>
+        /// <param name="direction"> should be a number between -1 & 1</param>
+        public Poltergeist_Item GetNext(int direction)
+        {
+            if (_indexControl < 0) // if it's not initialized
+            {
+
+                return null;
+            }
+
+            return null;
         }
 
         internal void AddPoltergeist(Poltergeist_Item item)
@@ -49,13 +66,14 @@ namespace Poltergeist
 
         internal void RemovePoltergeist(Poltergeist_Item item)
         {
-            _poltergeistList ??= new();
+            if (_poltergeistList == null || _poltergeistList.Count <= 0)
+                return;
 
             if (_poltergeistList.Contains(item))
                 _poltergeistList.Remove(item);
         }
         #endregion
-        
+
         private Poltergeist_Item[] GetNearPoltergeist(Transform target, float radius)
         {
             //Check nullity
@@ -76,30 +94,34 @@ namespace Poltergeist
             //Sort them by a direction (The camera axis temp)
             //[0]-1 [n/2]0 [n]1
 
-            Vector3 direction = Camera.main.transform.right;
+            Vector3 evaluatedDir = Camera.main.transform.right;
             Poltergeist_Item[] sortedList = new Poltergeist_Item[nearList.Count];
 
-            for (int i = 0; i < nearList.Count; i++)
-            {
-                if (i == 0)
-                {
-                    sortedList[i] = nearList[i];
-                    continue;
-                }
+            sortedList[0] = nearList[0];
 
+            for (int i = 1; i < nearList.Count; i++)
+            {
                 Poltergeist_Item lastItem = nearList[i];
 
                 for (int j = 0; j < i; j++)
                 {
+                    //Get values from current evaluation (lastItem)
                     Vector3 targetToCurrentPolter = target.position - lastItem.transform.position;
+                    float distanceToCurrent = targetToCurrentPolter.magnitude;
                     targetToCurrentPolter.Normalize();
-                    float dotProduct = Vector3.Dot(targetToCurrentPolter, direction);
+                    float dotProduct = Vector3.Dot(targetToCurrentPolter, evaluatedDir);
 
+                    //Get the values from the located item in the sortedList
                     Vector3 targetToLocatedPolter = target.position - sortedList[j].transform.position;
+                    float distanceToLocated = targetToLocatedPolter.magnitude;
                     targetToLocatedPolter.Normalize();
-                    float dotLocated = Vector3.Dot(targetToLocatedPolter, direction);
+                    float dotLocated = Vector3.Dot(targetToLocatedPolter, evaluatedDir);
 
-                    if (dotProduct < dotLocated)
+                    //Calculate the distance base in the axis
+                    float reflexDistanceCurrent = (evaluatedDir * distanceToCurrent).magnitude * dotProduct;
+                    float reflexDistanceLocated = (evaluatedDir * distanceToLocated).magnitude * dotLocated;
+
+                    if (reflexDistanceCurrent < reflexDistanceLocated)
                     {
                         var handler = sortedList[j]; //keep this position's item
                         sortedList[j] = lastItem; //asign the item to the list
@@ -111,7 +133,7 @@ namespace Poltergeist
             }
 
             return sortedList;
-        }
+        }        
         #endregion
 
         #region DEBUG

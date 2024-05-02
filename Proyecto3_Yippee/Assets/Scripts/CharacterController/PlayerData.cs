@@ -98,7 +98,32 @@ namespace AvatarController.Data
         }
         #endregion
 
-        #region OtherValues Nested Class
+        #region Poltergeist Nested Class
+        [Serializable]
+        public class PoltergeistValues
+        {
+            #region Poltergeist
+            [Header("Poltergeist")]
+            [SerializeField, Min(0.01f), Tooltip("Security Cooldown to not spam it")]
+            private float _poltergeistSpamCooldown;
+            [SerializeField, Min(0.01f)] private float _poltergeistCooldown;
+            [SerializeField, Min(0.01f)] private float _poltergeistRadius;
+            [SerializeField, Min(0.01f)] private float _playerRadius;
+            [SerializeField, Min(0.01f)] private float _speed;
+
+            public float PoltergeistSpamCD => _poltergeistSpamCooldown;
+            public float PoltergeistCD => _poltergeistCooldown;
+            public float PoltergeistRadius => _poltergeistRadius;
+            public float PlayerRadius => _playerRadius;
+            public float Speed => _speed;
+
+            [Header("DEBUG Poltergeist")]
+            public bool DEBUG_DrawPoltergeistRadius = true;
+            #endregion
+        }
+        #endregion
+
+        #region Other Nested Class
         [Serializable]
         public class OtherValues
         {
@@ -120,25 +145,8 @@ namespace AvatarController.Data
             [Header("DEBUG GhostView")]
             public bool DEBUG_ShowGhostRadius;
             #endregion
-
-            #region Poltergeist
-            [Header("Poltergeist")]
-            [SerializeField, Min(0.01f), Tooltip("Security Cooldown to not spam it")]
-            private float _poltergeistCooldown;
-            [SerializeField, Min(0.01f)] private float _poltergeistRadius;
-            [SerializeField, Min(0.01f)] private float _playerRadius;
-            [SerializeField, Min(0.01f)] private float _speed;
-
-            public float PoltergeistCD => _poltergeistCooldown;
-            public float PoltergeistRadius => _poltergeistRadius;
-            public float PlayerRadius => _playerRadius;
-            public float Speed => _speed;
-
-            [Header("DEBUG Poltergeist")]
-            public bool DEBUG_DrawPoltergeistRadius = true;
-            #endregion
         }
-        #endregion        
+        #endregion  
 
         #region Movement Fields
         [Header("Movement Attributes")]
@@ -167,9 +175,13 @@ namespace AvatarController.Data
         #region Other Values
         [Header("Interaction Attributes")]
         [SerializeField, Space(SPACES)] InteractionValues _interactionValues;
+        [Header("Poltergeist")]
+        [SerializeField, Space(SPACES)] PoltergeistValues _poltergeistValues;
+        [Header("OtherValues")]
         [SerializeField, Space(SPACES)] private OtherValues _otherValues;
-        public InteractionValues DefaultInteractionValues => _interactionValues;
 
+        public InteractionValues DefaultInteractionValues => _interactionValues;
+        public PoltergeistValues DefPoltValues => _poltergeistValues;
         /// <summary>
         /// Contains:
         ///     - GhostView

@@ -13,8 +13,9 @@ namespace InputController
         public bool Poltergeist { get; internal set; }
 
         public Vector2 PoltergeistXZAxis { get; internal set; }
-        public bool AcceptCancelInput { get; internal set; }
+        public bool SelectDeselectInput { get; internal set; }
         public float PoltergeistYAxis { get; internal set; }
+        public bool Cancel { get; internal set; }
 
         public void ResetInputs()
         {
@@ -26,8 +27,9 @@ namespace InputController
             SprintInput = false;
 
             PoltergeistXZAxis = Vector2.zero;
-            AcceptCancelInput = false;
+            SelectDeselectInput = false;
             PoltergeistYAxis = 0;
+            Cancel = false;
         }
     }
 }

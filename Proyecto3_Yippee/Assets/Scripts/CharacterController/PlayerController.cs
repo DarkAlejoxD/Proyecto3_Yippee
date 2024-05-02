@@ -50,6 +50,7 @@ namespace AvatarController
         [Header("FSM")]
         private FSM_Player<PlayerStates> _playerFSM;
 
+
         public PlayerStates CurrentState => _playerFSM.CurrentState;
         public PlayerStates LastState => _playerFSM.LastState;
 
@@ -152,11 +153,23 @@ namespace AvatarController
             if (!state) StopVelocity();
         }
 
-        public void ForceChangeState(PlayerStates state) => _playerFSM.ForceChange(state);
+        internal void ForceChangeState(PlayerStates state) => _playerFSM.ForceChange(state);
 
-        public void RequestChangeState(PlayerStates state) => _playerFSM.RequestChange(state);
+        internal void RequestChangeState(PlayerStates state) => _playerFSM.RequestChange(state);
 
-        public void ReturnState() => _playerFSM.ReturnLastState();
+        internal void ReturnState() => _playerFSM.ReturnLastState();
+
+        internal void StartPoltergeist()
+        {
+            _inputManager.SetPlayerMapActive(false);
+            _inputManager.SetPoltergeistActive(true);
+        }
+
+        internal void EndPoltergeist()
+        {
+            _inputManager.SetPlayerMapActive(true);
+            _inputManager.SetPoltergeistActive(false);
+        }
         #endregion
 
         #region Private Methods
@@ -168,6 +181,7 @@ namespace AvatarController
             _playerFSM.AddState(PlayerStates.OnAir, new PlayerState_OnAir(this));
             _playerFSM.AddState(PlayerStates.Grabbing, new PlayerState_Grabbing(this));
             _playerFSM.AddState(PlayerStates.OnDive, new PlayerState_OnDive(this));
+            _playerFSM.AddState(PlayerStates.OnPoltergeist, new PlayerState_Poltergeist(this));
 
             Transition toAir = new Transition(() =>
             {

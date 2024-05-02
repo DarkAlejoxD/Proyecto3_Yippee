@@ -1,4 +1,5 @@
 ﻿using InputController;
+using UnityEngine;
 
 namespace AvatarController.PlayerFSM
 {
@@ -33,8 +34,9 @@ namespace AvatarController.PlayerFSM
 
             if (inputs.Poltergeist && !_poltergeistActivated)
             {
+                Debug.Log("AAAAAA");
                 _poltergeistActivated = true;
-                _playerController.OnPoltergeistEnter?.Invoke();
+                _playerController.RequestChangeState(PlayerStates.OnPoltergeist);
             }
             //_playerController.OnSprint?.Invoke(inputs.SprintInput); ???
         }

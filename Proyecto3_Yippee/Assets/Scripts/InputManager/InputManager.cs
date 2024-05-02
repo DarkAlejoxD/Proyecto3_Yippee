@@ -38,7 +38,8 @@ namespace InputController
             GhostViewUpdate();
 
             //PoltergeistMove
-            AcceptCancelUpdate();
+            PolterCancelUpdate();
+            SelectDeselectUpdate();
             PoltergeistMovementUpdate();
             PoltergeistYMovementUpdate();
 
@@ -107,11 +108,17 @@ namespace InputController
             _inputValues.SprintInput = triggered;
         }
 
-        private void AcceptCancelUpdate()
+        private void PoltActiveUpdate()
+        {
+            bool triggered = _playerMap.PlayerMove.Poltergeist.IsPressed();
+            _inputValues.Poltergeist = triggered;
+        }
+
+        private void SelectDeselectUpdate()
         {
             bool triggered = _playerMap.Poltergeist.SelectDeselect.WasReleasedThisFrame();
 
-            _inputValues.AcceptCancelInput = triggered;
+            _inputValues.SelectDeselectInput = triggered;
         }
 
         private void PoltergeistMovementUpdate()
@@ -128,6 +135,13 @@ namespace InputController
             float y = _playerMap.Poltergeist.YAxis.ReadValue<float>();
 
             _inputValues.PoltergeistYAxis = y;
+        }
+
+        private void PolterCancelUpdate()
+        {
+            bool triggered = _playerMap.Poltergeist.Cancel.WasReleasedThisFrame();
+
+            _inputValues.Cancel = triggered;
         }
         #endregion
     }
