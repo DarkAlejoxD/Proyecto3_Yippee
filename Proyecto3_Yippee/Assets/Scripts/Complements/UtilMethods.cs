@@ -30,7 +30,7 @@ namespace UtilsComplements
                 var item = list[i];
                 if (!item.TryGetComponent<MeshRenderer>(out var a))
                 {
-                    GameObject.Destroy(item);
+                    GameObject.DestroyImmediate(item);
                 }
             }
         }
