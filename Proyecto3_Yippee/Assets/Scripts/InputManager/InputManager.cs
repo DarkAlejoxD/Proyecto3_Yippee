@@ -1,6 +1,6 @@
 using System;
-using UtilsComplements;
 using UnityEngine;
+using UtilsComplements;
 
 namespace InputController
 {

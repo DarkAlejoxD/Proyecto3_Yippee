@@ -82,6 +82,15 @@ namespace InputController
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Poltergeist"",
+                    ""type"": ""Button"",
+                    ""id"": ""2115b088-960b-4b8a-8e16-7aed2e1ca003"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -242,7 +251,7 @@ namespace InputController
                 {
                     ""name"": """",
                     ""id"": ""b4b0811a-fc6b-420c-864f-9d10b8a61fd3"",
-                    ""path"": ""<Keyboard>/1"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -346,6 +355,28 @@ namespace InputController
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b7054650-9646-4530-9e19-c1d9a3eb34a1"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Poltergeist"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84e036cd-fd55-49ca-b946-f195e3680b90"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Poltergeist"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -737,6 +768,7 @@ namespace InputController
             m_PlayerMove_Interact = m_PlayerMove.FindAction("Interact", throwIfNotFound: true);
             m_PlayerMove_SurvivalInstinct = m_PlayerMove.FindAction("SurvivalInstinct", throwIfNotFound: true);
             m_PlayerMove_Sprint = m_PlayerMove.FindAction("Sprint", throwIfNotFound: true);
+            m_PlayerMove_Poltergeist = m_PlayerMove.FindAction("Poltergeist", throwIfNotFound: true);
             // Poltergeist
             m_Poltergeist = asset.FindActionMap("Poltergeist", throwIfNotFound: true);
             m_Poltergeist_Move = m_Poltergeist.FindAction("Move", throwIfNotFound: true);
@@ -813,6 +845,7 @@ namespace InputController
         private readonly InputAction m_PlayerMove_Interact;
         private readonly InputAction m_PlayerMove_SurvivalInstinct;
         private readonly InputAction m_PlayerMove_Sprint;
+        private readonly InputAction m_PlayerMove_Poltergeist;
         public struct PlayerMoveActions
         {
             private @PlayerMap m_Wrapper;
@@ -823,6 +856,7 @@ namespace InputController
             public InputAction @Interact => m_Wrapper.m_PlayerMove_Interact;
             public InputAction @SurvivalInstinct => m_Wrapper.m_PlayerMove_SurvivalInstinct;
             public InputAction @Sprint => m_Wrapper.m_PlayerMove_Sprint;
+            public InputAction @Poltergeist => m_Wrapper.m_PlayerMove_Poltergeist;
             public InputActionMap Get() { return m_Wrapper.m_PlayerMove; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -850,6 +884,9 @@ namespace InputController
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
+                @Poltergeist.started += instance.OnPoltergeist;
+                @Poltergeist.performed += instance.OnPoltergeist;
+                @Poltergeist.canceled += instance.OnPoltergeist;
             }
 
             private void UnregisterCallbacks(IPlayerMoveActions instance)
@@ -872,6 +909,9 @@ namespace InputController
                 @Sprint.started -= instance.OnSprint;
                 @Sprint.performed -= instance.OnSprint;
                 @Sprint.canceled -= instance.OnSprint;
+                @Poltergeist.started -= instance.OnPoltergeist;
+                @Poltergeist.performed -= instance.OnPoltergeist;
+                @Poltergeist.canceled -= instance.OnPoltergeist;
             }
 
             public void RemoveCallbacks(IPlayerMoveActions instance)
@@ -1031,6 +1071,7 @@ namespace InputController
             void OnInteract(InputAction.CallbackContext context);
             void OnSurvivalInstinct(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
+            void OnPoltergeist(InputAction.CallbackContext context);
         }
         public interface IPoltergeistActions
         {
