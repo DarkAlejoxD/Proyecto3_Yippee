@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &9104724310255935587
 Transform:
@@ -49,7 +49,7 @@ MonoBehaviour:
     DissapearColor: {r: 1, g: 0.5235849, b: 0.5235849, a: 1}
     AppearTime: 0.5
     Staytime: 5
-    DisapearTime: 2
+    DisapearTime: 1
 --- !u!1 &5037115271247804106
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6426899828436467845
 Transform:
@@ -82,6 +82,7 @@ Transform:
   - {fileID: 9104724310255935587}
   - {fileID: 2141289601503461582}
   - {fileID: 6145143733248544018}
+  - {fileID: 7389287497792097556}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6353338998842721142
@@ -94,12 +95,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2141289601503461582}
   - component: {fileID: 3329346931963212390}
+  - component: {fileID: 1920028631261080988}
   m_Layer: 0
   m_Name: CheatsHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2141289601503461582
 Transform:
@@ -130,6 +132,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DEBUG_TestCheat: 0
   _timeScaleControl: 1
+--- !u!114 &1920028631261080988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6353338998842721142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e491b47a0af7e874388201b7ee97d6df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DEBUG_TestCheat: 0
+  _component: {fileID: 0}
 --- !u!1 &6714932435730661439
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +161,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6145143733248544018
 Transform:
@@ -174,3 +190,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c97c5fbcc99be47bfa35979606864c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8290389538273454969
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7389287497792097556}
+  - component: {fileID: 6466469696939755264}
+  m_Layer: 0
+  m_Name: PoltergesitManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &7389287497792097556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8290389538273454969}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6426899828436467845}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6466469696939755264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8290389538273454969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a4a302e1f0a2f48bcfa8044d5e327b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timerToDie: 5
