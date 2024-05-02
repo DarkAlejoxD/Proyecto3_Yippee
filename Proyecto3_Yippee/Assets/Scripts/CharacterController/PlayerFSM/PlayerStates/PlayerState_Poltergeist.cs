@@ -12,7 +12,7 @@ namespace AvatarController.PlayerFSM
             Selecting,
             Manipulating
         }
-        public override string Name => "Default Movement";
+        public override string Name => "Poltergeist";
         private PoltergeistStates _currentState;
         private bool _canChangeState = false;
         private Poltergeist_Item _item;
@@ -56,7 +56,7 @@ namespace AvatarController.PlayerFSM
             //        break;
             //}
 
-
+            _playerController.OnPoltergeistStay?.Invoke(inputs.PoltergeistXZAxis, inputs.PoltergeistYAxis);
 
             if (inputs.Cancel)
             {

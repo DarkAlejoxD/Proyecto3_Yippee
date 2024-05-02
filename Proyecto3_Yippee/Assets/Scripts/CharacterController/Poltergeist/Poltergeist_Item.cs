@@ -4,7 +4,7 @@ using UtilsComplements;
 namespace Poltergeist
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(Rigidbody), typeof(Collider2D))]
+    [RequireComponent(typeof(Rigidbody), typeof(Collider))]
     public class Poltergeist_Item : MonoBehaviour
     {
         [Header("Start Attributes")]

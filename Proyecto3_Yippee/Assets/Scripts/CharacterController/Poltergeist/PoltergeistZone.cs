@@ -20,6 +20,20 @@ namespace Poltergeist
             }
         }
 
+        private void OnTriggerStay(Collider other)
+        {
+            if (!other.CompareTag("Player"))
+                return;
+
+            if (!Singleton.TryGetInstance(out PoltergeistManager manager))
+                return;
+
+            if(manager._evaluatedPoltergeist == _item)
+                return;
+
+            manager._evaluatedPoltergeist = _item;
+        }
+
         private void OnTriggerExit(Collider other)
         {
             if (!other.CompareTag("Player"))

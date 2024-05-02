@@ -44,6 +44,7 @@ namespace Poltergeist
         {
             _evaluating = false;
             //_evaluatedPoltergeists = GetNearPoltergeist(target, radius);
+            _evaluatedPoltergeist.StartPoltergeist();
             _indexControl = -1;
         }
 

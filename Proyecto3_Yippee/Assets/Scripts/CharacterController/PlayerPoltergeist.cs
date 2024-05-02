@@ -1,6 +1,8 @@
 using UnityEngine;
 using AvatarController.Data;
 using UtilsComplements.Editor;
+using Poltergeist;
+using UtilsComplements;
 
 namespace AvatarController
 {
@@ -10,8 +12,6 @@ namespace AvatarController
         #region Fields
         [Header("References")]
         private PlayerController _controller;
-
-        private bool _canEnterPoltegeist;
         private PlayerData DataContainer => _controller.DataContainer;
         private Transform CameraTransform => Camera.main.transform;
 
@@ -23,7 +23,6 @@ namespace AvatarController
         private void Awake()
         {
             _controller = GetComponent<PlayerController>();
-            _canEnterPoltegeist = true;
         }
 
         private void OnEnable()
@@ -45,45 +44,50 @@ namespace AvatarController
         #region Private Methods
         private void EnterPoltergeistMode()
         {
-            //StartCoroutine(PolterCooldownCoroutine());
-            //_evaluatedPoltergeistZone.ObjectAttached.useGravity = false;
+            //Poltergeist_Item item = Singleton.GetSingleton<PoltergeistManager>()._evaluatedPoltergeist;
+            //if (item == null)
+            //    return;
+            //item.StartPoltergeist();
         }
 
         private void PoltergeistModeUpdate(Vector2 xzDirection, float yDirection)
         {
-            ////Transform the input by the camera
-            //Vector3 forward = CameraTransform.forward;
-            //forward.y = 0;
-            //forward.Normalize();
-            //Vector3 right = CameraTransform.right;
-            //right.y = 0;
-            //right.Normalize();
+            //Transform the input by the camera
+            Vector3 forward = CameraTransform.forward;
+            forward.y = 0;
+            forward.Normalize();
+            Vector3 right = CameraTransform.right;
+            right.y = 0;
+            right.Normalize();
 
-            //Vector3 movement = xzDirection.y * forward + xzDirection.x * right + yDirection * Vector3.up;
-            //movement.Normalize();
+            Vector3 movement = xzDirection.y * forward + xzDirection.x * right + yDirection * Vector3.up;
+            movement.Normalize();
 
-            ////Realize the movement
-            //Rigidbody rb = null;// _evaluatedPoltergeistZone.ObjectAttached;
-            //Vector3 motion = DataContainer.DefOtherValues.Speed * Time.deltaTime * movement;
-            //Vector3 newPos = rb.position + motion;
+            //Realize the movement
+            Poltergeist_Item item = Singleton.GetSingleton<PoltergeistManager>()._evaluatedPoltergeist;
+            if (item == null)
+                return;
+            Rigidbody rb = item.GetComponent<Rigidbody>();// _evaluatedPoltergeistZone.ObjectAttached;
+            Vector3 motion = DataContainer.DefPoltValues.Speed * Time.deltaTime * movement;
+            Vector3 newPos = rb.position + motion;
 
-            ////Check if is far
-            //float distance = Vector3.Distance(transform.position, newPos);
-            //if (distance > DataContainer.DefOtherValues.PoltergeistRadius)
-            //{
-            //    Vector3 direction = newPos - transform.position;
-            //    direction.Normalize();
-            //    newPos = transform.position + direction * DataContainer.DefOtherValues.PoltergeistRadius;
-            //}
+            //Check if is far
+            float distance = Vector3.Distance(transform.position, newPos);
+            if (distance > DataContainer.DefPoltValues.PoltergeistRadius)
+            {
+                Vector3 direction = newPos - transform.position;
+                direction.Normalize();
+                newPos = transform.position + direction * DataContainer.DefPoltValues.PoltergeistRadius;
+            }
 
-            //if (distance < DataContainer.DefOtherValues.PlayerRadius)
-            //{
-            //    Vector3 direction = newPos - transform.position;
-            //    direction.Normalize();
-            //    newPos = transform.position + direction * DataContainer.DefOtherValues.PlayerRadius;
-            //}
-            //rb.MovePosition(newPos);
-            //rb.velocity = Vector3.zero;
+            if (distance < DataContainer.DefPoltValues.PlayerRadius)
+            {
+                Vector3 direction = newPos - transform.position;
+                direction.Normalize();
+                newPos = transform.position + direction * DataContainer.DefPoltValues.PlayerRadius;
+            }
+            rb.MovePosition(newPos);
+            rb.velocity = Vector3.zero;
         }
         #endregion
 
