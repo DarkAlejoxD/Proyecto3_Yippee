@@ -13,6 +13,7 @@ namespace Poltergeist
 
         Rigidbody _rb;
 
+        #region Unity Logic
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
@@ -34,7 +35,9 @@ namespace Poltergeist
                 manager.RemovePoltergeist(this);
             }
         }
+        #endregion
 
+        #region Public Methods
         public void StartPoltergeist()
         {
             _rb.isKinematic = false;
@@ -46,5 +49,16 @@ namespace Poltergeist
             _rb.isKinematic = _isKinematic;
             _rb.useGravity = _useGravity;
         }
+
+        public void Manipulate()
+        {
+            Debug.Log("Wow, outline chido");
+        }
+
+        public void NoManipulating()
+        {
+            Debug.Log("Desactiva, outline chido");
+        }
+        #endregion
     }
 }

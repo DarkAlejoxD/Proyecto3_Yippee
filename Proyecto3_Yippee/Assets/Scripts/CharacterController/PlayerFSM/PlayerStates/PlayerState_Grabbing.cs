@@ -1,6 +1,6 @@
-﻿using AvatarController.LedgeGrabbing;
+﻿using UnityEngine;
+using AvatarController.LedgeGrabbing;
 using InputController;
-using UnityEngine;
 
 namespace AvatarController.PlayerFSM
 {

@@ -6,6 +6,7 @@ using UnityEditor;
 
 namespace UtilsComplements.Cheats
 {
+    [DisallowMultipleComponent]
     public class Cheat_TimeScaleControl : Cheat, ISingleton<Cheat_TimeScaleControl>
     {
         private const string KEYBOARD_CHEAT_CODE = "CHRONOS";

@@ -3422,6 +3422,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PoltergeistZone(Temp)
       objectReference: {fileID: 0}
+    - target: {fileID: 2152517597742192217, guid: 3d16aa2a3bb04ec4a832802dc461261c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5697107647643398959, guid: 3d16aa2a3bb04ec4a832802dc461261c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3823,5 +3828,5 @@ SceneRoots:
   - {fileID: 1279520844}
   - {fileID: 6872501566908061870}
   - {fileID: 395696060}
-  - {fileID: 477770746920906435}
   - {fileID: 194342304}
+  - {fileID: 477770746920906435}

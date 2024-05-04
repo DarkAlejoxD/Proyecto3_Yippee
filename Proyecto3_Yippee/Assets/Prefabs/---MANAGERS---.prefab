@@ -95,7 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2141289601503461582}
   - component: {fileID: 3329346931963212390}
-  - component: {fileID: 1920028631261080988}
+  - component: {fileID: 1461557843115698860}
   m_Layer: 0
   m_Name: CheatsHolder
   m_TagString: Untagged
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DEBUG_TestCheat: 0
   _timeScaleControl: 1
---- !u!114 &1920028631261080988
+--- !u!114 &1461557843115698860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,11 +141,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6353338998842721142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e491b47a0af7e874388201b7ee97d6df, type: 3}
+  m_Script: {fileID: 11500000, guid: 40453c9da6caf3547b9a4e8fb0badd4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_TestCheat: 0
-  _component: {fileID: 0}
 --- !u!1 &6714932435730661439
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
@@ -6,6 +7,7 @@ using UnityEditor;
 
 namespace UtilsComplements.Cheats
 {
+    [DisallowMultipleComponent]
     public class Cheat_Reset : Cheat, ISingleton<Cheat_Reset>
     {
         private const string KEYBOARD_CHEAT_CODE = "RESTART";

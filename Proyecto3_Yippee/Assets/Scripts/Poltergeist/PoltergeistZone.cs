@@ -1,8 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UtilsComplements;
 
 namespace Poltergeist
 {
+    /// <summary> 
+    /// Unique for alpha, shouldn't make it in beta. 
+    /// </summary>
+    [Obsolete]
     [RequireComponent(typeof(Collider))]
     public class PoltergeistZone : MonoBehaviour
     {
@@ -16,7 +21,7 @@ namespace Poltergeist
 
             if (Singleton.TryGetInstance(out PoltergeistManager manager))
             {
-                manager._evaluatedPoltergeist = _item;
+                //manager._evaluatedPoltergeist = _item;
             }
         }
 
@@ -28,10 +33,10 @@ namespace Poltergeist
             if (!Singleton.TryGetInstance(out PoltergeistManager manager))
                 return;
 
-            if(manager._evaluatedPoltergeist == _item)
-                return;
+            //if(manager._evaluatedPoltergeist == _item)
+            //    return;
 
-            manager._evaluatedPoltergeist = _item;
+            //manager._evaluatedPoltergeist = _item;
         }
 
         private void OnTriggerExit(Collider other)
@@ -39,11 +44,11 @@ namespace Poltergeist
             if (!other.CompareTag("Player"))
                 return;
 
-            if (Singleton.TryGetInstance(out PoltergeistManager manager))
-            {
-                if (manager._evaluatedPoltergeist == _item)
-                    manager._evaluatedPoltergeist = null;
-            }
+            //if (Singleton.TryGetInstance(out PoltergeistManager manager))
+            //{
+            //    if (manager._evaluatedPoltergeist == _item)
+            //        manager._evaluatedPoltergeist = null;
+            //}
         }
         #endregion
     }

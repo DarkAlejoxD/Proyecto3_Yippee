@@ -6,12 +6,18 @@ using UtilsComplements;
 
 namespace AvatarController
 {
+    /// <summary>
+    /// If the player has this component, enters the poltergeist and does the logic
+    /// </summary>
+    //Maybe i shouldn't separate the poltergeist logic, but It's already done so... xd
     [RequireComponent(typeof(PlayerController))]
     public class PlayerPoltergeist : MonoBehaviour
     {
         #region Fields
         [Header("References")]
         private PlayerController _controller;
+        public Poltergeist_Item Item;
+
         private PlayerData DataContainer => _controller.DataContainer;
         private Transform CameraTransform => Camera.main.transform;
 
@@ -24,33 +30,10 @@ namespace AvatarController
         {
             _controller = GetComponent<PlayerController>();
         }
-
-        private void OnEnable()
-        {
-            if (_controller == null)
-                _controller = GetComponent<PlayerController>();
-
-            _controller.OnPoltergeistEnter += EnterPoltergeistMode;
-            _controller.OnPoltergeistStay += PoltergeistModeUpdate;
-        }
-
-        private void OnDisable()
-        {
-            _controller.OnPoltergeistEnter -= EnterPoltergeistMode;
-            _controller.OnPoltergeistStay -= PoltergeistModeUpdate;
-        }
         #endregion
 
         #region Private Methods
-        private void EnterPoltergeistMode()
-        {
-            //Poltergeist_Item item = Singleton.GetSingleton<PoltergeistManager>()._evaluatedPoltergeist;
-            //if (item == null)
-            //    return;
-            //item.StartPoltergeist();
-        }
-
-        private void PoltergeistModeUpdate(Vector2 xzDirection, float yDirection)
+        public void PoltergeistModeUpdate(Vector2 xzDirection, float yDirection)
         {
             //Transform the input by the camera
             Vector3 forward = CameraTransform.forward;
@@ -64,10 +47,7 @@ namespace AvatarController
             movement.Normalize();
 
             //Realize the movement
-            Poltergeist_Item item = Singleton.GetSingleton<PoltergeistManager>()._evaluatedPoltergeist;
-            if (item == null)
-                return;
-            Rigidbody rb = item.GetComponent<Rigidbody>();// _evaluatedPoltergeistZone.ObjectAttached;
+            Rigidbody rb = Item.GetComponent<Rigidbody>();// _evaluatedPoltergeistZone.ObjectAttached;
             Vector3 motion = DataContainer.DefPoltValues.Speed * Time.deltaTime * movement;
             Vector3 newPos = rb.position + motion;
 
@@ -104,6 +84,10 @@ namespace AvatarController
             GizmosUtilities.DrawSphere(transform.position, DEBUG_gizmosColor,
                                        DataContainer.DefPoltValues.PlayerRadius,
                                        DataContainer.DefPoltValues.DEBUG_DrawPoltergeistRadius);
+
+            Transform selection = Item ? Item.transform : transform;
+
+            GizmosUtilities.DrawSphere(selection.position, Color.yellow, 1);
         }
 #endif
         #endregion

@@ -2,6 +2,8 @@
 using UnityEngine;
 using UtilsComplements;
 using static UtilsComplements.AsyncTimer;
+using System.Linq;
+using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -13,7 +15,6 @@ namespace Poltergeist
         [Header("Lists")]
         private List<Poltergeist_Item> _poltergeistList = new();
         private Poltergeist_Item[] _evaluatedPoltergeists;
-        internal Poltergeist_Item _evaluatedPoltergeist;
 
         private int _indexControl;
         private bool _evaluating;
@@ -22,7 +23,6 @@ namespace Poltergeist
         [SerializeField, Min(0.01f)] private float _timerToDie = 2;
 
         public ISingleton<PoltergeistManager> Instance => this;
-        public Poltergeist_Item EvaluatedPoltergeist => _evaluatedPoltergeist;
 
         #region Unity Logic
         private void Awake()
@@ -43,30 +43,45 @@ namespace Poltergeist
         public void StartPoltergeist(Transform target, float radius)
         {
             _evaluating = false;
-            //_evaluatedPoltergeists = GetNearPoltergeist(target, radius);
-            _evaluatedPoltergeist.StartPoltergeist();
-            _indexControl = -1;
+            _evaluatedPoltergeists = GetNearPoltergeist(target, radius);
+
+            _indexControl = SensingUtils.GetNearestIndex(_evaluatedPoltergeists, target,
+                                                         Camera.main.transform.right);
         }
 
         /// <summary> Get next node </summary>
         /// <param name="direction"> should be a number between -1 & 1</param>
         public Poltergeist_Item GetNext(int direction)
         {
-            if (_indexControl < 0) // if it's not initialized
+            if (!_evaluating) // if it's not initialized
             {
-                return null;
+                _evaluating = true;
+                if (direction < 0)
+                    _indexControl--;
+            }
+            else
+            {
+                if (direction > 0)
+                    _indexControl++;
+                else
+                    _indexControl--;
             }
 
-            return null;
+            _indexControl = Math.Clamp(_indexControl, 0, _evaluatedPoltergeists.Length - 1);
+
+            return _evaluatedPoltergeists[_indexControl];
         }
 
         public void EndPoltergeist()
         {
             StartCoroutine(TimerCoroutine(_timerToDie, () =>
             {
-                _evaluatedPoltergeist.EndPoltergeist();
             })); ;
         }
+
+        public void ActivatePoltergeist(Poltergeist_Item item) => item.Manipulate();
+
+        public void DeactivateManipulation(Poltergeist_Item item) => item.NoManipulating();
 
         internal void AddPoltergeist(Poltergeist_Item item)
         {
@@ -113,7 +128,6 @@ namespace Poltergeist
             Poltergeist_Item[] sortedList = new Poltergeist_Item[nearList.Count];
 
             sortedList[0] = nearList[0];
-
             for (int i = 1; i < nearList.Count; i++)
             {
                 Poltergeist_Item lastItem = nearList[i];
@@ -138,7 +152,7 @@ namespace Poltergeist
 
                     if (reflexDistanceCurrent < reflexDistanceLocated)
                     {
-                        var handler = sortedList[j]; //keep this position's item
+                        Poltergeist_Item handler = sortedList[j]; //keep this position's item
                         sortedList[j] = lastItem; //asign the item to the list
                         lastItem = handler; //asign the object we grab from the sortedlist to the lastItem
                     }
