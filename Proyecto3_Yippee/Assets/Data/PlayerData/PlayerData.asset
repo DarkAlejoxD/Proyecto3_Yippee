@@ -16,10 +16,10 @@ MonoBehaviour:
     _acceleration: 70
     _linearDecceleration: 50
     _minSpeedToMove: 2
-    _maxSpeed: 8
+    _maxSpeed: 6.25
     _rotationLerp: 0.25
     _canSprint: 1
-    _sprintMaxSpeed: 14
+    _sprintMaxSpeed: 6.25
     _canJump: 1
     _angularAcceleration: 0.13
     _maxAngularSpeed: 0.07
@@ -81,7 +81,7 @@ MonoBehaviour:
     DEBUG_forwardMovementPct: 1
     DEBUG_drawCoyote: 0
   _diveValues:
-    _startingSpeed: 30
+    _startingSpeed: 25
     _airDeceleration: 40
     _groundDeceleration: 60
     _cooldown: 1
