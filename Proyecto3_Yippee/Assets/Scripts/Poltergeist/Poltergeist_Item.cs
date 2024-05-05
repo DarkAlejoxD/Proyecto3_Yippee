@@ -3,7 +3,6 @@ using UtilsComplements;
 
 namespace Poltergeist
 {
-    [DisallowMultipleComponent]
     [RequireComponent(typeof(Rigidbody), typeof(Collider))]
     public class Poltergeist_Item : MonoBehaviour
     {
@@ -12,11 +11,15 @@ namespace Poltergeist
         [SerializeField] private bool _isKinematic;
 
         Rigidbody _rb;
+        bool _freezePosition;
+        Vector3 _position;
 
+        #region Unity Logic
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
             EndPoltergeist();
+            _position = transform.position;
         }
 
         private void OnEnable()
@@ -35,16 +38,43 @@ namespace Poltergeist
             }
         }
 
+        private void Update()
+        {
+            if (_freezePosition)
+            {
+                transform.position = _position;
+            }
+        }
+        #endregion
+
+        #region Public Methods
         public void StartPoltergeist()
         {
             _rb.isKinematic = false;
             _rb.useGravity = false;
+            _freezePosition = true;
+            _position = transform.position;
         }
 
         public void EndPoltergeist()
         {
             _rb.isKinematic = _isKinematic;
             _rb.useGravity = _useGravity;
+            _freezePosition = false;
         }
+
+        public void Manipulate()
+        {
+            Debug.Log("Wow, outline chido");
+            _freezePosition = false;
+        }
+
+        public void NoManipulating()
+        {
+            Debug.Log("Desactiva, outline chido");
+            _position = transform.position;
+            _freezePosition = true;
+        }
+        #endregion
     }
 }

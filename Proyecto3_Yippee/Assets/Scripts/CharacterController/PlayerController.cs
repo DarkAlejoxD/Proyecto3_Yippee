@@ -5,6 +5,7 @@ using AvatarController.Data;
 using AvatarController.PlayerFSM;
 using static UtilsComplements.AsyncTimer;
 using FSM;
+using Poltergeist;
 
 namespace AvatarController
 {
@@ -27,10 +28,6 @@ namespace AvatarController
         public Action<bool> OnInteract;
         public Action<bool> OnGhostView;
         public Action<bool> OnSprint;
-
-        public Action OnPoltergeistEnter;
-        public Action<Vector2, float> OnPoltergeistStay;
-        public Action<bool> OnPoltergeistExit;
 
         [Header("Random Attributes")]
         //public bool isPushing = false;

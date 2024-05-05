@@ -103,15 +103,19 @@ namespace AvatarController.Data
         public class PoltergeistValues
         {
             #region Poltergeist
-            [Header("Poltergeist")]
+            [Header("Poltergeist Control")]
             [SerializeField, Min(0.01f), Tooltip("Security Cooldown to not spam it")]
-            private float _poltergeistSpamCooldown;
+            private float _poltergeistSpamCooldown = 0.1f;
+            [SerializeField, Range(0.1f, 1)] private float _dotJoystickThreshold = 0.3f;
+
+            [Header("Polt Attributes")]
             [SerializeField, Min(0.01f)] private float _poltergeistCooldown;
             [SerializeField, Min(0.01f)] private float _poltergeistRadius;
             [SerializeField, Min(0.01f)] private float _playerRadius;
             [SerializeField, Min(0.01f)] private float _speed;
 
             public float PoltergeistSpamCD => _poltergeistSpamCooldown;
+            public float JoystickThreshold => _dotJoystickThreshold;
             public float PoltergeistCD => _poltergeistCooldown;
             public float PoltergeistRadius => _poltergeistRadius;
             public float PlayerRadius => _playerRadius;
@@ -191,3 +195,40 @@ namespace AvatarController.Data
         #endregion
     }
 }
+
+
+#if UNITY_EDITOR
+
+namespace AvatarController.Data
+{
+    using UnityEditor;
+
+    [CustomEditor(typeof(PlayerData))]
+    public class PlayerDataEditor : Editor
+    {
+        private PlayerData.OtherValues _others;
+        private float Scale => _others.ScaleMultiplicator;
+
+        private void OnEnable()
+        {
+            _others = ((PlayerData)target).DefOtherValues;
+        }
+
+        public override void OnInspectorGUI()
+        {
+            EditorGUILayout.Space();
+
+            EditorGUILayout.HelpBox("If you pass the mouse over some variables, you will get a few " +
+                                    "description", MessageType.Info);
+            EditorGUILayout.HelpBox($"The final result of the movement will scalate into {(Scale * 10)}/10, " +
+                                    $"\nso 1 meter for the player is {Scale * 1} meter in the rest of the " +
+                                    "game", MessageType.Info);
+
+            EditorGUILayout.Space();
+
+            base.OnInspectorGUI();
+        }
+    }
+}
+
+#endif

@@ -75,7 +75,7 @@ namespace FSM
                 DEBUG_Warning("You are trying to add an existing key");
         }
 
-        public void AddAutoTransition(TKey from, Transition condiiton, TKey to)
+        public void AddAutoTransition(TKey from, Transition condition, TKey to)
         {
             if (!_keyStatePair.ContainsKey(to))
             {
@@ -92,7 +92,7 @@ namespace FSM
                 }
                 _autoTransitions.Add(from, new());
             }
-            AutoTransition transition = new(condiiton, to);
+            AutoTransition transition = new(condition, to);
             _autoTransitions[from].Add(transition);
         }
 
