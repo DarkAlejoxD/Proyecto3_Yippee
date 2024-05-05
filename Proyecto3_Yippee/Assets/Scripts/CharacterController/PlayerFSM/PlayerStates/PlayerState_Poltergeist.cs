@@ -1,14 +1,15 @@
-﻿using AvatarController.Data;
+﻿using UnityEngine;
+using Unity.VisualScripting;
+using AvatarController.Data;
 using InputController;
 using Poltergeist;
-using Unity.VisualScripting;
-using UnityEngine;
 using UtilsComplements;
 using static UtilsComplements.AsyncTimer;
 
 namespace AvatarController.PlayerFSM
 {
     using FSM;
+
     /// <summary>
     /// This class duty is to check the inputs and the poltergeist states
     /// </summary>
@@ -32,6 +33,7 @@ namespace AvatarController.PlayerFSM
         private const float WAIT_MANTEIN = 1f;
 
         private PlayerPoltergeist _poltergeistController;
+        private PoltergeistManager _poltManager;
 
         private PoltergeistStates _currentState;
         private FSM_Default<SelectState> _selectionBrain;
@@ -80,8 +82,10 @@ namespace AvatarController.PlayerFSM
 
             if (Singleton.TryGetInstance(out PoltergeistManager manager))
             {
-                manager.StartPoltergeist(_playerController.transform, 2);
+                _poltManager = manager;
             }
+            _poltManager.StartPoltergeist(_playerController.transform,
+                                         Data.DefPoltValues.PoltergeistRadius);
         }
 
         public override void OnPlayerStay(InputValues inputs)
@@ -113,6 +117,7 @@ namespace AvatarController.PlayerFSM
                     if (inputs.SelectDeselectInput)
                     {
                         _currentState = PoltergeistStates.Manipulating;
+                        Item.Manipulate();
                     }
                     break;
                 case PoltergeistStates.Manipulating:
@@ -122,6 +127,8 @@ namespace AvatarController.PlayerFSM
                     if (inputs.SelectDeselectInput)
                     {
                         _currentState = PoltergeistStates.Selecting;
+                        _poltManager.UpdateOrder(Item);
+                        Item.NoManipulating();
                     }
                     break;
             }
@@ -137,10 +144,7 @@ namespace AvatarController.PlayerFSM
             base.OnExit();
             CameraPolter.DeactivatePolterMode();
             _playerController.EndPoltergeist();
-            if (Singleton.TryGetInstance(out PoltergeistManager manager))
-            {
-                manager.EndPoltergeist();
-            }
+            _poltManager.EndPoltergeist();
         }
 
         public override bool CanAutoTransition()
@@ -150,11 +154,8 @@ namespace AvatarController.PlayerFSM
 
         private void PickNewItem()
         {
-            if (Singleton.TryGetInstance(out PoltergeistManager manager))
-            {
-                int dir = _inputHandler > 0 ? 1 : -1;
-                Item = manager.GetNext(dir);
-            }
+            int dir = _inputHandler > 0 ? 1 : -1;
+            Item = _poltManager.GetNext(dir);
         }
 
         private void SelectionFSMInit()

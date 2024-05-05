@@ -211,6 +211,8 @@ namespace AvatarController.Data
             EditorGUILayout.Space();
 
             EditorGUILayout.HelpBox("If you pass the mouse over some variables, you will get a few description", MessageType.Info);
+            EditorGUILayout.HelpBox("The final result of the movement will scalate into 1/10, \n" +
+                                    "so 1 meter for the player is 0,1 meter in real life", MessageType.Info);
 
             EditorGUILayout.Space();
 

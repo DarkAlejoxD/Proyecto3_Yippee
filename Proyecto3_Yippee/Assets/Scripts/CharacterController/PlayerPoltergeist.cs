@@ -87,7 +87,7 @@ namespace AvatarController
 
             Transform selection = Item ? Item.transform : transform;
 
-            GizmosUtilities.DrawSphere(selection.position, Color.yellow, 1);
+            GizmosUtilities.DrawSphere(selection.position, Color.yellow, 0.2f);
         }
 #endif
         #endregion
