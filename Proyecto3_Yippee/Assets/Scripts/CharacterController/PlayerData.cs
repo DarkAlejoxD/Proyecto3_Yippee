@@ -206,13 +206,23 @@ namespace AvatarController.Data
     [CustomEditor(typeof(PlayerData))]
     public class PlayerDataEditor : Editor
     {
+        private PlayerData.OtherValues _others;
+        private float Scale => _others.ScaleMultiplicator;
+
+        private void OnEnable()
+        {
+            _others = ((PlayerData)target).DefOtherValues;
+        }
+
         public override void OnInspectorGUI()
         {
             EditorGUILayout.Space();
 
-            EditorGUILayout.HelpBox("If you pass the mouse over some variables, you will get a few description", MessageType.Info);
-            EditorGUILayout.HelpBox("The final result of the movement will scalate into 1/10, \n" +
-                                    "so 1 meter for the player is 0,1 meter in real life", MessageType.Info);
+            EditorGUILayout.HelpBox("If you pass the mouse over some variables, you will get a few " +
+                                    "description", MessageType.Info);
+            EditorGUILayout.HelpBox($"The final result of the movement will scalate into {(Scale * 10)}/10, " +
+                                    $"\nso 1 meter for the player is {Scale * 1} meter in the rest of the " +
+                                    "game", MessageType.Info);
 
             EditorGUILayout.Space();
 
