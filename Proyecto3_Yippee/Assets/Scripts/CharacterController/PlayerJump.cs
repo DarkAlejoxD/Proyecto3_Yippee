@@ -69,18 +69,14 @@ namespace AvatarController
         {
             _grabbingLedge = value;
         }
-        #endregion
 
-        #region Private Methods
-        private void OnJump(bool active)
+        public float GetTimeToPeak()
         {
-            if (!active)
-                return;
-
-            if (!CanJump())
-                return;
-
-            Jump();
+            float vel0 = GetVelocity();
+            //Calculus?
+            //v = v0 + a * t //where v:0; v0:vel; a:Gravity; t:?
+            //t = -v0 /-a
+            return Mathf.Abs(vel0 / Gravity);
         }
 
         internal bool CanJump()
@@ -99,12 +95,25 @@ namespace AvatarController
 
             return false;
         }
+        #endregion
+
+        #region Private Methods
+        private void OnJump(bool active)
+        {
+            if (!active)
+                return;
+
+            if (!CanJump())
+                return;
+
+            Jump();
+        }
 
         private void Jump()
         {
             VelocityY = GetVelocity();
             _jumped = true;
-
+            _controller.ForceChangeState(PlayerFSM.PlayerStates.Jumping);
             if (_grabbingLedge)
             {
                 GetComponent<PlayerLedgeGrab>().LetGoLedge();
@@ -128,7 +137,6 @@ namespace AvatarController
 
             float vel = -2 * Gravity * DataContainer.DefaultJumpValues.MaxHeight;
             return Mathf.Sqrt(Mathf.Abs(vel));
-
 
             //OtherVelocityCalculus
             //v = v0 + gt
