@@ -14,7 +14,9 @@ namespace AvatarController.PlayerFSM
         {
             _playerController.OnMovement?.Invoke(inputs.MoveInput);
             _playerController.OnDive?.Invoke(inputs.CrounchDiveInput);
-            _playerController.OnGhostView?.Invoke(inputs.GhostViewInput);
+            
+            if (Data.Powers.HasGhostView)
+                _playerController.OnGhostView?.Invoke(inputs.GhostViewInput);
         }
     }
 }

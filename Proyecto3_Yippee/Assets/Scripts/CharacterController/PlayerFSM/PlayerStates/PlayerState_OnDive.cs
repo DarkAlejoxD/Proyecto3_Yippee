@@ -32,12 +32,8 @@ namespace AvatarController.PlayerFSM
         }
         public override void OnPlayerStay(InputValues inputs)
         {
-            //_playerController.OnMovement?.Invoke(inputs.MoveInput);
-            //_playerController.OnJump?.Invoke(inputs.JumpInput);
-            //_playerController.OnDive?.Invoke(inputs.CrounchDiveInput);
-            //_playerController.OnInteract?.Invoke(inputs.InteractInput);
-            //_playerController.OnGhostView?.Invoke(inputs.GhostViewInput); //??
-            //OnSprint?.Invoke(inputs.SprintInput);
+            if (Data.Powers.HasGhostView)
+                _playerController.OnGhostView?.Invoke(inputs.GhostViewInput);
 
             if (_characterController.isGrounded) //Maybe send a raycast?
                 _playerController.RequestChangeState(PlayerStates.OnGround);

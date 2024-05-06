@@ -25,7 +25,7 @@ namespace AvatarController.Data
                 get
                 {
 #if UNITY_EDITOR
-                    if (DEBUG_testPowers)
+                    if (DEBUG_testPowers || CHEAT_testPowers)
                         return true;
 #endif
                     if (CHEAT_testPowers)
@@ -40,7 +40,7 @@ namespace AvatarController.Data
                 get
                 {
 #if UNITY_EDITOR
-                    if (DEBUG_testPowers)
+                    if (DEBUG_testPowers || CHEAT_testPowers)
                         return true;
 #endif
                     if (CHEAT_testPowers)
@@ -203,6 +203,7 @@ namespace AvatarController.Data
         #endregion
 
         #region Powers 
+        [Header("Powers")]
         [SerializeField, Space(SPACES)] private PlayerPowers _powers;
 
         public PlayerPowers Powers => _powers;
