@@ -298,11 +298,11 @@ MonoBehaviour:
   _chestRayOrigin: {fileID: 395495644288115700}
   _rayLength: 0.1
   _edgeRayLength: 0.3
-  _positionToWallOffset: 0.5
+  _positionToWallOffset: 0.15
   _grabbableLayers:
     serializedVersion: 2
     m_Bits: 1
-  _sideEdgeDetectionOffset: 0.05
+  _sideEdgeDetectionOffset: 0.045
 --- !u!114 &5136656664774719619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 860e7c564d90b0a4990e8d4dd129fd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Item: {fileID: 0}
   DEBUG_gizmosColor: {r: 0.3034916, g: 1, b: 0, a: 1}
 --- !u!1 &684217275470589040
 GameObject:
