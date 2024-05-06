@@ -32,6 +32,8 @@ namespace AvatarController.PlayerFSM
 
         public override void OnPlayerStay(InputValues inputs)
         {
+            _playerController.OnMovement?.Invoke(inputs.MoveInput);
+
             if (!_isJumping)
                 return;
 
