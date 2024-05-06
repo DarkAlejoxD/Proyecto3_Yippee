@@ -57,7 +57,7 @@ namespace AvatarController
             _maxSpeed = Data.DefaultMovement.MaxSpeed;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             Deceleration();
             FaceDirection();
@@ -170,7 +170,7 @@ namespace AvatarController
         private void Deceleration()
         {
             if (Velocity.magnitude > 0)
-                Velocity -= Time.deltaTime * Data.DefaultMovement.LinearDecceleration * (Velocity.normalized);
+                Velocity -= Time.fixedDeltaTime * Data.DefaultMovement.LinearDecceleration * (Velocity.normalized);
         }
 
         private void FaceDirection()
