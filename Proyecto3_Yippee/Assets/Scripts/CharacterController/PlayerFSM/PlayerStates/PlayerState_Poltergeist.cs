@@ -49,7 +49,6 @@ namespace AvatarController.PlayerFSM
         }
 
         public override string Name => "Poltergeist";
-        private PlayerData Data => _playerController.DataContainer;
 
         public PlayerState_Poltergeist(PlayerController playerController) : base(playerController)
         {

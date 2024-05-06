@@ -8,6 +8,54 @@ namespace AvatarController.Data
     {
         private const int SPACES = 6;
 
+        #region Powers
+
+        [Serializable]
+        public class PlayerPowers
+        {
+            [SerializeField] private bool DEBUG_testPowers;
+
+            public bool CHEAT_testPowers { get; set; }
+
+            internal bool _hasPoltergeist = false;
+            internal bool _hasGhostView = false;
+
+            public bool HasPoltergeist
+            {
+                get
+                {
+#if UNITY_EDITOR
+                    if (DEBUG_testPowers)
+                        return true;
+#endif
+                    if (CHEAT_testPowers)
+                        return true;
+
+                    return _hasPoltergeist;
+                }
+            }
+
+            public bool HasGhostView
+            {
+                get
+                {
+#if UNITY_EDITOR
+                    if (DEBUG_testPowers)
+                        return true;
+#endif
+                    if (CHEAT_testPowers)
+                        return true;
+
+                    return _hasGhostView;
+                }
+            }
+
+            public void UnlockGhostView() => _hasGhostView = true;
+            public void UnlockPoltergeist() => _hasPoltergeist = true;
+        }
+        #endregion
+
+
         #region Player Movement Nested Class
         [Serializable]
         public class PlayerMovementData
@@ -41,13 +89,17 @@ namespace AvatarController.Data
         [Serializable]
         public class JumpValues
         {
-            [SerializeField, HideInInspector, Min(0.1f)] private float _minHeight;
+            [Header("Main attributes")]
             [SerializeField, Min(0.1f)] private float _maxHeight;
-            [SerializeField, Min(0.1f), HideInInspector] private float _timePressed;
-            [SerializeField, Min(0.1f), HideInInspector] private float _timeToReachHeight;
             [SerializeField, Min(0.01f)] private float _coyoteTime;
             [SerializeField] private float _gravityMultiplier = 2.0f;
             [SerializeField] private float _downGravityMultiplier = 1.5f;
+
+            [Header("Secondary")]
+            [Tooltip("The time the player will be on air before starts falling." +
+                     "\nThis variable will be used to compute the deceleration when the player release the button" +
+                     "before reaching the peak")]
+            [SerializeField] private float _releasePenaltyTime = 0.3f;
 
             [Header("DEBUG")]
             public bool DEBUG_drawHeight;
@@ -57,13 +109,11 @@ namespace AvatarController.Data
             [Range(0, 1)] public float DEBUG_forwardMovementPct;
             [HideInInspector] public bool DEBUG_drawCoyote;
 
-            public float MinHeight => _minHeight;
             public float MaxHeight => _maxHeight;
-            public float TimePressed => _timePressed;
-            public float TimeToReachHeight => _timeToReachHeight;
             public float CoyoteTime => _coyoteTime;
             public float GravityMultiplier => _gravityMultiplier;
             public float DownGravityMultiplier => _downGravityMultiplier;
+            public float ReleasePenalty => _releasePenaltyTime;
         }
         #endregion
 
@@ -150,7 +200,13 @@ namespace AvatarController.Data
             public bool DEBUG_ShowGhostRadius;
             #endregion
         }
-        #endregion  
+        #endregion
+
+        #region Powers 
+        [SerializeField, Space(SPACES)] private PlayerPowers _powers;
+
+        public PlayerPowers Powers => _powers;
+        #endregion
 
         #region Movement Fields
         [Header("Movement Attributes")]
@@ -193,6 +249,8 @@ namespace AvatarController.Data
         /// </summary>
         public OtherValues DefOtherValues => _otherValues;
         #endregion
+
+        private void OnEnable() => _powers.CHEAT_testPowers = false;
     }
 }
 
@@ -206,12 +264,13 @@ namespace AvatarController.Data
     [CustomEditor(typeof(PlayerData))]
     public class PlayerDataEditor : Editor
     {
-        private PlayerData.OtherValues _others;
-        private float Scale => _others.ScaleMultiplicator;
+        private PlayerData data;
+        private float Scale => data.DefOtherValues.ScaleMultiplicator;
+        private float TimeToPeak => 0;
 
         private void OnEnable()
         {
-            _others = ((PlayerData)target).DefOtherValues;
+            data = ((PlayerData)target);
         }
 
         public override void OnInspectorGUI()
@@ -223,6 +282,8 @@ namespace AvatarController.Data
             EditorGUILayout.HelpBox($"The final result of the movement will scalate into {(Scale * 10)}/10, " +
                                     $"\nso 1 meter for the player is {Scale * 1} meter in the rest of the " +
                                     "game", MessageType.Info);
+
+            //EditorGUILayout.HelpBox($"This is the time to the peak of the jump: {TimeToPeak}", MessageType.Info);
 
             EditorGUILayout.Space();
 

@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
 using InputController;
+using FSM;
 using AvatarController.Data;
 using AvatarController.PlayerFSM;
 using static UtilsComplements.AsyncTimer;
-using FSM;
-using Poltergeist;
 
 namespace AvatarController
 {
+    [SelectionBase]
     [RequireComponent(typeof(InputManager), typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
@@ -47,6 +47,10 @@ namespace AvatarController
         internal bool OnGround;
 
         internal float Gravity => Physics.gravity.y * DataContainer.DefaultJumpValues.GravityMultiplier;
+        /// <summary> Meant to be the decceleration when the player released the button to reach the 
+        /// peak of the jump earlier </summary>
+        internal float TwistGravity { get; set; }
+        internal bool UseTwikedGravity { get; set; }
 
         [Header("FSM")]
         private FSM_Player<PlayerStates> _playerFSM;
@@ -68,6 +72,8 @@ namespace AvatarController
             _playerJump = GetComponent<PlayerJump>();
             //_playerMovement = GetComponent<PlayerMovement>();
             //_playerDive = GetComponent<PlayerDive>();
+            UseTwikedGravity = false;
+            TwistGravity = 0;
 
             FSMInit();
         }
@@ -197,13 +203,14 @@ namespace AvatarController
             _playerFSM.AddState(PlayerStates.Grabbing, new PlayerState_Grabbing(this));
             _playerFSM.AddState(PlayerStates.OnDive, new PlayerState_OnDive(this));
             _playerFSM.AddState(PlayerStates.OnPoltergeist, new PlayerState_Poltergeist(this));
+            _playerFSM.AddState(PlayerStates.Jumping, new PlayerState_Jumping(this));
 
-            Transition toAir = new Transition(() =>
+            Transition toAir = new(() =>
             {
                 return !_playerJump.CanJump();
             });
 
-            Transition grounded = new Transition(() =>
+            Transition grounded = new(() =>
             {
                 return OnGround;
             });
@@ -216,6 +223,8 @@ namespace AvatarController
             // - Dive enter and exit
             // - OnPoltergeistEnter --> OnGroundState
             // - OnPoltergeistExit --> OnPoltergeist
+            // - Jump() in PlayerJump --> Jumping
+            // - in Jumping_State --> OnAir
 
             _playerFSM.OnEnter();
         }
@@ -275,9 +284,17 @@ namespace AvatarController
             }
 
             if (VelocityY < 0)
+            {
                 VelocityY += Gravity * Time.deltaTime * DataContainer.DefaultJumpValues.DownGravityMultiplier;
+                UseTwikedGravity = false;
+            }
             else
-                VelocityY += Gravity * Time.deltaTime;
+            {
+                if (UseTwikedGravity)
+                    VelocityY += TwistGravity * Time.deltaTime;
+                else
+                    VelocityY += Gravity * Time.deltaTime;
+            }
         }
         #endregion
     }

@@ -52,6 +52,7 @@ namespace Poltergeist
         {
             _rb.isKinematic = false;
             _rb.useGravity = false;
+            _rb.freezeRotation = true;
             _freezePosition = true;
             _position = transform.position;
         }
@@ -61,6 +62,7 @@ namespace Poltergeist
             _rb.isKinematic = _isKinematic;
             _rb.useGravity = _useGravity;
             _freezePosition = false;
+            _rb.freezeRotation = false;
         }
 
         public void Manipulate()
