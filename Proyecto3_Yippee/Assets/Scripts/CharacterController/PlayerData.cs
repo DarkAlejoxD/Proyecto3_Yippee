@@ -25,7 +25,7 @@ namespace AvatarController.Data
                 get
                 {
 #if UNITY_EDITOR
-                    if (DEBUG_testPowers)
+                    if (DEBUG_testPowers || CHEAT_testPowers)
                         return true;
 #endif
                     if (CHEAT_testPowers)
@@ -40,7 +40,7 @@ namespace AvatarController.Data
                 get
                 {
 #if UNITY_EDITOR
-                    if (DEBUG_testPowers)
+                    if (DEBUG_testPowers || CHEAT_testPowers)
                         return true;
 #endif
                     if (CHEAT_testPowers)
@@ -203,6 +203,7 @@ namespace AvatarController.Data
         #endregion
 
         #region Powers 
+        [Header("Powers")]
         [SerializeField, Space(SPACES)] private PlayerPowers _powers;
 
         public PlayerPowers Powers => _powers;
@@ -251,6 +252,14 @@ namespace AvatarController.Data
         #endregion
 
         private void OnEnable() => _powers.CHEAT_testPowers = false;
+        /// <summary>
+        /// This should be called once, on the start or awake of the player
+        /// </summary>
+        public void DisablePowers()
+        {
+            _powers._hasPoltergeist = false;
+            _powers._hasGhostView = false;
+        }
     }
 }
 

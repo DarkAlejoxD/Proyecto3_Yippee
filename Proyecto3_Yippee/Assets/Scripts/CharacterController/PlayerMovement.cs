@@ -103,7 +103,16 @@ namespace AvatarController
 
             Vector3 movement = Vector3.zero;
 
-            movement = right * moveInput.x;
+            if (_grabbingLedge)
+            {
+                Vector3 computedByCamera = CalculateRight() * moveInput.x;
+
+                float dotInput = Vector3.Dot(right, computedByCamera);
+
+                movement = right * dotInput;
+            }
+            else
+                movement = right * moveInput.x;
             movement += forward * moveInput.y;
 
             if (moveInput.magnitude == 0)
@@ -145,7 +154,7 @@ namespace AvatarController
             Vector3 motion;
 
             float maxSpeed = _maxSpeed;
-            if (_grabbingLedge) maxSpeed = Data.GrabbingLedgeMovement.MaxSpeed; //DEBUG
+            if (_grabbingLedge) maxSpeed = Data.GrabbingLedgeMovement.MaxSpeed;
 
             if (Velocity.magnitude < maxSpeed)
                 Velocity += Time.deltaTime * Data.DefaultMovement.Acceleration * movement;
@@ -154,7 +163,7 @@ namespace AvatarController
 
             if (Velocity.magnitude < Data.DefaultMovement.MinSpeedToMove)
                 motion = Vector3.zero;
-            
+
             _characterController.Move(motion * Data.DefOtherValues.ScaleMultiplicator);
         }
 
