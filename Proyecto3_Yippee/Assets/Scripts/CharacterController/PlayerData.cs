@@ -252,6 +252,14 @@ namespace AvatarController.Data
         #endregion
 
         private void OnEnable() => _powers.CHEAT_testPowers = false;
+        /// <summary>
+        /// This should be called once, on the start or awake of the player
+        /// </summary>
+        public void DisablePowers()
+        {
+            _powers._hasPoltergeist = false;
+            _powers._hasGhostView = false;
+        }
     }
 }
 

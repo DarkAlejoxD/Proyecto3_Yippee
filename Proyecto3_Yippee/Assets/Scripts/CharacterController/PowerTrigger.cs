@@ -53,6 +53,7 @@ namespace AvatarController.Powers
                         GameManager.GetGameManager().PlayerInstance.DataContainer.Powers.UnlockGhostView();
                         break;
                 }
+                Destroy(gameObject);
             }
         }
 
