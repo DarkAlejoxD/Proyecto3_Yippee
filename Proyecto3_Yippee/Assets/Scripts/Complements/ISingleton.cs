@@ -52,7 +52,7 @@ namespace UtilsComplements
 
         public void Invalidate()
         {
-#if UNITY_2022_3_OR_NEWER //It should be working even in older versions, it's just a testing(?
+#if UNITY_2022_3_OR_NEWER //It should be working even in older versions, it's just a test
             if (Value is UnityEngine.Component comp)
                 UnityEngine.Component.Destroy(comp.gameObject);
 #endif

@@ -33,6 +33,8 @@ namespace AvatarController.PlayerFSM
         public override void OnPlayerStay(InputValues inputs)
         {
             _playerController.OnMovement?.Invoke(inputs.MoveInput);
+            if (Data.Powers.HasGhostView)
+                _playerController.OnGhostView?.Invoke(inputs.GhostViewInput);
 
             if (!_isJumping)
                 return;

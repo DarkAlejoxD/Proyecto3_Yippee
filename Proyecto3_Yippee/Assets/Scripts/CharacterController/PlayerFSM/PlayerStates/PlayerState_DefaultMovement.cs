@@ -30,11 +30,15 @@ namespace AvatarController.PlayerFSM
             _playerController.OnDive?.Invoke(inputs.CrounchDiveInput);
 
             _playerController.OnInteract?.Invoke(inputs.InteractInput);
-            _playerController.OnGhostView?.Invoke(inputs.GhostViewInput);
+
+            if (Data.Powers.HasGhostView)
+                _playerController.OnGhostView?.Invoke(inputs.GhostViewInput);
+
+            if (!Data.Powers.HasPoltergeist)
+                return;
 
             if (inputs.Poltergeist && !_poltergeistActivated)
             {
-                Debug.Log("AAAAAA");
                 _poltergeistActivated = true;
                 _playerController.RequestChangeState(PlayerStates.OnPoltergeist);
             }

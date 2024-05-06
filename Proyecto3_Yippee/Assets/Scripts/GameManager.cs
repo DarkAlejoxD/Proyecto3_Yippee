@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour, ISingleton<GameManager>
     {
         get
         {
-            if(!ISingleton<GameManager>.TryGetInstance(out var manager))
+            if (!ISingleton<GameManager>.TryGetInstance(out var manager))
                 return null;
             return manager.PlayerInstance;
         }
@@ -30,16 +30,25 @@ public class GameManager : MonoBehaviour, ISingleton<GameManager>
 
     public static GameManager GetGameManager()
     {
-        if (ISingleton<GameManager>.TryGetInstance(out var manager))        
+        if (ISingleton<GameManager>.TryGetInstance(out var manager))
             return manager;
 
         //It should set itself as the singleton, so this part the code will only triggered once
         var go = new GameObject("GameManager");
-        return go.AddComponent<GameManager>(); 
+        return go.AddComponent<GameManager>();
     }
 
     public void SetPlayerInstance(PlayerController player)
     {
-        _playerInstance = player;
+        if (_playerInstance == null)
+        {
+            _playerInstance = player;
+            _playerInstance.DataContainer.DisablePowers();
+        }
+        else
+        {
+            Destroy(player.gameObject);
+            Debug.Log("More than one player detected, deleted the copy but not implemented if meant to be a dummy in anothe scene");
+        }
     }
 }
