@@ -1,68 +1,78 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DefaultNamespace //add it to a concrete namespace
-{    
+namespace MenuManagement //add it to a concrete namespace
+{
     public class NavBarController : MonoBehaviour
     {
         #region Fields
 
-        [SerializeField] private List<NavItem> _navItems;
+        [SerializeField] private Transform _content;
+        private List<NavItem> _navItems;
+
+        //ButtonNavigation
+        private int _selectedIndex;
         
         #endregion    
 
         #region Unity Logic
+
         private void Start()
-        {           
-            foreach(NavItem navItem in _navItems)
+        {
+            _navItems = new List<NavItem>();
+            foreach(Transform child in _content) 
             {
-                navItem.Deactivate();
-                navItem.gameObject.SetActive(false);
+                _navItems.Add(child.GetComponent<NavItem>());
             }
 
-            _navItems[0].gameObject.SetActive(true);
+            DisableAll();
             _navItems[0].Activate();
         }
 
         private void Update()
-        {        
+        {
+            //DEBUG: Change to new input system y soporte de mando
+            if (Input.GetKeyDown(KeyCode.Q)) //Derecha
+            {
+                if (_selectedIndex > 0)
+                    _selectedIndex--;
+
+                DisableAll();
+                _navItems[_selectedIndex].Activate();
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (_selectedIndex < (_navItems.Count - 1))
+                    _selectedIndex++;
+
+                DisableAll();
+                _navItems[_selectedIndex].Activate();
+            }
         }
+        
         #endregion
 
-        #region Static Methods
-        public static void StaticMethod()
-        {
-        }
-        #endregion
 
         #region Public Methods
-        public void PublicMethod()
+
+        public void SetNavPanel(NavItem item)
         {
+            DisableAll();
+            item.Activate();
         }
+
         #endregion
 
         #region Private Methods
-        private void PrivateMethod()
+
+        private void DisableAll()
         {
+            foreach (NavItem navItem in _navItems)
+            {
+                navItem.Deactivate();
+            }
         }
+
         #endregion
-    }
-}
-
-public class NavItem : MonoBehaviour
-{
-    private bool _active;
-
-
-    //Pa cosas futuras
-    public void Activate()
-    {
-        _active = true;
-    }
-
-    public void Deactivate()
-    {
-        _active = false;
-        
     }
 }
