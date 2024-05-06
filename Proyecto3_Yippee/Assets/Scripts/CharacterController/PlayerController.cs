@@ -114,7 +114,9 @@ namespace AvatarController
             if (!_playerFSM.Equals(null))
                 DEBUG_TextTest.text = "Current State: " + _playerFSM.Name;
 
-            Debug.Log(new Vector3(Velocity.x, VelocityY, Velocity.z));
+            Debug.Log("Velocity: " + new Vector3(Velocity.x, VelocityY, Velocity.z) +
+                      "Magnitude: " + Velocity.magnitude +
+                      "\nDeltaTime: " + Time.deltaTime);
 #endif
         }
         #endregion
