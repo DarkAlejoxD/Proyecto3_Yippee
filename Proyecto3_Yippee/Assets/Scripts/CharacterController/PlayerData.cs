@@ -307,7 +307,7 @@ namespace AvatarController.Data
                                     MessageType.Info);
 
             EditorGUILayout.HelpBox($"The max displacement per second is: {data.DefaultMovement.MaxSpeed * Scale}" +
-                                    $"per second", MessageType.Info);
+                                    $" meters per second", MessageType.Info);
 
             //EditorGUILayout.HelpBox($"This is the time to the peak of the jump: {TimeToPeak}", MessageType.Info);
 
