@@ -104,6 +104,10 @@ namespace AvatarController
                 DEBUG_TextTest.text = "";
         }
 
+        private void FixedUpdate()
+        {
+        }
+
         private void Update()
         {
             UpdateVy();
@@ -267,15 +271,26 @@ namespace AvatarController
 
         private void UpdateVy()
         {
-            if (!_useGravity) return;
+            if (!_useGravity)
+                return;
 
-            float variation = VelocityY * Time.deltaTime;
+            if (VelocityY > DataContainer.DefaultJumpValues.MaxVySpeed)            
+                VelocityY = DataContainer.DefaultJumpValues.MaxVySpeed;
+            
+            else if (VelocityY < -DataContainer.DefaultJumpValues.MaxVySpeed)            
+                VelocityY = -DataContainer.DefaultJumpValues.MaxVySpeed;            
+
+            float deltaTime = Time.deltaTime;
+            float variation = VelocityY * deltaTime;
 
             CollisionFlags movement = _characterController.Move(new Vector3(0, variation, 0) *
                                                                 DataContainer.DefOtherValues.ScaleMultiplicator);
 
             if (movement == (CollisionFlags.Above))
+            {
+                _characterController.Move(-transform.up * 0.001f);
                 VelocityY = 0;
+            }
 
             if (movement == CollisionFlags.Below)
             {
@@ -287,17 +302,17 @@ namespace AvatarController
                 OnGround = false;
             }
 
-            if (VelocityY < 0)
+            if (VelocityY <= 0)
             {
-                VelocityY += Gravity * Time.deltaTime * DataContainer.DefaultJumpValues.DownGravityMultiplier;
+                VelocityY += Gravity * deltaTime * DataContainer.DefaultJumpValues.DownGravityMultiplier;
                 UseTwikedGravity = false;
             }
             else
             {
                 if (UseTwikedGravity)
-                    VelocityY += TwistGravity * Time.deltaTime;
+                    VelocityY += TwistGravity * deltaTime;
                 else
-                    VelocityY += Gravity * Time.deltaTime;
+                    VelocityY += Gravity * deltaTime;
             }
         }
         #endregion

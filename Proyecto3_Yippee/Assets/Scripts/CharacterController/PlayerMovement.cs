@@ -1,5 +1,9 @@
 using UnityEngine;
 using AvatarController.Data;
+#if UNITY_EDITOR
+using UnityEditor;
+using static UtilsComplements.AsyncTimer;
+#endif
 
 namespace AvatarController
 {
@@ -189,6 +193,46 @@ namespace AvatarController
             else
                 _maxSpeed = Data.DefaultMovement.MaxSpeed;
         }
+        #endregion
+
+        #region DEBUG
+#if UNITY_EDITOR
+
+        private bool DEBUG_redraw = true;
+        private Vector3 DEBUG_lastPos;
+        private Vector3 DEBUG_lastDir;
+        private void OnDrawGizmos()
+        {
+            if (_playerController == null)
+                _playerController = GetComponent<PlayerController>();
+
+            if (!Data.DefaultMovement.DEBUG_DrawMovementPerSecond)
+                return;
+
+            float height = -1 * Data.DefOtherValues.ScaleMultiplicator;
+            float distance = Data.DefaultMovement.MaxSpeed * Data.DefOtherValues.ScaleMultiplicator;
+            float whickness = 5;
+
+            if(!Application.isPlaying)
+            {
+                DEBUG_lastPos = transform.position + Vector3.up * height;
+                DEBUG_lastDir = transform.forward;
+            }
+            else if (DEBUG_redraw)
+            {
+                DEBUG_redraw = false;
+                StartCoroutine(TimerCoroutine(1, () => DEBUG_redraw = true));
+                DEBUG_lastPos = transform.position + Vector3.up * height;
+                DEBUG_lastDir = transform.forward;
+            }
+
+            Vector3 startPoint = DEBUG_lastPos;
+            Vector3 endPoint = startPoint + DEBUG_lastDir * distance;
+            Handles.color = new(242 / 255f, 9 / 255f, 255 / 255f);
+            Handles.DrawLine(startPoint, endPoint, whickness);
+            Handles.color = Color.white;
+        }
+#endif
         #endregion
     }
 }

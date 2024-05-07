@@ -3,6 +3,7 @@ using AvatarController;
 using AvatarController.Data;
 using AvatarController.PlayerFSM;
 using static UtilsComplements.AsyncTimer;
+using UnityEditor;
 
 namespace AvatarController
 {
@@ -93,7 +94,7 @@ namespace AvatarController
             if (_velocity.magnitude < Data.DefaultDiveValues.MinSpeedThreshold)
             {
                 IsDiving = false;
-                Debug.Log("Reach");                
+                Debug.Log("Reach");
                 //DEBUG //Moved to the PlayeState_OnDive.OnExit()
                 //_animator.SetBool("Dive", false);
                 //_animator.SetBool("Idle", true);
@@ -105,7 +106,44 @@ namespace AvatarController
         }
 
         private void CheckGrounded() => _isGrounded = _characterController.isGrounded;
+        #endregion
 
+        #region DEBUG
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            if (!_playerController)
+                _playerController = GetComponent<PlayerController>();
+
+            if (!Data.DefaultDiveValues.DEBUG_DrawDiveDisplacement)
+                return;
+
+            float height = -1 * Data.DefOtherValues.ScaleMultiplicator;
+            //v^2 - v0^2 = 2ax where v:0; v0:DiveSpeed; a:deceleration; x:?
+            //x = (-v0^2) / 2a
+            float v0 = Data.DefaultDiveValues.StartingSpeed;
+            float a = Data.DefaultDiveValues.GroundDeceleration;
+            float scale = Data.DefOtherValues.ScaleMultiplicator;
+
+            float distanceInFloor = ((v0 * v0) / (2 * a)) * scale;
+            distanceInFloor = Mathf.Abs(distanceInFloor);
+
+            a = Data.DefaultDiveValues.AirDeceleration;
+            float distanceInAir = ((v0 * v0) / (2 * a)) * scale;
+            distanceInAir = Mathf.Abs(distanceInAir);
+            float dotted = 3;
+
+            Vector3 startPoint = transform.position + transform.up * height;
+            Vector3 endPoint = startPoint + transform.forward * distanceInFloor;
+            Handles.color = new(60 / 236f, 9 / 255f, 255 / 255f);
+            Handles.DrawLine(startPoint, endPoint, dotted);
+            
+            startPoint = transform.position;
+            endPoint = startPoint + transform.forward * distanceInAir;
+            Handles.DrawLine(startPoint, endPoint, dotted);
+            Handles.color = Color.white;
+        }
+#endif
         #endregion
     }
 }
