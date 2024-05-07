@@ -2,7 +2,6 @@ using UnityEngine;
 using AvatarController.Data;
 using UtilsComplements.Editor;
 using Poltergeist;
-using UtilsComplements;
 
 namespace AvatarController
 {
@@ -75,8 +74,11 @@ namespace AvatarController
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            if (!_controller)
-                _controller = GetComponent<PlayerController>();
+            if (!Application.isPlaying)
+                return;
+
+            if (_controller.CurrentState != AvatarController.PlayerFSM.PlayerStates.OnPoltergeist)
+                return;
 
             GizmosUtilities.DrawSphere(transform.position, DEBUG_gizmosColor,
                                        DataContainer.DefPoltValues.PoltergeistRadius,

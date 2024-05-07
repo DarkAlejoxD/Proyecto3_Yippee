@@ -26,7 +26,7 @@ namespace InputController
 
         private void Update()
         {
-            //Read Inputs
+            //Reset Inputs & then read them
             _inputValues.ResetInputs();
 
             //PlayerMove
