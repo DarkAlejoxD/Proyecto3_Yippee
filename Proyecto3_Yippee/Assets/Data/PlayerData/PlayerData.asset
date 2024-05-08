@@ -25,7 +25,7 @@ MonoBehaviour:
     _canJump: 1
     _angularAcceleration: 0.13
     _maxAngularSpeed: 0.07
-    DEBUG_DrawMovementPerSecond: 1
+    DEBUG_DrawMovementPerSecond: 0
   _grabbingLedgeMovement:
     _acceleration: 10
     _linearDecceleration: 10
@@ -92,7 +92,7 @@ MonoBehaviour:
     _groundDeceleration: 60
     _cooldown: 1
     _speedThreshold: 0.2
-    DEBUG_DrawDiveDisplacement: 0
+    DEBUG_DrawDiveDisplacement: 1
   _interactionValues:
     _interactionRange: 4
   _poltergeistValues:
