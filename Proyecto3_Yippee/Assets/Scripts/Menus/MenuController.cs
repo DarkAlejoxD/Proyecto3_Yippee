@@ -35,6 +35,11 @@ namespace MenuManagement //add it to a concrete namespace
             SceneManager.LoadScene(sceneIndex);
         }
 
+        public void ExitGame()
+        {
+            Application.Quit();
+        }
+
         #endregion
 
         #region Private Methods
