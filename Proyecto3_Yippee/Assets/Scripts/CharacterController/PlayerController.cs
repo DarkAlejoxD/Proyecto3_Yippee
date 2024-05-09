@@ -12,8 +12,7 @@ namespace AvatarController
     [RequireComponent(typeof(InputManager), typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
-        //TODO: Make this class control VelocityXY
-        #region Fields
+                #region Fields
         [Header("Data")]
         [SerializeField] private PlayerData _dataContainer;
         private CharacterController _characterController;
@@ -118,9 +117,9 @@ namespace AvatarController
             if (!_playerFSM.Equals(null))
                 DEBUG_TextTest.text = "Current State: " + _playerFSM.Name;
 
-            Debug.Log("Velocity: " + new Vector3(Velocity.x, VelocityY, Velocity.z) +
-                      "Magnitude: " + Velocity.magnitude +
-                      "\nDeltaTime: " + Time.deltaTime);
+            //Debug.Log("Velocity: " + new Vector3(Velocity.x, VelocityY, Velocity.z) +
+            //          "Magnitude: " + Velocity.magnitude +
+            //          "\nDeltaTime: " + Time.deltaTime);
 #endif
         }
         #endregion
