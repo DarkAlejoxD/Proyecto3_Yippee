@@ -1,4 +1,5 @@
 using UnityEngine;
+using BaseGame;
 using AvatarController.Data;
 #if UNITY_EDITOR
 using UnityEditor;
