@@ -1,11 +1,12 @@
 using AvatarController;
+using BaseGame;
 using Unity.VisualScripting;
 using UnityEngine;
 using UtilsComplements;
 
 namespace Interactable //add it to a concrete namespace
 {
-//[RequireComponent(typeof(Transform))] //Add this if necessary, delete it otherwise
+    //[RequireComponent(typeof(Transform))] //Add this if necessary, delete it otherwise
     public class Interactable_Pushable : Interactable_Base
     {
         [SerializeField] private Transform[] _pushPoints;

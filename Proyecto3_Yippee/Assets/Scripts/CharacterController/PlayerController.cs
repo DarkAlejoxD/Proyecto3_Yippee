@@ -5,6 +5,7 @@ using FSM;
 using AvatarController.Data;
 using AvatarController.PlayerFSM;
 using static UtilsComplements.AsyncTimer;
+using BaseGame;
 
 namespace AvatarController
 {
