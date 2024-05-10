@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using BaseGame;
 using FSM;
 using InputController;
 using AvatarController.Data;
@@ -12,7 +14,6 @@ namespace AvatarController
     [RequireComponent(typeof(InputManager), typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
-        //TODO: Make this class control VelocityXY
         #region Fields
         [Header("Data")]
         [SerializeField] private PlayerData _dataContainer;
@@ -118,14 +119,16 @@ namespace AvatarController
             if (!_playerFSM.Equals(null))
                 DEBUG_TextTest.text = "Current State: " + _playerFSM.Name;
 
-            Debug.Log("Velocity: " + new Vector3(Velocity.x, VelocityY, Velocity.z) +
-                      "Magnitude: " + Velocity.magnitude +
-                      "\nDeltaTime: " + Time.deltaTime);
+            //Debug.Log("Velocity: " + new Vector3(Velocity.x, VelocityY, Velocity.z) +
+            //          "Magnitude: " + Velocity.magnitude +
+            //          "\nDeltaTime: " + Time.deltaTime);
 #endif
         }
         #endregion
 
         #region Public Methods
+
+        #region Movement
         public void BlockMovement() => _characterController.enabled = false;
 
         public void UnBlockMovement() => _characterController.enabled = true;
@@ -167,7 +170,58 @@ namespace AvatarController
             _useGravity = state;
             if (!state) StopVelocity();
         }
+        #endregion
 
+        #region Physics
+        public Vector3 GetVelocity() => Velocity;
+
+        /// <summary>
+        /// Adds velocity to the current Velocity
+        /// </summary>
+        public void AddImpulse(Vector3 impulse)
+        {
+            Velocity += impulse;
+        }
+
+        /// <summary>
+        /// Adds velocity to the current Velocity with a limit
+        /// </summary>
+        public void AddImpulse(Vector3 impulse, float maxValue)
+        {
+            Velocity += impulse;
+            if (Velocity.magnitude > maxValue)
+                Velocity = Velocity.normalized * maxValue;
+        }
+
+        /// <summary>
+        /// Caution! This abruptly changes the velocity of the target
+        /// </summary>
+        public void OverrideVelocity(Vector3 velocity)
+        {
+            Velocity = velocity;
+        }
+
+        /// <summary>
+        /// This will add a force. Meant to be a continuous call on another script.
+        /// </summary>
+        /// <param name="acceleration"></param>
+        public void AddForce(Vector3 acceleration, float dt)
+        {
+            Velocity += acceleration * dt;
+        }
+
+        /// <summary>
+        /// Meant to be an asyn call on another script
+        /// </summary>
+        /// <param name="acceleration"></param>
+        /// <param name="time"></param>
+        public void AddForceAsync(Vector3 acceleration, float time)
+        {
+            StartCoroutine(ForceAsyncCoroutine(acceleration, time));
+        }
+        #endregion
+
+        #region FSM
         internal void ForceChangeState(PlayerStates state) => _playerFSM.ForceChange(state);
 
         internal void RequestChangeState(PlayerStates state)
@@ -199,6 +253,8 @@ namespace AvatarController
             StartCoroutine(TimerCoroutine(_dataContainer.DefPoltValues.PoltergeistCD,
                                           () => _canActivatePoltergeist = true));
         }
+        #endregion
+
         #endregion
 
         #region Private Methods
@@ -274,11 +330,11 @@ namespace AvatarController
             if (!_useGravity)
                 return;
 
-            if (VelocityY > DataContainer.DefaultJumpValues.MaxVySpeed)            
+            if (VelocityY > DataContainer.DefaultJumpValues.MaxVySpeed)
                 VelocityY = DataContainer.DefaultJumpValues.MaxVySpeed;
-            
-            else if (VelocityY < -DataContainer.DefaultJumpValues.MaxVySpeed)            
-                VelocityY = -DataContainer.DefaultJumpValues.MaxVySpeed;            
+
+            else if (VelocityY < -DataContainer.DefaultJumpValues.MaxVySpeed)
+                VelocityY = -DataContainer.DefaultJumpValues.MaxVySpeed;
 
             float deltaTime = Time.deltaTime;
             float variation = VelocityY * deltaTime;
@@ -313,6 +369,16 @@ namespace AvatarController
                     VelocityY += TwistGravity * deltaTime;
                 else
                     VelocityY += Gravity * deltaTime;
+            }
+        }
+
+        private IEnumerator ForceAsyncCoroutine(Vector3 acceleration, float time)
+        {
+
+            for (float i = 0; i < time; i += Time.fixedDeltaTime)
+            {
+                Velocity += acceleration * Time.fixedDeltaTime;
+                yield return new WaitForSeconds(Time.fixedDeltaTime);
             }
         }
         #endregion

@@ -45,6 +45,11 @@ namespace Poltergeist
             UpdateNearestObjects(target, radius);
             StopAllCoroutines();
 
+            if (_poltergeistList == null)
+            {
+                return;
+            }
+
             foreach (var item in _nearPoltergeists)
             {
                 item.StartPoltergeist();
