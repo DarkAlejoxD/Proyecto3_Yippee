@@ -132,6 +132,8 @@ namespace AvatarController.PlayerFSM
                     break;
             }
 
+            //_playerController.OnGhostView?.Invoke(inputs.GhostViewInput);??
+
             if (inputs.Cancel)
             {
                 _playerController.RequestChangeState(PlayerStates.OnGround);

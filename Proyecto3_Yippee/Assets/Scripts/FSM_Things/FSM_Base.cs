@@ -194,8 +194,10 @@ namespace FSM
 
         protected static void DEBUG_Warning(string text)
         {
-#if UNITY_EDITOR
+#if UNITY_2017_1_OR_NEWER
             UnityEngine.Debug.LogWarning(text);
+#else
+            System.Console.WriteLine(text);
 #endif
         }
     }

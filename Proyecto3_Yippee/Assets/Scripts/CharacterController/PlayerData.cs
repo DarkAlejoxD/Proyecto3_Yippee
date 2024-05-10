@@ -74,6 +74,9 @@ namespace AvatarController.Data
             [SerializeField, Min(0.1f)] internal float _angularAcceleration;
             [SerializeField] internal float _maxAngularSpeed;
 
+            [Header("DEBUG")]
+            public bool DEBUG_DrawMovementPerSecond;
+
             public float Acceleration => _acceleration;
             public float LinearDecceleration => _linearDecceleration;
             public float MinSpeedToMove => _minSpeedToMove;
@@ -99,7 +102,9 @@ namespace AvatarController.Data
             [Tooltip("The time the player will be on air before starts falling." +
                      "\nThis variable will be used to compute the deceleration when the player release the button" +
                      "before reaching the peak")]
-            [SerializeField] private float _releasePenaltyTime = 0.3f;
+            [SerializeField, Min(0.01f)] private float _releasePenaltyTime = 0.3f;
+            [SerializeField, Min(0.01f)] private float _maxVySpeed = 20;
+
 
             [Header("DEBUG")]
             public bool DEBUG_drawHeight;
@@ -114,6 +119,7 @@ namespace AvatarController.Data
             public float GravityMultiplier => _gravityMultiplier;
             public float DownGravityMultiplier => _downGravityMultiplier;
             public float ReleasePenalty => _releasePenaltyTime;
+            public float MaxVySpeed => _maxVySpeed;
         }
         #endregion
 
@@ -121,12 +127,16 @@ namespace AvatarController.Data
         [Serializable]
         public class DiveValues
         {
+            [Header("Attributes")]
             [SerializeField] private float _startingSpeed;
             [SerializeField] private float _airDeceleration;
             [SerializeField] private float _groundDeceleration;
             [SerializeField] private float _cooldown;
             [Tooltip("If speed is inferior to this threshold, it should return to normal")]
             [SerializeField] private float _speedThreshold = 0.2f;
+
+            [Header("DEBUG")]
+            [SerializeField] public bool DEBUG_DrawDiveDisplacement = true;
 
             public float StartingSpeed => _startingSpeed;
             public float AirDeceleration => _airDeceleration;
@@ -252,6 +262,14 @@ namespace AvatarController.Data
         #endregion
 
         private void OnEnable() => _powers.CHEAT_testPowers = false;
+        /// <summary>
+        /// This should be called once, on the start or awake of the player
+        /// </summary>
+        public void DisablePowers()
+        {
+            _powers._hasPoltergeist = false;
+            _powers._hasGhostView = false;
+        }
     }
 }
 
@@ -280,9 +298,16 @@ namespace AvatarController.Data
 
             EditorGUILayout.HelpBox("If you pass the mouse over some variables, you will get a few " +
                                     "description", MessageType.Info);
+
             EditorGUILayout.HelpBox($"The final result of the movement will scalate into {(Scale * 10)}/10, " +
                                     $"\nso 1 meter for the player is {Scale * 1} meter in the rest of the " +
                                     "game", MessageType.Info);
+
+            EditorGUILayout.HelpBox($"The height of the jump is: {data.DefaultJumpValues.MaxHeight * Scale}",
+                                    MessageType.Info);
+
+            EditorGUILayout.HelpBox($"The max displacement per second is: {data.DefaultMovement.MaxSpeed * Scale}" +
+                                    $" meters per second", MessageType.Info);
 
             //EditorGUILayout.HelpBox($"This is the time to the peak of the jump: {TimeToPeak}", MessageType.Info);
 

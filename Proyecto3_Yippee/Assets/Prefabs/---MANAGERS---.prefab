@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 2141289601503461582}
   - component: {fileID: 3329346931963212390}
   - component: {fileID: 1461557843115698860}
+  - component: {fileID: 7085503933395551767}
   m_Layer: 0
   m_Name: CheatsHolder
   m_TagString: Untagged
@@ -145,6 +146,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_TestCheat: 0
+--- !u!114 &7085503933395551767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6353338998842721142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab53059dfda13a40876fa0fb945d321, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DEBUG_TestCheat: 1
 --- !u!1 &6714932435730661439
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,4 +247,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a4a302e1f0a2f48bcfa8044d5e327b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timerToDie: 5
+  _timerToDie: 20

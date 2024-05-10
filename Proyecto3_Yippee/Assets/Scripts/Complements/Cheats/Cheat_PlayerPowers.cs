@@ -11,8 +11,6 @@ namespace UtilsComplements.Cheats
         private const string KEYBOARD_CHEAT_CODE = "GODMODE";
         private const string GAMEPAD_CHEAT_CODE = "[Insert code without spaces]";
 
-        [SerializeField] private PlayerData _dataContainer;
-
         public ISingleton<Cheat_PlayerPowers> Instance => this;
 
         protected override string KeyboardCheatReference => KEYBOARD_CHEAT_CODE;
@@ -49,7 +47,7 @@ namespace UtilsComplements.Cheats
         #region Private Methods
         protected override void ActivateCheat()
         {
-            _dataContainer.Powers.CHEAT_testPowers = true;
+            GameManager.GetGameManager().PlayerInstance.DataContainer.Powers.CHEAT_testPowers = true;
         }
 
         /*
