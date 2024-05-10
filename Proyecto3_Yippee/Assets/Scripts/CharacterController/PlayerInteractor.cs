@@ -1,5 +1,5 @@
-using Interactable;
 using UnityEngine;
+using Interactable;
 
 namespace AvatarController.Interaction 
 {

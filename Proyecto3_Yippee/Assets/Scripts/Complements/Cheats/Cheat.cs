@@ -44,8 +44,8 @@ namespace UtilsComplements.Cheats
 
             char expectedChar = KeyboardCheatReference[_cheatIndexControl];
 
-            if (DEBUG_TestCheat)
-                Debug.Log("Expected Char: " + expectedChar, this);
+            //if (DEBUG_TestCheat)
+            //    Debug.Log("Expected Char: " + expectedChar, this);
 
             if (!Input.GetKeyDown(expectedChar.ToString().ToLower()))
             {

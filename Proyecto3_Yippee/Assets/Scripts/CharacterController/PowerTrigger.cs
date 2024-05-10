@@ -57,25 +57,6 @@ namespace AvatarController.Powers
                 Destroy(gameObject);
             }
         }
-
-        #endregion
-
-        #region Static Methods
-        public static void StaticMethod()
-        {
-        }
-        #endregion
-
-        #region Public Methods
-        public void PublicMethod()
-        {
-        }
-        #endregion
-
-        #region Private Methods
-        private void PrivateMethod()
-        {
-        }
         #endregion
     }
 }

@@ -1,9 +1,10 @@
 using UnityEngine;
-using AvatarController;
 using AvatarController.Data;
 using AvatarController.PlayerFSM;
 using static UtilsComplements.AsyncTimer;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 namespace AvatarController
 {
@@ -137,7 +138,7 @@ namespace AvatarController
             Vector3 endPoint = startPoint + transform.forward * distanceInFloor;
             Handles.color = new(60 / 236f, 9 / 255f, 255 / 255f);
             Handles.DrawLine(startPoint, endPoint, dotted);
-            
+
             startPoint = transform.position;
             endPoint = startPoint + transform.forward * distanceInAir;
             Handles.DrawLine(startPoint, endPoint, dotted);

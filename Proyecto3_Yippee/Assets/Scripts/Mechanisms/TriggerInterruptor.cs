@@ -2,11 +2,14 @@
 
 namespace Mechanisms
 {
+    [RequireComponent(typeof(Collider))]
     public class TriggerInterruptor : AbsInterruptor
     {
+        private void Awake() => GetComponent<Collider>().isTrigger = true;
+
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Player"))
+            if (!other.CompareTag("Player") && !other.CompareTag("ActivationProp"))
                 return;
 
             base.Activate();
@@ -14,7 +17,7 @@ namespace Mechanisms
 
         private void OnTriggerExit(Collider other)
         {
-            if (!other.CompareTag("Player"))
+            if (!other.CompareTag("Player") && !other.CompareTag("ActivationProp"))
                 return;
 
             base.Deactivate();

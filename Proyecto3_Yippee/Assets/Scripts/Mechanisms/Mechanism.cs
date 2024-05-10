@@ -1,17 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using BaseGame;
+using static UtilsComplements.AsyncTimer;
 
 namespace Mechanisms
 {
     [ExecuteAlways]
     public class Mechanism : MonoBehaviour, IMechanism, IResetable
     {
-        private enum MechanismType
+        internal enum MechanismType
         {
             On_Off,
             ContinuousSignal,
-            JustOn
+            JustOn,
+            Timed
         }
 
         [Header("References")]
@@ -23,6 +25,7 @@ namespace Mechanisms
 
         [Header("Type")]
         [SerializeField] private MechanismType _mechanismType = MechanismType.JustOn;
+        [SerializeField, HideInInspector, Min(0.1f)] private float _time = 0.1f;
         private bool _isActive;
         private bool _lastSignal;
 
@@ -113,8 +116,65 @@ namespace Mechanisms
                         _isActive = true;
                     }
                     break;
+                case MechanismType.Timed:
+                    {
+                        if (_isActive)
+                        {
+                            if (signal)
+                                return;
+
+                            _isActive = false;
+                            StartCoroutine(TimerCoroutine(_time, () => _deactivate?.Invoke()));
+                        }
+                        else
+                        {
+                            if (!signal)
+                                return;
+
+                            StopAllCoroutines();
+                            _isActive = true;
+                            _activate?.Invoke();
+                        }
+                    }
+                    break;
             }
         }
         #endregion
     }
 }
+
+#if UNITY_EDITOR
+namespace Mechanisms
+{
+    using UnityEditor;
+
+    [CustomEditor(typeof(Mechanism))]
+    public class MechanismEditor : Editor
+    {
+        private Mechanism _this;
+        private SerializedProperty _type;
+        private SerializedProperty _timer;
+
+        private void OnEnable()
+        {
+            _this = (Mechanism)target;
+
+            _type = serializedObject.FindProperty("_mechanismType");
+            _timer = serializedObject.FindProperty("_time");
+        }
+
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            Mechanism.MechanismType type = (Mechanism.MechanismType)_type.enumValueIndex;
+
+            if (type == Mechanism.MechanismType.Timed)
+            {
+                _timer.floatValue = EditorGUILayout.FloatField("Timer: ", _timer.floatValue);
+                serializedObject.ApplyModifiedProperties();
+            }
+        }
+    }
+}
+#endif

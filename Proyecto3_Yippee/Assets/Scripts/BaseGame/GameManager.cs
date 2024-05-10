@@ -36,7 +36,16 @@ namespace BaseGame
 
         public void SetPlayerInstance(PlayerController player)
         {
-            _playerInstance = player;
+            if (_playerInstance == null)
+            {
+                _playerInstance = player;
+                _playerInstance.DataContainer.DisablePowers();
+            }
+            else
+            {
+                Destroy(player.gameObject);
+                Debug.Log("More than one player detected, deleted the copy but not implemented if meant to be a dummy in anothe scene");
+            }
         }
     }
 }
