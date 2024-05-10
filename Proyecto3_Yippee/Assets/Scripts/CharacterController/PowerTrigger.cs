@@ -1,4 +1,5 @@
 using UnityEngine;
+using BaseGame;
 
 namespace AvatarController.Powers
 {
