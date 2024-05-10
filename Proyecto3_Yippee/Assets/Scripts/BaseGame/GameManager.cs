@@ -3,6 +3,7 @@ using UnityEngine;
 using AvatarController;
 using UtilsComplements;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 namespace BaseGame
 {
@@ -55,7 +56,10 @@ namespace BaseGame
 
         public static void ResetGame()
         {
-            GetGameManager().ResetFromCheckpoint();
+            if (Checkpoint.CurrentCheckpoint == null)
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            else
+                GetGameManager().ResetFromCheckpoint();
         }
 
         public void ResetFromCheckpoint()
@@ -64,6 +68,10 @@ namespace BaseGame
             {
                 item.Reset();
             }
+
+            Vector3 pos = Checkpoint.CurrentCheckpoint.GetSpawnPosition();
+            _playerInstance.RequestTeleport(pos);
+            Checkpoint.CurrentCheckpoint.ReproduceLastEvents();
         }
 
         public void SetPlayerInstance(PlayerController player)
