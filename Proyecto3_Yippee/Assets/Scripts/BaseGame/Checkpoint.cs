@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace BaseGame //add it to a concrete namespace
+namespace BaseGame
 {    
-    public class #SCRIPTNAME# : MonoBehaviour
+    public class Checkpoint : MonoBehaviour
     {
         #region Fields
         [Header("Section1")]
