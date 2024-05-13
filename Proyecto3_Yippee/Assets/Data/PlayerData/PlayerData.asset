@@ -81,8 +81,8 @@ MonoBehaviour:
     _downGravityMultiplier: 1.2
     _releasePenaltyTime: 0.2
     _maxVySpeed: 50
-    DEBUG_drawHeight: 1
-    DEBUG_drawCurve: 1
+    DEBUG_drawHeight: 0
+    DEBUG_drawCurve: 0
     DEBUG_definitionOfJump: 30
     DEBUG_forwardMovementPct: 1
     DEBUG_drawCoyote: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
     _groundDeceleration: 60
     _cooldown: 1
     _speedThreshold: 0.2
-    DEBUG_DrawDiveDisplacement: 1
+    DEBUG_DrawDiveDisplacement: 0
   _interactionValues:
     _interactionRange: 4
   _poltergeistValues:

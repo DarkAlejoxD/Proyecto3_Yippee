@@ -27,7 +27,6 @@ namespace AvatarController.PlayerFSM
             _timeToPeak = _playerJump.GetTimeToPeak();
             _timeWhenJumpStarted = Time.time;
             _isJumping = true;
-            Debug.Log("Enteres");
         }
 
         public override void OnPlayerStay(InputValues inputs)
