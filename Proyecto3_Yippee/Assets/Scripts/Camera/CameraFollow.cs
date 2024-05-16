@@ -1,8 +1,9 @@
 using UnityEngine;
 using Cinemachine;
 using UtilsComplements;
+using BaseGame;
 
-namespace BaseGame
+namespace Cameras
 {
     public class CameraFollow : MonoBehaviour
     {
@@ -21,11 +22,16 @@ namespace BaseGame
         {
             _camera = GetComponent<CinemachineVirtualCamera>();
             _manager = ISingleton<CameraManager>.GetInstance();
-            _player = ISingleton<GameManager>.GetInstance().PlayerInstance.transform;
+            _player = GameManager.GetGameManager().PlayerInstance.transform;
 
             _target = _player;
             _camera.Follow = _target;
             _camera.LookAt = _target;
+        }
+
+        private void Update()
+        {
+            //UpdateYPos();
         }
 
         private void UpdateYPos()

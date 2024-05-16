@@ -10,7 +10,6 @@ using static UtilsComplements.AsyncTimer;
 
 namespace AvatarController
 {
-    [SelectionBase]
     [RequireComponent(typeof(InputManager), typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
