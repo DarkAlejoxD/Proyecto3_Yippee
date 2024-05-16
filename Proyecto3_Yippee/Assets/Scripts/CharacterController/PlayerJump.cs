@@ -30,6 +30,8 @@ namespace AvatarController
         private float Gravity => _controller.Gravity;
         public bool IsGrounded => _controller.OnGround;
         public bool IsFailling => VelocityY <= 0;
+
+        private bool _buttonUp = false;
         #endregion
 
         #region Unity Logic
