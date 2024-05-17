@@ -33,7 +33,7 @@ namespace AvatarController.LedgeGrabbing
         public bool GrabingLedge => _grabbingLedge;
 
         //DEBUG
-        private bool ShowLedgeDetectionRays => (_jumpController.IsFailling || _grabbingLedge) && !_jumpController.IsGrounded;
+        private bool ShowLedgeDetectionRays => true;//=> (_jumpController.IsFailling || _grabbingLedge) && !_jumpController.IsGrounded;
 
 
         #region Unity Logic
@@ -44,10 +44,9 @@ namespace AvatarController.LedgeGrabbing
             _playerController = GetComponent<PlayerController>();
         }
 
-
         void Update()
         {
-            if (!_jumpController.IsFailling && !_grabbingLedge) return;
+            if (!_playerController.CurrentState.Equals(PlayerStates.OnAir) && !_grabbingLedge) return;
 
             CastCheckerRays();
             HandleLedgeLogic();
@@ -174,12 +173,12 @@ namespace AvatarController.LedgeGrabbing
         #region DEBUG
         private void OnDrawGizmos()
         {
-            if (!Application.isPlaying) return;
+            //if (!Application.isPlaying) return;
 
             if (ShowLedgeDetectionRays)
                 DrawLedgeDetectionRays();
 
-            if (_grabbingLedge)
+            if (_grabbingLedge || true)
                 DrawEdgeDetectionRays();
 
         }

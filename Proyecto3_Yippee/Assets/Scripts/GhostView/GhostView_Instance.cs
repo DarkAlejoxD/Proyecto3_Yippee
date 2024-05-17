@@ -14,9 +14,12 @@ namespace GhostView
         [Header("Render References")]
         [SerializeField] private Transform _art;
         [SerializeField] private Color _startColor;
+        [Tooltip("true: appears when button down" +
+                 "\nfalse: dissapears when button down")]
         [SerializeField] private bool _inversed;
         private Renderer _renderer;
         private Collider _collider;
+        private bool _isPlayerInside;
 
         private MaterialPropertyBlock _materialPropertyBlock;
         private MaterialPropertyBlock ThisMaterialPropertyBlock
@@ -35,11 +38,15 @@ namespace GhostView
         private void Awake()
         {
             _renderer = _art.GetComponent<Renderer>();
-            TryGetComponent(out _collider);
+            _collider = GetComponent<Collider>();
             GhostViewManager.OnActivateGhostView += GhostView;
         }
 
         private void OnEnable()
+        {
+            ApplyColor(_startColor);
+        }
+        private void OnValidate()
         {
             ApplyColor(_startColor);
         }
@@ -48,28 +55,51 @@ namespace GhostView
         {
             if (_inversed)
             {
-                if (_collider)
-                    _collider.enabled = true;
+                SetActiveCollision(true);
                 _art.gameObject.SetActive(true);
             }
             else
             {
-                if (_collider)
-                    _collider.enabled = false;
+                SetActiveCollision(false);
                 _art.gameObject.SetActive(false);
             }
         }
 
-        private void OnValidate()
+        private void Update()
         {
-            ApplyColor(_startColor);
+            if (!_collider)
+                return;
+
+            if (!_collider.isTrigger)
+                return;
+
+            if (!_isPlayerInside)
+                return;
+
+            _collider.isTrigger = false;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+                _isPlayerInside = true;
+        }
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.CompareTag("Player"))
+                _isPlayerInside = true;
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Player"))
+                _isPlayerInside = false;
         }
 
         private void OnDestroy()
         {
             GhostViewManager.OnActivateGhostView -= GhostView;
         }
-
         #endregion
 
         #region Private Methods
@@ -77,6 +107,23 @@ namespace GhostView
         {
             ThisMaterialPropertyBlock.SetColor(COLOR_ID, color);
             _art.GetComponent<Renderer>().SetPropertyBlock(ThisMaterialPropertyBlock);
+        }
+
+        private void SetActiveCollision(bool state)
+        {
+            if (!_collider)
+                return;
+
+            if (state)
+            {
+                _isPlayerInside = false;
+                _collider.enabled = true;
+                _collider.isTrigger = true;
+            }
+            else
+            {
+                _collider.enabled = false;
+            }
         }
 
         private void GhostView(Vector3 origin, float radius)
@@ -91,8 +138,7 @@ namespace GhostView
 
             if (_inversed)
             {
-                if (_collider)
-                    _collider.enabled = false;
+                SetActiveCollision(false);
                 StartCoroutine(DissapearCoroutine(() =>
                 {
                     _art.gameObject.SetActive(false);
@@ -101,8 +147,7 @@ namespace GhostView
                         _art.gameObject.SetActive(true);
                         StartCoroutine(AppearCoroutine(() =>
                         {
-                            if (_collider)
-                                _collider.enabled = true;
+                            SetActiveCollision(true);
                             ThisMaterialPropertyBlock.SetColor(COLOR_ID, _startColor);
                             _renderer.SetPropertyBlock(ThisMaterialPropertyBlock);
                         }, false));
@@ -111,8 +156,7 @@ namespace GhostView
             }
             else
             {
-                if (_collider)
-                    _collider.enabled = true;
+                SetActiveCollision(true);
                 _art.gameObject.SetActive(true);
                 StartCoroutine(AppearCoroutine(() =>
                 {
@@ -120,8 +164,7 @@ namespace GhostView
                     {
                         StartCoroutine(DissapearCoroutine(() =>
                         {
-                            if (_collider)
-                                _collider.enabled = false;
+                            SetActiveCollision(false);
                             _art.gameObject.SetActive(false);
                             ThisMaterialPropertyBlock.SetColor(COLOR_ID, _startColor);
                             _renderer.SetPropertyBlock(ThisMaterialPropertyBlock);

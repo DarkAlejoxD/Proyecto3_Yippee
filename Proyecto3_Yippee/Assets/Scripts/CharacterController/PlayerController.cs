@@ -10,7 +10,7 @@ using static UtilsComplements.AsyncTimer;
 
 namespace AvatarController
 {
-    [SelectionBase]
+    [ExecuteAlways]
     [RequireComponent(typeof(InputManager), typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
@@ -103,10 +103,6 @@ namespace AvatarController
             _canActivatePoltergeist = true;
             if (DEBUG_TextTest)
                 DEBUG_TextTest.text = "";
-        }
-
-        private void FixedUpdate()
-        {
         }
 
         private void Update()
@@ -337,7 +333,26 @@ namespace AvatarController
                 VelocityY = -DataContainer.DefaultJumpValues.MaxVySpeed;
 
             float deltaTime = Time.deltaTime;
-            float variation = VelocityY * deltaTime;
+            float vy0 = VelocityY;
+            float acc;
+
+            if (VelocityY <= 0)
+            {
+                acc = Gravity;
+                VelocityY += Gravity * deltaTime * DataContainer.DefaultJumpValues.DownGravityMultiplier;
+                UseTwikedGravity = false;
+            }
+            else
+            {
+                if (UseTwikedGravity)
+                    VelocityY += TwistGravity * deltaTime;
+                else
+                    VelocityY += Gravity * deltaTime;
+
+                acc = UseTwikedGravity ? TwistGravity : Gravity;
+            }
+
+            float variation = vy0 * deltaTime + (acc * deltaTime * deltaTime) / 2;
 
             CollisionFlags movement = _characterController.Move(new Vector3(0, variation, 0) *
                                                                 DataContainer.DefOtherValues.ScaleMultiplicator);
@@ -357,24 +372,10 @@ namespace AvatarController
             {
                 OnGround = false;
             }
-
-            if (VelocityY <= 0)
-            {
-                VelocityY += Gravity * deltaTime * DataContainer.DefaultJumpValues.DownGravityMultiplier;
-                UseTwikedGravity = false;
-            }
-            else
-            {
-                if (UseTwikedGravity)
-                    VelocityY += TwistGravity * deltaTime;
-                else
-                    VelocityY += Gravity * deltaTime;
-            }
         }
 
         private IEnumerator ForceAsyncCoroutine(Vector3 acceleration, float time)
         {
-
             for (float i = 0; i < time; i += Time.fixedDeltaTime)
             {
                 Velocity += acceleration * Time.fixedDeltaTime;

@@ -1,48 +1,28 @@
-using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 using UtilsComplements;
 
-public class CameraManager : MonoBehaviour, ISingleton<CameraManager>
+namespace Cameras
 {
-
-    private CinemachineVirtualCamera _activeCamera;
-
-
-    public CinemachineVirtualCamera ActiveCamera => _activeCamera;
-
-    public ISingleton<CameraManager> Instance => this;
-
-    private void Awake()
+    public class CameraManager : MonoBehaviour, ISingleton<CameraManager>
     {
-        Instance.Instantiate();
-    }
+        private CinemachineVirtualCamera _activeCamera;
 
+        public CinemachineVirtualCamera ActiveCamera => _activeCamera;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //_activeCamera = Camera.main; //DEBUG
-    }
+        public ISingleton<CameraManager> Instance => this;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    private void OnDestroy()
-    {
-        Instance.RemoveInstance();
-    }
+        private void Awake() => Instance.Instantiate();
 
-    public void SwitchCameras(CinemachineVirtualCamera cam)
-    {
-        if(_activeCamera != null)
-            _activeCamera.enabled = false;
+        private void OnDestroy() => Instance.RemoveInstance();
 
-        cam.enabled = true;
-        _activeCamera = cam;
+        public void SwitchCameras(CinemachineVirtualCamera cam)
+        {
+            if (_activeCamera != null)
+                _activeCamera.enabled = false;
 
+            cam.enabled = true;
+            _activeCamera = cam;
+        }
     }
 }

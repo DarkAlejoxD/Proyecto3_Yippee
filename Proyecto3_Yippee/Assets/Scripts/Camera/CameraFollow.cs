@@ -1,31 +1,38 @@
 using UnityEngine;
 using Cinemachine;
+using BaseGame;
 using UtilsComplements;
 
-namespace BaseGame
+namespace Cameras
 {
+    [ExecuteAlways]
     public class CameraFollow : MonoBehaviour
     {
+        [Header("References")]
+        private Transform _target;
+
+        [Header("Camera Attributes")]
         [SerializeField] private float _cameraSmooth;
         [SerializeField] private float _yOffset = -10;
         [SerializeField] private float _maxDistanceToPlayer = 10;
         [SerializeField] private float _minDistanceToPlayer = 8;
 
-        private Transform _target;
-        private Transform _player;
-
-        private CameraManager _manager;
         private CinemachineVirtualCamera _camera;
+        private CinemachineTransposer _bodyTransposer;
+        private CinemachineComposer _aimComposer;
 
         void Start()
         {
             _camera = GetComponent<CinemachineVirtualCamera>();
-            _manager = ISingleton<CameraManager>.GetInstance();
-            _player = ISingleton<GameManager>.GetInstance().PlayerInstance.transform;
 
-            _target = _player;
+            _target = GameObject.FindWithTag("Player").transform;
             _camera.Follow = _target;
             _camera.LookAt = _target;
+        }
+
+        private void Update()
+        {
+            //UpdateYPos();
         }
 
         private void UpdateYPos()
