@@ -27,7 +27,7 @@ namespace AvatarController
         private float _maxSpeed;
 
         [Header("Ledge Attributes")]
-        private const float MIN_DOT_DIFFERENT_FORWARD = 0.1f;
+        private const float MIN_DOT_DIFFERENT_FORWARD = 0.9f;
         private Vector3 _ledgeForward;
         private bool _grabbingLedge;
         #endregion        
@@ -115,7 +115,7 @@ namespace AvatarController
                 Vector3 cameraForward = CalculateForward();
                 float dotRight = Vector3.Dot(cameraForward, right);
 
-                if (Mathf.Abs(dotRight) < MIN_DOT_DIFFERENT_FORWARD)
+                if (Mathf.Abs(dotRight) > MIN_DOT_DIFFERENT_FORWARD)
                 {
                     //Pick the right of the object
                     movement = right * moveInput.x;

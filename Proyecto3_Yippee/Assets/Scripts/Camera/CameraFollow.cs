@@ -5,7 +5,7 @@ using UtilsComplements;
 
 namespace Cameras
 {
-    [ExecuteAlways]
+    //[ExecuteAlways]
     public class CameraFollow : MonoBehaviour
     {
         [Header("References")]
@@ -21,14 +21,14 @@ namespace Cameras
         private CinemachineTransposer _bodyTransposer;
         private CinemachineComposer _aimComposer;
 
-        void Start()
-        {
-            _camera = GetComponent<CinemachineVirtualCamera>();
+        //void Start()
+        //{
+        //    _camera = GetComponent<CinemachineVirtualCamera>();
 
-            _target = GameObject.FindWithTag("Player").transform;
-            _camera.Follow = _target;
-            _camera.LookAt = _target;
-        }
+        //    _target = GameObject.FindWithTag("Player").transform;
+        //    _camera.Follow = _target;
+        //    _camera.LookAt = _target;
+        //}
 
         private void Update()
         {
