@@ -31,13 +31,14 @@ namespace AvatarController
         public bool IsGrounded => _controller.OnGround;
         public bool IsFailling => VelocityY <= 0;
 
-        private bool _buttonUp = false;
+        private bool _buttonUp = true;
         #endregion
 
         #region Unity Logic
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
+            _buttonUp = true;
         }
 
         private void OnEnable()
@@ -102,6 +103,13 @@ namespace AvatarController
         #region Private Methods
         private void OnJump(bool active)
         {
+            if (!_buttonUp)
+            {
+                if (active)
+                    return;
+                _buttonUp = true;
+            }
+
             if (!active)
                 return;
 
@@ -115,6 +123,7 @@ namespace AvatarController
         {
             VelocityY = GetVelocity();
             _jumped = true;
+            _buttonUp = false;
             _controller.ForceChangeState(PlayerFSM.PlayerStates.Jumping);
             if (_grabbingLedge)
             {
