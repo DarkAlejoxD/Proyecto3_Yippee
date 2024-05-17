@@ -10,6 +10,7 @@ using static UtilsComplements.AsyncTimer;
 
 namespace AvatarController
 {
+    [ExecuteAlways]
     [RequireComponent(typeof(InputManager), typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
@@ -19,6 +20,7 @@ namespace AvatarController
         private CharacterController _characterController;
         private InputManager _inputManager;
 
+        public static Transform VirtualPlayer { get; private set; }
         public PlayerData DataContainer => _dataContainer;
 
         [Header("Delegates")]
@@ -83,7 +85,7 @@ namespace AvatarController
             if (_inputManager == null)
                 _inputManager = GetComponent<InputManager>();
 
-            _inputManager.OnInputDetected += OnGetInputs;
+            _inputManager.OnInputDetected += OnGetInputs;            
         }
 
         private void OnDisable()
@@ -92,6 +94,11 @@ namespace AvatarController
                 _inputManager = GetComponent<InputManager>();
 
             _inputManager.OnInputDetected -= OnGetInputs;
+        }
+
+        private void OnValidate()
+        {
+            VirtualPlayer = this.transform;
         }
 
         private void Start()

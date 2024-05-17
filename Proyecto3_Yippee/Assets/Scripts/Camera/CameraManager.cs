@@ -12,15 +12,9 @@ namespace Cameras
 
         public ISingleton<CameraManager> Instance => this;
 
-        private void Awake()
-        {
-            Instance.Instantiate();
-        }
+        private void Awake() => Instance.Instantiate();
 
-        private void OnDestroy()
-        {
-            Instance.RemoveInstance();
-        }
+        private void OnDestroy() => Instance.RemoveInstance();
 
         public void SwitchCameras(CinemachineVirtualCamera cam)
         {
