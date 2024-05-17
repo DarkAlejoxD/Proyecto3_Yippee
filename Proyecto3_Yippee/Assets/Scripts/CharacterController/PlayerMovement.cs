@@ -26,8 +26,10 @@ namespace AvatarController
         [Header("Some attributes")]
         private float _maxSpeed;
 
-        private bool _grabbingLedge;
+        [Header("Ledge Attributes")]
+        private const float MIN_DOT_DIFFERENT_FORWARD = 0.1f;
         private Vector3 _ledgeForward;
+        private bool _grabbingLedge;
         #endregion        
 
         #region Unity Logic
@@ -109,14 +111,28 @@ namespace AvatarController
 
             if (_grabbingLedge)
             {
-                Vector3 computedByCamera = CalculateRight() * moveInput.x;
+                //Check the right of the object is different from the camera Forward
+                Vector3 cameraForward = CalculateForward();
+                float dotRight = Vector3.Dot(cameraForward, right);
 
-                float dotInput = Vector3.Dot(right, computedByCamera);
+                if (Mathf.Abs(dotRight) < MIN_DOT_DIFFERENT_FORWARD)
+                {
+                    //Pick the right of the object
+                    movement = right * moveInput.x;
+                }
+                else
+                {
+                    //Pick the right of the camera and compute it.
+                    Vector3 computedByCamera = CalculateRight() * moveInput.x;
 
-                movement = right * dotInput;
+                    float dotInput = Vector3.Dot(right, computedByCamera);
+
+                    movement = right * dotInput;
+                }
             }
             else
                 movement = right * moveInput.x;
+
             movement += forward * moveInput.y;
 
             if (moveInput.magnitude == 0)
@@ -161,7 +177,11 @@ namespace AvatarController
             if (_grabbingLedge) maxSpeed = Data.GrabbingLedgeMovement.MaxSpeed;
 
             if (Velocity.magnitude < maxSpeed)
-                Velocity += Time.deltaTime * Data.DefaultMovement.Acceleration * movement;
+            {
+                float acceleration = Data.DefaultMovement.Acceleration;
+                Velocity += Time.deltaTime * acceleration * movement;
+                Velocity = Velocity.normalized * Mathf.Min(Velocity.magnitude, maxSpeed);
+            }
 
             motion = Time.deltaTime * Velocity;
 
@@ -213,7 +233,7 @@ namespace AvatarController
             float distance = Data.DefaultMovement.MaxSpeed * Data.DefOtherValues.ScaleMultiplicator;
             float whickness = 5;
 
-            if(!Application.isPlaying)
+            if (!Application.isPlaying)
             {
                 DEBUG_lastPos = transform.position + Vector3.up * height;
                 DEBUG_lastDir = transform.forward;

@@ -44,7 +44,6 @@ namespace AvatarController.LedgeGrabbing
             _playerController = GetComponent<PlayerController>();
         }
 
-
         void Update()
         {
             if (!_playerController.CurrentState.Equals(PlayerStates.OnAir) && !_grabbingLedge) return;
