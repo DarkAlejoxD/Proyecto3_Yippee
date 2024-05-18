@@ -328,10 +328,10 @@ namespace InputController
                 {
                     ""name"": """",
                     ""id"": ""79c4b5b0-68eb-49fb-a566-912eb752ffb3"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Crouch/Dive"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -372,7 +372,7 @@ namespace InputController
                 {
                     ""name"": """",
                     ""id"": ""84e036cd-fd55-49ca-b946-f195e3680b90"",
-                    ""path"": ""<Keyboard>/1"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",

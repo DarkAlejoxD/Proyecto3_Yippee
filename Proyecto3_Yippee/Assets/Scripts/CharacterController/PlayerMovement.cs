@@ -21,7 +21,7 @@ namespace AvatarController
             get => _playerController.Velocity;
             set => _playerController.Velocity = value;
         }
-        private Camera CurrentCamera => Camera.main; //TODO: Change this //Don't need
+        private Camera CurrentCamera => Camera.main;
 
         [Header("Some attributes")]
         private float _maxSpeed;

@@ -32,7 +32,11 @@ namespace UtilsComplements
         #region Instance Fields & Methods
         public void Instantiate()
         {
-            if (_singleton == null || _singleton == default)
+            //Uncomment this to reset Singleton
+            //_singleton = null;
+            //return;
+
+            if (_singleton == null)
             {
                 _singleton = Value;
                 _exists = true;
@@ -48,28 +52,18 @@ namespace UtilsComplements
                 _singleton = null;
                 _exists = false;
             }
-        }        
+        }
 
         public void Invalidate()
         {
-#if UNITY_2022_3_OR_NEWER //It should be working even in older versions, it's just a test
+#if UNITY_2017_1_OR_NEWER
             if (Value is UnityEngine.Component comp)
+            {
+                //UnityEngine.Debug.Log("It already Exists", comp);//_singleton as UnityEngine.Component);
                 UnityEngine.Component.Destroy(comp.gameObject);
+            }
 #endif
         }
         #endregion
-    }
-
-    public static class Singleton
-    {
-        public static T GetSingleton<T>() where T : class, ISingleton<T>
-        {
-            return ISingleton<T>.GetInstance();
-        }
-
-        public static bool TryGetInstance<T>(out T instance) where T : class, ISingleton<T>
-        {
-            return ISingleton<T>.TryGetInstance(out instance);
-        }
     }
 }
