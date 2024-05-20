@@ -68,6 +68,10 @@ namespace BaseGame
             Gizmos.color = new(217 / 255f, 100 / 255f, 22 / 255);
             Gizmos.DrawWireSphere(GetSpawnPosition(), 0.2f);
             Gizmos.color = Color.white;
+
+            UnityEditor.Handles.color = Gizmos.color;
+            Gizmos.DrawLine(GetSpawnPosition(), GetSpawnPosition() + transform.forward * 5);
+            UnityEditor.Handles.color = Color.white;
         }
 #endif
         #endregion

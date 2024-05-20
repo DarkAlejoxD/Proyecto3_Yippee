@@ -69,7 +69,7 @@ namespace BaseGame
             }
 
             Vector3 pos = Checkpoint.CurrentCheckpoint.GetSpawnPosition();
-            _playerInstance.RequestTeleport(pos);
+            _playerInstance.RequestTeleport(pos, transform.forward);
             Checkpoint.CurrentCheckpoint.ReproduceLastEvents();
         }
 
