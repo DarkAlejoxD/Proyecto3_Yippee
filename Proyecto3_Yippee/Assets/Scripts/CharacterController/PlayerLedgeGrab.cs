@@ -156,14 +156,15 @@ namespace AvatarController.LedgeGrabbing
                 GetComponent<PlayerMovement>().SetGrabbingLedgeMode(_hitInfo.normal);
 
                 //update position
-                GetComponent<PlayerMovement>().enabled = false;
+                //GetComponent<PlayerMovement>().enabled = false;
                 Vector3 pos = _hitInfo.point;
                 pos.y = transform.position.y;
                 pos.z += _positionToWallOffset * _hitInfo.normal.z;
                 pos.x += _positionToWallOffset * _hitInfo.normal.x;
 
-                transform.position = pos;
-                GetComponent<PlayerMovement>().enabled = true;
+                //transform.position = pos;
+                _playerController.RequestTeleport(pos);
+                //GetComponent<PlayerMovement>().enabled = true;
 
             }
         }
