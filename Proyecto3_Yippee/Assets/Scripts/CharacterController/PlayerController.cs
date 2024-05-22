@@ -150,10 +150,13 @@ namespace AvatarController
 
         public void RequestTeleport(Vector3 position, Vector3 forward)
         {
-            BlockMovement(forward);
+            BlockMovement();
             StopVelocity();
             StopFalling();
             transform.position = position;
+            forward.y = 0;
+            transform.rotation = Quaternion.LookRotation(forward);
+
             UnBlockMovement();
         }
 

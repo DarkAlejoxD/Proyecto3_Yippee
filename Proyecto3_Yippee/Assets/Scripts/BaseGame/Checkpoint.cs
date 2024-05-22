@@ -70,7 +70,7 @@ namespace BaseGame
             Gizmos.color = Color.white;
 
             UnityEditor.Handles.color = Gizmos.color;
-            Gizmos.DrawLine(GetSpawnPosition(), GetSpawnPosition() + transform.forward * 5);
+            Gizmos.DrawLine(GetSpawnPosition(), GetSpawnPosition() + transform.forward * 1);
             UnityEditor.Handles.color = Color.white;
         }
 #endif
