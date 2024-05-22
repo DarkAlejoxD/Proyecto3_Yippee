@@ -1,21 +1,53 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace BaseGame //add it to a concrete namespace
 {
     public class DEBUG_MapPositions : MonoBehaviour
     {
-        #region Fields
         [Header("Section1")]
-        public Transform _player;
-        public List<DEBUG_PositionMapped> _positionMap = new();
+        [HideInInspector] public Transform _player;
+        [HideInInspector] public List<DEBUG_PositionMapped> _positionMap = new();
 
         public void AddItem()
         {
             _positionMap.Add(new DEBUG_PositionMapped());
         }
-        #endregion    
+
+#if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
+        {
+            if (_positionMap.Count == 0)
+                return;
+
+            const float space_Between_Lines = 5;
+            const float radius = 0.2f;
+            /*const*/
+            Color color = new(228 / 255f, 155 / 255f, 255 / 255f);
+
+            Vector3 lastPos = _positionMap[0].WorldPos;
+
+            Handles.color = color;
+            Gizmos.color = color;
+
+            Gizmos.DrawWireSphere(lastPos, radius);
+
+            for (int i = 1; i < _positionMap.Count; i++)
+            {
+                Vector3 pos = _positionMap[i].WorldPos;
+                Handles.DrawDottedLine(lastPos, pos, space_Between_Lines);
+                lastPos = pos;
+                Gizmos.DrawWireSphere(lastPos, radius);
+            }
+
+            Handles.color = Color.white;
+            Gizmos.color = Color.white;
+        }
+#endif
     }
 
     [Serializable]
@@ -56,13 +88,16 @@ namespace BaseGame
 
         public override void OnInspectorGUI()
         {
-            var list = _object._positionMap;
+            base.OnInspectorGUI();
+            const int SPACES = 10;
 
+            var list = _object._positionMap;
+            EditorGUILayout.Space(SPACES);
             _object._player = (Transform)EditorGUILayout.ObjectField("Player", _object._player, typeof(Transform), true);
 
             for (int i = 0; i < list.Count; i++)
             {
-                EditorGUILayout.Space(10);
+                EditorGUILayout.Space(SPACES);
                 DrawMapControl(list.ElementAt(i));
             }
 
