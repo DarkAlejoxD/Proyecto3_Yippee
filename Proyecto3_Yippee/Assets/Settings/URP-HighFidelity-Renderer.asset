@@ -112,8 +112,8 @@ MonoBehaviour:
     overrideShaderPassIndex: 0
     overrideMode: 1
     overrideDepthState: 0
-    depthCompareFunction: 4
-    enableWrite: 1
+    depthCompareFunction: 0
+    enableWrite: 0
     stencilSettings:
       overrideStencilState: 1
       stencilReference: 2
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_AssetVersion: 2
   m_OpaqueLayerMask:
     serializedVersion: 2
-    m_Bits: 688127
+    m_Bits: 2785279
   m_TransparentLayerMask:
     serializedVersion: 2
     m_Bits: 1310719
@@ -220,8 +220,8 @@ MonoBehaviour:
     overrideShader: {fileID: 0}
     overrideShaderPassIndex: 0
     overrideMode: 1
-    overrideDepthState: 1
-    depthCompareFunction: 8
+    overrideDepthState: 0
+    depthCompareFunction: 3
     enableWrite: 1
     stencilSettings:
       overrideStencilState: 1
@@ -262,8 +262,8 @@ MonoBehaviour:
     overrideShader: {fileID: 0}
     overrideShaderPassIndex: 0
     overrideMode: 1
-    overrideDepthState: 0
-    depthCompareFunction: 4
+    overrideDepthState: 1
+    depthCompareFunction: 0
     enableWrite: 1
     stencilSettings:
       overrideStencilState: 1
