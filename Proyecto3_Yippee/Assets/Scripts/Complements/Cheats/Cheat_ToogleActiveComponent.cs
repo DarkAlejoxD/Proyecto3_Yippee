@@ -6,6 +6,7 @@ using UnityEditor;
 
 namespace UtilsComplements.Cheats
 {
+    [DisallowMultipleComponent]
     public class Cheat_ToogleActiveComponent : Cheat, ISingleton<Cheat_ToogleActiveComponent>
     {
         private const string KEYBOARD_CHEAT_CODE = "Disable";

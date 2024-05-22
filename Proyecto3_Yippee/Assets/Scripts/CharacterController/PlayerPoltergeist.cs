@@ -1,20 +1,22 @@
-using System.Collections;
 using UnityEngine;
 using AvatarController.Data;
-using Poltergeist;
 using UtilsComplements.Editor;
+using Poltergeist;
 
 namespace AvatarController
 {
+    /// <summary>
+    /// If the player has this component, enters the poltergeist and does the logic
+    /// </summary>
+    //Maybe i shouldn't separate the poltergeist logic, but It's already done so... xd
     [RequireComponent(typeof(PlayerController))]
     public class PlayerPoltergeist : MonoBehaviour
     {
         #region Fields
         [Header("References")]
-        private Interactable_PoltergeistZone _evaluatedPoltergeistZone;
         private PlayerController _controller;
+        public Poltergeist_Item Item;
 
-        private bool _canEnterPoltegeist;
         private PlayerData DataContainer => _controller.DataContainer;
         private Transform CameraTransform => Camera.main.transform;
 
@@ -26,45 +28,11 @@ namespace AvatarController
         private void Awake()
         {
             _controller = GetComponent<PlayerController>();
-            _canEnterPoltegeist = true;
-        }
-
-        private void OnEnable()
-        {
-            if (_controller == null)
-                _controller = GetComponent<PlayerController>();
-
-            _controller.OnPoltergeistEnter += EnterPoltergeistMode;
-            _controller.OnPoltergeistStay += PoltergeistModeUpdate;
-            _controller.OnPoltergeistExit += ExitPoltergeistMode;
-        }
-
-        private void OnDisable()
-        {
-            _controller.OnPoltergeistEnter -= EnterPoltergeistMode;
-            _controller.OnPoltergeistStay -= PoltergeistModeUpdate;
-            _controller.OnPoltergeistExit -= ExitPoltergeistMode;
-        }
-        #endregion
-
-        #region Public Methods
-        public void TryEnterPoltergeist(Interactable_PoltergeistZone zone)
-        {
-            if (!_canEnterPoltegeist)
-                return;
-            _evaluatedPoltergeistZone = zone;
         }
         #endregion
 
         #region Private Methods
-        private void EnterPoltergeistMode()
-        {
-            StartCoroutine(PolterCooldownCoroutine());
-            _controller.RequestTeleport(_evaluatedPoltergeistZone.transform.position);
-            _evaluatedPoltergeistZone.ObjectAttached.useGravity = false;
-        }
-
-        private void PoltergeistModeUpdate(Vector2 xzDirection, float yDirection) //Maybe encapsulate some funcitons?? idk toi cansado jefe
+        public void PoltergeistModeUpdate(Vector2 xzDirection, float yDirection)
         {
             //Transform the input by the camera
             Vector3 forward = CameraTransform.forward;
@@ -77,45 +45,28 @@ namespace AvatarController
             Vector3 movement = xzDirection.y * forward + xzDirection.x * right + yDirection * Vector3.up;
             movement.Normalize();
 
-
             //Realize the movement
-            Rigidbody rb = _evaluatedPoltergeistZone.ObjectAttached;
-            Vector3 motion = DataContainer.DefOtherValues.Speed * Time.deltaTime * movement;
+            Rigidbody rb = Item.GetComponent<Rigidbody>();// _evaluatedPoltergeistZone.ObjectAttached;
+            Vector3 motion = DataContainer.DefPoltValues.Speed * Time.deltaTime * movement;
             Vector3 newPos = rb.position + motion;
 
             //Check if is far
             float distance = Vector3.Distance(transform.position, newPos);
-            if (distance > DataContainer.DefOtherValues.PoltergeistRadius)
+            if (distance > DataContainer.DefPoltValues.PoltergeistRadius)
             {
                 Vector3 direction = newPos - transform.position;
                 direction.Normalize();
-                newPos = transform.position + direction * DataContainer.DefOtherValues.PoltergeistRadius;
+                newPos = transform.position + direction * DataContainer.DefPoltValues.PoltergeistRadius;
             }
 
-            if (distance < DataContainer.DefOtherValues.PlayerRadius)
+            if (distance < DataContainer.DefPoltValues.PlayerRadius)
             {
                 Vector3 direction = newPos - transform.position;
                 direction.Normalize();
-                newPos = transform.position + direction * DataContainer.DefOtherValues.PlayerRadius;
+                newPos = transform.position + direction * DataContainer.DefPoltValues.PlayerRadius;
             }
             rb.MovePosition(newPos);
             rb.velocity = Vector3.zero;
-        }
-
-        private void ExitPoltergeistMode(bool value)
-        {
-            if (value)
-            {
-                _evaluatedPoltergeistZone.ObjectAttached.useGravity = _evaluatedPoltergeistZone.StartedUseGravity;
-                _evaluatedPoltergeistZone = null;
-            }
-        }
-
-        private IEnumerator PolterCooldownCoroutine()
-        {
-            _canEnterPoltegeist = false;
-            yield return new WaitForSeconds(DataContainer.DefOtherValues.PoltergeistCD);
-            _canEnterPoltegeist = true;
         }
         #endregion
 
@@ -123,16 +74,22 @@ namespace AvatarController
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            if (!_controller)
-                _controller = GetComponent<PlayerController>();
+            if (!Application.isPlaying)
+                return;
+
+            if (_controller.CurrentState != AvatarController.PlayerFSM.PlayerStates.OnPoltergeist)
+                return;
 
             GizmosUtilities.DrawSphere(transform.position, DEBUG_gizmosColor,
-                                       DataContainer.DefOtherValues.PoltergeistRadius,
-                                       DataContainer.DefOtherValues.DEBUG_DrawPoltergeistRadius);
+                                       DataContainer.DefPoltValues.PoltergeistRadius,
+                                       DataContainer.DefPoltValues.DEBUG_DrawPoltergeistRadius);
             GizmosUtilities.DrawSphere(transform.position, DEBUG_gizmosColor,
-                                       DataContainer.DefOtherValues.PlayerRadius,
-                                       DataContainer.DefOtherValues.DEBUG_DrawPoltergeistRadius);
+                                       DataContainer.DefPoltValues.PlayerRadius,
+                                       DataContainer.DefPoltValues.DEBUG_DrawPoltergeistRadius);
 
+            Transform selection = Item ? Item.transform : transform;
+
+            GizmosUtilities.DrawSphere(selection.position, Color.yellow, 0.2f);
         }
 #endif
         #endregion

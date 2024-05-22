@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
@@ -6,6 +7,7 @@ using UnityEditor;
 
 namespace UtilsComplements.Cheats
 {
+    [DisallowMultipleComponent]
     public class Cheat_Reset : Cheat, ISingleton<Cheat_Reset>
     {
         private const string KEYBOARD_CHEAT_CODE = "RESTART";
@@ -19,33 +21,16 @@ namespace UtilsComplements.Cheats
 
         #region UnityLogic
 
-        private void Awake()
-        {
-            Instance.Instantiate();
-        }
+        private void Awake() => Instance.Instantiate();
 
-        //protected override void Start()
-        //{
-        //    base.Start();
-        //}
-
-        //protected override void Update()
-        //{
-        //    base.Update();
-        //}
-
-        private void OnDestroy()
-        {
-            Instance.RemoveInstance();
-        }
+        private void OnDestroy() => Instance.RemoveInstance();
         #endregion
 
-        //#region Public Methods //Uncomment this if you dont want to delete the gameObject. Destroys only the component.
-        //public void Invalidate()
-        //{
-        //    Destroy(this);
-        //}
-        //#endregion
+        #region Public Methods
+        public void Invalidate() => Destroy(this);
+
+        public void ResetScene() => ActivateCheat();
+        #endregion
 
         #region Private Methods
         protected override void ActivateCheat()

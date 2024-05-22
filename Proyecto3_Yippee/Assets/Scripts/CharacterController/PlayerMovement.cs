@@ -1,5 +1,9 @@
 using UnityEngine;
 using AvatarController.Data;
+#if UNITY_EDITOR
+using UnityEditor;
+using static UtilsComplements.AsyncTimer;
+#endif
 
 namespace AvatarController
 {
@@ -17,13 +21,15 @@ namespace AvatarController
             get => _playerController.Velocity;
             set => _playerController.Velocity = value;
         }
-        private Camera CurrentCamera => Camera.main; //TODO: Change this //Don't need
+        private Camera CurrentCamera => Camera.main;
 
         [Header("Some attributes")]
         private float _maxSpeed;
 
-        private bool _grabbingLedge;
+        [Header("Ledge Attributes")]
+        private const float MIN_DOT_DIFFERENT_FORWARD = 0.9f;
         private Vector3 _ledgeForward;
+        private bool _grabbingLedge;
         #endregion        
 
         #region Unity Logic
@@ -57,7 +63,7 @@ namespace AvatarController
             _maxSpeed = Data.DefaultMovement.MaxSpeed;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             Deceleration();
             FaceDirection();
@@ -103,7 +109,30 @@ namespace AvatarController
 
             Vector3 movement = Vector3.zero;
 
-            movement = right * moveInput.x;
+            if (_grabbingLedge)
+            {
+                //Check the right of the object is different from the camera Forward
+                Vector3 cameraForward = CalculateForward();
+                float dotRight = Vector3.Dot(cameraForward, right);
+
+                if (Mathf.Abs(dotRight) > MIN_DOT_DIFFERENT_FORWARD)
+                {
+                    //Pick the right of the object
+                    movement = right * moveInput.x;
+                }
+                else
+                {
+                    //Pick the right of the camera and compute it.
+                    Vector3 computedByCamera = CalculateRight() * moveInput.x;
+
+                    float dotInput = Vector3.Dot(right, computedByCamera);
+
+                    movement = right * dotInput;
+                }
+            }
+            else
+                movement = right * moveInput.x;
+
             movement += forward * moveInput.y;
 
             if (moveInput.magnitude == 0)
@@ -145,23 +174,27 @@ namespace AvatarController
             Vector3 motion;
 
             float maxSpeed = _maxSpeed;
-            if (_grabbingLedge) maxSpeed = Data.GrabbingLedgeMovement.MaxSpeed; //DEBUG
+            if (_grabbingLedge) maxSpeed = Data.GrabbingLedgeMovement.MaxSpeed;
 
             if (Velocity.magnitude < maxSpeed)
-                Velocity += Time.deltaTime * Data.DefaultMovement.Acceleration * movement;
+            {
+                float acceleration = Data.DefaultMovement.Acceleration;
+                Velocity += Time.deltaTime * acceleration * movement;
+                Velocity = Velocity.normalized * Mathf.Min(Velocity.magnitude, maxSpeed);
+            }
 
             motion = Time.deltaTime * Velocity;
 
             if (Velocity.magnitude < Data.DefaultMovement.MinSpeedToMove)
                 motion = Vector3.zero;
-            
+
             _characterController.Move(motion * Data.DefOtherValues.ScaleMultiplicator);
         }
 
         private void Deceleration()
         {
             if (Velocity.magnitude > 0)
-                Velocity -= Time.deltaTime * Data.DefaultMovement.LinearDecceleration * (Velocity.normalized);
+                Velocity -= Time.fixedDeltaTime * Data.DefaultMovement.LinearDecceleration * (Velocity.normalized);
         }
 
         private void FaceDirection()
@@ -180,6 +213,46 @@ namespace AvatarController
             else
                 _maxSpeed = Data.DefaultMovement.MaxSpeed;
         }
+        #endregion
+
+        #region DEBUG
+#if UNITY_EDITOR
+
+        private bool DEBUG_redraw = true;
+        private Vector3 DEBUG_lastPos;
+        private Vector3 DEBUG_lastDir;
+        private void OnDrawGizmos()
+        {
+            if (_playerController == null)
+                _playerController = GetComponent<PlayerController>();
+
+            if (!Data.DefaultMovement.DEBUG_DrawMovementPerSecond)
+                return;
+
+            float height = -1 * Data.DefOtherValues.ScaleMultiplicator;
+            float distance = Data.DefaultMovement.MaxSpeed * Data.DefOtherValues.ScaleMultiplicator;
+            float whickness = 5;
+
+            if (!Application.isPlaying)
+            {
+                DEBUG_lastPos = transform.position + Vector3.up * height;
+                DEBUG_lastDir = transform.forward;
+            }
+            else if (DEBUG_redraw)
+            {
+                DEBUG_redraw = false;
+                StartCoroutine(TimerCoroutine(1, () => DEBUG_redraw = true));
+                DEBUG_lastPos = transform.position + Vector3.up * height;
+                DEBUG_lastDir = transform.forward;
+            }
+
+            Vector3 startPoint = DEBUG_lastPos;
+            Vector3 endPoint = startPoint + DEBUG_lastDir * distance;
+            Handles.color = new(242 / 255f, 9 / 255f, 255 / 255f);
+            Handles.DrawLine(startPoint, endPoint, whickness);
+            Handles.color = Color.white;
+        }
+#endif
         #endregion
     }
 }

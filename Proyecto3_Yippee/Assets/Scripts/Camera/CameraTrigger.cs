@@ -1,37 +1,29 @@
-using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 using UtilsComplements;
 
-public class CameraTrigger : MonoBehaviour
+namespace Cameras
 {
-    private CameraManager _manager;
-    [SerializeField] private CinemachineVirtualCamera _cam;
-    [SerializeField] private bool isStartingCamera = false;
-
-
-    private void Awake()
+    public class CameraTrigger : MonoBehaviour
     {
-        //_cam = GetComponentInChildren<CinemachineVirtualCamera>();
+        private CameraManager _manager;
+        [SerializeField] private CinemachineVirtualCamera _cam;
+        [SerializeField] private bool isStartingCamera = false;
 
-        
-
-    }
-
-    private void Start()
-    {
-        _manager = ISingleton<CameraManager>.GetInstance();
-        if (isStartingCamera) _manager.SwitchCameras(_cam);
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-            Debug.Log("Camera confiner entered");
-        if (other.CompareTag("Player"))
+        private void Start()
         {
-            _manager.SwitchCameras(_cam);
+            _manager = ISingleton<CameraManager>.GetInstance();
+            if (isStartingCamera) _manager.SwitchCameras(_cam);
+
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("Camera confiner entered");
+            if (other.CompareTag("Player"))
+            {
+                _manager.SwitchCameras(_cam);
+            }
         }
     }
 }

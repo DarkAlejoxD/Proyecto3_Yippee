@@ -44,8 +44,8 @@ namespace UtilsComplements.Cheats
 
             char expectedChar = KeyboardCheatReference[_cheatIndexControl];
 
-            if (DEBUG_TestCheat)
-                Debug.Log("Expected Char: " + expectedChar);
+            //if (DEBUG_TestCheat)
+            //    Debug.Log("Expected Char: " + expectedChar, this);
 
             if (!Input.GetKeyDown(expectedChar.ToString().ToLower()))
             {
@@ -55,11 +55,11 @@ namespace UtilsComplements.Cheats
 
             int cheatLenght = KeyboardCheatReference.Length;
 
-            if (_cheatIndexControl >= cheatLenght - 1)            
-                CorrectCombination();                
-            
-            else            
-                _cheatIndexControl++;            
+            if (_cheatIndexControl >= cheatLenght - 1)
+                CorrectCombination();
+
+            else
+                _cheatIndexControl++;
         }
 
         protected void CorrectCombination()
