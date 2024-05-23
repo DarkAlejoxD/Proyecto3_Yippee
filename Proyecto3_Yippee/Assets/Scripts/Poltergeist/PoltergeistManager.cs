@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UtilsComplements;
 using static UtilsComplements.AsyncTimer;
+using BaseGame;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -47,8 +48,12 @@ namespace Poltergeist
 
             if (_poltergeistList == null)
             {
-                return;
+                GameManager.GetGameManager().PlayerInstance.PolterNotFound();
+                return;            
             }
+
+            if(_nearPoltergeists.Count <= 0)
+                GameManager.GetGameManager().PlayerInstance.PolterNotFound();
 
             foreach (var item in _nearPoltergeists)
             {
@@ -110,12 +115,12 @@ namespace Poltergeist
             if (_poltergeistList == null)
                 _poltergeistList = new List<Poltergeist_Item>();
 
-            if (!_poltergeistList.Contains(item))
-            {
+            if (!_poltergeistList.Contains(item))            
                 _poltergeistList.Add(item);
-            }
+            
             else
-                Debug.LogWarning("You're trying to ad an existing polter Item in the Polter manager", item);
+                Debug.LogWarning("You're trying to ad an existing polter Item in the Polter " +
+                    "manager", item);
         }
 
         internal void RemovePoltergeist(Poltergeist_Item item)

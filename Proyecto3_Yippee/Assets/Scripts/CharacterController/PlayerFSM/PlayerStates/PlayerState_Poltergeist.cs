@@ -32,6 +32,8 @@ namespace AvatarController.PlayerFSM
         private const float SELECTION_TIME_IN_BETWEEN = 0.5f;
         private const float WAIT_MANTEIN = 1f;
 
+        private const string POLTER_ANIM_BOOL = "PoltergeistMode";
+
         private PlayerPoltergeist _poltergeistController;
         private PoltergeistManager _poltManager;
 
@@ -65,6 +67,9 @@ namespace AvatarController.PlayerFSM
         {
             base.OnEnter();
 
+            if (Anim)            
+                Anim.SetBool(POLTER_ANIM_BOOL, true);            
+
             _currentState = PoltergeistStates.Selecting;
             _selectionBrain.ForceChange(SelectState.None);
 
@@ -83,12 +88,19 @@ namespace AvatarController.PlayerFSM
             {
                 _poltManager = manager;
             }
+            _playerController._polterFound = true;
             _poltManager.StartPoltergeist(_playerController.transform,
                                          Data.DefPoltValues.PoltergeistRadius);
         }
 
         public override void OnPlayerStay(InputValues inputs)
         {
+            if (inputs.Cancel)            
+                _playerController.RequestChangeState(PlayerStates.OnGround);            
+
+            if (!_playerController._polterFound)
+                return;
+
             switch (_currentState)
             {
                 case PoltergeistStates.Selecting:
@@ -131,13 +143,7 @@ namespace AvatarController.PlayerFSM
                     }
                     break;
             }
-
             //_playerController.OnGhostView?.Invoke(inputs.GhostViewInput);??
-
-            if (inputs.Cancel)
-            {
-                _playerController.RequestChangeState(PlayerStates.OnGround);
-            }
         }
 
         public override void OnExit()
@@ -146,6 +152,9 @@ namespace AvatarController.PlayerFSM
             CameraPolter.DeactivatePolterMode();
             _playerController.EndPoltergeist();
             _poltManager.EndPoltergeist();
+
+            if (Anim)            
+                Anim.SetBool(POLTER_ANIM_BOOL, false);            
         }
 
         public override bool CanAutoTransition()

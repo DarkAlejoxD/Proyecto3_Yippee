@@ -68,7 +68,8 @@ namespace AvatarController.PlayerFSM
             if (!Data.Powers.HasPoltergeist)
                 return;
 
-            if (inputs.Poltergeist && !_poltergeistActivated)
+            if (inputs.Poltergeist && !_poltergeistActivated &&
+                _playerController._canActivatePoltergeist)
             {
                 _poltergeistActivated = true;
                 _playerController.RequestChangeState(PlayerStates.OnPoltergeist);

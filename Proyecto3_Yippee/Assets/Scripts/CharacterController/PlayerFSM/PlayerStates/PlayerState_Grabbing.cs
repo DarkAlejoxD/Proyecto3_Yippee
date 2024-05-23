@@ -61,7 +61,7 @@ namespace AvatarController.PlayerFSM
         public override void OnExit()
         {
             base.OnExit();
-            _playerController.StartCoroutine(TimerCoroutine(Time.deltaTime * 2, () =>
+            _playerController.StartCoroutine(TimerCoroutine(Time.deltaTime * 10, () =>
             {
                 if (Anim)
                     Anim.SetBool(GRAB_ANIM_BOOL, false);
