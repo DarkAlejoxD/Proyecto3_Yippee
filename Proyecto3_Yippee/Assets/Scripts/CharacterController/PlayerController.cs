@@ -181,7 +181,10 @@ namespace AvatarController
         /// </summary>
         public void AddImpulse(Vector3 impulse)
         {
+            float y = impulse.y;
+            impulse.y = 0;
             Velocity += impulse;
+            VelocityY += y;
         }
 
         /// <summary>

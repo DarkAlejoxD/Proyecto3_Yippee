@@ -50,6 +50,9 @@ namespace AvatarController.PlayerFSM
             if (Anim)
             {
                 Anim.SetTrigger(DIVE_END_ANIM_TRIGGER);
+                float yImpulse = Data.DefaultDiveValues.VerticalImpulse *
+                    Data.DefOtherValues.ScaleMultiplicator;
+                _playerController.AddImpulse(new(0,yImpulse, 0));
             }
         }
 
