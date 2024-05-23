@@ -67,8 +67,8 @@ namespace AvatarController.PlayerFSM
         {
             base.OnEnter();
 
-            if (Anim)            
-                Anim.SetBool(POLTER_ANIM_BOOL, true);            
+            if (Anim)
+                Anim.SetBool(POLTER_ANIM_BOOL, true);
 
             _currentState = PoltergeistStates.Selecting;
             _selectionBrain.ForceChange(SelectState.None);
@@ -95,8 +95,8 @@ namespace AvatarController.PlayerFSM
 
         public override void OnPlayerStay(InputValues inputs)
         {
-            if (inputs.Cancel)            
-                _playerController.RequestChangeState(PlayerStates.OnGround);            
+            if (inputs.Cancel)
+                _playerController.RequestChangeState(PlayerStates.OnGround);
 
             if (!_playerController._polterFound)
                 return;
@@ -153,8 +153,8 @@ namespace AvatarController.PlayerFSM
             _playerController.EndPoltergeist();
             _poltManager.EndPoltergeist();
 
-            if (Anim)            
-                Anim.SetBool(POLTER_ANIM_BOOL, false);            
+            if (Anim)
+                Anim.SetBool(POLTER_ANIM_BOOL, false);
         }
 
         public override bool CanAutoTransition()
@@ -165,7 +165,11 @@ namespace AvatarController.PlayerFSM
         private void PickNewItem()
         {
             int dir = _inputHandler > 0 ? 1 : -1;
+            if (Item)
+                Item.gameObject.layer = 1;
             Item = _poltManager.GetNext(dir);
+            if (Item)
+                Item.gameObject.layer = 11;
         }
 
         private void SelectionFSMInit()

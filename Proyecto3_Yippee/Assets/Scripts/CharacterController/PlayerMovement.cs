@@ -130,8 +130,8 @@ namespace AvatarController
 
                     movement = right * dotInput;
                 }
-                Debug.Log($"CurrentSpeed: {_playerController.Velocity.magnitude}"
-                          + $"\nMaxSpeed: {_playerController.DataContainer.GrabbingLedgeMovement.MaxSpeed}");
+                //Debug.Log($"CurrentSpeed: {_playerController.Velocity.magnitude}"
+                 //         + $"\nMaxSpeed: {_playerController.DataContainer.GrabbingLedgeMovement.MaxSpeed}");
             }
             else
                 movement = right * moveInput.x;
