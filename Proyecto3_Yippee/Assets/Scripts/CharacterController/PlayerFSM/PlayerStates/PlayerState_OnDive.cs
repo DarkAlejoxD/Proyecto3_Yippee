@@ -10,18 +10,20 @@ namespace AvatarController.PlayerFSM
         private readonly Verify<Animator> _verifyAnimator;
         private readonly CharacterController _characterController;
         private readonly PlayerDive _playerDive;
+        private readonly float _initialHeight;
 
         public PlayerState_OnDive(PlayerController playerController) : base(playerController)
         {
             _verifyAnimator = new(playerController.gameObject);
             _characterController = playerController.GetComponent<CharacterController>();
             _playerDive = playerController.GetComponent<PlayerDive>();
+            _initialHeight = _characterController.height;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
-            _characterController.height = 1;
+            _characterController.height = _initialHeight / 2;
 
             if (!_verifyAnimator)
                 return;
@@ -45,7 +47,7 @@ namespace AvatarController.PlayerFSM
         public override void OnExit()
         {
             base.OnExit();
-            _characterController.height = 2;
+            _characterController.height = _initialHeight;
             if (!_verifyAnimator)
                 return;
             _verifyAnimator[0].SetBool("Dive", false);
