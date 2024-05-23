@@ -669,7 +669,7 @@ namespace InputController
                 {
                     ""name"": """",
                     ""id"": ""112196bc-edf0-468a-a415-649c5a845f33"",
-                    ""path"": ""<Keyboard>/1"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
