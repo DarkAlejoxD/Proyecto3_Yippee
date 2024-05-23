@@ -96,7 +96,7 @@ namespace AvatarController
             if (_velocity.magnitude < Data.DefaultDiveValues.MinSpeedThreshold)
             {
                 IsDiving = false;
-                Debug.Log("Reach");
+                //Debug.Log("Reach");
                 //DEBUG //Moved to the PlayeState_OnDive.OnExit()
                 //_animator.SetBool("Dive", false);
                 //_animator.SetBool("Idle", true);

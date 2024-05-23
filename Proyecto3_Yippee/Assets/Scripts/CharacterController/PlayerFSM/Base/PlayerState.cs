@@ -1,6 +1,7 @@
 ﻿using InputController;
 using FSM;
 using AvatarController.Data;
+using UnityEngine;
 
 namespace AvatarController.PlayerFSM //Adaption of the FSM to the playerstats
 {
@@ -13,6 +14,7 @@ namespace AvatarController.PlayerFSM //Adaption of the FSM to the playerstats
 
         public abstract string Name { get; }
         protected PlayerData Data => _playerController.DataContainer;
+        protected Animator Anim => _playerController.ThisAnimator;
 
         public PlayerState(PlayerController playerController)
         {

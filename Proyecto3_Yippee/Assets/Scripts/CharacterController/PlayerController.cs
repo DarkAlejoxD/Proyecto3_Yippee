@@ -17,6 +17,7 @@ namespace AvatarController
         #region Fields
         [Header("Data")]
         [SerializeField] private PlayerData _dataContainer;
+        [SerializeField] private Animator _animator;
         private CharacterController _characterController;
         private InputManager _inputManager;
 
@@ -52,6 +53,7 @@ namespace AvatarController
         /// peak of the jump earlier </summary>
         internal float TwistGravity { get; set; }
         internal bool UseTwikedGravity { get; set; }
+        internal Animator ThisAnimator => _animator;
 
         [Header("FSM")]
         private FSM_Player<PlayerStates> _playerFSM;
