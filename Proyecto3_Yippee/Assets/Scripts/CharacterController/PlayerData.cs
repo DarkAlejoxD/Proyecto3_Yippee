@@ -55,7 +55,6 @@ namespace AvatarController.Data
         }
         #endregion
 
-
         #region Player Movement Nested Class
         [Serializable]
         public class PlayerMovementData
@@ -134,6 +133,7 @@ namespace AvatarController.Data
             [SerializeField] private float _cooldown;
             [Tooltip("If speed is inferior to this threshold, it should return to normal")]
             [SerializeField] private float _speedThreshold = 0.2f;
+            [SerializeField, Min(0.01f)] private float _verticalImpulse = 1;
 
             [Header("DEBUG")]
             [SerializeField] public bool DEBUG_DrawDiveDisplacement = true;
@@ -143,6 +143,7 @@ namespace AvatarController.Data
             public float GroundDeceleration => _groundDeceleration;
             public float MinSpeedThreshold => _speedThreshold;
             public float Cooldown => _cooldown;
+            public float VerticalImpulse => _verticalImpulse;
         }
         #endregion
 
