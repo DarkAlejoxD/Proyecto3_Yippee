@@ -44,14 +44,14 @@ namespace AvatarController.LedgeGrabbing
             _playerController = GetComponent<PlayerController>();
         }
 
-        void Update()
+        void LateUpdate()
         {
             if (!_playerController.CurrentState.Equals(PlayerStates.OnAir) && !_grabbingLedge) return;
 
             CastCheckerRays();
             HandleLedgeLogic();
 
-            if (_grabbingLedge)
+            if (_playerController.CurrentState.Equals(PlayerStates.Grabbing))
             {
                 //Cast dos raycast a los lados para detectar cuando llegamos a un borde y no dejar moverse?
                 HandleNormalRotation();
@@ -149,24 +149,26 @@ namespace AvatarController.LedgeGrabbing
 
         private void HandleNormalRotation()
         {
-            Quaternion rot = Quaternion.LookRotation(-_hitInfo.normal);
+            Vector3 normal = -_hitInfo.normal;
+            normal.y = 0;
+            Quaternion rot = Quaternion.LookRotation(normal);
             if (transform.rotation != rot)
             {
                 transform.rotation = rot;
-                GetComponent<PlayerMovement>().SetGrabbingLedgeMode(_hitInfo.normal);
-
-                //update position
-                //GetComponent<PlayerMovement>().enabled = false;
-                Vector3 pos = _hitInfo.point;
-                pos.y = transform.position.y;
-                pos.z += _positionToWallOffset * _hitInfo.normal.z;
-                pos.x += _positionToWallOffset * _hitInfo.normal.x;
-
-                //transform.position = pos;
-                _playerController.RequestTeleport(pos);
-                //GetComponent<PlayerMovement>().enabled = true;
-
             }
+
+            GetComponent<PlayerMovement>().SetGrabbingLedgeMode(_hitInfo.normal);
+
+            //update position
+            //GetComponent<PlayerMovement>().enabled = false;
+            Vector3 pos = _hitInfo.point;
+            pos.y = transform.position.y;
+            pos.z += _positionToWallOffset * _hitInfo.normal.z;
+            pos.x += _positionToWallOffset * _hitInfo.normal.x;
+
+            //transform.position = pos;
+            _playerController.RequestTeleport(pos);
+            //GetComponent<PlayerMovement>().enabled = true;
         }
 
         #endregion
