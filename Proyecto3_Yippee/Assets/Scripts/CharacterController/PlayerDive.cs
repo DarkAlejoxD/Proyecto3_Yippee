@@ -12,14 +12,15 @@ namespace AvatarController
     public class PlayerDive : MonoBehaviour
     {
         #region Fields
+        [Header("References")]
         private PlayerController _playerController;
         private CharacterController _characterController;
 
-        private Vector3 _velocity;
+        private Vector3 _velocity;        
 
-        public bool IsDiving { get; private set; }
         private bool _isGrounded;
         private bool _canDive;
+        public bool IsDiving { get; private set; }
 
         private PlayerData Data => _playerController.DataContainer;
         #endregion
@@ -95,7 +96,7 @@ namespace AvatarController
             if (_velocity.magnitude < Data.DefaultDiveValues.MinSpeedThreshold)
             {
                 IsDiving = false;
-                Debug.Log("Reach");
+                //Debug.Log("Reach");
                 //DEBUG //Moved to the PlayeState_OnDive.OnExit()
                 //_animator.SetBool("Dive", false);
                 //_animator.SetBool("Idle", true);

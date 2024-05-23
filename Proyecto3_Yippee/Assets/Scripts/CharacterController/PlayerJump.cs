@@ -8,8 +8,7 @@ namespace AvatarController
     [RequireComponent(typeof(PlayerController), typeof(CharacterController))]
     public class PlayerJump : MonoBehaviour
     {
-        //TODO: Get Design Specifications: For proto regular jump, for >=alpha mantein to higher
-        //TODO: Make this class.
+        private const string ANIM_JUMP_TRIGGER = "Jump";
 
         #region Fields
         [Header("References")]
@@ -129,6 +128,9 @@ namespace AvatarController
             {
                 GetComponent<PlayerLedgeGrab>().LetGoLedge();
             }
+
+            if (_controller.ThisAnimator)
+                _controller.ThisAnimator.SetTrigger(ANIM_JUMP_TRIGGER);
 
             #region DEBUG
 #if UNITY_EDITOR

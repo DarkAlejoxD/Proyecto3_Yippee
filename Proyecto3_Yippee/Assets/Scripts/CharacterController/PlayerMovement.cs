@@ -81,6 +81,7 @@ namespace AvatarController
         {
             _ledgeForward = ledgeForward;
             _grabbingLedge = true;
+
         }
 
         public void DisableGrabbingLedgeMode()
@@ -129,6 +130,8 @@ namespace AvatarController
 
                     movement = right * dotInput;
                 }
+                Debug.Log($"CurrentSpeed: {_playerController.Velocity.magnitude}"
+                          + $"\nMaxSpeed: {_playerController.DataContainer.GrabbingLedgeMovement.MaxSpeed}");
             }
             else
                 movement = right * moveInput.x;
@@ -194,7 +197,14 @@ namespace AvatarController
         private void Deceleration()
         {
             if (Velocity.magnitude > 0)
-                Velocity -= Time.fixedDeltaTime * Data.DefaultMovement.LinearDecceleration * (Velocity.normalized);
+            {
+                if (_grabbingLedge)
+                    Velocity -= Time.fixedDeltaTime * Data.GrabbingLedgeMovement.LinearDecceleration *
+                        (Velocity.normalized);
+                else
+                    Velocity -= Time.fixedDeltaTime * Data.DefaultMovement.LinearDecceleration *
+                        (Velocity.normalized);
+            }
         }
 
         private void FaceDirection()
