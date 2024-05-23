@@ -128,7 +128,7 @@ namespace GhostView
 
         private void GhostView(Vector3 origin, float radius)
         {
-            Debug.Log("Reach");
+            //Debug.Log("Reach");
             float distance = Vector3.Distance(origin, transform.position);
 
             if (distance > radius)
