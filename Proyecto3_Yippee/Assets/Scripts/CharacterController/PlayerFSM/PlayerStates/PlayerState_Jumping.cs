@@ -6,6 +6,8 @@ namespace AvatarController.PlayerFSM
 {
     public class PlayerState_Jumping : PlayerState
     {
+        //private const string ANIM_JUMP_TRIGGER = "Jump";
+
         private readonly PlayerJump _playerJump;
         private float _timeToPeak;
         private float _timeWhenJumpStarted;
@@ -27,6 +29,9 @@ namespace AvatarController.PlayerFSM
             _timeToPeak = _playerJump.GetTimeToPeak();
             _timeWhenJumpStarted = Time.time;
             _isJumping = true;
+
+            //if (Anim)
+            //    Anim.SetTrigger(ANIM_JUMP_TRIGGER);
         }
 
         public override void OnPlayerStay(InputValues inputs)
