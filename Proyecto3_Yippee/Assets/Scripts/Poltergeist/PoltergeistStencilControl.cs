@@ -24,7 +24,7 @@ namespace BaseGame
 
         private void Start()
         {
-
+            _state = PolterStates.NONE;
         }
 
         private void Update()
