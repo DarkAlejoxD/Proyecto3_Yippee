@@ -12,14 +12,15 @@ namespace AvatarController
     public class PlayerDive : MonoBehaviour
     {
         #region Fields
+        [Header("References")]
         private PlayerController _playerController;
         private CharacterController _characterController;
 
-        private Vector3 _velocity;
+        private Vector3 _velocity;        
 
-        public bool IsDiving { get; private set; }
         private bool _isGrounded;
         private bool _canDive;
+        public bool IsDiving { get; private set; }
 
         private PlayerData Data => _playerController.DataContainer;
         #endregion
