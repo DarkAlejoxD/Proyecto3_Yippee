@@ -1,32 +1,91 @@
 using UnityEngine;
-using System;
+using UtilsComplements;
+using System.Collections.Generic;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 namespace BaseGame
 {
-    public class FakeTransparenceControl : MonoBehaviour
+    public class FakeTransparenceControl : MonoBehaviour, ISingleton<FakeTransparenceControl>
     {
-        [Header("Attributes")]
+        private enum TransparencyStates
+        {
+            NONE,
+            EXPANDING,
+            REDUCING
+        }
+
+        [Header("Refrences")]
+        [SerializeField] private Transform _player;
         [SerializeField] private LayerMask _layers;
-        [SerializeField, Min(0.01f)] private float _radius = 1;
-        [SerializeField, Min(0.01f)] private float _expansionVelocity = 1;
+        [SerializeField, Min(1)] private int _fakeTransparentLayer = 24;
+        private Dictionary<GameObject, int> _hittedObjects = new();
+
+        [Header("Attributes")]
+        [SerializeField, Min(0.01f)] private float _diameter;
+        [SerializeField, Min(0.01f)] private float _expansionVelocity = 0.01f;
         [SerializeField, Min(15)] private int _refreshRate = 24; // 24 fps/s
         private float _timeControl = 0;
         private float _radiusControl = 0;
+        private TransparencyStates _state = TransparencyStates.NONE;
 
+        private float Radius => _diameter / 2;
         private Camera CurrentCamera => Camera.main;
         private float TimeToRefreshRaycasts => 1f / _refreshRate;
+        public ISingleton<FakeTransparenceControl> Instance => this;
+
+        private void Awake() => Instance.Instantiate();
+        private void OnDestroy() => Instance.RemoveInstance();
 
         private void Start()
         {
             _timeControl = Time.time;
+            transform.localScale = Vector3.zero;
+            _state = TransparencyStates.NONE;
+            _hittedObjects = new();
         }
 
         private void FixedUpdate()
         {
+            transform.position = _player.position;
             UpdateRaycast(Time.fixedDeltaTime);
+            UpdateScale(Time.fixedDeltaTime);
+        }
+
+        private void UpdateScale(float dt)
+        {
+            switch (_state)
+            {
+                case TransparencyStates.NONE:
+                    break;
+                case TransparencyStates.EXPANDING:
+                    {
+                        transform.localScale = _radiusControl * Vector3.one;
+                        if (_radiusControl > _diameter)
+                        {
+                            _radiusControl = _diameter;
+                            _state = TransparencyStates.NONE;
+                            transform.localScale = _radiusControl * Vector3.one;
+                            return;
+                        }
+                        _radiusControl += _expansionVelocity * dt;
+                    }
+                    break;
+                case TransparencyStates.REDUCING:
+                    {
+                        transform.localScale = _radiusControl * Vector3.one;
+                        if (_radiusControl < 0)
+                        {
+                            _radiusControl = 0;
+                            _state = TransparencyStates.NONE;
+                            transform.localScale = _radiusControl * Vector3.one;
+                            return;
+                        }
+                        _radiusControl -= _expansionVelocity * dt;
+                    }
+                    break;
+            }
         }
 
         private void UpdateRaycast(float dt)
@@ -46,14 +105,14 @@ namespace BaseGame
                 Vector3 up = CurrentCamera.transform.up;
 
                 //From up
-                if (SendRaycastToCamera(transform.position + up * _radius))
+                if (SendRaycastToCamera(transform.position + up * Radius))
                 {
                     ActivateSphere();
                     return;
                 }
 
                 //From down
-                if (SendRaycastToCamera(transform.position - up * _radius))
+                if (SendRaycastToCamera(transform.position - up * Radius))
                 {
                     ActivateSphere();
                     return;
@@ -62,14 +121,14 @@ namespace BaseGame
                 Vector3 right = CurrentCamera.transform.right;
 
                 //From right
-                if (SendRaycastToCamera(transform.position + right * _radius))
+                if (SendRaycastToCamera(transform.position + right * Radius))
                 {
                     ActivateSphere();
                     return;
                 }
 
                 //From left
-                if (SendRaycastToCamera(transform.position - right * _radius))
+                if (SendRaycastToCamera(transform.position - right * Radius))
                 {
                     ActivateSphere();
                     return;
@@ -83,13 +142,16 @@ namespace BaseGame
 
         private void DeactivateSphere()
         {
-            Debug.Log("Deactivate FakeTranparency");
+            _state = TransparencyStates.REDUCING;
+            foreach (var item in _hittedObjects)
+            {
+                item.Key.layer = item.Value;
+            }
+
+            _hittedObjects.Clear();
         }
 
-        private void ActivateSphere()
-        {
-            Debug.Log("Activate FakeTransparency");
-        }
+        private void ActivateSphere() => _state = TransparencyStates.EXPANDING;
 
         private bool SendRaycastToCamera(Vector3 position)
         {
@@ -100,7 +162,17 @@ namespace BaseGame
             float distance = direction.magnitude - offset;
 
             Ray ray = new(position, direction);
-            bool hit = Physics.Raycast(ray, distance, _layers);
+            bool hit = Physics.Raycast(ray, out RaycastHit hitInfo, distance, _layers);
+
+            if (hit)
+            {
+                GameObject go = hitInfo.collider.gameObject;
+                if (!_hittedObjects.ContainsKey(go))
+                {
+                    _hittedObjects.Add(go, go.layer);
+                    go.layer = _fakeTransparentLayer;
+                }
+            }
 
             return hit;
         }
@@ -112,7 +184,7 @@ namespace BaseGame
             Color color = new(34 / 255f, 0f, 118 / 255f);
 
             Gizmos.color = color;
-            Gizmos.DrawWireSphere(transform.position, _radius);
+            Gizmos.DrawWireSphere(transform.position, Radius);
             Gizmos.color = Color.white;
 
             const float distance_Draw = 1f;
@@ -144,7 +216,7 @@ namespace BaseGame
 
             #region Up
             //Calculate Up
-            center = transform.position + up * _radius;
+            center = transform.position + up * Radius;
             direction = CurrentCamera.transform.position - center;
             distance = direction.magnitude - offset;
             ray = new(center, direction);
@@ -157,7 +229,7 @@ namespace BaseGame
 
             #region Down
             //Calculate Down
-            center = transform.position - up * _radius;
+            center = transform.position - up * Radius;
             direction = CurrentCamera.transform.position - center;
             distance = direction.magnitude - offset;
             ray = new(center, direction);
@@ -170,7 +242,7 @@ namespace BaseGame
 
             #region Right
             //Calculate Down
-            center = transform.position + right * _radius;
+            center = transform.position + right * Radius;
             direction = CurrentCamera.transform.position - center;
             distance = direction.magnitude - offset;
             ray = new(center, direction);
@@ -183,7 +255,7 @@ namespace BaseGame
 
             #region Left
             //Calculate Down
-            center = transform.position - right * _radius;
+            center = transform.position - right * Radius;
             direction = CurrentCamera.transform.position - center;
             distance = direction.magnitude - offset;
             ray = new(center, direction);
