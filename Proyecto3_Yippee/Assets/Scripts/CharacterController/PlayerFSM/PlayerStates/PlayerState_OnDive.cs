@@ -6,15 +6,16 @@ namespace AvatarController.PlayerFSM
 {
     public class PlayerState_OnDive : PlayerState
     {
+        private const string DIVE_ANIM_TRIGGER = "Dive";
+        private const string DIVE_END_ANIM_TRIGGER = "DiveEnd";
+
         public override string Name => "OnDive";
-        private readonly Verify<Animator> _verifyAnimator;
         private readonly CharacterController _characterController;
         private readonly PlayerDive _playerDive;
         private readonly float _initialHeight;
 
         public PlayerState_OnDive(PlayerController playerController) : base(playerController)
         {
-            _verifyAnimator = new(playerController.gameObject);
             _characterController = playerController.GetComponent<CharacterController>();
             _playerDive = playerController.GetComponent<PlayerDive>();
             _initialHeight = _characterController.height;
@@ -25,12 +26,10 @@ namespace AvatarController.PlayerFSM
             base.OnEnter();
             _characterController.height = _initialHeight / 2;
 
-            if (!_verifyAnimator)
-                return;
-            Animator animator = _verifyAnimator.Component;
-
-            animator.SetBool("Dive", true);
-            animator.SetBool("Idle", false);
+            if (Anim)
+            {
+                Anim.SetTrigger(DIVE_ANIM_TRIGGER);
+            }
         }
         public override void OnPlayerStay(InputValues inputs)
         {
@@ -48,10 +47,13 @@ namespace AvatarController.PlayerFSM
         {
             base.OnExit();
             _characterController.height = _initialHeight;
-            if (!_verifyAnimator)
-                return;
-            _verifyAnimator[0].SetBool("Dive", false);
-            _verifyAnimator[0].SetBool("Idle", true);//test
+            if (Anim)
+            {
+                Anim.SetTrigger(DIVE_END_ANIM_TRIGGER);
+                float yImpulse = Data.DefaultDiveValues.VerticalImpulse *
+                    Data.DefOtherValues.ScaleMultiplicator;
+                _playerController.AddImpulse(new(0,yImpulse, 0));
+            }
         }
 
         public override bool CanAutoTransition()
