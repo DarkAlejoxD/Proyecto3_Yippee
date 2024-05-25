@@ -40,7 +40,8 @@ namespace AvatarController
         //public bool IsGrounded => _playerJump.IsGrounded;
 
         [Header("CanTransitionValues")]
-        private bool _canActivatePoltergeist;
+        internal bool _polterFound;
+        internal bool _canActivatePoltergeist { get; private set; }
 
         [Header("Velocity Attributes")]
         internal Vector3 Velocity;
@@ -171,6 +172,8 @@ namespace AvatarController
             _useGravity = state;
             if (!state) StopVelocity();
         }
+
+        public void PolterNotFound() => _polterFound = false;
         #endregion
 
         #region Physics

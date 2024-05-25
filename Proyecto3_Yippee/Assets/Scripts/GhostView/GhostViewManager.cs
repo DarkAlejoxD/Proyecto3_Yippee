@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UtilsComplements;
+using static UtilsComplements.AsyncTimer;
 
 namespace GhostView
 {
@@ -9,11 +10,8 @@ namespace GhostView
         #region Fields
 
         [Serializable]
-        public class PrototypeColorValues
+        public class GhostValues
         {
-            public Color AppearColor;
-            public Color DissapearColor;
-
             [Min(0.1f)] public float AppearTime;
             [Min(0.1f)] public float Staytime;
             [Min(0.1f)] public float DisapearTime;
@@ -22,15 +20,17 @@ namespace GhostView
         public ISingleton<GhostViewManager> Instance => this;
 
         public static Action<Vector3, float> OnActivateGhostView;
+        public static Action OnActivate;
+        public static Action OnDeactivate;
 
-        public PrototypeColorValues _proto;
-        public static PrototypeColorValues Proto
+        public GhostValues _values;
+        public static GhostValues Values
         {
             get
             {
                 if (!ISingleton<GhostViewManager>.TryGetInstance(out var manager))
                     return null;
-                return manager._proto;
+                return manager._values;
             }
         }
         #endregion
@@ -55,6 +55,9 @@ namespace GhostView
         public void ActivateGhostView(Vector3 origin, float radius)
         {
             OnActivateGhostView?.Invoke(origin, radius);
+            OnActivate?.Invoke();
+            StartCoroutine(TimerCoroutine(_values.AppearTime + _values.Staytime,
+                () => { OnDeactivate?.Invoke(); }));
         }
         #endregion
     }

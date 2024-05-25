@@ -26,6 +26,8 @@ namespace AvatarController.PlayerFSM
                 Anim.SetTrigger(GRAB_ANIM_TRIGGER);
                 Anim.SetBool(GRAB_ANIM_BOOL, true);
             }
+            //_playerController.SetGravityActive(false);
+            //_playerController.VelocityY = 0;
         }
 
         public override void OnPlayerStay(InputValues inputs)
@@ -66,6 +68,7 @@ namespace AvatarController.PlayerFSM
                 if (Anim)
                     Anim.SetBool(GRAB_ANIM_BOOL, false);
             }));
+            //_playerController.SetGravityActive(true);
         }
     }
 }
