@@ -9,13 +9,6 @@ namespace BaseGame
 {
     public class FakeTransparenceControl : MonoBehaviour, ISingleton<FakeTransparenceControl>
     {
-        private enum TransparencyStates
-        {
-            NONE,
-            EXPANDING,
-            REDUCING
-        }
-
         [Header("Refrences")]
         [SerializeField] private Transform _player;
         [SerializeField] private LayerMask _layers;
@@ -28,7 +21,7 @@ namespace BaseGame
         [SerializeField, Min(15)] private int _refreshRate = 24; // 24 fps/s
         private float _timeControl = 0;
         private float _radiusControl = 0;
-        private TransparencyStates _state = TransparencyStates.NONE;
+        private SphereControlStates _state = SphereControlStates.NONE;
 
         private float Radius => _diameter / 2;
         private Camera CurrentCamera => Camera.main;
@@ -42,7 +35,7 @@ namespace BaseGame
         {
             _timeControl = Time.time;
             transform.localScale = Vector3.zero;
-            _state = TransparencyStates.NONE;
+            _state = SphereControlStates.NONE;
             _hittedObjects = new();
         }
 
@@ -57,28 +50,26 @@ namespace BaseGame
         {
             switch (_state)
             {
-                case TransparencyStates.NONE:
-                    break;
-                case TransparencyStates.EXPANDING:
+                case SphereControlStates.EXPANDING:
                     {
                         transform.localScale = _radiusControl * Vector3.one;
                         if (_radiusControl > _diameter)
                         {
                             _radiusControl = _diameter;
-                            _state = TransparencyStates.NONE;
+                            _state = SphereControlStates.NONE;
                             transform.localScale = _radiusControl * Vector3.one;
                             return;
                         }
                         _radiusControl += _expansionVelocity * dt;
                     }
                     break;
-                case TransparencyStates.REDUCING:
+                case SphereControlStates.REDUCING:
                     {
                         transform.localScale = _radiusControl * Vector3.one;
                         if (_radiusControl < 0)
                         {
                             _radiusControl = 0;
-                            _state = TransparencyStates.NONE;
+                            _state = SphereControlStates.NONE;
                             transform.localScale = _radiusControl * Vector3.one;
                             return;
                         }
@@ -111,12 +102,12 @@ namespace BaseGame
                     return;
                 }
 
-                //From down
-                if (SendRaycastToCamera(transform.position - up * Radius))
-                {
-                    ActivateSphere();
-                    return;
-                }
+                ////From down
+                //if (SendRaycastToCamera(transform.position - up * Radius))
+                //{
+                //    ActivateSphere();
+                //    return;
+                //}
 
                 Vector3 right = CurrentCamera.transform.right;
 
@@ -142,7 +133,7 @@ namespace BaseGame
 
         private void DeactivateSphere()
         {
-            _state = TransparencyStates.REDUCING;
+            _state = SphereControlStates.REDUCING;
             foreach (var item in _hittedObjects)
             {
                 item.Key.layer = item.Value;
@@ -151,7 +142,7 @@ namespace BaseGame
             _hittedObjects.Clear();
         }
 
-        private void ActivateSphere() => _state = TransparencyStates.EXPANDING;
+        private void ActivateSphere() => _state = SphereControlStates.EXPANDING;
 
         private bool SendRaycastToCamera(Vector3 position)
         {

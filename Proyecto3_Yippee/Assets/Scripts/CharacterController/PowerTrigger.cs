@@ -24,18 +24,18 @@ namespace AvatarController.Powers
             _activated = false;
         }
 
-        private void OnValidate()
-        {
-            var list = GameObject.FindObjectsOfType<PowerTrigger>();
-            foreach (var item in list)
-            {
-                if (item != this)
-                {
-                    if (item._powerType == this._powerType)
-                        Debug.Log($"It already Exists one PowerTrigger Of type: {_powerType}", item);
-                }
-            }
-        }
+        //private void OnValidate()
+        //{
+        //    var list = GameObject.FindObjectsOfType<PowerTrigger>();
+        //    foreach (var item in list)
+        //    {
+        //        if (item != this)
+        //        {
+        //            if (item._powerType == this._powerType)
+        //                Debug.Log($"It already Exists one PowerTrigger Of type: {_powerType}", item);
+        //        }
+        //    }
+        //}
 
         private void OnTriggerEnter(Collider other)
         {
