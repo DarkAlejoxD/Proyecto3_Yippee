@@ -7,7 +7,7 @@ namespace Poltergeist
     /// <summary> 
     /// Unique for alpha, shouldn't make it in beta. 
     /// </summary>
-    [Obsolete]
+    [Obsolete("Poltergeist don't use Trigger zones anymore, you may want PoltergeistStencilControl")]
     [RequireComponent(typeof(Collider))]
     public class PoltergeistZone : MonoBehaviour
     {

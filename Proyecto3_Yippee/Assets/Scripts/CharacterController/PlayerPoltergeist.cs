@@ -74,11 +74,11 @@ namespace AvatarController
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            if (!Application.isPlaying)
-                return;
+            if (!_controller)
+                _controller = GetComponent<PlayerController>();
 
-            if (_controller.CurrentState != AvatarController.PlayerFSM.PlayerStates.OnPoltergeist)
-                return;
+            //if (_controller.CurrentState != AvatarController.PlayerFSM.PlayerStates.OnPoltergeist)
+            //    return;
 
             GizmosUtilities.DrawSphere(transform.position, DEBUG_gizmosColor,
                                        DataContainer.DefPoltValues.PoltergeistRadius,
