@@ -9,6 +9,7 @@ namespace AvatarController
     public class PlayerJump : MonoBehaviour
     {
         private const string ANIM_JUMP_TRIGGER = "Jump";
+        private const string ANIM_JUMPGRABBED_TRIGGER = "JumpGrabbed";
 
         #region Fields
         [Header("References")]
@@ -130,7 +131,12 @@ namespace AvatarController
             }
 
             if (_controller.ThisAnimator)
-                _controller.ThisAnimator.SetTrigger(ANIM_JUMP_TRIGGER);
+            {
+                if (_controller._wasGrabbed)
+                    _controller.ThisAnimator.SetTrigger(ANIM_JUMPGRABBED_TRIGGER);
+                else
+                    _controller.ThisAnimator.SetTrigger(ANIM_JUMP_TRIGGER);
+            }
 
             #region DEBUG
 #if UNITY_EDITOR

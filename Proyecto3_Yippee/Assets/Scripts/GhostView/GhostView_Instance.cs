@@ -6,20 +6,19 @@ using UtilsComplements;
 namespace GhostView
 {
     [SelectionBase]
+    [RequireComponent(typeof(Collider))]
     public class GhostView_Instance : MonoBehaviour
     {
         #region Fields
-        private const string COLOR_ID = "_BaseColor";
+        private const string ALPHA_VALUE = "_AlphaValue";
 
         [Header("Render References")]
         [SerializeField] private Transform _art;
-        [SerializeField] private Color _startColor;
         [Tooltip("true: appears when button down" +
                  "\nfalse: dissapears when button down")]
-        [SerializeField] private bool _inversed;
+        [SerializeField, Obsolete] private bool _inversed;
         private Renderer _renderer;
         private Collider _collider;
-        private bool _isPlayerInside;
 
         private MaterialPropertyBlock _materialPropertyBlock;
         private MaterialPropertyBlock ThisMaterialPropertyBlock
@@ -38,62 +37,37 @@ namespace GhostView
         private void Awake()
         {
             _renderer = _art.GetComponent<Renderer>();
-            _collider = GetComponent<Collider>();
+            _collider = _art.GetComponent<Collider>();
             GhostViewManager.OnActivateGhostView += GhostView;
-        }
-
-        private void OnEnable()
-        {
-            ApplyColor(_startColor);
-        }
-        private void OnValidate()
-        {
-            ApplyColor(_startColor);
         }
 
         private void Start()
         {
-            if (_inversed)
+            //if (_inversed)
+            //{
+            //    SetActiveCollision(true);
+            //    _art.gameObject.SetActive(true);
+            //}
+            //else
             {
-                SetActiveCollision(true);
-                _art.gameObject.SetActive(true);
-            }
-            else
-            {
+                ApplyAlphaValue(1);
                 SetActiveCollision(false);
                 _art.gameObject.SetActive(false);
             }
         }
 
-        private void Update()
-        {
-            if (!_collider)
-                return;
-
-            if (!_collider.isTrigger)
-                return;
-
-            if (!_isPlayerInside)
-                return;
-
-            _collider.isTrigger = false;
-        }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
-                _isPlayerInside = true;
+                _collider.isTrigger = true;
         }
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.CompareTag("Player"))
-                _isPlayerInside = true;
-        }
+
 
         private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("Player"))
-                _isPlayerInside = false;
+                _collider.isTrigger = false;
         }
 
         private void OnDestroy()
@@ -103,9 +77,9 @@ namespace GhostView
         #endregion
 
         #region Private Methods
-        private void ApplyColor(Color color)
+        private void ApplyAlphaValue(float value)
         {
-            ThisMaterialPropertyBlock.SetColor(COLOR_ID, color);
+            ThisMaterialPropertyBlock.SetFloat(ALPHA_VALUE, value);
             _art.GetComponent<Renderer>().SetPropertyBlock(ThisMaterialPropertyBlock);
         }
 
@@ -116,9 +90,7 @@ namespace GhostView
 
             if (state)
             {
-                _isPlayerInside = false;
                 _collider.enabled = true;
-                _collider.isTrigger = true;
             }
             else
             {
@@ -136,25 +108,25 @@ namespace GhostView
 
             StopAllCoroutines();
 
-            if (_inversed)
-            {
-                SetActiveCollision(false);
-                StartCoroutine(DissapearCoroutine(() =>
-                {
-                    _art.gameObject.SetActive(false);
-                    StartCoroutine(StayCoroutine(() =>
-                    {
-                        _art.gameObject.SetActive(true);
-                        StartCoroutine(AppearCoroutine(() =>
-                        {
-                            SetActiveCollision(true);
-                            ThisMaterialPropertyBlock.SetColor(COLOR_ID, _startColor);
-                            _renderer.SetPropertyBlock(ThisMaterialPropertyBlock);
-                        }, false));
-                    }, false));
-                }, false));
-            }
-            else
+            //if (_inversed)
+            //{
+            //    SetActiveCollision(false);
+            //    StartCoroutine(DissapearCoroutine(() =>
+            //    {
+            //        _art.gameObject.SetActive(false);
+            //        StartCoroutine(StayCoroutine(() =>
+            //        {
+            //            _art.gameObject.SetActive(true);
+            //            StartCoroutine(AppearCoroutine(() =>
+            //            {
+            //                SetActiveCollision(true);
+            //                ThisMaterialPropertyBlock.SetColor(ALPHA_VALUE, _startColor);
+            //                _renderer.SetPropertyBlock(ThisMaterialPropertyBlock);
+            //            }, false));
+            //        }, false));
+            //    }, false));
+            //}
+            //else
             {
                 SetActiveCollision(true);
                 _art.gameObject.SetActive(true);
@@ -166,8 +138,7 @@ namespace GhostView
                         {
                             SetActiveCollision(false);
                             _art.gameObject.SetActive(false);
-                            ThisMaterialPropertyBlock.SetColor(COLOR_ID, _startColor);
-                            _renderer.SetPropertyBlock(ThisMaterialPropertyBlock);
+                            ApplyAlphaValue(0);
                         }));
                     }));
                 }));
@@ -178,12 +149,14 @@ namespace GhostView
         {
             if (ISingleton<GhostViewManager>.TryGetInstance(out var manager))
             {
-                Color startColor = manager._proto.AppearColor;
-                float timeToAppear = firstAppear ? manager._proto.AppearTime : manager._proto.DisapearTime;
+                float timeToAppear = manager._values.AppearTime;
 
-                ThisMaterialPropertyBlock.SetColor(COLOR_ID, startColor);
-                _renderer.SetPropertyBlock(ThisMaterialPropertyBlock);
-                yield return new WaitForSeconds(timeToAppear);
+                for (float i = 0; i <= timeToAppear; i += Time.deltaTime)
+                {
+                    ApplyAlphaValue(1 - (i / timeToAppear));
+                    yield return new WaitForSeconds(Time.deltaTime);
+                }
+
                 end.Invoke();
             }
         }
@@ -192,9 +165,8 @@ namespace GhostView
         {
             if (ISingleton<GhostViewManager>.TryGetInstance(out var manager))
             {
-                ThisMaterialPropertyBlock.SetColor(COLOR_ID, _startColor);
-                _renderer.SetPropertyBlock(ThisMaterialPropertyBlock);
-                yield return new WaitForSeconds(manager._proto.Staytime);
+                ApplyAlphaValue(0);
+                yield return new WaitForSeconds(manager._values.Staytime);
                 end.Invoke();
             }
         }
@@ -203,12 +175,13 @@ namespace GhostView
         {
             if (ISingleton<GhostViewManager>.TryGetInstance(out var manager))
             {
-                Color startColor = manager._proto.DissapearColor;
-                float timeToAppear = firstAppear ? manager._proto.DisapearTime : manager._proto.AppearTime;
+                float timeToAppear = manager._values.DisapearTime;
 
-                ThisMaterialPropertyBlock.SetColor(COLOR_ID, startColor);
-                _renderer.SetPropertyBlock(ThisMaterialPropertyBlock);
-                yield return new WaitForSeconds(timeToAppear);
+                for (float i = 0; i <= timeToAppear; i += Time.deltaTime)
+                {
+                    ApplyAlphaValue((i / timeToAppear));
+                    yield return new WaitForSeconds(Time.deltaTime);
+                }
                 end.Invoke();
             }
         }

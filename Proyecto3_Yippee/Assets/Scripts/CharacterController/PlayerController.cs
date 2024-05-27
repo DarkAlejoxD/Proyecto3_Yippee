@@ -35,6 +35,7 @@ namespace AvatarController
         //public bool isPushing = false;
         //private PlayerMovement _playerMovement;
         private PlayerJump _playerJump;
+        internal bool _wasGrabbed;
         //private PlayerDive _playerDive;
 
         //public bool IsGrounded => _playerJump.IsGrounded;

@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UtilsComplements;
 using static UtilsComplements.AsyncTimer;
 using BaseGame;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace Poltergeist
 {
@@ -15,13 +13,22 @@ namespace Poltergeist
     {
         [Header("Lists")]
         private List<Poltergeist_Item> _poltergeistList = new();
-        private List<Poltergeist_Item> _nearPoltergeists;
+        private List<Poltergeist_Item> _nearPoltergeists = new();
 
         private int _indexControl;
         private bool _evaluating;
 
         [Header("Attributes")]
         [SerializeField, Min(0.01f)] private float _timerToDie = 2;
+
+        public static Action OnPolterEnter;
+        public static Action OnPolterExit;
+
+        [Header("Delegates")]
+        public UnityEvent OnPoltergeistEventEnter;
+        public UnityEvent OnPoltergeistEventExit;
+        public UnityEvent OnPoltergeistEventEnterDelayed;
+        [SerializeField, Min(0.1f)] private float _delayedTime = 1f;
 
         public ISingleton<PoltergeistManager> Instance => this;
 
@@ -30,6 +37,7 @@ namespace Poltergeist
         {
             Instance.Instantiate();
             _evaluating = false;
+            OnPoltergeistEventExit?.Invoke();
         }
 
         private void OnDestroy() => Instance.RemoveInstance();
@@ -41,18 +49,23 @@ namespace Poltergeist
         /// </summary>
         public void StartPoltergeist(Transform target, float radius)
         {
+            OnPolterEnter?.Invoke();
+            OnPoltergeistEventEnter?.Invoke();
             _evaluating = false;
             //_nearPoltergeists = GetNearPoltergeist(target, radius);
             UpdateNearestObjects(target, radius);
             StopAllCoroutines();
 
+            StartCoroutine(TimerCoroutine(_delayedTime, 
+                () => OnPoltergeistEventEnterDelayed?.Invoke()));
+
             if (_poltergeistList == null)
             {
                 GameManager.GetGameManager().PlayerInstance.PolterNotFound();
-                return;            
+                return;
             }
 
-            if(_nearPoltergeists.Count <= 0)
+            if (_nearPoltergeists.Count <= 0)
                 GameManager.GetGameManager().PlayerInstance.PolterNotFound();
 
             foreach (var item in _nearPoltergeists)
@@ -97,6 +110,7 @@ namespace Poltergeist
 
         public void EndPoltergeist()
         {
+            OnPolterExit?.Invoke();
             StartCoroutine(TimerCoroutine(_timerToDie, () =>
             {
                 foreach (var item in _nearPoltergeists)
@@ -115,9 +129,9 @@ namespace Poltergeist
             if (_poltergeistList == null)
                 _poltergeistList = new List<Poltergeist_Item>();
 
-            if (!_poltergeistList.Contains(item))            
+            if (!_poltergeistList.Contains(item))
                 _poltergeistList.Add(item);
-            
+
             else
                 Debug.LogWarning("You're trying to ad an existing polter Item in the Polter " +
                     "manager", item);
@@ -154,105 +168,6 @@ namespace Poltergeist
             _nearPoltergeists = nearList.OrderBy(item =>
                 Camera.main.WorldToScreenPoint(item.transform.position).x).ToList();
 
-            ////Sort them by a direction (The camera axis temp)
-            ////[0]-1 [n/2]0 [n]1
-            //List<Poltergeist_Item> sortedList = new();
-
-            //sortedList.Add(nearList[0]);
-
-
-
-            //for (int i = 1; i < nearList.Count; i++)
-            //{
-            //    var lastItem = nearList[i];
-
-            //    for (int j = 0; j < i; j++)
-            //    {
-            //        Vector2 screenPosLast = Camera.main.WorldToScreenPoint(lastItem.transform.position);
-
-            //        var currentItem = sortedList[j];
-            //        Vector2 screenPosCurrent = Camera.main.WorldToScreenPoint(currentItem.transform.position);
-
-            //        if (screenPosLast.x < screenPosCurrent.x)
-            //        {
-
-            //        }
-            //    }
-
-            //    sortedList[i] = lastItem;
-            //}
-
         }
-
-        #region Private Methods
-        //private Poltergeist_Item[] GetNearPoltergeist(Transform target, float radius)
-        //{
-        //    //Check nullity
-        //    if (_poltergeistList.Count <= 0)
-        //        return null;
-
-        //    //GetNearest
-        //    List<Poltergeist_Item> nearList = new();
-
-        //    for (int i = 0; i < _poltergeistList.Count; i++)
-        //    {
-        //        float distance = Vector3.Distance(_poltergeistList[i].transform.position,
-        //                                          target.position);
-        //        if (distance < radius)
-        //            nearList.Add(_poltergeistList[i]);
-        //    }
-
-        //    //Sort them by a direction (The camera axis temp)
-        //    //[0]-1 [n/2]0 [n]1
-
-        //    Vector3 evaluatedDir = Camera.main.transform.right;
-        //    Poltergeist_Item[] sortedList = new Poltergeist_Item[nearList.Count];
-
-        //    sortedList[0] = nearList[0];
-        //    for (int i = 1; i < nearList.Count; i++)
-        //    {
-        //        Poltergeist_Item lastItem = nearList[i];
-
-        //        for (int j = 0; j < i; j++)
-        //        {
-        //            //Get values from current evaluation (lastItem)
-        //            Vector3 targetToCurrentPolter = target.position - lastItem.transform.position;
-        //            float distanceToCurrent = targetToCurrentPolter.magnitude;
-        //            targetToCurrentPolter.Normalize();
-        //            float dotProduct = Vector3.Dot(targetToCurrentPolter, evaluatedDir);
-
-        //            //Get the values from the located item in the sortedList
-        //            Vector3 targetToLocatedPolter = target.position - sortedList[j].transform.position;
-        //            float distanceToLocated = targetToLocatedPolter.magnitude;
-        //            targetToLocatedPolter.Normalize();
-        //            float dotLocated = Vector3.Dot(targetToLocatedPolter, evaluatedDir);
-
-        //            //Calculate the distance base in the axis
-        //            float reflexDistanceCurrent = (evaluatedDir * distanceToCurrent).magnitude * dotProduct;
-        //            float reflexDistanceLocated = (evaluatedDir * distanceToLocated).magnitude * dotLocated;
-
-        //            if (reflexDistanceCurrent < reflexDistanceLocated)
-        //            {
-        //                Poltergeist_Item handler = sortedList[j]; //keep this position's item
-        //                sortedList[j] = lastItem; //asign the item to the list
-        //                lastItem = handler; //asign the object we grab from the sortedlist to the lastItem
-        //            }
-        //        }
-
-        //        sortedList[i] = lastItem;
-        //    }
-
-        //    return sortedList;
-        //}
-        #endregion
-
-        #region DEBUG
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            //TODO: Draw beziers? jsjs
-        }
-#endif
-        #endregion
     }
 }

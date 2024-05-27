@@ -15,7 +15,7 @@ namespace AvatarController
         #region Fields
         [Header("References")]
         private PlayerController _controller;
-        public Poltergeist_Item Item;
+        [HideInInspector] public Poltergeist_Item Item;
 
         private PlayerData DataContainer => _controller.DataContainer;
         private Transform CameraTransform => Camera.main.transform;
@@ -74,11 +74,11 @@ namespace AvatarController
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            if (!Application.isPlaying)
-                return;
+            if (!_controller)
+                _controller = GetComponent<PlayerController>();
 
-            if (_controller.CurrentState != AvatarController.PlayerFSM.PlayerStates.OnPoltergeist)
-                return;
+            //if (_controller.CurrentState != AvatarController.PlayerFSM.PlayerStates.OnPoltergeist)
+            //    return;
 
             GizmosUtilities.DrawSphere(transform.position, DEBUG_gizmosColor,
                                        DataContainer.DefPoltValues.PoltergeistRadius,

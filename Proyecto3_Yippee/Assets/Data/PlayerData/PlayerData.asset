@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   _powers:
-    DEBUG_testPowers: 1
+    DEBUG_testPowers: 0
   _defaultMovement:
     _acceleration: 70
     _linearDecceleration: 50
@@ -100,10 +100,10 @@ MonoBehaviour:
     _poltergeistSpamCooldown: 0.5
     _dotJoystickThreshold: 0.3
     _poltergeistCooldown: 2
-    _poltergeistRadius: 4.06
+    _poltergeistRadius: 2.7
     _playerRadius: 0.32
     _speed: 2
-    DEBUG_DrawPoltergeistRadius: 0
+    DEBUG_DrawPoltergeistRadius: 1
   _otherValues:
     _scaleMultiplicator: 0.1
     _ghostViewCooldown: 8
