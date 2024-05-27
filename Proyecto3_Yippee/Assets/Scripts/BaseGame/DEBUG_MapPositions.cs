@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace BaseGame //add it to a concrete namespace
+namespace BaseGame
 {
     public class DEBUG_MapPositions : MonoBehaviour
     {
