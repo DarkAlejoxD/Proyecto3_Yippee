@@ -26,6 +26,7 @@ namespace AvatarController.PlayerFSM
                 Anim.SetTrigger(GRAB_ANIM_TRIGGER);
                 Anim.SetBool(GRAB_ANIM_BOOL, true);
             }
+            _playerController._wasGrabbed = true;
             //_playerController.SetGravityActive(false);
             //_playerController.VelocityY = 0;
         }
@@ -63,11 +64,9 @@ namespace AvatarController.PlayerFSM
         public override void OnExit()
         {
             base.OnExit();
-            _playerController.StartCoroutine(TimerCoroutine(Time.deltaTime * 10, () =>
-            {
-                if (Anim)
-                    Anim.SetBool(GRAB_ANIM_BOOL, false);
-            }));
+
+            if (Anim)
+                Anim.SetBool(GRAB_ANIM_BOOL, false);
             //_playerController.SetGravityActive(true);
         }
     }
