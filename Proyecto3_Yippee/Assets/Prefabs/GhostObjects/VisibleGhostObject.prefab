@@ -132,7 +132,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -151,5 +151,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _art: {fileID: 6615465524924490629}
-  _startColor: {r: 1, g: 0.3820755, b: 0.9547619, a: 1}
   _inversed: 1
