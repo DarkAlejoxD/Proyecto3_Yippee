@@ -195,8 +195,10 @@ namespace AvatarController.Data
             #region Scale
             [Header("Scale")]
             [SerializeField, Range(0.01f, 1)] private float _scaleMultiplicator;
+            [SerializeField, Min(0.01f)] private float _timeBreakIdle = 1;
 
             public float ScaleMultiplicator => _scaleMultiplicator;
+            public float TimeBreakIdle => _timeBreakIdle;
             #endregion
 
             #region Ghost

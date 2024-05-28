@@ -16,8 +16,7 @@ namespace AvatarController.PlayerFSM
 
         public override string Name => "Default Movement";
         private bool _poltergeistActivated;
-
-
+        private bool _isAFK;
 
         public PlayerState_DefaultMovement(PlayerController playerController) : base(playerController)
         {
@@ -32,6 +31,8 @@ namespace AvatarController.PlayerFSM
 
             if (Anim)
                 Anim.SetBool(ONGROUND_ANIM, true);
+
+            _isAFK = false;
         }
 
         public override void OnPlayerStay(InputValues inputs)
