@@ -15,7 +15,7 @@ namespace AvatarController
         #region Fields
         [Header("References")]
         private PlayerController _controller;
-        public Poltergeist_Item Item;
+        [HideInInspector] public Poltergeist_Item Item;
 
         private PlayerData DataContainer => _controller.DataContainer;
         private Transform CameraTransform => Camera.main.transform;

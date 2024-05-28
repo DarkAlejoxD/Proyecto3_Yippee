@@ -34,6 +34,9 @@ namespace AvatarController.PlayerFSM
 
         private const string POLTER_ANIM_BOOL = "PoltergeistMode";
 
+        private const int DEFAULT_LAYER = 1;
+        private const int OUTLINE_POLTERGEIST_LAYER = 11;
+
         private PlayerPoltergeist _poltergeistController;
         private PoltergeistManager _poltManager;
 
@@ -96,7 +99,11 @@ namespace AvatarController.PlayerFSM
         public override void OnPlayerStay(InputValues inputs)
         {
             if (inputs.Cancel)
+            {
+                if (Item)
+                    Item.gameObject.layer = DEFAULT_LAYER;
                 _playerController.RequestChangeState(PlayerStates.OnGround);
+            }
 
             if (!_playerController._polterFound)
                 return;
@@ -166,10 +173,10 @@ namespace AvatarController.PlayerFSM
         {
             int dir = _inputHandler > 0 ? 1 : -1;
             if (Item)
-                Item.gameObject.layer = 1;
+                Item.gameObject.layer = DEFAULT_LAYER;
             Item = _poltManager.GetNext(dir);
             if (Item)
-                Item.gameObject.layer = 11;
+                Item.gameObject.layer = OUTLINE_POLTERGEIST_LAYER;
         }
 
         private void SelectionFSMInit()

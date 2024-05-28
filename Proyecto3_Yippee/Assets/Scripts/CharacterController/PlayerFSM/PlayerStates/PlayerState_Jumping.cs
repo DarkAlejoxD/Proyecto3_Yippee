@@ -64,5 +64,11 @@ namespace AvatarController.PlayerFSM
                 _playerController.ForceChangeState(PlayerStates.OnAir);
             }
         }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            _playerController._wasGrabbed = false;
+        }
     }
 }
