@@ -176,14 +176,20 @@ namespace AvatarController.LedgeGrabbing
         #region DEBUG
         private void OnDrawGizmos()
         {
-            //if (!Application.isPlaying) return;
+            if (!Application.isPlaying) return;
 
             if (ShowLedgeDetectionRays)
                 DrawLedgeDetectionRays();
 
-            if (_grabbingLedge || true)
+            if (_grabbingLedge)
                 DrawEdgeDetectionRays();
 
+            if(!_hitInfo.Equals(null))
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawWireSphere(_hitInfo.point, 0.1f);
+                Gizmos.color = Color.white;
+            }
         }
 
         private void DrawLedgeDetectionRays()
