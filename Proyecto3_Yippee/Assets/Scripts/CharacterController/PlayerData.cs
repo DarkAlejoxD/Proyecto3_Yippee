@@ -195,10 +195,11 @@ namespace AvatarController.Data
             #region Scale
             [Header("Scale")]
             [SerializeField, Range(0.01f, 1)] private float _scaleMultiplicator;
-            [SerializeField, Min(0.01f)] private float _timeBreakIdle = 1;
+            [SerializeField, Min(0.01f)] private float _minTimeBreakIdle = 1;
+            [SerializeField, Min(0.01f)] private float _maxTimeBreakIdle = 10;
 
             public float ScaleMultiplicator => _scaleMultiplicator;
-            public float TimeBreakIdle => _timeBreakIdle;
+            public float TimeBreakIdle => UnityEngine.Random.Range(_minTimeBreakIdle, _maxTimeBreakIdle);
             #endregion
 
             #region Ghost

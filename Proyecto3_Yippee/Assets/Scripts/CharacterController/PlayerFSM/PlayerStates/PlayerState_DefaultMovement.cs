@@ -10,13 +10,39 @@ namespace AvatarController.PlayerFSM
     {
         private const string MOVEMENT_VALUE = "Speed";
         private const string ONGROUND_ANIM = "OnGround";
+        private const string AFK_ON_TRIGGER = "AFKon";
+        private const string AFK_OFF_TRIGGER = "AFKoff";
         private const float SMOOTH = 0.2f;
 
         private float _animControl = 0;
 
-        public override string Name => "Default Movement";
+        private float _timeToIdle = 0;
+        private float _timeControl = 0;
+
         private bool _poltergeistActivated;
         private bool _isAFK;
+
+        public override string Name => "Default Movement";
+        private bool IsAFK
+        {
+            get
+            {
+                if (!Anim)
+                    return false;
+
+                return Anim.GetBool("isAFK");
+            }
+        }
+        private bool IsTrigger
+        {
+            get
+            {
+                if (!Anim)
+                    return false;
+
+                return Anim.GetBool("isAFK");
+            }
+        }
 
         public PlayerState_DefaultMovement(PlayerController playerController) : base(playerController)
         {
@@ -33,10 +59,33 @@ namespace AvatarController.PlayerFSM
                 Anim.SetBool(ONGROUND_ANIM, true);
 
             _isAFK = false;
+            _timeControl = 0;
+            _timeToIdle = Data.DefOtherValues.TimeBreakIdle;
         }
 
         public override void OnPlayerStay(InputValues inputs)
         {
+            if (_timeControl > _timeToIdle)
+            {
+                _timeControl = 0;
+                _timeToIdle = Data.DefOtherValues.TimeBreakIdle;
+                if (Anim)
+                    Anim.SetTrigger(AFK_ON_TRIGGER);
+            }
+
+            //if (_playerController.Velocity.magnitude > Data.DefaultMovement.MinSpeedToMove)
+            if (inputs.MoveInput.magnitude > 0)
+            {
+                _timeControl = 0;
+                if (Anim && IsAFK)
+                    Anim.SetTrigger(AFK_OFF_TRIGGER);
+                if (!IsAFK && Anim)
+                    Anim.ResetTrigger(AFK_OFF_TRIGGER);
+            }
+            _timeControl += Time.deltaTime;
+
+            //Debug.Log($"BreakTime: {_timeControl}");
+
             //Anim Logic
             if (Anim)
             {
@@ -61,7 +110,7 @@ namespace AvatarController.PlayerFSM
             _playerController.OnJump?.Invoke(inputs.JumpInput);
             _playerController.OnDive?.Invoke(inputs.CrounchDiveInput);
 
-            _playerController.OnInteract?.Invoke(inputs.InteractInput);
+            //_playerController.OnInteract?.Invoke(inputs.InteractInput);
 
             if (Data.Powers.HasGhostView)
                 _playerController.OnGhostView?.Invoke(inputs.GhostViewInput);
@@ -76,6 +125,7 @@ namespace AvatarController.PlayerFSM
                 _playerController.RequestChangeState(PlayerStates.OnPoltergeist);
             }
             //_playerController.OnSprint?.Invoke(inputs.SprintInput); ???
+
         }
 
         public override void OnExit()
@@ -84,6 +134,8 @@ namespace AvatarController.PlayerFSM
 
             if (Anim)
                 Anim.SetBool(ONGROUND_ANIM, false);
+
+            _isAFK = false;
         }
     }
 }
