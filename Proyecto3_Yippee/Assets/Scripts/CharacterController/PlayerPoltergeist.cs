@@ -65,6 +65,10 @@ namespace AvatarController
                 direction.Normalize();
                 newPos = transform.position + direction * DataContainer.DefPoltValues.PlayerRadius;
             }
+
+            newPos = Vector3.Lerp(newPos,
+                                  PoltergeistManager.ScreenPosCorrection(newPos),
+                                  0.5f);
             rb.MovePosition(newPos);
             rb.velocity = Vector3.zero;
         }

@@ -29,6 +29,8 @@ namespace AvatarController.Misc
             {
                 AddForce(col);
             }
+
+            //Debug.Log(Camera.main.WorldToViewportPoint(_collider.transform.position));
         }
 
         private void OnTriggerStay(Collider other)
