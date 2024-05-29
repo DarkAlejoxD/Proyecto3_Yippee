@@ -273,7 +273,7 @@ namespace InputController
                 {
                     ""name"": """",
                     ""id"": ""cbe41d19-990f-4fe9-bb8a-e73c8da64282"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -317,18 +317,7 @@ namespace InputController
                 {
                     ""name"": """",
                     ""id"": ""2c67b07c-b099-4fd5-9adc-a518e83d6363"",
-                    ""path"": ""<Keyboard>/ctrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Crouch/Dive"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""79c4b5b0-68eb-49fb-a566-912eb752ffb3"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -372,7 +361,7 @@ namespace InputController
                 {
                     ""name"": """",
                     ""id"": ""84e036cd-fd55-49ca-b946-f195e3680b90"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -624,6 +613,17 @@ namespace InputController
                 },
                 {
                     ""name"": """",
+                    ""id"": ""1db828c2-d1bb-4b4d-bfb7-2beaa68d0309"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""a362142a-30ab-4f35-978b-45ac56e9613f"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -669,7 +669,7 @@ namespace InputController
                 {
                     ""name"": """",
                     ""id"": ""112196bc-edf0-468a-a415-649c5a845f33"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",

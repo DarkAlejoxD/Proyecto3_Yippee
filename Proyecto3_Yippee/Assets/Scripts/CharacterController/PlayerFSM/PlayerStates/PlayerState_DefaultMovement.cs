@@ -108,7 +108,7 @@ namespace AvatarController.PlayerFSM
             //Inputs Logic
             _playerController.OnMovement?.Invoke(inputs.MoveInput);
             _playerController.OnJump?.Invoke(inputs.JumpInput);
-            _playerController.OnDive?.Invoke(inputs.CrounchDiveInput);
+            //_playerController.OnDive?.Invoke(inputs.CrounchDiveInput);
 
             //_playerController.OnInteract?.Invoke(inputs.InteractInput);
 
