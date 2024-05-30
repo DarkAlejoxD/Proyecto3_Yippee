@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BaseGame //add it to a concrete namespace
+namespace BaseGame //It should be in Miscelaneous, but...
 {
     public class ParallaxInstance : MonoBehaviour
     {
         #region Fields
         [Header("References")]
         [SerializeField] private Transform _maximumHandler;
-        [SerializeField] private List<Transform> _dayVariations;
-        [SerializeField] private List<Transform> _nightVariations;
+        [SerializeField] private List<Transform> _lvl1Variations;
+        [SerializeField] private List<Transform> _lvl2Variations;
+        [SerializeField] private List<Transform> _lvl3Variations;
 
         private Transform _currentVariation;
         public Vector3 Distance
@@ -27,38 +28,25 @@ namespace BaseGame //add it to a concrete namespace
         }
         #endregion    
 
-        #region Unity Logic
-        private void Awake()
-        {
-        }
-
-        private void Update()
-        {
-        }
-        #endregion
-
-        #region Static Methods
-        public static void StaticMethod()
-        {
-        }
-        #endregion
-
         #region Public Methods
-        public void ActivateRandomVariation(bool isDay)
+        public void ActivateRandomVariation(int lvl)
         {
             _currentVariation?.gameObject.SetActive(false);
 
-            if (isDay)
+            switch (lvl)
             {
-                int variations = _dayVariations.Count;
-                int randomIndex = Random.Range(0, variations);
-                _currentVariation = _dayVariations[randomIndex];
-            }
-            else
-            {
-                int variations = _nightVariations.Count;
-                int randomIndex = Random.Range(0, variations);
-                _currentVariation = _nightVariations[randomIndex];
+                case 1:
+                    ActivateVariation(ref _lvl1Variations);
+                    break;
+                case 2:
+                    ActivateVariation(ref _lvl2Variations);
+                    break;
+                case 3:
+                    ActivateVariation(ref _lvl3Variations);
+                    break;
+                default:
+                    ActivateVariation(ref _lvl1Variations);
+                    break;
             }
 
             _currentVariation?.gameObject.SetActive(true);
@@ -66,8 +54,11 @@ namespace BaseGame //add it to a concrete namespace
         #endregion
 
         #region Private Methods
-        private void PrivateMethod()
+        private void ActivateVariation(ref List<Transform> variationList)
         {
+            int variations = variationList.Count;
+            int randomIndex = Random.Range(0, variations);
+            _currentVariation = variationList[randomIndex];
         }
         #endregion
     }

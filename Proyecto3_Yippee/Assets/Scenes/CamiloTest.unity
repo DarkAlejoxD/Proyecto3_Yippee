@@ -11330,11 +11330,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 4893927644494214798, guid: a52532a572c1e4443bf961b54cdd6c47, type: 3}
-  _instancesForward: 1
-  _instancesBackward: 1
+  _instancesForward: 5
+  _instancesBackward: 10
   _isDay: 1
-  _speed: 1
-  _directionX: -1
+  _speed: 10
+  _directionX: 1
   _directionZ: 0
   DEBUG_color: {r: 0.3333335, g: 0, b: 1, a: 1}
   DEBUG_drawGizmos: 1
@@ -11874,11 +11874,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ParallaxInstanceTest
-      objectReference: {fileID: 0}
-    - target: {fileID: 4893927644494214798, guid: a52532a572c1e4443bf961b54cdd6c47,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
