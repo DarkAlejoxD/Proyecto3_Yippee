@@ -103,9 +103,11 @@ MonoBehaviour:
     _poltergeistRadius: 2.7
     _playerRadius: 0.32
     _speed: 2
-    DEBUG_DrawPoltergeistRadius: 1
+    DEBUG_DrawPoltergeistRadius: 0
   _otherValues:
     _scaleMultiplicator: 0.1
+    _minTimeBreakIdle: 5
+    _maxTimeBreakIdle: 10
     _ghostViewCooldown: 8
     _ghostViewRadius: 61.7
     DEBUG_ShowGhostRadius: 0

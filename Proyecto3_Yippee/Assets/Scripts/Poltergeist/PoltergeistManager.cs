@@ -11,6 +11,9 @@ namespace Poltergeist
 {
     public class PoltergeistManager : MonoBehaviour, ISingleton<PoltergeistManager>
     {
+        private const float VERTICAL_DIVISION = 1f / 16;
+        private const float HORIZONTAL_DIVISION = 1f / 32;
+
         [Header("Lists")]
         private List<Poltergeist_Item> _poltergeistList = new();
         private List<Poltergeist_Item> _nearPoltergeists = new();
@@ -56,7 +59,7 @@ namespace Poltergeist
             UpdateNearestObjects(target, radius);
             StopAllCoroutines();
 
-            StartCoroutine(TimerCoroutine(_delayedTime, 
+            StartCoroutine(TimerCoroutine(_delayedTime,
                 () => OnPoltergeistEventEnterDelayed?.Invoke()));
 
             if (_poltergeistList == null)
@@ -145,8 +148,38 @@ namespace Poltergeist
             if (_poltergeistList.Contains(item))
                 _poltergeistList.Remove(item);
         }
+
+        public static Vector3 ScreenPosCorrection(Vector3 position)
+        {
+            //Check if is in the deadzone or not
+            Camera cam = Camera.main;
+
+            Vector3 screenPos = cam.WorldToViewportPoint(position);
+
+            float minW = HORIZONTAL_DIVISION * 1;
+            float maxW = 1 - minW;
+            float minH = VERTICAL_DIVISION * 1;
+            float maxH = 1 - minH;
+
+            //Checks up Deadzone
+            if (screenPos.y < minH)
+                screenPos.y = minH;
+            else if (screenPos.y > maxH)
+                screenPos.y = maxH;
+
+            if (screenPos.x < minW)
+                screenPos.x = minW;
+            else if (screenPos.x > maxW)
+                screenPos.x = maxW;
+
+            if (screenPos.z < 1)
+                screenPos.z = 1;
+
+            return cam.ViewportToWorldPoint(screenPos);
+        }
         #endregion
 
+        #region Private Methods
         private void UpdateNearestObjects(Transform target, float radius)
         {
             //Check nullity
@@ -161,13 +194,26 @@ namespace Poltergeist
                 float distance = Vector3.Distance(_poltergeistList[i].transform.position,
                                                   target.position);
                 if (distance < radius)
-                    nearList.Add(_poltergeistList[i]);
+                {
+                    if (CheckIfIsInCamera(_poltergeistList.ElementAt(i).transform))
+                        nearList.Add(_poltergeistList[i]);
+                }
             }
 
 
             _nearPoltergeists = nearList.OrderBy(item =>
                 Camera.main.WorldToScreenPoint(item.transform.position).x).ToList();
-
         }
+
+        private static bool CheckIfIsInCamera(Transform obj)
+        {
+            Camera cam = Camera.main;
+            Vector3 viewportPos = cam.WorldToViewportPoint(obj.transform.position);
+            if (viewportPos.z < 0)
+                return false;
+
+            return true;
+        }
+        #endregion
     }
 }

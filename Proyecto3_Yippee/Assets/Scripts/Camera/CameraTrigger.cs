@@ -19,7 +19,7 @@ namespace Cameras
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("Camera confiner entered");
+            //Debug.Log("Camera confiner entered");
             if (other.CompareTag("Player"))
             {
                 _manager.SwitchCameras(_cam);

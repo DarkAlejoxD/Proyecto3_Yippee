@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using AvatarController;
 using UtilsComplements;
+using System;
 
 namespace BaseGame
 {
@@ -11,6 +12,7 @@ namespace BaseGame
         public ISingleton<GameManager> Instance => this;
         private PlayerController _playerInstance;
         private List<IResetable> Resetables = new List<IResetable>();
+        [Range(1, 3)] private int _level = 1;
 
         public PlayerController PlayerInstance => _playerInstance;
         public static PlayerController Player
@@ -22,8 +24,27 @@ namespace BaseGame
                 return manager.PlayerInstance;
             }
         }
+        public static int Level
+        {
+            get
+            {
+                if (!ISingleton<GameManager>.TryGetInstance(out var manager))
+                    return 0;
+                return manager._level;
+            }
+            set
+            {
+                if (!ISingleton<GameManager>.TryGetInstance(out var manager))
+                    return;
+                manager._level = Math.Clamp(value, 1, 3);
+            }
+        }
 
-        private void Awake() => Instance.Instantiate();
+        private void Awake()
+        {
+            Instance.Instantiate();
+            _level = 1;
+        }
 
         private void OnDestroy() => Instance.RemoveInstance();
 
