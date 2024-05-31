@@ -84,7 +84,7 @@ namespace BaseGame
 
         public static void DeadSequence()
         {
-            
+            DeadManager.ActivateDead();
         }
 
         public void ResetFromCheckpoint()
