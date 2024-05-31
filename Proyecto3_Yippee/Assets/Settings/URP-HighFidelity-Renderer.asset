@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: Stencil 2 Replace
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
     passTag: Stencil 2 Replace
     Event: 300
@@ -343,7 +343,7 @@ MonoBehaviour:
         serializedVersion: 2
         m_Bits: 1048576
       PassNames: []
-    overrideMaterial: {fileID: 2100000, guid: f7d8e04adc8227f45a1b5be8aaff279c, type: 2}
+    overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0
     overrideShader: {fileID: 0}
     overrideShaderPassIndex: 0

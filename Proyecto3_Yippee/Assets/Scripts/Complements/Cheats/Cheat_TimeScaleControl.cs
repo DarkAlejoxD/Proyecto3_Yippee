@@ -35,10 +35,17 @@ namespace UtilsComplements.Cheats
         protected override void Update()
         {
             base.Update();
-            TimeScaleUpdate();
             if (_controlInGame)
                 ReadInputKeyboardUpdate();
-        }        
+        }
+
+        private void LateUpdate()
+        {
+            if (false)
+                return;
+
+            TimeScaleUpdate();
+        }
 
         private void OnDestroy()
         {
@@ -77,7 +84,7 @@ namespace UtilsComplements.Cheats
             if (Input.GetKeyDown(KeyCode.Alpha5))
                 _timeScaleControl = 5;
 
-            if(Input.GetKeyDown(KeyCode.Plus))
+            if (Input.GetKeyDown(KeyCode.Plus))
                 _timeScaleControl += VARIATION;
 
             if (Input.GetKeyDown(KeyCode.Minus))

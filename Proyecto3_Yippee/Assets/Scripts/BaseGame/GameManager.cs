@@ -82,6 +82,11 @@ namespace BaseGame
                 GetGameManager().ResetFromCheckpoint();
         }
 
+        public static void DeadSequence()
+        {
+            DeadManager.ActivateDead();
+        }
+
         public void ResetFromCheckpoint()
         {
             foreach (var item in Resetables)

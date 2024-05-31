@@ -27,6 +27,7 @@ namespace AvatarController.Misc
         {
             if (DetectGround(_slipperyLayers, out Collider col))
             {
+                col.CompareTag("Walkable");
                 AddForce(col);
             }
 
