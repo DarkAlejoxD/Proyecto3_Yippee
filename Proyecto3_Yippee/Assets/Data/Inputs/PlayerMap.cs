@@ -262,7 +262,7 @@ namespace InputController
                 {
                     ""name"": """",
                     ""id"": ""284580a0-73d2-4f57-b8ec-3ae58c9dee4c"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -306,7 +306,7 @@ namespace InputController
                 {
                     ""name"": """",
                     ""id"": ""d3f06597-fa77-451b-9004-77a9a67586d2"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -321,6 +321,17 @@ namespace InputController
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Crouch/Dive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""92d3ce02-1548-4b13-884c-dd4a1778f01f"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Crouch/Dive"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -350,7 +361,7 @@ namespace InputController
                 {
                     ""name"": """",
                     ""id"": ""b7054650-9646-4530-9e19-c1d9a3eb34a1"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -680,7 +691,7 @@ namespace InputController
                 {
                     ""name"": """",
                     ""id"": ""3b9205ee-d78c-4738-9d4a-3e595c77bfe5"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
