@@ -22,7 +22,7 @@ namespace AvatarController.PlayerFSM
         {
             base.OnEnter();
             if (Anim)
-            {
+            {                
                 Anim.SetTrigger(GRAB_ANIM_TRIGGER);
                 Anim.SetBool(GRAB_ANIM_BOOL, true);
             }
@@ -66,7 +66,11 @@ namespace AvatarController.PlayerFSM
             base.OnExit();
 
             if (Anim)
+            {
+                Anim.ResetTrigger(GRAB_ANIM_TRIGGER);
                 Anim.SetBool(GRAB_ANIM_BOOL, false);
+            }
+                
             //_playerController.SetGravityActive(true);
         }
     }
