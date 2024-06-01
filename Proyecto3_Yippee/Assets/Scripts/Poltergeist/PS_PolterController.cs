@@ -10,28 +10,27 @@ namespace Poltergeist.Particles
         public static Action OnDeactivate;
         public Transform _parent;
 
+        private void Awake()
+        {
+            //_parent = transform.parent;
+            transform.SetParent(null, true);
+            transform.position = Vector3.zero;
+        }
+
         private void Start()
         {
-            _parent = transform;
             DeactivateParticles();
         }
 
         public void ActivateParticles()
         {
+            transform.position = _parent.position;
             OnActivate?.Invoke();
-            transform.SetParent(_parent);
-            transform.localScale = Vector3.one;
         }
 
         public void DeactivateParticles()
         {
             OnDeactivate?.Invoke();
-            transform.SetParent(null, true);
-            StartCoroutine(TimerCoroutine(5, () =>
-            {
-                transform.SetParent(_parent);
-                transform.localPosition = Vector3.zero;
-            }));
         }
 
     }
