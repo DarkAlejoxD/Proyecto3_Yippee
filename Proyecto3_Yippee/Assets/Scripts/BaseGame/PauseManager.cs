@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using InputController;
 using UtilsComplements;
+using UnityEngine.EventSystems;
 
 namespace BaseGame
 {
@@ -9,6 +10,7 @@ namespace BaseGame
         [Header("References")]
         [SerializeField] private GameObject _firstSelected;
         [SerializeField] private GameObject _canvas;
+        [SerializeField] private EventSystem _eventSystem;
 
         private Menus _pauseMap;
 
@@ -32,6 +34,8 @@ namespace BaseGame
             Instance.Instantiate();
             _pauseMap = new();
             _pauseMap.Pause.Enable();
+            _paused = true;
+            SetPauseActive(false);
         }
 
         private void Update()
@@ -52,6 +56,11 @@ namespace BaseGame
             }
         }
 
+        public void OnResume()
+        {
+            SetPauseActive(false);
+        }
+
         public void SetPaused(bool active)
         {
             if (active)
@@ -61,6 +70,7 @@ namespace BaseGame
                 _paused = true;
                 Time.timeScale = 0f;
                 _canvas.SetActive(true);
+                _eventSystem.SetSelectedGameObject(_firstSelected);
             }
             else
             {
