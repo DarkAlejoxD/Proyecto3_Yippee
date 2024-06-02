@@ -121,7 +121,7 @@ namespace AvatarController.LedgeGrabbing
                 //Soltarse? DEBUG                
                 if (Input.GetKeyDown(KeyCode.F))
                 {
-                    //LetGoLedge();
+                    LetGoLedge();
                 }
             }
         }

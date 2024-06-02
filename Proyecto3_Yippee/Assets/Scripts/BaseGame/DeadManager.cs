@@ -17,6 +17,7 @@ namespace BaseGame //add it to a concrete namespace
         [SerializeField, Min(0.1f)] private float _appearTime;
         [SerializeField] private AnimationCurve _appearCurve;
         [SerializeField, Min(0.1f)] private float _stayTime;
+        [SerializeField] private AnimationCurve _stayCurve;
         [SerializeField, Min(0.1f)] private float _disappearTime;
         [SerializeField] private AnimationCurve _disappearCurve;
 
@@ -61,20 +62,14 @@ namespace BaseGame //add it to a concrete namespace
             {
                 color.a = _appearCurve.Evaluate(i / _appearTime);
                 _image.color = color;
-                if (false)
-                {
-                    yield return new WaitWhile(() => false);
-                }
                 yield return new WaitForSeconds(Time.deltaTime);
             }
-            color.a = 1;
-            _image.color = color;
             #endregion
 
             #region Make ReappearLogic
             float halfStay = _stayTime / 2;
 
-            if (Singleton.TryGetInstance(out AudioManager audioMan))
+            if(Singleton.TryGetInstance(out AudioManager audioMan))
             {
                 //TODO
                 //audioMan.PlayOneShot("", );
@@ -89,14 +84,10 @@ namespace BaseGame //add it to a concrete namespace
             #region Dissapear
             for (float i = 0; i <= _disappearTime; i += Time.deltaTime)
             {
-                color.a = _disappearCurve.Evaluate(i / _disappearTime);
+                color.a = _appearCurve.Evaluate(i / _disappearTime);
                 _image.color = color;
                 yield return new WaitForSeconds(Time.deltaTime);
             }
-
-            color.a = 0;
-            _image.color = color;
-            _image.enabled = false;
             #endregion
             GameManager.Player?.UnBlockMovement();
         }

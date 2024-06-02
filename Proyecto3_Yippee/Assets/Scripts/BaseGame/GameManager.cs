@@ -1,19 +1,19 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using AvatarController;
 using UtilsComplements;
+using System;
 
 namespace BaseGame
 {
     public class GameManager : MonoBehaviour, ISingleton<GameManager>
     {
+        public ISingleton<GameManager> Instance => this;
         private PlayerController _playerInstance;
         private List<IResetable> Resetables = new List<IResetable>();
         [Range(1, 3)] private int _level = 1;
 
-        public ISingleton<GameManager> Instance => this;
         public PlayerController PlayerInstance => _playerInstance;
         public static PlayerController Player
         {
@@ -111,8 +111,7 @@ namespace BaseGame
             else
             {
                 Destroy(player.gameObject);
-                Debug.Log("More than one player detected, deleted the copy but not implemented " +
-                          "if meant to be a dummy in another scene");
+                Debug.Log("More than one player detected, deleted the copy but not implemented if meant to be a dummy in anothe scene");
             }
         }
     }

@@ -1,5 +1,4 @@
 using InputController;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +7,6 @@ using UtilsComplements;
 
 namespace Pause
 {
-    [Obsolete("Using PauseManager")]
     public class PauseController : MonoBehaviour
     {
 

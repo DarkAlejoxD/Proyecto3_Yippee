@@ -1,7 +1,6 @@
 using UnityEngine;
 using UtilsComplements;
 using System.Collections.Generic;
-using static UtilsComplements.AsyncTimer;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -72,14 +71,6 @@ namespace BaseGame
                             _radiusControl = 0;
                             _state = SphereControlStates.NONE;
                             transform.localScale = _radiusControl * Vector3.one;
-
-                            foreach (var item in _hittedObjects)
-                            {
-                                item.Key.layer = item.Value;
-                            }
-
-                            _hittedObjects.Clear();
-
                             return;
                         }
                         _radiusControl -= _expansionVelocity * dt;
@@ -95,8 +86,6 @@ namespace BaseGame
             {
                 _timeControl -= TimeToRefreshRaycasts;
 
-                //First deactivate all not touched objects                
-
                 //From Center
                 if (SendRaycastToCamera(transform.position))
                 {
@@ -104,8 +93,6 @@ namespace BaseGame
                     return;
                 }
 
-                #region CercleRaycast
-                /*
                 Vector3 up = CurrentCamera.transform.up;
 
                 //From up
@@ -137,16 +124,23 @@ namespace BaseGame
                     ActivateSphere();
                     return;
                 }
-                */
-                #endregion
 
                 DeactivateSphere();
 
-                //SendRaycastToCamera(transform.position);
+                SendRaycastToCamera(transform.position);
             }
         }
 
-        private void DeactivateSphere() => _state = SphereControlStates.REDUCING;
+        private void DeactivateSphere()
+        {
+            _state = SphereControlStates.REDUCING;
+            foreach (var item in _hittedObjects)
+            {
+                item.Key.layer = item.Value;
+            }
+
+            _hittedObjects.Clear();
+        }
 
         private void ActivateSphere() => _state = SphereControlStates.EXPANDING;
 
@@ -156,26 +150,22 @@ namespace BaseGame
             Vector3 direction = final - position;
             float offset = CurrentCamera.nearClipPlane + 0.1f;
 
-            float distance = direction.magnitude;
+            float distance = direction.magnitude - offset;
 
             Ray ray = new(position, direction);
-            var hits = Physics.RaycastAll(ray, distance, _layers);
+            bool hit = Physics.Raycast(ray, out RaycastHit hitInfo, distance, _layers);
 
-            if (hits.Length >= 1)
+            if (hit)
             {
-                foreach (var hit in hits)
+                GameObject go = hitInfo.collider.gameObject;
+                if (!_hittedObjects.ContainsKey(go))
                 {
-                    var go = hit.collider.gameObject;
-                    if (!_hittedObjects.ContainsKey(go))
-                    {
-                        _hittedObjects.Add(go, go.layer);
-                        go.layer = _fakeTransparentLayer;
-                    }
+                    _hittedObjects.Add(go, go.layer);
+                    go.layer = _fakeTransparentLayer;
                 }
-                return true;
             }
 
-            return false;
+            return hit;
         }
 
         #region DEBUG
