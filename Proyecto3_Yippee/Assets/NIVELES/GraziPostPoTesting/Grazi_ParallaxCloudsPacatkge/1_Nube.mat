@@ -37,6 +37,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlphaMap:
+        m_Texture: {fileID: 2800000, guid: c7de729cdbc3bfe4b8653253962de6fc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture:
         m_Texture: {fileID: 2800000, guid: 9eb9868bbbcdfa248aa2b9b7df3f8216, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -76,7 +80,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Float: 0.54
-    - _Opacity_1: 0.3
+    - _Opacity_1: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
