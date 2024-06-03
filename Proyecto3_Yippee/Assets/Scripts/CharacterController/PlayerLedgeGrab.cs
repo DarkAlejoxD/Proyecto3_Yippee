@@ -62,6 +62,14 @@ namespace AvatarController.LedgeGrabbing
                 //Cast dos raycast a los lados para detectar cuando llegamos a un borde y no dejar moverse?
                 HandleNormalRotation();
                 CastEdgeDetectionRays();
+
+                Vector3 pos = _hitInfo.point;
+                pos.y = transform.position.y;
+                pos.z += _positionToWallOffset * _hitInfo.normal.z;
+                pos.x += _positionToWallOffset * _hitInfo.normal.x;
+
+                //transform.position = pos;
+                _playerController.transform.position = pos;
             }
         }
 
@@ -135,7 +143,11 @@ namespace AvatarController.LedgeGrabbing
         {
             _playerController.SetGravityActive(false);
             _jumpController.SetLedgeGrab(true);
+
             GetComponent<PlayerMovement>().SetGrabbingLedgeMode(_hitInfo.normal);
+
+            //GetComponent<PlayerMovement>().enabled = true;
+
             _playerController.ForceChangeState(PlayerStates.Grabbing);
             _grabbingLedge = true;
 
