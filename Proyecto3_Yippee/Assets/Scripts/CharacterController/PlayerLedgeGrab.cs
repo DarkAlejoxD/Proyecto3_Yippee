@@ -46,14 +46,13 @@ namespace AvatarController.LedgeGrabbing
 
         void LateUpdate()
         {
-            if (!_playerController.CurrentState.Equals(PlayerStates.OnAir))
-            {
-                if (!_playerController.CurrentState.Equals(PlayerStates.OnDive))
-                    return;
-            }
+            bool canGrab = _playerController.CurrentState.Equals(PlayerStates.OnAir) ||
+                _playerController.CurrentState.Equals(PlayerStates.OnDive);
 
-            if (!_grabbingLedge)
+            if (!canGrab && !_grabbingLedge)
+            {
                 return;
+            }
 
             CastCheckerRays();
             HandleLedgeLogic();
