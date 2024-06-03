@@ -46,7 +46,14 @@ namespace AvatarController.LedgeGrabbing
 
         void LateUpdate()
         {
-            if (!_playerController.CurrentState.Equals(PlayerStates.OnAir) && !_grabbingLedge) return;
+            if (!_playerController.CurrentState.Equals(PlayerStates.OnAir))
+            {
+                if (!_playerController.CurrentState.Equals(PlayerStates.OnDive))
+                    return;
+            }
+
+            if (!_grabbingLedge)
+                return;
 
             CastCheckerRays();
             HandleLedgeLogic();
@@ -62,7 +69,6 @@ namespace AvatarController.LedgeGrabbing
         #endregion
 
         #region Private Methods
-
         private void CastCheckerRays()
         {
             _headRay = new Ray(_headRayOrigin.position, transform.forward);
@@ -184,7 +190,7 @@ namespace AvatarController.LedgeGrabbing
             if (_grabbingLedge)
                 DrawEdgeDetectionRays();
 
-            if(!_hitInfo.Equals(null))
+            if (!_hitInfo.Equals(null))
             {
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawWireSphere(_hitInfo.point, 0.1f);
