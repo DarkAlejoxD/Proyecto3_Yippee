@@ -9,7 +9,7 @@ namespace UtilsComplements
         private const string COLOR_ID = "_BaseColor";
 
         [Header("References")]
-        [SerializeField] private Color color;
+        [SerializeField] private Color _color;
         private MeshRenderer _meshRenderer;
 
         private MaterialPropertyBlock _materialPropertyBlock;
@@ -46,8 +46,14 @@ namespace UtilsComplements
 
         private void ChangeColor()
         {
-            ThisMaterialPropertyBlock.SetColor(COLOR_ID, color);
+            ThisMaterialPropertyBlock.SetColor(COLOR_ID, _color);
             ThisMeshRenderer.SetPropertyBlock(ThisMaterialPropertyBlock);
+        }
+
+        public void SetNewColor(Color newColor)
+        {
+            _color = newColor;
+            ChangeColor();
         }
     }
 }
