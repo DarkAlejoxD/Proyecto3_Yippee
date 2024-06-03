@@ -1,4 +1,5 @@
-﻿using BaseGame;
+﻿using AvatarController;
+using BaseGame;
 using UnityEngine;
 
 namespace Miscelaneous
@@ -7,24 +8,26 @@ namespace Miscelaneous
     {
         private void OnTriggerEnter(Collider other)
         {
-            GameObject player = GameManager.Player?.gameObject;
+            if (!other.CompareTag("Player"))
+                return;
+
+            var player = other.GetComponentInParent<PlayerController>();
             if (!player)
                 return;
-            if (other.gameObject == player)
-            {
-                player.transform.SetParent(transform);
-            }
+
+            player.transform.SetParent(transform);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            GameObject player = GameManager.Player?.gameObject;
+            if (!other.CompareTag("Player"))
+                return;
+
+            var player = other.GetComponentInParent<PlayerController>();
             if (!player)
                 return;
-            if (other.gameObject == player)
-            {
-                player.transform.SetParent(null);
-            }
+
+            player.transform.SetParent(null);
         }
     }
 }
