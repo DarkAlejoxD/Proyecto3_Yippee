@@ -103,7 +103,7 @@ namespace AvatarController.Data
                      "before reaching the peak")]
             [SerializeField, Min(0.01f)] private float _releasePenaltyTime = 0.3f;
             [SerializeField, Min(0.01f)] private float _maxVySpeed = 20;
-
+            [SerializeField, Min(0.01f)] private float _jumpCD = 0.01f;
 
             [Header("DEBUG")]
             public bool DEBUG_drawHeight;
@@ -119,6 +119,7 @@ namespace AvatarController.Data
             public float DownGravityMultiplier => _downGravityMultiplier;
             public float ReleasePenalty => _releasePenaltyTime;
             public float MaxVySpeed => _maxVySpeed;
+            public float JumpCD => _jumpCD;
         }
         #endregion
 
