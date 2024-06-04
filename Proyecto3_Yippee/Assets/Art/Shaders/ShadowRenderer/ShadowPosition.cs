@@ -15,7 +15,7 @@ namespace BaseGame
 
         private void LateUpdate()
         {
-            Ray ray = new(_footHandler.position, Vector3.down);
+            Ray ray = new(_footHandler.position, -transform.up);
 
             bool hit = Physics.Raycast(ray, out RaycastHit info, _maxDistanceToRender, _layerMask);
 
