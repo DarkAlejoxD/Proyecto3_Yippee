@@ -76,7 +76,7 @@ namespace GhostView
 
             Action empty = () => { };
 
-            _ghostBrain.SetRoot(SphereControlStates.NONE, new State(empty, empty, empty));
+            _ghostBrain.SetRoot(SphereControlStates.NONE, new State(() => _timeControl = 0, empty, empty));
 
             _ghostBrain.AddState(SphereControlStates.EXPANDING, new State(
                 () =>
@@ -105,9 +105,9 @@ namespace GhostView
                 },
                 () =>
                 {
-                    float curveValue = _curve.Evaluate(1 - (_timeControl / GhostViewManager.Values.DisapearTime));
+                    float curveValue = _curve.Evaluate((_timeControl / GhostViewManager.Values.DisapearTime));
 
-                    _volumeRef.position = transform.position + transform.up * _distance * (1 - curveValue);
+                    _volumeRef.position = transform.position + transform.up * _distance * (curveValue);
 
                     _timeControl += Time.deltaTime;
                 },
