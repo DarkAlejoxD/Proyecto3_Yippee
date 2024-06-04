@@ -9,10 +9,13 @@ namespace Poltergeist
         [Header("Start Attributes")]
         [SerializeField, Tooltip("It won't use gravity if is kinematic")] private bool _useGravity;
         [SerializeField] private bool _isKinematic;
+        [SerializeField] private Transform _particlesPos;
 
         Rigidbody _rb;
         bool _freezePosition;
         Vector3 _position;
+
+        public Transform ParticleTransform => _particlesPos;
 
         #region Unity Logic
         private void Awake()

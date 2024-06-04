@@ -14,6 +14,10 @@ namespace Poltergeist
         private const float VERTICAL_DIVISION = 1f / 16;
         private const float HORIZONTAL_DIVISION = 1f / 32;
 
+        [Header("References")]
+        [SerializeField] private ParticleSystem _selectionParticleSystem;
+        public ParticleSystem SelectionParticles => _selectionParticleSystem;
+
         [Header("Lists")]
         private List<Poltergeist_Item> _poltergeistList = new();
         private List<Poltergeist_Item> _nearPoltergeists = new();
