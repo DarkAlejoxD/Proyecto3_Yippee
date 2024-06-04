@@ -12,7 +12,7 @@ namespace AvatarController.PlayerFSM
         private const string ONGROUND_ANIM = "OnGround";
         private const string AFK_ON_TRIGGER = "AFKon";
         private const string AFK_OFF_TRIGGER = "AFKoff";
-        private const float SMOOTH = 0.2f;
+        private const float SMOOTH = 0.3f;
 
         private float _animControl = 0;
 

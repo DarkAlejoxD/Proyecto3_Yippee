@@ -3,6 +3,7 @@
     public enum PlayerStates
     {
         OnGround,
+        OnlyMove,
         Jumping,
         OnAir,
         OnDive,
