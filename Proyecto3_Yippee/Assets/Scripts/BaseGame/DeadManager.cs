@@ -61,10 +61,10 @@ namespace BaseGame //add it to a concrete namespace
             {
                 color.a = _appearCurve.Evaluate(i / _appearTime);
                 _image.color = color;
-                if (false)
-                {
-                    yield return new WaitWhile(() => false);
-                }
+                //if (false)
+                //{
+                //    yield return new WaitWhile(() => false);
+                //}
                 yield return new WaitForSeconds(Time.deltaTime);
             }
             color.a = 1;

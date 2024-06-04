@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using BaseGame;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -35,7 +36,7 @@ namespace UtilsComplements.Cheats
         #region Private Methods
         protected override void ActivateCheat()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            GameManager.DeadSequence();
         }
 
         /*
