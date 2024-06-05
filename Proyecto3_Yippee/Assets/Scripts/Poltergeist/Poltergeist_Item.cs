@@ -13,6 +13,7 @@ namespace Poltergeist
         [SerializeField] private bool _isKinematic;
         [SerializeField] private Transform _particlesPos;
         [SerializeField] private GameObject _art;
+        [SerializeField] private bool _changeAllChildren = false;
         private int _startLayer;
 
         Rigidbody _rb;
@@ -71,7 +72,17 @@ namespace Poltergeist
             _freezePosition = true;
             _position = transform.position;
             if (_art)
+            {
                 _art.layer = POLTER_LAYER;
+                if (_changeAllChildren)
+                {
+                    var list = gameObject.GetComponentsInChildren<MeshRenderer>();
+                    foreach (var item in list)
+                    {
+                        item.gameObject.layer = POLTER_LAYER;
+                    }
+                }
+            }
         }
 
         public void EndPoltergeist()
@@ -85,7 +96,17 @@ namespace Poltergeist
         public void Deselect()
         {
             if (_art)
+            {
                 _art.layer = _startLayer;
+                if (_changeAllChildren)
+                {
+                    var list = gameObject.GetComponentsInChildren<MeshRenderer>();
+                    foreach (var item in list)
+                    {
+                        item.gameObject.layer = _startLayer;
+                    }
+                }
+            }
         }
 
         public void Manipulate()
