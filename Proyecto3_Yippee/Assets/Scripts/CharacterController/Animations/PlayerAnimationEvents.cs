@@ -17,6 +17,7 @@ namespace AvatarController.Animations
         [Header("Jump References")]
         [SerializeField] private ParticleSystem _jumpSmoke;
 
+        #region Public Methods
         public void Step()
         {
             float current = _player.Velocity.magnitude;
@@ -26,8 +27,7 @@ namespace AvatarController.Animations
 
             if (current > minSpeedPct)
             {
-                AudioManager.GetAudioManager().PlayOneShot(Database.Player, "STEP",
-                                                           transform.position);
+                PlayOneShot(Database.Player, "STEP", transform.position);
                 _stepsSmoke.Play();
             }
             else
@@ -45,12 +45,20 @@ namespace AvatarController.Animations
 
         public void Jump()
         {
-            //Debug.Log("Jump SoundAndParticles");
+            PlayOneShot(Database.Player, "JUMP", transform.position);
         }
 
         public void FallHit()
         {
-            AudioManager.GetAudioManager().PlayOneShot(Database.Player, "FALL_HIT", transform.position);
+            PlayOneShot(Database.Player, "FALL_HIT", transform.position);
         }
+        #endregion
+
+        #region Private Methods
+        private void PlayOneShot(Database database, string name, Vector3 position)
+        {
+            AudioManager.GetAudioManager().PlayOneShot(database, name, position);
+        }
+        #endregion
     }
 }

@@ -12,6 +12,7 @@ namespace BaseGame
     {
         [Header("Refrences")]
         [SerializeField] private Transform _player;
+        [SerializeField] private GameObject _sphereMesh;
         [SerializeField] private LayerMask _layers;
         [SerializeField, Min(1)] private int _fakeTransparentLayer = 24;
         private Dictionary<GameObject, int> _hittedObjects = new();
@@ -45,6 +46,12 @@ namespace BaseGame
             transform.position = _player.position;
             UpdateRaycast(Time.fixedDeltaTime);
             UpdateScale(Time.fixedDeltaTime);
+        }
+
+        public void SphereMeshSetActive(bool value)
+        {
+            if (_sphereMesh)            
+                _sphereMesh.SetActive(value);            
         }
 
         private void UpdateScale(float dt)

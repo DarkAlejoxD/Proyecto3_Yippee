@@ -2,7 +2,7 @@
 
 namespace AudioController
 {
-    public class PlayAudioByName : PlayAudio
+    public class PlayAudioByName : AbsPlayAudio
     {
         [Header("References")]
         [SerializeField] private Database _bank;
