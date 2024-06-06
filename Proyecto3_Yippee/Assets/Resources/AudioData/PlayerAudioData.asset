@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa0369f836c86f4d96ca8f043bb42d7, type: 3}
+  m_Name: PlayerAudioData
+  m_EditorClassIdentifier: 
+  _audioFiles:
+  - Name: STEP
+    Event:
+      Guid:
+        Data1: -152139441
+        Data2: 1089866502
+        Data3: -1461152379
+        Data4: 579065501
+      Path: event:/CHIARA/ANDAR/Pasos_Gerard
+  - Name: FALL_HIT
+    Event:
+      Guid:
+        Data1: -1164564030
+        Data2: 1221444947
+        Data3: 1883636126
+        Data4: -1393442507
+      Path: event:/BoysSounds/Caida_Madera_camilo
+  - Name: JUMP
+    Event:
+      Guid:
+        Data1: 888737182
+        Data2: 1230244826
+        Data3: 1784704926
+        Data4: -883992690
+      Path: event:/CHIARA/IMPULSO/Madera

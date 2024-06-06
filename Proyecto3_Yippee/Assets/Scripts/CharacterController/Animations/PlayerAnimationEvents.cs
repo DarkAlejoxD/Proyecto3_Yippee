@@ -1,4 +1,6 @@
 using UnityEngine;
+using AudioController;
+using UtilsComplements;
 
 namespace AvatarController.Animations
 {
@@ -15,6 +17,7 @@ namespace AvatarController.Animations
         [Header("Jump References")]
         [SerializeField] private ParticleSystem _jumpSmoke;
 
+        #region Public Methods
         public void Step()
         {
             float current = _player.Velocity.magnitude;
@@ -23,7 +26,10 @@ namespace AvatarController.Animations
             float minSpeedPct = Mathf.Lerp(minSpeed, maxSpeed, _threshold);
 
             if (current > minSpeedPct)
+            {
+                PlayOneShot(Database.Player, "STEP", transform.position);
                 _stepsSmoke.Play();
+            }
             else
             {
                 _stepsSmoke.Stop();
@@ -34,12 +40,25 @@ namespace AvatarController.Animations
             if (rnd < _stepProbability)
                 _stepsSmoke.Emit(1);
             //_stepsSmoke.Play();
-            Debug.Log("Step SoundAndParticles");
+            //Debug.Log("Step SoundAndParticles");
         }
 
         public void Jump()
         {
-            Debug.Log("Jump SoundAndParticles");
+            PlayOneShot(Database.Player, "JUMP", transform.position);
         }
+
+        public void FallHit()
+        {
+            PlayOneShot(Database.Player, "FALL_HIT", transform.position);
+        }
+        #endregion
+
+        #region Private Methods
+        private void PlayOneShot(Database database, string name, Vector3 position)
+        {
+            AudioManager.GetAudioManager().PlayOneShot(database, name, position);
+        }
+        #endregion
     }
 }

@@ -1,5 +1,25 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9154328947442167584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: FMODs/fmod/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638533098300586222
+  FileSizes:
+  - Name: Desktop
+    Value: 2970
+  Exists: 1
 --- !u!114 &-8384474161017862045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19,7 +39,7 @@ MonoBehaviour:
     Data3: 966860971
     Data4: -1869017761
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -27,6 +47,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 66310
+--- !u!114 &-8010495751088949860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BoysSounds/Caida_Madera_camilo
+  m_EditorClassIdentifier: 
+  Path: event:/BoysSounds/Caida_Madera_camilo
+  Guid:
+    Data1: -1164564030
+    Data2: 1221444947
+    Data3: 1883636126
+    Data4: -1393442507
+  Banks:
+  - {fileID: -4470350354421804214}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 400
+--- !u!114 &-7991675645304555594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BoysSounds/Railes_camilo
+  m_EditorClassIdentifier: 
+  Path: event:/BoysSounds/Railes_camilo
+  Guid:
+    Data1: 1185200863
+    Data2: 1179020507
+    Data3: 1408871869
+    Data4: -2147483559
+  Banks:
+  - {fileID: -4470350354421804214}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 25768
 --- !u!114 &-7759522853951789069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,34 +120,14 @@ MonoBehaviour:
     Data3: -666100817
     Data4: 578190623
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 929381
---- !u!114 &-7534767877549962422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: 
-  Path: ../../../FMODS de la gente/fmod-20240520T215434Z-001/fmod/Build/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 638515314490000000
-  FileSizes:
-  - Name: Desktop
-    Value: 14802784
-  Exists: 1
+  Length: 929410
 --- !u!114 &-7493155766942667327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,7 +147,7 @@ MonoBehaviour:
     Data3: 767404169
     Data4: 394104714
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -101,6 +155,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 25854
+--- !u!114 &-7305167286931888775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: FMODs/fmod/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638533098300576226
+  FileSizes:
+  - Name: Desktop
+    Value: 43720
+  Exists: 1
 --- !u!114 &-7293652433600742447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +194,7 @@ MonoBehaviour:
     Data3: 2011513754
     Data4: 1590901067
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -147,7 +221,7 @@ MonoBehaviour:
     Data3: 1188509367
     Data4: -844206401
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -174,7 +248,7 @@ MonoBehaviour:
     Data3: 1350467006
     Data4: -1255867062
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -182,6 +256,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1369
+--- !u!114 &-6835614999696374560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Sonidos_Camilo.assets.bank
+  m_EditorClassIdentifier: 
+  Path: FMODs/fmod/Build/Desktop/Sonidos_Camilo.assets.bank
+  Name: Sonidos_Camilo.assets
+  StudioPath: bank:/Sonidos_Camilo.assets
+  lastModified: 638532990214840878
+  FileSizes:
+  - Name: Desktop
+    Value: 332864
+  Exists: 1
 --- !u!114 &-6367427498119331789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,7 +295,7 @@ MonoBehaviour:
     Data3: 1605469088
     Data4: -454258522
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -228,7 +322,7 @@ MonoBehaviour:
     Data3: -2060072318
     Data4: -795588365
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -236,6 +330,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 3015
+--- !u!114 &-5012044252984301220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CHIARA/ANDAR/Piedra
+  m_EditorClassIdentifier: 
+  Path: event:/CHIARA/ANDAR/Piedra
+  Guid:
+    Data1: 1925874891
+    Data2: 1138589882
+    Data3: -447016004
+    Data4: 1561669881
+  Banks:
+  - {fileID: -7305167286931888775}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 13329
 --- !u!114 &-4766978605095823753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +376,7 @@ MonoBehaviour:
     Data3: -1833971826
     Data4: 1197720662
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -282,7 +403,7 @@ MonoBehaviour:
     Data3: -76605787
     Data4: 1036287334
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -290,6 +411,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2339
+--- !u!114 &-4470350354421804214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Sonidos_Camilo.bank
+  m_EditorClassIdentifier: 
+  Path: FMODs/fmod/Build/Desktop/Sonidos_Camilo.bank
+  Name: Sonidos_Camilo
+  StudioPath: bank:/Sonidos_Camilo
+  lastModified: 638532990214597367
+  FileSizes:
+  - Name: Desktop
+    Value: 8934
+  Exists: 1
 --- !u!114 &-4107272735059539957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,7 +450,7 @@ MonoBehaviour:
     Data3: -833115225
     Data4: 1424060599
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -336,7 +477,7 @@ MonoBehaviour:
     Data3: -1448104298
     Data4: 487273961
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -363,7 +504,7 @@ MonoBehaviour:
     Data3: 176071336
     Data4: 663160870
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -390,7 +531,7 @@ MonoBehaviour:
     Data3: 1592771507
     Data4: -1880033927
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -417,7 +558,7 @@ MonoBehaviour:
     Data3: -454643791
     Data4: 659037726
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -444,7 +585,7 @@ MonoBehaviour:
     Data3: -798972505
     Data4: -1399070695
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -452,7 +593,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 44605
---- !u!114 &-99315498897004548
+--- !u!114 &-467616935422747134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -462,23 +603,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/CHIARA/ANDAR/piedra
+  m_Name: event:/BoysSounds/Accionar palanca
   m_EditorClassIdentifier: 
-  Path: event:/CHIARA/ANDAR/piedra
+  Path: event:/BoysSounds/Accionar palanca
   Guid:
-    Data1: 1925874891
-    Data2: 1138589882
-    Data3: -447016004
-    Data4: 1561669881
+    Data1: 1888992852
+    Data2: 1260607633
+    Data3: -1625470546
+    Data4: 569998023
   Banks:
-  - {fileID: -7534767877549962422}
-  IsStream: 1
-  Is3D: 1
+  - {fileID: -4470350354421804214}
+  IsStream: 0
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 13329
+  Length: 1000
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,8 +633,13 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 4429930694817196860}
-  - {fileID: -7534767877549962422}
+  - {fileID: -9154328947442167584}
+  - {fileID: 6243816871532589670}
+  - {fileID: -7305167286931888775}
+  - {fileID: 5983155238584476866}
+  - {fileID: 8484751595707647245}
+  - {fileID: -6835614999696374560}
+  - {fileID: -4470350354421804214}
   EditorEvents:
   - {fileID: 7182822798705698219}
   - {fileID: 3129940857956879807}
@@ -529,16 +675,20 @@ MonoBehaviour:
   - {fileID: 913940569086669556}
   - {fileID: 5229088442781077382}
   - {fileID: 3705286997814760788}
-  - {fileID: -99315498897004548}
   - {fileID: -7493155766942667327}
   - {fileID: -472356224410201943}
   - {fileID: -5859586497587033890}
+  - {fileID: -5012044252984301220}
+  - {fileID: 4523648931943357130}
+  - {fileID: -467616935422747134}
+  - {fileID: -8010495751088949860}
+  - {fileID: -7991675645304555594}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   StringsBanks:
-  - {fileID: 4429930694817196860}
-  cacheTime: 638515314490000000
+  - {fileID: -9154328947442167584}
+  cacheTime: 638533098300586222
   cacheVersion: 131609
 --- !u!114 &114327667338995835
 MonoBehaviour:
@@ -559,7 +709,7 @@ MonoBehaviour:
     Data3: -1741349743
     Data4: -1647464020
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -586,7 +736,7 @@ MonoBehaviour:
     Data3: -1493094516
     Data4: -1504748217
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -613,7 +763,7 @@ MonoBehaviour:
     Data3: -1006093428
     Data4: -1852008162
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -640,7 +790,7 @@ MonoBehaviour:
     Data3: 1278772671
     Data4: 643477140
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -667,7 +817,7 @@ MonoBehaviour:
     Data3: -142819445
     Data4: -942056582
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -694,7 +844,7 @@ MonoBehaviour:
     Data3: -125588047
     Data4: -1337071050
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -721,7 +871,7 @@ MonoBehaviour:
     Data3: 1394160544
     Data4: -776438574
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -748,7 +898,7 @@ MonoBehaviour:
     Data3: -749275222
     Data4: 2046680860
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -775,7 +925,7 @@ MonoBehaviour:
     Data3: -75376469
     Data4: 1638828615
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -783,7 +933,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 8222
---- !u!114 &4429930694817196860
+--- !u!114 &4523648931943357130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -792,17 +942,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CHIARA/ANDAR/Pasos_Gerard
   m_EditorClassIdentifier: 
-  Path: ../../../FMODS de la gente/fmod-20240520T215434Z-001/fmod/Build/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 638515314490000000
-  FileSizes:
-  - Name: Desktop
-    Value: 2498
-  Exists: 1
+  Path: event:/CHIARA/ANDAR/Pasos_Gerard
+  Guid:
+    Data1: -152139441
+    Data2: 1089866502
+    Data3: -1461152379
+    Data4: 579065501
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 195
 --- !u!114 &4811052174051041529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -822,7 +979,7 @@ MonoBehaviour:
     Data3: 2065015443
     Data4: -1457109398
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -849,14 +1006,14 @@ MonoBehaviour:
     Data3: 1784704926
     Data4: -883992690
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 2339
+  Length: 1589
 --- !u!114 &5229088442781077382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -876,7 +1033,7 @@ MonoBehaviour:
     Data3: 413671812
     Data4: 1134382637
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -884,6 +1041,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 42198
+--- !u!114 &5983155238584476866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Sonidos_Gerard.assets.bank
+  m_EditorClassIdentifier: 
+  Path: FMODs/fmod/Build/Desktop/Sonidos_Gerard.assets.bank
+  Name: Sonidos_Gerard.assets
+  StudioPath: bank:/Sonidos_Gerard.assets
+  lastModified: 638532887311933796
+  FileSizes:
+  - Name: Desktop
+    Value: 4096
+  Exists: 1
 --- !u!114 &6035560107975027691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -903,7 +1080,7 @@ MonoBehaviour:
     Data3: 1404154296
     Data4: -270825789
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -911,6 +1088,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 9341
+--- !u!114 &6243816871532589670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.assets.bank
+  m_EditorClassIdentifier: 
+  Path: FMODs/fmod/Build/Desktop/Master.assets.bank
+  Name: Master.assets
+  StudioPath: bank:/Master.assets
+  lastModified: 638532975522594794
+  FileSizes:
+  - Name: Desktop
+    Value: 14637568
+  Exists: 1
 --- !u!114 &6532839724764567540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -930,7 +1127,7 @@ MonoBehaviour:
     Data3: 1188685482
     Data4: 104097423
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -957,7 +1154,7 @@ MonoBehaviour:
     Data3: -1482165839
     Data4: 2047068950
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -984,7 +1181,7 @@ MonoBehaviour:
     Data3: -943552616
     Data4: 989088641
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1011,7 +1208,7 @@ MonoBehaviour:
     Data3: 270535086
     Data4: 1119709970
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1038,7 +1235,7 @@ MonoBehaviour:
     Data3: -1541214078
     Data4: 121888563
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1065,7 +1262,7 @@ MonoBehaviour:
     Data3: 1204868799
     Data4: 1270946389
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1092,7 +1289,7 @@ MonoBehaviour:
     Data3: -1449801343
     Data4: -1732428260
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -1100,6 +1297,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 26090
+--- !u!114 &8484751595707647245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Sonidos_Gerard.bank
+  m_EditorClassIdentifier: 
+  Path: FMODs/fmod/Build/Desktop/Sonidos_Gerard.bank
+  Name: Sonidos_Gerard
+  StudioPath: bank:/Sonidos_Gerard
+  lastModified: 638532887311678619
+  FileSizes:
+  - Name: Desktop
+    Value: 2458
+  Exists: 1
 --- !u!114 &8612007844373578919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1119,7 +1336,7 @@ MonoBehaviour:
     Data3: 1675170962
     Data4: -383733971
   Banks:
-  - {fileID: -7534767877549962422}
+  - {fileID: -7305167286931888775}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1

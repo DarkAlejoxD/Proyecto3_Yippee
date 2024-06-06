@@ -10,7 +10,7 @@ namespace AudioController
     {
         #region Fields
         [Header("References")]
-        [SerializeField] private AudioReferences _enemiesData;
+        private AudioReferences _playerAudioData;
         private List<EventInstance> _audioInstances;
 
         public ISingleton<AudioManager> Instance => this;
@@ -21,6 +21,8 @@ namespace AudioController
         {
             Instance.Instantiate();
             _audioInstances = new();
+
+            _playerAudioData = Resources.Load<AudioReferences>("AudioData/PlayerAudioData");
         }
 
         private void OnDestroy()
@@ -50,21 +52,17 @@ namespace AudioController
             RuntimeManager.PlayOneShot(sound, worldPos);
         }
 
-        public void PlayOneShot(BankType bank, string name, Vector3 worldPos)
+        public void PlayOneShot(Database bank, string name, Vector3 worldPos)
         {
             EventReference audioEvent = default;
             switch (bank)
             {
-                case BankType.Ambience:
+                case Database.Player:
+                    audioEvent = _playerAudioData.GetEvent(name);
                     break;
-                case BankType.Enemies:
-                    audioEvent = _enemiesData.GetEvent(name);
+                case Database.Ambience:
                     break;
-                case BankType.Music:
-                    break;
-                case BankType.NPC:
-                    break;
-                case BankType.Player:
+                case Database.Music:
                     break;
             }
             PlayOneShot(audioEvent, worldPos);
@@ -77,22 +75,18 @@ namespace AudioController
             return eventInstance;
         }
 
-        public EventInstance CreateEventInstance(BankType bank, string name)
+        public EventInstance CreateEventInstance(Database bank, string name)
         {
             EventReference eventRef = default;
 
             switch (bank)
             {
-                case BankType.Ambience:
+                case Database.Player:
+                    eventRef = _playerAudioData.GetEvent(name);
                     break;
-                case BankType.Enemies:
-                    eventRef = _enemiesData.GetEvent(name);
+                case Database.Ambience:
                     break;
-                case BankType.Music:
-                    break;
-                case BankType.NPC:
-                    break;
-                case BankType.Player:
+                case Database.Music:
                     break;
             }
 

@@ -2,10 +2,10 @@
 
 namespace AudioController
 {
-    public class PlayAudioByName : PlayAudio
+    public class PlayAudioByName : AbsPlayAudio
     {
         [Header("References")]
-        [SerializeField] private BankType _bank;
+        [SerializeField] private Database _bank;
         [SerializeField] private string _name;
 
         public override void PlaySound()
