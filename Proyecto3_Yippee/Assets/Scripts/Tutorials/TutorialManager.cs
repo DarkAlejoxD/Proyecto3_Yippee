@@ -1,3 +1,4 @@
+using BaseGame;
 using InputController;
 using System;
 using System.Collections.Generic;
@@ -61,7 +62,7 @@ namespace Tutorials
         #region Unity Logic
         private void Awake()
         {
-            Instance.Instantiate();            
+            Instance.Instantiate();
             InputSystem.onDeviceChange += CheckControllerStyleUpdate;
             _keyboardPanelRef.SetActive(false);
             _controllerPanelRef.SetActive(false);
@@ -152,6 +153,9 @@ namespace Tutorials
             else
                 _keyboardPanelRef.SetActive(true);
 
+            GameManager.GetGameManager().PlayerInstance?.BlockMovement();
+            PauseManager.SetCanPause(false);
+
             Debug.Log("ActivateTutorialCanavs");
         }
 
@@ -163,6 +167,9 @@ namespace Tutorials
             }
             gameObject.SetActive(false);
             _isAppearing = false;
+
+            GameManager.GetGameManager().PlayerInstance?.UnBlockMovement();
+            PauseManager.SetCanPause(true);
         }
 
         private void CheckTriggerUpdate()
