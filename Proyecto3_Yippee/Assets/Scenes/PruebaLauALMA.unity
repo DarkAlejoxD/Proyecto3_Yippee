@@ -7998,6 +7998,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InvisibleGhostObject
       objectReference: {fileID: 0}
+    - target: {fileID: 7739691898737009129, guid: 6075e2197f6c3b941b262b16d6a768c8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8812,7 +8817,7 @@ PrefabInstance:
     - target: {fileID: 2180936894394870668, guid: 5954930822418954c9fefcd907893936,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7575351665739844824, guid: 5954930822418954c9fefcd907893936,
         type: 3}
