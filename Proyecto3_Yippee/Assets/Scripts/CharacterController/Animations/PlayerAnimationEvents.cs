@@ -1,4 +1,6 @@
 using UnityEngine;
+using AudioController;
+using UtilsComplements;
 
 namespace AvatarController.Animations
 {
@@ -23,7 +25,11 @@ namespace AvatarController.Animations
             float minSpeedPct = Mathf.Lerp(minSpeed, maxSpeed, _threshold);
 
             if (current > minSpeedPct)
+            {
+                AudioManager.GetAudioManager().PlayOneShot(Database.Player, "STEP",
+                                                           transform.position);
                 _stepsSmoke.Play();
+            }
             else
             {
                 _stepsSmoke.Stop();
@@ -34,12 +40,17 @@ namespace AvatarController.Animations
             if (rnd < _stepProbability)
                 _stepsSmoke.Emit(1);
             //_stepsSmoke.Play();
-            Debug.Log("Step SoundAndParticles");
+            //Debug.Log("Step SoundAndParticles");
         }
 
         public void Jump()
         {
-            Debug.Log("Jump SoundAndParticles");
+            //Debug.Log("Jump SoundAndParticles");
+        }
+
+        public void FallHit()
+        {
+            AudioManager.GetAudioManager().PlayOneShot(Database.Player, "FALL_HIT", transform.position);
         }
     }
 }

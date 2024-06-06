@@ -1,11 +1,9 @@
 ﻿namespace AudioController
 {
-    public enum BankType
+    public enum Database
     {
+        Player,
         Ambience,
-        Enemies,
         Music,
-        NPC,
-        Player
     }
 }

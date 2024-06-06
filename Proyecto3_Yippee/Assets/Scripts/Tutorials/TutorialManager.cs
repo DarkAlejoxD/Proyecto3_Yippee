@@ -199,6 +199,7 @@ namespace Tutorials
             if (!_isAppearing)
                 return;
 
+            
         }
         #endregion
     }
