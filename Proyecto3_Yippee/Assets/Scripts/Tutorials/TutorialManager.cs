@@ -45,7 +45,7 @@ namespace Tutorials
         private int _controlIndex = 0;
 
         [Header("ChangeAttributes")]
-        [Min(0.1f)] private float _changeCD = 1;
+        [SerializeField, Min(0.1f)] private float _changeCD = 1;
         private float _timeControl;
 
         private List<GameObject> _allTutorials;
@@ -146,6 +146,13 @@ namespace Tutorials
         {
             gameObject.SetActive(true);
             _isAppearing = true;
+
+            if (_lastStyle == ControllerStyle.Gamepad)
+                _controllerPanelRef.SetActive(true);
+            else
+                _keyboardPanelRef.SetActive(true);
+
+            Debug.Log("ActivateTutorialCanavs");
         }
 
         private void Deactivate()
@@ -205,6 +212,8 @@ namespace Tutorials
         {
             if (!_isAppearing)
                 return;
+
+            Debug.Log(inputDevice);
 
             switch (change)
             {
