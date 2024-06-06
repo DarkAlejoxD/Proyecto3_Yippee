@@ -1858,6 +1858,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2519675776815000830, guid: 5954930822418954c9fefcd907893936,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2519675776815000830, guid: 5954930822418954c9fefcd907893936,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -2368,6 +2373,7 @@ MonoBehaviour:
   _polter2KeyRef: {fileID: 504446172632070312}
   _polter2ConRef: {fileID: 4146652980531377429}
   _polter3KeyRef: {fileID: 6640009848542637057}
+  _changeCD: 0.1
 --- !u!224 &7829534624389002390 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1536738235136199125, guid: 5954930822418954c9fefcd907893936,
