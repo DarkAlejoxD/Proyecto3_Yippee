@@ -90,10 +90,13 @@ namespace AvatarController.PlayerFSM
             if (Singleton.TryGetInstance(out PoltergeistManager manager))
             {
                 _poltManager = manager;
+                _poltManager.ActivateParticles();
+                _poltManager.SetParticlePosition(_playerController.transform.position);
             }
             _playerController._polterFound = true;
             _poltManager.StartPoltergeist(_playerController.transform,
                                          Data.DefPoltValues.PoltergeistRadius);
+
         }
 
         public override void OnPlayerStay(InputValues inputs)
@@ -132,6 +135,8 @@ namespace AvatarController.PlayerFSM
                     if (Item == null)
                         return;
 
+                    _poltManager.SetParticlePosition(Item.transform.position);
+
                     if (inputs.SelectDeselectInput)
                     {
                         _currentState = PoltergeistStates.Manipulating;
@@ -141,7 +146,7 @@ namespace AvatarController.PlayerFSM
                 case PoltergeistStates.Manipulating:
                     _poltergeistController.PoltergeistModeUpdate(inputs.PoltergeistXZAxis,
                                                                  inputs.PoltergeistYAxis);
-
+                    _poltManager.SetParticlePosition(Item.transform.position);
                     if (inputs.SelectDeselectInput)
                     {
                         _currentState = PoltergeistStates.Selecting;
@@ -162,6 +167,8 @@ namespace AvatarController.PlayerFSM
 
             if (Anim)
                 Anim.SetBool(POLTER_ANIM_BOOL, false);
+
+            _poltManager.DeactivateParticles();
         }
 
         public override bool CanAutoTransition()
@@ -172,11 +179,11 @@ namespace AvatarController.PlayerFSM
         private void PickNewItem()
         {
             int dir = _inputHandler > 0 ? 1 : -1;
-            if (Item)
-                Item.gameObject.layer = DEFAULT_LAYER;
+            //if (Item)
+            //    Item.gameObject.layer = DEFAULT_LAYER;
             Item = _poltManager.GetNext(dir);
-            if (Item)
-                Item.gameObject.layer = OUTLINE_POLTERGEIST_LAYER;
+            //if (Item)
+            //    Item.gameObject.layer = OUTLINE_POLTERGEIST_LAYER;
         }
 
         private void SelectionFSMInit()
