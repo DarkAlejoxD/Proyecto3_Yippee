@@ -46,7 +46,13 @@ namespace AvatarController.LedgeGrabbing
 
         void LateUpdate()
         {
-            if (!_playerController.CurrentState.Equals(PlayerStates.OnAir) && !_grabbingLedge) return;
+            bool canGrab = _playerController.CurrentState.Equals(PlayerStates.OnAir) ||
+                _playerController.CurrentState.Equals(PlayerStates.OnDive);
+
+            if (!canGrab && !_grabbingLedge)
+            {
+                return;
+            }
 
             CastCheckerRays();
             HandleLedgeLogic();
@@ -56,13 +62,20 @@ namespace AvatarController.LedgeGrabbing
                 //Cast dos raycast a los lados para detectar cuando llegamos a un borde y no dejar moverse?
                 HandleNormalRotation();
                 CastEdgeDetectionRays();
+
+                Vector3 pos = _hitInfo.point;
+                pos.y = transform.position.y;
+                pos.z += _positionToWallOffset * _hitInfo.normal.z;
+                pos.x += _positionToWallOffset * _hitInfo.normal.x;
+
+                //transform.position = pos;
+                _playerController.transform.position = pos;
             }
         }
 
         #endregion
 
         #region Private Methods
-
         private void CastCheckerRays()
         {
             _headRay = new Ray(_headRayOrigin.position, transform.forward);
@@ -130,7 +143,11 @@ namespace AvatarController.LedgeGrabbing
         {
             _playerController.SetGravityActive(false);
             _jumpController.SetLedgeGrab(true);
+
             GetComponent<PlayerMovement>().SetGrabbingLedgeMode(_hitInfo.normal);
+
+            //GetComponent<PlayerMovement>().enabled = true;
+
             _playerController.ForceChangeState(PlayerStates.Grabbing);
             _grabbingLedge = true;
 
@@ -184,7 +201,7 @@ namespace AvatarController.LedgeGrabbing
             if (_grabbingLedge)
                 DrawEdgeDetectionRays();
 
-            if(!_hitInfo.Equals(null))
+            if (!_hitInfo.Equals(null))
             {
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawWireSphere(_hitInfo.point, 0.1f);

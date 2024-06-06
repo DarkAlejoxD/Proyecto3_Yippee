@@ -63,24 +63,83 @@ namespace InputController
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Tutorials"",
+            ""id"": ""a0a8d97d-1a78-4195-837e-ab6bee7eed0f"",
+            ""actions"": [
+                {
+                    ""name"": ""PassTutorial"",
+                    ""type"": ""Button"",
+                    ""id"": ""988188f7-cc6e-4db0-97bd-3bea240a5cc8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c79e50a1-1fd4-4f3a-be0a-8953351c1dc4"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""PassTutorial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""429b48c0-6790-4127-a242-11d8f47dfe97"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""PassTutorial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
         {
             ""name"": ""Gamepad"",
             ""bindingGroup"": ""Gamepad"",
-            ""devices"": []
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         },
         {
             ""name"": ""KeyboardMouse"",
             ""bindingGroup"": ""KeyboardMouse"",
-            ""devices"": []
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         }
     ]
 }");
             // Pause
             m_Pause = asset.FindActionMap("Pause", throwIfNotFound: true);
             m_Pause_PauseUnpause = m_Pause.FindAction("Pause/Unpause", throwIfNotFound: true);
+            // Tutorials
+            m_Tutorials = asset.FindActionMap("Tutorials", throwIfNotFound: true);
+            m_Tutorials_PassTutorial = m_Tutorials.FindAction("PassTutorial", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -184,6 +243,52 @@ namespace InputController
             }
         }
         public PauseActions @Pause => new PauseActions(this);
+
+        // Tutorials
+        private readonly InputActionMap m_Tutorials;
+        private List<ITutorialsActions> m_TutorialsActionsCallbackInterfaces = new List<ITutorialsActions>();
+        private readonly InputAction m_Tutorials_PassTutorial;
+        public struct TutorialsActions
+        {
+            private @Menus m_Wrapper;
+            public TutorialsActions(@Menus wrapper) { m_Wrapper = wrapper; }
+            public InputAction @PassTutorial => m_Wrapper.m_Tutorials_PassTutorial;
+            public InputActionMap Get() { return m_Wrapper.m_Tutorials; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(TutorialsActions set) { return set.Get(); }
+            public void AddCallbacks(ITutorialsActions instance)
+            {
+                if (instance == null || m_Wrapper.m_TutorialsActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_TutorialsActionsCallbackInterfaces.Add(instance);
+                @PassTutorial.started += instance.OnPassTutorial;
+                @PassTutorial.performed += instance.OnPassTutorial;
+                @PassTutorial.canceled += instance.OnPassTutorial;
+            }
+
+            private void UnregisterCallbacks(ITutorialsActions instance)
+            {
+                @PassTutorial.started -= instance.OnPassTutorial;
+                @PassTutorial.performed -= instance.OnPassTutorial;
+                @PassTutorial.canceled -= instance.OnPassTutorial;
+            }
+
+            public void RemoveCallbacks(ITutorialsActions instance)
+            {
+                if (m_Wrapper.m_TutorialsActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(ITutorialsActions instance)
+            {
+                foreach (var item in m_Wrapper.m_TutorialsActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_TutorialsActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public TutorialsActions @Tutorials => new TutorialsActions(this);
         private int m_GamepadSchemeIndex = -1;
         public InputControlScheme GamepadScheme
         {
@@ -205,6 +310,10 @@ namespace InputController
         public interface IPauseActions
         {
             void OnPauseUnpause(InputAction.CallbackContext context);
+        }
+        public interface ITutorialsActions
+        {
+            void OnPassTutorial(InputAction.CallbackContext context);
         }
     }
 }

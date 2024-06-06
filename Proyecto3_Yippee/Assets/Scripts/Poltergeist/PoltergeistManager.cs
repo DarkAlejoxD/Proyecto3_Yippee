@@ -14,6 +14,10 @@ namespace Poltergeist
         private const float VERTICAL_DIVISION = 1f / 16;
         private const float HORIZONTAL_DIVISION = 1f / 32;
 
+        [Header("References")]
+        [SerializeField] private Transform _particleFather;
+        [SerializeField] private ParticleSystem[] _selectionParticleSystem;
+
         [Header("Lists")]
         private List<Poltergeist_Item> _poltergeistList = new();
         private List<Poltergeist_Item> _nearPoltergeists = new();
@@ -41,12 +45,34 @@ namespace Poltergeist
             Instance.Instantiate();
             _evaluating = false;
             OnPoltergeistEventExit?.Invoke();
+            DeactivateParticles();
         }
 
         private void OnDestroy() => Instance.RemoveInstance();
         #endregion
 
         #region Public Methods
+        public void ActivateParticles()
+        {
+            foreach (var item in _selectionParticleSystem)
+            {
+                item.Play();
+            }
+        }
+
+        public void DeactivateParticles()
+        {
+            foreach (var item in _selectionParticleSystem)
+            {
+                item.Stop();
+            }
+        }
+
+        public void SetParticlePosition(Vector3 position)
+        {
+            _particleFather.position = position;
+        }
+
         /// <summary>
         /// Should be triggered at the beginning of the poltergeistMode
         /// </summary>
@@ -200,7 +226,7 @@ namespace Poltergeist
                 }
             }
 
-
+            _nearPoltergeists.Clear();
             _nearPoltergeists = nearList.OrderBy(item =>
                 Camera.main.WorldToScreenPoint(item.transform.position).x).ToList();
         }

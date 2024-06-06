@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using InputController;
 using static UtilsComplements.AsyncTimer;
+using UnityEngine.Timeline;
 
 namespace AvatarController.PlayerFSM
 {
@@ -10,9 +11,26 @@ namespace AvatarController.PlayerFSM
         private const string GRAB_ANIM_TRIGGER = "Grabbing";
         private const string GRAB_ANIM_BOOL = "OnGrab";
         private const string MOVEMENT_VALUE = "GrabSpeed";
+        private const string AFK_ON_TRIGGER = "AFKon";
+        private const string AFK_OFF_TRIGGER = "AFKoff";
         private const float SMOOTH = 0.2f;
 
         private float _animControl = 0;
+
+        private float _timeToIdle = 0;
+        private float _timeControl = 0;
+
+        private bool IsAFK
+        {
+            get
+            {
+                if (!Anim)
+                    return false;
+
+                return Anim.GetBool("isAFK");
+            }
+        }
+
         public override string Name => "OnGrab";
         public PlayerState_Grabbing(PlayerController playerController) : base(playerController)
         {
@@ -29,10 +47,32 @@ namespace AvatarController.PlayerFSM
             _playerController._wasGrabbed = true;
             //_playerController.SetGravityActive(false);
             //_playerController.VelocityY = 0;
+
+            _timeControl = 0;
+            _timeToIdle = Data.DefOtherValues.TimeBreakIdle;
         }
 
         public override void OnPlayerStay(InputValues inputs)
         {
+            if (_timeControl > _timeToIdle)
+            {
+                _timeControl = 0;
+                _timeToIdle = Data.DefOtherValues.TimeBreakIdle;
+                if (Anim)
+                    Anim.SetTrigger(AFK_ON_TRIGGER);
+            }
+
+            //if (_playerController.Velocity.magnitude > Data.DefaultMovement.MinSpeedToMove)
+            if (inputs.MoveInput.magnitude > 0)
+            {
+                _timeControl = 0;
+                if (Anim && IsAFK)
+                    Anim.SetTrigger(AFK_OFF_TRIGGER);
+                if (!IsAFK && Anim)
+                    Anim.ResetTrigger(AFK_OFF_TRIGGER);
+            }
+            _timeControl += Time.deltaTime;
+
             if (Anim)
             {
                 // 0----min(x)----max(y)

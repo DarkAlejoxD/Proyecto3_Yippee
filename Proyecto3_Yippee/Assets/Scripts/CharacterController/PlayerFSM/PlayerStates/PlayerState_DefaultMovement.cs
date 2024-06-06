@@ -12,15 +12,17 @@ namespace AvatarController.PlayerFSM
         private const string ONGROUND_ANIM = "OnGround";
         private const string AFK_ON_TRIGGER = "AFKon";
         private const string AFK_OFF_TRIGGER = "AFKoff";
-        private const float SMOOTH = 0.2f;
+        private const float SMOOTH = 0.3f;
 
         private float _animControl = 0;
 
         private float _timeToIdle = 0;
         private float _timeControl = 0;
+        private float _jumpTimeControl = 0;
 
         private bool _poltergeistActivated;
         private bool _isAFK;
+        private bool _canJump;
 
         public override string Name => "Default Movement";
         private bool IsAFK
@@ -61,6 +63,7 @@ namespace AvatarController.PlayerFSM
             _isAFK = false;
             _timeControl = 0;
             _timeToIdle = Data.DefOtherValues.TimeBreakIdle;
+            _jumpTimeControl = Time.time;
         }
 
         public override void OnPlayerStay(InputValues inputs)
@@ -107,7 +110,8 @@ namespace AvatarController.PlayerFSM
 
             //Inputs Logic
             _playerController.OnMovement?.Invoke(inputs.MoveInput);
-            _playerController.OnJump?.Invoke(inputs.JumpInput);
+            if (Time.time > _jumpTimeControl + Data.DefaultJumpValues.JumpCD)
+                _playerController.OnJump?.Invoke(inputs.JumpInput);
             //_playerController.OnDive?.Invoke(inputs.CrounchDiveInput);
 
             //_playerController.OnInteract?.Invoke(inputs.InteractInput);
@@ -133,7 +137,11 @@ namespace AvatarController.PlayerFSM
             base.OnExit();
 
             if (Anim)
+            {
                 Anim.SetBool(ONGROUND_ANIM, false);
+                Anim.ResetTrigger(AFK_ON_TRIGGER);
+                Anim.ResetTrigger(AFK_OFF_TRIGGER);
+            }
 
             _isAFK = false;
         }

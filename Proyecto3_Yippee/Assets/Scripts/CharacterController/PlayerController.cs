@@ -164,6 +164,16 @@ namespace AvatarController
             UnBlockMovement();
         }
 
+        public void SetOnlyMove()
+        {
+            _playerFSM.ForceChange(PlayerStates.OnlyMove);
+        }
+
+        public void SetDefaultMovement()
+        {
+            _playerFSM.ForceChange(PlayerStates.OnGround);
+        }
+
         public void StopVelocity() => Velocity = Vector3.zero;
 
         public void StopFalling() => VelocityY = 0;
@@ -271,6 +281,8 @@ namespace AvatarController
             _playerFSM = new();
 
             _playerFSM.SetRoot(PlayerStates.OnGround, new PlayerState_DefaultMovement(this));
+            _playerFSM.AddState(PlayerStates.OnlyMove, new PlayerState_OnlyMove(this));
+            Debug.Log("a");
             _playerFSM.AddState(PlayerStates.OnAir, new PlayerState_OnAir(this));
             _playerFSM.AddState(PlayerStates.Grabbing, new PlayerState_Grabbing(this));
             _playerFSM.AddState(PlayerStates.OnDive, new PlayerState_OnDive(this));
