@@ -11,12 +11,14 @@ namespace GhostView
     {
         #region Fields
         private const string ALPHA_VALUE = "_AlphaValue";
+        private const string ALBEDO_COLOR = "_Albedo";
 
         [Header("Render References")]
         [SerializeField] private Transform _art;
         [Tooltip("true: appears when button down" +
                  "\nfalse: dissapears when button down")]
         [SerializeField, Obsolete] private bool _inversed;
+        private Color _startColor;
         private Renderer _renderer;
         private Collider _collider;
 
@@ -39,6 +41,7 @@ namespace GhostView
             _renderer = _art.GetComponent<Renderer>();
             _collider = _art.GetComponent<Collider>();
             GhostViewManager.OnActivateGhostView += GhostView;
+            _startColor = _renderer.sharedMaterial.color;
         }
 
         private void Start()
@@ -79,7 +82,11 @@ namespace GhostView
         #region Private Methods
         private void ApplyAlphaValue(float value)
         {
+            
             ThisMaterialPropertyBlock.SetFloat(ALPHA_VALUE, value);
+            //Color color = _startColor;
+            //color.a = Mathf.Lerp(0, color.a, 1-value);
+            //ThisMaterialPropertyBlock.SetColor("_Color", color);
             _art.GetComponent<Renderer>().SetPropertyBlock(ThisMaterialPropertyBlock);
         }
 
