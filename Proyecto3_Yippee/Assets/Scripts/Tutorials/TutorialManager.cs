@@ -45,6 +45,10 @@ namespace Tutorials
         private bool _polterMode = false;
         private int _controlIndex = 0;
 
+        [Header("Attributes")]
+        [SerializeField, Min(0.1f)] private float _timePressedThreshold = 2;
+        private float _timeControl = 0;
+
         private List<GameObject> _allTutorials;
         private bool _isAppearing = false;
 
@@ -151,7 +155,8 @@ namespace Tutorials
             GameManager.GetGameManager().PlayerInstance?.BlockMovement();
             PauseManager.SetCanPause(false);
 
-            Debug.Log("ActivateTutorialCanavs");
+            _timeControl = Time.time;
+            //Debug.Log("ActivateTutorialCanavs");
         }
 
         private void Deactivate()
@@ -169,6 +174,9 @@ namespace Tutorials
 
         private void CheckTriggerUpdate()
         {
+            if (Time.time < _timeControl + _timePressedThreshold)
+                return;
+
             //Check if the Button was pressed
             bool wasTriggered = _menuInputs.Tutorials.PassTutorial.WasPressedThisFrame();
             if (!wasTriggered)
