@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   _powers:
-    DEBUG_testPowers: 0
+    DEBUG_testPowers: 1
   _defaultMovement:
     _acceleration: 70
     _linearDecceleration: 50
@@ -81,6 +81,7 @@ MonoBehaviour:
     _downGravityMultiplier: 1.2
     _releasePenaltyTime: 0.2
     _maxVySpeed: 50
+    _jumpCD: 0.01
     DEBUG_drawHeight: 0
     DEBUG_drawCurve: 0
     DEBUG_definitionOfJump: 30
@@ -107,7 +108,7 @@ MonoBehaviour:
   _otherValues:
     _scaleMultiplicator: 0.1
     _minTimeBreakIdle: 5
-    _maxTimeBreakIdle: 10
-    _ghostViewCooldown: 10
-    _ghostViewRadius: 61.7
+    _maxTimeBreakIdle: 20
+    _ghostViewCooldown: 11
+    _ghostViewRadius: 10
     DEBUG_ShowGhostRadius: 0

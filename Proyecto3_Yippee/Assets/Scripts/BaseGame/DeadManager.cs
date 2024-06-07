@@ -45,10 +45,9 @@ namespace BaseGame //add it to a concrete namespace
         #endregion
 
         #region Private Methods
-
-
         private IEnumerator DeadCoroutine()
         {
+            Singleton.GetSingleton<FakeTransparenceControl>()?.SphereMeshSetActive(false);
             Color color = _image.color;
             color.a = 0;
             _image.color = color;
@@ -74,11 +73,7 @@ namespace BaseGame //add it to a concrete namespace
             #region Make ReappearLogic
             float halfStay = _stayTime / 2;
 
-            if (Singleton.TryGetInstance(out AudioManager audioMan))
-            {
-                //TODO
-                //audioMan.PlayOneShot("", );
-            }
+            //AudioManager.GetAudioManager().PlayOneShot();
             yield return new WaitForSeconds(halfStay);
 
             GameManager.ResetGame();
@@ -99,6 +94,7 @@ namespace BaseGame //add it to a concrete namespace
             _image.enabled = false;
             #endregion
             GameManager.Player?.UnBlockMovement();
+            Singleton.GetSingleton<FakeTransparenceControl>()?.SphereMeshSetActive(true);
         }
         #endregion
     }
