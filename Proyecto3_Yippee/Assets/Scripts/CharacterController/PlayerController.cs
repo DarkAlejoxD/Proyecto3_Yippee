@@ -32,13 +32,8 @@ namespace AvatarController
         public Action<bool> OnSprint;
 
         [Header("Random Attributes")]
-        //public bool isPushing = false;
-        //private PlayerMovement _playerMovement;
         private PlayerJump _playerJump;
         internal bool _wasGrabbed;
-        //private PlayerDive _playerDive;
-
-        //public bool IsGrounded => _playerJump.IsGrounded;
 
         [Header("CanTransitionValues")]
         internal bool _polterFound;
@@ -75,8 +70,6 @@ namespace AvatarController
             _inputManager = GetComponent<InputManager>();
 
             _playerJump = GetComponent<PlayerJump>();
-            //_playerMovement = GetComponent<PlayerMovement>();
-            //_playerDive = GetComponent<PlayerDive>();
             UseTwikedGravity = false;
             TwistGravity = 0;
 
@@ -113,16 +106,16 @@ namespace AvatarController
         {
             UpdateVy();
 
-#if UNITY_EDITOR
-            if (!DEBUG_TextTest)
-                return;
-            if (!_playerFSM.Equals(null))
-                DEBUG_TextTest.text = "Current State: " + _playerFSM.Name;
+//#if UNITY_EDITOR
+//            if (!DEBUG_TextTest)
+//                return;
+//            if (!_playerFSM.Equals(null))
+//                DEBUG_TextTest.text = "Current State: " + _playerFSM.Name;
 
-            //Debug.Log("Velocity: " + new Vector3(Velocity.x, VelocityY, Velocity.z) +
-            //          "Magnitude: " + Velocity.magnitude +
-            //          "\nDeltaTime: " + Time.deltaTime);
-#endif
+//            //Debug.Log("Velocity: " + new Vector3(Velocity.x, VelocityY, Velocity.z) +
+//            //          "Magnitude: " + Velocity.magnitude +
+//            //          "\nDeltaTime: " + Time.deltaTime);
+//#endif
         }
         #endregion
 
