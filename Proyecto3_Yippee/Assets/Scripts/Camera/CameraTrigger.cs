@@ -13,8 +13,12 @@ namespace Cameras
         private void Start()
         {
             _manager = ISingleton<CameraManager>.GetInstance();
-            if (isStartingCamera) _manager.SwitchCameras(_cam);
-
+            _cam.enabled = false;
+            if (isStartingCamera)
+            {
+                _cam.enabled = true;
+                _manager.SwitchCameras(_cam);
+            }
         }
 
         private void OnTriggerEnter(Collider other)

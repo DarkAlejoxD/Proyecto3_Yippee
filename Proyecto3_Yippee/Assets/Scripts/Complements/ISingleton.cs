@@ -1,9 +1,6 @@
 namespace UtilsComplements
 {
     /// <summary>
-    /// Script rewrited.
-    /// Short Version of my ISingleton interface.
-    /// 
     /// Put Instance.Instantiate() inside the Awake() Method.
     /// Put Instance.RemoveInstance() inside the OnDestroy Method.
     /// Override Invalidate() method if necessary
@@ -11,16 +8,14 @@ namespace UtilsComplements
     /// <typeparam name="T"></typeparam>
     public interface ISingleton<T> where T : class, ISingleton<T>
     {
-        //TODO: Ask a teacher if recommends this style of Singleton o Generic interfaces/classes.
-        private static T _singleton;
-        private static bool _exists = false;
+        
+        private static T _singleton;    //Static Singleton Instance
 
-        public ISingleton<T> Instance { get; }
-        public T Value => (T)this;
+        public ISingleton<T> Instance { get; }  //Reference to the interface methods inside a class
+        public T Value => (T)this;              //Reference to the class inside the interface
 
+        //Call these functions with "ISingleton<T>.xxx();" or "Singleton.xxx<T>()"
         #region Static Fields & Methods
-        //Call these functions with ISingleton<T>.xxx();
-        public static bool Exists() => _exists; //(?
         public static T GetInstance() => _singleton;
         public static bool TryGetInstance(out T instance)
         {
@@ -32,15 +27,8 @@ namespace UtilsComplements
         #region Instance Fields & Methods
         public void Instantiate()
         {
-            //Uncomment this to reset Singleton
-            //_singleton = null;
-            //return;
-
-            if (_singleton == null)
-            {
+            if (_singleton == null)            
                 _singleton = Value;
-                _exists = true;
-            }
             else
                 Invalidate();
         }
@@ -48,10 +36,7 @@ namespace UtilsComplements
         public void RemoveInstance()
         {
             if (_singleton == Value)
-            {
                 _singleton = null;
-                _exists = false;
-            }
         }
 
         public void Invalidate()

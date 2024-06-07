@@ -12,6 +12,8 @@ namespace BaseGame
         [SerializeField] private GameObject _canvas;
         [SerializeField] private EventSystem _eventSystem;
 
+        private bool _canPause = true;
+
         private Menus _pauseMap;
 
         public ISingleton<PauseManager> Instance => this;
@@ -36,10 +38,15 @@ namespace BaseGame
             _pauseMap.Pause.Enable();
             _paused = true;
             SetPauseActive(false);
+            _canPause = true;
         }
 
         private void Update()
         {
+            if (!_paused)
+                if (!_canPause)
+                    return;
+
             if (_pauseMap.Pause.PauseUnpause.WasPerformedThisFrame())
             {
                 SetPaused(!_paused);
@@ -47,6 +54,12 @@ namespace BaseGame
         }
 
         private void OnDestroy() => Instance.RemoveInstance();
+
+        public static void SetCanPause(bool value)
+        {
+            if (Singleton.TryGetInstance<PauseManager>(out var manager))
+                manager._canPause = value;
+        }
 
         public static void SetPauseActive(bool active)
         {

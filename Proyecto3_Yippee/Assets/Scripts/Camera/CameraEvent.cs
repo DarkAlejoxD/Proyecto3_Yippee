@@ -6,28 +6,23 @@ using UtilsComplements;
 
 namespace Cameras
 {
-    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(CinemachineVirtualCamera))]
     public class CameraEvent : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private CinemachineVirtualCamera _thisCamera;
+        private CinemachineVirtualCamera _thisCamera;
         private CinemachineVirtualCamera _lastCamera;
 
         [SerializeField] private float _timeStolen = 3;
-        [SerializeField] private int _timesToStole = 1;
-        private int _timesControl = 0;
 
         private void Start()
         {
-            _timeStolen = 0;
-            GetComponent<Collider>().isTrigger = true;
+            _thisCamera = GetComponent<CinemachineVirtualCamera>();
+            _thisCamera.enabled = false;
         }
 
-        private void OnTriggerEnter(Collider other)
+        public void ActivateCamera()
         {
-            if (!other.CompareTag("Player"))
-                return;
-
             StartCoroutine(SwitchCameraCoroutine());
         }
 

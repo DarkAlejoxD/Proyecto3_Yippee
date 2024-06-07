@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using BaseGame;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -41,8 +42,11 @@ namespace UtilsComplements.Cheats
 
         private void LateUpdate()
         {
-            if (false)
+            if (PauseManager.IsPaused)
+            {
+                Time.timeScale = 0;
                 return;
+            }
 
             TimeScaleUpdate();
         }
