@@ -45,10 +45,6 @@ namespace Tutorials
         private bool _polterMode = false;
         private int _controlIndex = 0;
 
-        [Header("ChangeAttributes")]
-        [SerializeField, Min(0.1f)] private float _changeCD = 1;
-        private float _timeControl;
-
         private List<GameObject> _allTutorials;
         private bool _isAppearing = false;
 
@@ -66,7 +62,6 @@ namespace Tutorials
             InputSystem.onDeviceChange += CheckControllerStyleUpdate;
             _keyboardPanelRef.SetActive(false);
             _controllerPanelRef.SetActive(false);
-            _timeControl = Time.time;
 
             _menuInputs = new();
             _menuInputs.Tutorials.Enable();

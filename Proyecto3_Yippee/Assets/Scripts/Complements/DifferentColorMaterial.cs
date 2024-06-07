@@ -9,7 +9,9 @@ namespace UtilsComplements
         private const string COLOR_ID = "_BaseColor";
 
         [Header("References")]
-        [SerializeField] private Color _color;
+        private Color _startColor;
+        [SerializeField] private Color _newColor;
+        [SerializeField] private string _colorID = "_Color";
         private MeshRenderer _meshRenderer;
 
         private MaterialPropertyBlock _materialPropertyBlock;
@@ -34,26 +36,21 @@ namespace UtilsComplements
             }
         }
 
-        private void OnEnable()
+        private void Awake()
         {
-            ChangeColor();
+            _startColor = ThisMeshRenderer.sharedMaterial.GetColor(_colorID);
         }
 
-        private void OnValidate()
+        public void ResetColor()
         {
-            ChangeColor();
-        }
-
-        private void ChangeColor()
-        {
-            ThisMaterialPropertyBlock.SetColor(COLOR_ID, _color);
+            ThisMaterialPropertyBlock.SetColor(_colorID, _startColor);
             ThisMeshRenderer.SetPropertyBlock(ThisMaterialPropertyBlock);
         }
 
-        public void SetNewColor(Color newColor)
+        public void ChangeColorToNew()
         {
-            _color = newColor;
-            ChangeColor();
+            ThisMaterialPropertyBlock.SetColor(_colorID, _newColor);
+            ThisMeshRenderer.SetPropertyBlock(ThisMaterialPropertyBlock);
         }
     }
 }

@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using BaseGame;
 using static UtilsComplements.AsyncTimer;
+using System.Collections;
 
 namespace Mechanisms
 {
@@ -29,6 +30,8 @@ namespace Mechanisms
         private bool _isActive;
         private bool _lastSignal;
 
+        [SerializeField, HideInInspector] private bool _delayed = false;
+        [SerializeField, HideInInspector] private float _timeDelayed = 1;
         public bool IsActive => _isActive;
 
         #region Unity Logic
@@ -63,6 +66,14 @@ namespace Mechanisms
         /// </summary>
         /// <param name="signal"></param>
         public void ReceiveSignal(bool signal)
+        {
+            if (_delayed)
+                StartCoroutine(DelayActivateCoroutie(signal));
+            else
+                MechanismRecievedSignal(signal);
+        }
+
+        private void MechanismRecievedSignal(bool signal)
         {
             switch (_mechanismType)
             {
@@ -139,6 +150,12 @@ namespace Mechanisms
                     break;
             }
         }
+
+        private IEnumerator DelayActivateCoroutie(bool signal)
+        {
+            yield return new WaitForSeconds(_timeDelayed);
+            MechanismRecievedSignal(signal);
+        }
         #endregion
     }
 }
@@ -154,6 +171,8 @@ namespace Mechanisms
         private Mechanism _this;
         private SerializedProperty _type;
         private SerializedProperty _timer;
+        private SerializedProperty _delayed;
+        private SerializedProperty _delayTime;
 
         private void OnEnable()
         {
@@ -161,6 +180,9 @@ namespace Mechanisms
 
             _type = serializedObject.FindProperty("_mechanismType");
             _timer = serializedObject.FindProperty("_time");
+            _delayed = serializedObject.FindProperty("_delayed");
+            _delayTime = serializedObject.FindProperty("_timeDelayed");
+
         }
 
         public override void OnInspectorGUI()
@@ -174,6 +196,15 @@ namespace Mechanisms
                 _timer.floatValue = EditorGUILayout.FloatField("Timer: ", _timer.floatValue);
                 serializedObject.ApplyModifiedProperties();
             }
+
+            bool value = EditorGUILayout.Toggle("Delayed", _delayed.boolValue);
+            _delayed.boolValue = value;
+
+            if (_delayed.boolValue)
+            {
+                _delayTime.floatValue = EditorGUILayout.FloatField("Time Delayed", _delayTime.floatValue);
+            }
+            serializedObject.ApplyModifiedProperties();
         }
     }
 }
