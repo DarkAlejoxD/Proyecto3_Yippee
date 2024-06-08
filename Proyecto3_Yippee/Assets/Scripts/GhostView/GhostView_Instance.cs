@@ -41,7 +41,7 @@ namespace GhostView
             _renderer = _art.GetComponent<Renderer>();
             _collider = _art.GetComponent<Collider>();
             GhostViewManager.OnActivateGhostView += GhostView;
-            _startColor = _renderer.sharedMaterial.color;
+            _startColor = new Color();// _renderer.sharedMaterial.GetColor(ALBEDO_COLOR);
         }
 
         private void Start()
@@ -82,7 +82,7 @@ namespace GhostView
         #region Private Methods
         private void ApplyAlphaValue(float value)
         {
-            
+
             ThisMaterialPropertyBlock.SetFloat(ALPHA_VALUE, value);
             //Color color = _startColor;
             //color.a = Mathf.Lerp(0, color.a, 1-value);
