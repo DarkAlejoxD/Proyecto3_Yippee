@@ -667,11 +667,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClimbingCornsisas_Title (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 6525212797302081375, guid: b18fb69fd07fad5408320af3b0dd9b2d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -691,41 +686,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 600530373514924071}
     m_Modifications:
-    - target: {fileID: 282330580087812514, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2682665000850288892, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -156
-      objectReference: {fileID: 0}
-    - target: {fileID: 3383823838075082813, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.0902045
-      objectReference: {fileID: 0}
-    - target: {fileID: 3383823838075082813, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.0902045
-      objectReference: {fileID: 0}
-    - target: {fileID: 3383823838075082813, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.0902045
-      objectReference: {fileID: 0}
-    - target: {fileID: 3383823838075082813, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 237
-      objectReference: {fileID: 0}
-    - target: {fileID: 3383823838075082813, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -122.17
-      objectReference: {fileID: 0}
     - target: {fileID: 4542864052577185155, guid: 449d3a93854427d4f9352a8872da2bff,
         type: 3}
       propertyPath: m_Pivot.x
@@ -831,48 +791,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: PoltergeistSleight
       objectReference: {fileID: 0}
-    - target: {fileID: 5919728165959019800, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7576286844537278943, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8431061884177401257, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.6782867
-      objectReference: {fileID: 0}
-    - target: {fileID: 8431061884177401257, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.9017698
-      objectReference: {fileID: 0}
-    - target: {fileID: 8431061884177401257, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.2611101
-      objectReference: {fileID: 0}
-    - target: {fileID: 8431061884177401257, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 370.68994
-      objectReference: {fileID: 0}
-    - target: {fileID: 8431061884177401257, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -143.62
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4542864052577185155, guid: 449d3a93854427d4f9352a8872da2bff,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3518684767839437218}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 449d3a93854427d4f9352a8872da2bff, type: 3}
 --- !u!224 &1818880507823820131 stripped
@@ -1010,135 +931,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4826973634827321573}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4897914874236175317
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1818880507823820131}
-    m_Modifications:
-    - target: {fileID: 4396440905690056254, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_Name
-      value: PoltergeistChoseTheObject
-      objectReference: {fileID: 0}
-    - target: {fileID: 4396440905690056254, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 60.395
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5735c313e9ce3624e9838c1ebaf6882f, type: 3}
---- !u!224 &3518684767839437218 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8299010996296925815, guid: 5735c313e9ce3624e9838c1ebaf6882f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4897914874236175317}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5647727771542750704
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1151,11 +943,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cornisas
-      objectReference: {fileID: 0}
-    - target: {fileID: 3003531968278913898, guid: 04a824b0a8fa5394cbccf3985679c0eb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3289597168581346738, guid: 04a824b0a8fa5394cbccf3985679c0eb,
         type: 3}
@@ -1663,11 +1450,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5968791104302282798}
     m_Modifications:
-    - target: {fileID: 4212237177330540337, guid: 75c3ac4487a2c6b4cb9892962b5defe2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5054591100736115620, guid: 75c3ac4487a2c6b4cb9892962b5defe2,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1768,20 +1550,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5384183351668108977, guid: 75c3ac4487a2c6b4cb9892962b5defe2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9211943855704657173, guid: 75c3ac4487a2c6b4cb9892962b5defe2,
         type: 3}
       propertyPath: m_Name
       value: PoltergeistSleight
-      objectReference: {fileID: 0}
-    - target: {fileID: 9211943855704657173, guid: 75c3ac4487a2c6b4cb9892962b5defe2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

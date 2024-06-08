@@ -7,19 +7,14 @@ namespace AudioController
     {
         [Header("References")]
         [SerializeField] private EventReference _event;
-        
 
         public override void PlaySound()
         {
-            if (_eventInstance.Equals(null) || _eventInstance.Equals(default))
-                _eventInstance = AudioManager.GetAudioManager().CreateEventInstance(_event);
-
-            _eventInstance.start();
+            var audioManager = AudioManager.GetAudioManager();
+            audioManager.CrossFadeMusic(_event);
         }
         public override void StopSound()
         {
-            if (!_eventInstance.Equals(null) && !_eventInstance.Equals(default))
-                _eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         }
     }
 }
