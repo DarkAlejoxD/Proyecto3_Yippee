@@ -5,5 +5,6 @@
         Player,
         Ambience,
         Music,
+        SFX
     }
 }

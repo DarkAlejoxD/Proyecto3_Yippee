@@ -8,9 +8,7 @@ namespace BaseGame
     public class PauseManager : MonoBehaviour, ISingleton<PauseManager>
     {
         [Header("References")]
-        [SerializeField] private GameObject _firstSelected;
         [SerializeField] private GameObject _canvas;
-        [SerializeField] private EventSystem _eventSystem;
 
         private bool _canPause = true;
 
@@ -83,7 +81,6 @@ namespace BaseGame
                 _paused = true;
                 Time.timeScale = 0f;
                 _canvas.SetActive(true);
-                _eventSystem.SetSelectedGameObject(_firstSelected);
             }
             else
             {
