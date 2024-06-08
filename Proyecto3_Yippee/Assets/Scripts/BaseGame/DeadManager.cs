@@ -1,11 +1,12 @@
 using AudioController;
 using System.Collections;
 using Unity.VisualScripting;
-using UnityEngine;
 using UnityEngine.UI;
+
+using UnityEngine;
 using UtilsComplements;
 
-namespace BaseGame //add it to a concrete namespace
+namespace BaseGame
 {
     public class DeadManager : MonoBehaviour, ISingleton<DeadManager>
     {
@@ -19,16 +20,14 @@ namespace BaseGame //add it to a concrete namespace
         [SerializeField, Min(0.1f)] private float _stayTime;
         [SerializeField, Min(0.1f)] private float _disappearTime;
         [SerializeField] private AnimationCurve _disappearCurve;
+        #endregion
 
         public ISingleton<DeadManager> Instance => this;
-        #endregion
 
         #region Unity Logic
         private void Awake() => Instance.Instantiate();
-
-        private void Start() => _image.enabled = false;
-
         private void OnDestroy() => Instance.RemoveInstance();
+        private void Start() => _image.enabled = false;
         #endregion
 
         #region Static Methods
@@ -93,6 +92,7 @@ namespace BaseGame //add it to a concrete namespace
             _image.color = color;
             _image.enabled = false;
             #endregion
+
             GameManager.Player?.UnBlockMovement();
             Singleton.GetSingleton<FakeTransparenceControl>()?.SphereMeshSetActive(true);
         }

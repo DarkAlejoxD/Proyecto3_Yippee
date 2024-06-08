@@ -1,9 +1,8 @@
+using System.Collections.Generic;
+using UnityEngine.InputSystem;
+using UnityEngine;
 using BaseGame;
 using InputController;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
 using UtilsComplements;
 
 namespace Tutorials
@@ -63,7 +62,6 @@ namespace Tutorials
         private void Awake()
         {
             Instance.Instantiate();
-            InputSystem.onDeviceChange += CheckControllerStyleUpdate;
             _keyboardPanelRef.SetActive(false);
             _controllerPanelRef.SetActive(false);
 
@@ -100,15 +98,11 @@ namespace Tutorials
             if (!_isAppearing)
                 return;
 
+            CheckControllerStyleUpdate();
             CheckTriggerUpdate();
-            //ChangeInputStyle();
         }
 
-        private void OnDestroy()
-        {
-            InputSystem.onDeviceChange -= CheckControllerStyleUpdate;
-            Instance.RemoveInstance();
-        }
+        private void OnDestroy() => Instance.RemoveInstance();
         #endregion
 
         #region Public Methods
@@ -148,9 +142,15 @@ namespace Tutorials
             gameObject.SetActive(true);
 
             if (_lastStyle == ControllerStyle.Gamepad)
+            {
+                _keyboardPanelRef.SetActive(false);
                 _controllerPanelRef.SetActive(true);
+            }
             else
+            {
+                _controllerPanelRef.SetActive(false);
                 _keyboardPanelRef.SetActive(true);
+            }
 
             GameManager.GetGameManager().PlayerInstance?.BlockMovement();
             PauseManager.SetCanPause(false);
@@ -217,75 +217,60 @@ namespace Tutorials
                 Deactivate();
         }
 
-        private void CheckControllerStyleUpdate(InputDevice inputDevice, InputDeviceChange change)
+        private void CheckControllerStyleUpdate()
         {
             if (!_isAppearing)
                 return;
 
-            Debug.Log(inputDevice);
-
-            switch (change)
+            switch (_controlStyle)
             {
-                case InputDeviceChange.Enabled:
+                case ControllerStyle.Keyboard:
                     {
-                        if (inputDevice is Gamepad)
+                        bool triggered = _menuInputs.Tutorials.GamepadHandler.WasPressedThisFrame();
+                        if (triggered)
                         {
+                        Debug.Log("Gamepad DEtected");
                             _controlStyle = ControllerStyle.Gamepad;
-                            _keyboardPanelRef.SetActive(false);
-                            _controllerPanelRef.SetActive(true);
-                            return;
-                        }
-
-                        if (inputDevice is Keyboard)
-                        {
-                            _controlStyle = ControllerStyle.Keyboard;
-                            _controllerPanelRef.SetActive(false);
-                            _keyboardPanelRef.SetActive(true);
-                            return;
-                        }
-
-                        if (inputDevice is Mouse)
-                        {
-                            _controlStyle = ControllerStyle.Keyboard;
-                            _controllerPanelRef.SetActive(false);
-                            _keyboardPanelRef.SetActive(true);
-                            return;
+                            ChangeInputStyle();
                         }
                     }
                     break;
-                default:
+                case ControllerStyle.Gamepad:
+                    {
+                        bool triggered = _menuInputs.Tutorials.KeyboardHandler.WasPressedThisFrame();
+                        if (triggered)
+                        {
+                            _controlStyle = ControllerStyle.Keyboard;
+                            ChangeInputStyle();
+                        }
+                    }
                     break;
             }
         }
 
-        //private void ChangeInputStyle()
-        //{
-        //    if (Time.time <= _timeControl + _changeCD)
-        //        return;
+        private void ChangeInputStyle()
+        {
+            switch (_lastStyle)
+            {
+                case ControllerStyle.Keyboard:
+                    if (_controlStyle == ControllerStyle.Gamepad)
+                    {
+                        _lastStyle = ControllerStyle.Gamepad;
 
-        //    switch (_controlStyle)
-        //    {
-        //        case ControllerStyle.Keyboard:
-        //            if (_lastStyle == ControllerStyle.Gamepad)
-        //            {
-        //                _timeControl = Time.time;
-        //                _lastStyle = ControllerStyle.Keyboard;
-
-        //                _controllerPanelRef.SetActive(false);
-        //                _keyboardPanelRef.SetActive(true);
-        //            }
-        //            break;
-        //        case ControllerStyle.Gamepad:
-        //            if (_lastStyle == ControllerStyle.Keyboard)
-        //            {
-        //                _timeControl = Time.time;
-        //                _lastStyle = ControllerStyle.Gamepad;
-        //                _keyboardPanelRef.SetActive(false);
-        //                _controllerPanelRef.SetActive(true);
-        //            }
-        //            break;
-        //    }
-        //}
+                        _controllerPanelRef.SetActive(true);
+                        _keyboardPanelRef.SetActive(false);
+                    }
+                    break;
+                case ControllerStyle.Gamepad:
+                    if (_controlStyle == ControllerStyle.Keyboard)
+                    {
+                        _lastStyle = ControllerStyle.Keyboard;
+                        _keyboardPanelRef.SetActive(true);
+                        _controllerPanelRef.SetActive(false);
+                    }
+                    break;
+            }
+        }
         #endregion
     }
 }

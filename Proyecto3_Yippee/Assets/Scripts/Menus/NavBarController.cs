@@ -12,17 +12,18 @@ namespace MenuManagement //add it to a concrete namespace
 
         //ButtonNavigation
         private int _selectedIndex;
-        
-        #endregion    
+
+        #endregion
 
         #region Unity Logic
 
         private void Start()
         {
             _navItems = new List<NavItem>();
-            foreach(Transform child in _content) 
+            foreach (Transform child in _content)
             {
-                _navItems.Add(child.GetComponent<NavItem>());
+                if (child.gameObject.activeSelf)
+                    _navItems.Add(child.GetComponent<NavItem>());
             }
 
             DisableAll();
@@ -49,7 +50,7 @@ namespace MenuManagement //add it to a concrete namespace
                 _navItems[_selectedIndex].Activate();
             }
         }
-        
+
         #endregion
 
 
