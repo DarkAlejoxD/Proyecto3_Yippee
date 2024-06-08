@@ -1,5 +1,11 @@
 namespace UtilsComplements
 {
+    #region Report
+    //Made by DarkAlejoxD, Camilo Londoño
+
+    //Last checked: June 2024
+    #endregion
+
     /// <summary>
     /// Put Instance.Instantiate() inside the Awake() Method.
     /// Put Instance.RemoveInstance() inside the OnDestroy Method.
@@ -8,14 +14,13 @@ namespace UtilsComplements
     /// <typeparam name="T"></typeparam>
     public interface ISingleton<T> where T : class, ISingleton<T>
     {
-        
-        private static T _singleton;    //Static Singleton Instance
+        private static T _singleton;            //Static Singleton Instance
 
         public ISingleton<T> Instance { get; }  //Reference to the interface methods inside a class
         public T Value => (T)this;              //Reference to the class inside the interface
 
-        //Call these functions with "ISingleton<T>.xxx();" or "Singleton.xxx<T>()"
         #region Static Fields & Methods
+        //Call these function with 'ISingleton<T>.xxx();' or Singleton.xxx<T>();
         public static T GetInstance() => _singleton;
         public static bool TryGetInstance(out T instance)
         {
@@ -27,7 +32,7 @@ namespace UtilsComplements
         #region Instance Fields & Methods
         public void Instantiate()
         {
-            if (_singleton == null)            
+            if (_singleton == null)
                 _singleton = Value;
             else
                 Invalidate();
@@ -41,12 +46,9 @@ namespace UtilsComplements
 
         public void Invalidate()
         {
-#if UNITY_2017_1_OR_NEWER
+#if UNITY_2020_1_OR_NEWER
             if (Value is UnityEngine.Component comp)
-            {
-                //UnityEngine.Debug.Log("It already Exists", comp);//_singleton as UnityEngine.Component);
                 UnityEngine.Component.Destroy(comp.gameObject);
-            }
 #endif
         }
         #endregion
