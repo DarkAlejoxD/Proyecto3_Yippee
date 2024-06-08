@@ -29,5 +29,11 @@ namespace Cameras
                 _manager.SwitchCameras(_cam);
             }
         }
+
+        public void SetCamera()
+        {
+            _manager ??= Singleton.GetSingleton<CameraManager>();
+            _manager.SwitchCameras(_cam);
+        }
     }
 }
