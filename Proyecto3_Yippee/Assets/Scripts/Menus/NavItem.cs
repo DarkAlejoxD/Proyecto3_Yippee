@@ -1,13 +1,17 @@
-﻿using MenuManagement;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using MenuManagement;
 
 public class NavItem : MonoBehaviour
 {
     private bool _active;
 
+    [Header("Refereces")]
     [SerializeField] private GameObject _panel;
+    [SerializeField] private GameObject _select;
     [SerializeField] private Image _background;
+    [SerializeField] private EventSystem _eventSystem;
 
     [SerializeField] private Color _activeColor;
     [SerializeField] private Color _disabledColor;
@@ -37,18 +41,19 @@ public class NavItem : MonoBehaviour
     {
         _active = true;
         _background.color = _activeColor;
+        _eventSystem.SetSelectedGameObject(_select);
         _panel.SetActive(true);
     }
 
     public void Deactivate()
     {
         _active = false;
-        _background.color= _disabledColor;
+        _background.color = _disabledColor;
         _panel.SetActive(false);
     }
 
     public void TryPanelActivation()
     {
-        _controller.SetNavPanel(this);        
+        _controller.SetNavPanel(this);
     }
 }

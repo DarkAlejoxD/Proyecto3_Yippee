@@ -22,7 +22,7 @@ namespace AudioController
         {
             Instance.Instantiate();
             _audioInstances = new();
-
+            DontDestroyOnLoad(gameObject);
             _playerAudioData = Resources.Load<AudioReferences>("AudioData/PlayerAudioData");
         }
 

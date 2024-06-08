@@ -1,9 +1,8 @@
+using System.Collections.Generic;
+using UnityEngine.InputSystem;
+using UnityEngine;
 using BaseGame;
 using InputController;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
 using UtilsComplements;
 
 namespace Tutorials
@@ -63,7 +62,6 @@ namespace Tutorials
         private void Awake()
         {
             Instance.Instantiate();
-            InputSystem.onDeviceChange += CheckControllerStyleUpdate;
             _keyboardPanelRef.SetActive(false);
             _controllerPanelRef.SetActive(false);
 
@@ -100,15 +98,11 @@ namespace Tutorials
             if (!_isAppearing)
                 return;
 
+            CheckControllerStyleUpdate();
             CheckTriggerUpdate();
-            //ChangeInputStyle();
         }
 
-        private void OnDestroy()
-        {
-            InputSystem.onDeviceChange -= CheckControllerStyleUpdate;
-            Instance.RemoveInstance();
-        }
+        private void OnDestroy() => Instance.RemoveInstance();
         #endregion
 
         #region Public Methods
@@ -217,43 +211,26 @@ namespace Tutorials
                 Deactivate();
         }
 
-        private void CheckControllerStyleUpdate(InputDevice inputDevice, InputDeviceChange change)
+        private void CheckControllerStyleUpdate()
         {
             if (!_isAppearing)
                 return;
 
-            Debug.Log(inputDevice);
-
-            switch (change)
+            switch (_controlStyle)
             {
-                case InputDeviceChange.Enabled:
+                case ControllerStyle.Keyboard:
                     {
-                        if (inputDevice is Gamepad)
-                        {
+                        bool triggered = _menuInputs.Tutorials.GamepadHandler.WasPressedThisFrame();
+                        if (triggered)
                             _controlStyle = ControllerStyle.Gamepad;
-                            _keyboardPanelRef.SetActive(false);
-                            _controllerPanelRef.SetActive(true);
-                            return;
-                        }
-
-                        if (inputDevice is Keyboard)
-                        {
-                            _controlStyle = ControllerStyle.Keyboard;
-                            _controllerPanelRef.SetActive(false);
-                            _keyboardPanelRef.SetActive(true);
-                            return;
-                        }
-
-                        if (inputDevice is Mouse)
-                        {
-                            _controlStyle = ControllerStyle.Keyboard;
-                            _controllerPanelRef.SetActive(false);
-                            _keyboardPanelRef.SetActive(true);
-                            return;
-                        }
                     }
                     break;
-                default:
+                case ControllerStyle.Gamepad:
+                    {
+                        bool triggered = _menuInputs.Tutorials.KeyboardHandler.WasPressedThisFrame();
+                        if (triggered)
+                            _controlStyle = ControllerStyle.Keyboard;
+                    }
                     break;
             }
         }
