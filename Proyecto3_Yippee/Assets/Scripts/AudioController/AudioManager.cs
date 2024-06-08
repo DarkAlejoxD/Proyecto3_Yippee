@@ -92,6 +92,15 @@ namespace AudioController
             return eventInstance;
         }
 
+        public void StopAmbience(EventReference eventRef)
+        {
+            if (!_audioInstances.ContainsKey(eventRef))
+                return;
+            EventInstance instance = _audioInstances[eventRef];
+            instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            instance.release();
+        }
+
         public EventInstance CreateEventInstance(Database bank, string name)
         {
             EventReference eventRef = default;

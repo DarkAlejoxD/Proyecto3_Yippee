@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-
 
 namespace MenuManagement.Settings
 {
@@ -16,15 +12,14 @@ namespace MenuManagement.Settings
         [SerializeField] private bool _cameraTurbulence;
 
         [Header("Sound Settings")]
-        [SerializeField] private float _soundVolume;
-        [SerializeField] private float _musicVolume;
-        [SerializeField] private float _ambientVolume; //remove?
+        [SerializeField, Range(0, 1)] private float _soundVolume;
+        [SerializeField, Range(0, 1)] private float _musicVolume;//remove?
+        [SerializeField, Range(0, 1)] private float _ambientVolume;
 
         [Header("Graphic Settings")]
         [SerializeField] private Resolution _resolution;
 
         #region Getters
-
         //Sreen
         public bool CameraShake => _cameraShake;
         public bool CameraTurbulence => _cameraTurbulence;
@@ -36,12 +31,10 @@ namespace MenuManagement.Settings
 
         //Graphics
         public Resolution Resolution => _resolution;
-
         #endregion
 
 
         #region Public Methods
-
         //Screen
         public void SetCameraShake(bool b) { _cameraShake = b; }
         public void SetCameraTurbulence(bool b) { _cameraTurbulence = b; }
@@ -53,7 +46,7 @@ namespace MenuManagement.Settings
 
         //Graphics
 
-        public void SetResolution(Resolution resolution) { _resolution = resolution; } //Expand this later
+        //public void SetResolution(Resolution resolution) { _resolution = resolution; } //Expand this later
 
         #endregion
 
