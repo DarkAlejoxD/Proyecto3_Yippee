@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638533099585340710
+  lastModified: 638533740911673178
   FileSizes:
   - Name: Desktop
     Value: 2970
@@ -128,6 +128,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 929410
+--- !u!114 &-7616828892354844054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CHIARA/IMPULSO/Impulso
+  m_EditorClassIdentifier: 
+  Path: event:/CHIARA/IMPULSO/Impulso
+  Guid:
+    Data1: 211280367
+    Data2: 1235153051
+    Data3: -2060072318
+    Data4: -795588365
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 187
 --- !u!114 &-7493155766942667327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,10 +197,10 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638533099585299289
+  lastModified: 638533740910007481
   FileSizes:
   - Name: Desktop
-    Value: 43720
+    Value: 42768
   Exists: 1
 --- !u!114 &-7293652433600742447
 MonoBehaviour:
@@ -271,7 +298,7 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Sonidos_Camilo.assets.bank
   Name: Sonidos_Camilo.assets
   StudioPath: bank:/Sonidos_Camilo.assets
-  lastModified: 638532990214840878
+  lastModified: 638533740918678899
   FileSizes:
   - Name: Desktop
     Value: 332864
@@ -303,33 +330,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2487
---- !u!114 &-5859586497587033890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/CHIARA/IMPULSO/piedra
-  m_EditorClassIdentifier: 
-  Path: event:/CHIARA/IMPULSO/piedra
-  Guid:
-    Data1: 211280367
-    Data2: 1235153051
-    Data3: -2060072318
-    Data4: -795588365
-  Banks:
-  - {fileID: -7305167286931888775}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 3015
 --- !u!114 &-5012044252984301220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,7 +426,7 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Sonidos_Camilo.bank
   Name: Sonidos_Camilo
   StudioPath: bank:/Sonidos_Camilo
-  lastModified: 638532990214597367
+  lastModified: 638533740912321455
   FileSizes:
   - Name: Desktop
     Value: 8934
@@ -677,18 +677,18 @@ MonoBehaviour:
   - {fileID: 3705286997814760788}
   - {fileID: -7493155766942667327}
   - {fileID: -472356224410201943}
-  - {fileID: -5859586497587033890}
   - {fileID: -5012044252984301220}
   - {fileID: 4523648931943357130}
   - {fileID: -467616935422747134}
   - {fileID: -8010495751088949860}
   - {fileID: -7991675645304555594}
+  - {fileID: -7616828892354844054}
   EditorParameters: []
   MasterBanks:
   - {fileID: -7305167286931888775}
   StringsBanks:
   - {fileID: -9154328947442167584}
-  cacheTime: 638533099585340710
+  cacheTime: 638533740919243606
   cacheVersion: 131609
 --- !u!114 &114327667338995835
 MonoBehaviour:
@@ -1056,10 +1056,10 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Sonidos_Gerard.assets.bank
   Name: Sonidos_Gerard.assets
   StudioPath: bank:/Sonidos_Gerard.assets
-  lastModified: 638532887311933796
+  lastModified: 638533740919243606
   FileSizes:
   - Name: Desktop
-    Value: 4096
+    Value: 31712
   Exists: 1
 --- !u!114 &6035560107975027691
 MonoBehaviour:
@@ -1103,10 +1103,10 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Master.assets.bank
   Name: Master.assets
   StudioPath: bank:/Master.assets
-  lastModified: 638532975522594794
+  lastModified: 638533740911653235
   FileSizes:
   - Name: Desktop
-    Value: 14637568
+    Value: 14609920
   Exists: 1
 --- !u!114 &6532839724764567540
 MonoBehaviour:
@@ -1242,7 +1242,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 1904
+  Length: 1841
 --- !u!114 &8269947246948156798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1312,10 +1312,10 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Sonidos_Gerard.bank
   Name: Sonidos_Gerard
   StudioPath: bank:/Sonidos_Gerard
-  lastModified: 638532887311678619
+  lastModified: 638533740918937944
   FileSizes:
   - Name: Desktop
-    Value: 2458
+    Value: 3528
   Exists: 1
 --- !u!114 &8612007844373578919
 MonoBehaviour:
