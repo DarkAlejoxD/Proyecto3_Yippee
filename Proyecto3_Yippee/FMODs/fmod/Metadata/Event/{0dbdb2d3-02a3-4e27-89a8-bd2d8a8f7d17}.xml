@@ -11,7 +11,7 @@
 			<value>0</value>
 		</property>
 		<relationship name="folder">
-			<destination>{99bad060-89a2-4b18-9f15-be023e291182}</destination>
+			<destination>{146705a5-0f36-4571-82d8-21ee3b50f546}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{0a02c248-2ccd-4b0c-820b-de28d74038e4}</destination>
@@ -35,7 +35,7 @@
 			<destination>{ee21da25-793b-4c29-a59f-732a3290a53b}</destination>
 		</relationship>
 		<relationship name="banks">
-			<destination>{95924c97-54d1-48d3-aa7c-166a92641461}</destination>
+			<destination>{7dcd2b97-33c4-4e3f-a70b-e047ce65ccb3}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{0a02c248-2ccd-4b0c-820b-de28d74038e4}">
@@ -103,6 +103,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{22ff9a36-3581-4f7f-835d-a2226108d8b9}">
+		<property name="volume">
+			<value>-11</value>
+		</property>
 		<property name="name">
 			<value>Poltyergeist</value>
 		</property>
