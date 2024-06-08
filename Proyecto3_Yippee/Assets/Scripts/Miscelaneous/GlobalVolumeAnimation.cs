@@ -15,7 +15,9 @@ namespace Miscelaneous
         private ColorAdjustments _gvColorAdjust;
 
         [Header("Color Adjusment Control")]
-        [SerializeField] private ClampedFloatParameter _contrast;
+        [SerializeField, Range(-100, 100)] private float _contrast;
+
+        private Animator _animator;
 
         private ColorAdjustments GlobalColorAdjust
         {
@@ -30,13 +32,20 @@ namespace Miscelaneous
             }
         }
 
-        #endregion    
-
-        #region Unity Logic
-        private void Awake()
+        private Animator AnimController
         {
+            get
+            {
+                if (_animator == null)
+                    _animator = GetComponent<Animator>();
+
+                return _animator;
+            }
         }
 
+        #endregion    
+
+        #region Unity Logic //Dont Touch
         private void OnValidate()
         {
             UpdateGlobalVolumeValues();
@@ -44,22 +53,46 @@ namespace Miscelaneous
 
         private void Update()
         {
+            if (UpdateAnimatorValues())            
+                UpdateGlobalVolumeValues();            
+        }
+        #endregion
 
+        #region Animator Logic //Do touch
+        private bool UpdateAnimatorValues()
+        {
+            bool anyChange = false;            
+
+            const string CONTRAST_VALUE = "Contrast";
+
+            float lastContrastValue = AnimController.GetFloat(CONTRAST_VALUE);
+            if (lastContrastValue != _contrast)
+            {
+                AnimController.SetFloat(CONTRAST_VALUE, _contrast);
+                anyChange = true;
+            }
+
+            /*
+            const string ANIM_VALUE = "[Parameter name]";
+            float lastParamName = AnimController.GetFloat(ANIM_VALUE);
+            if (lastParamName != _newParam)
+            {
+                AnimController.SetFloat(ANIM_VALUE, _newParam);
+                anyChange = true;
+            }
+            */
+            return anyChange;
         }
 
         private void UpdateGlobalVolumeValues()
         {
-            if(GlobalColorAdjust != null)
+            if (GlobalColorAdjust != null)
             {
-            GlobalColorAdjust.contrast = new(10, -100, 100);
+                GlobalColorAdjust.contrast.Override(_contrast);
                 //Write some code here
             }
 
-        }
-
-        private void OnAnimatorIK(int layerIndex)
-        {
-            UpdateGlobalVolumeValues();
+            Debug.Log("Something Changed");
         }
         #endregion
     }
