@@ -150,6 +150,7 @@ namespace Tutorials
             PauseManager.SetCanPause(false);
 
             _timeControl = Time.time;
+            Time.timeScale = 0;
             //Debug.Log("ActivateTutorialCanavs");
         }
 
@@ -164,6 +165,7 @@ namespace Tutorials
 
             GameManager.GetGameManager().PlayerInstance?.UnBlockMovement();
             PauseManager.SetCanPause(true);
+            Time.timeScale = 1;
         }
 
         private void CheckTriggerUpdate()

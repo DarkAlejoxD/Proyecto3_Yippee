@@ -2782,6 +2782,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2105020267520349945}
+  - component: {fileID: 2953165912026316074}
   m_Layer: 5
   m_Name: SoundOptions
   m_TagString: Untagged
@@ -2811,6 +2812,20 @@ RectTransform:
   m_AnchoredPosition: {x: 58, y: -41}
   m_SizeDelta: {x: 490.2913, y: 263.3465}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &2953165912026316074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5396192652220099447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f3305a1c396d9647bbfd4d141644322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selected: {fileID: 1465247814155189810}
+  _eventSystem: {fileID: 0}
 --- !u!1 &5595429739401739372
 GameObject:
   m_ObjectHideFlags: 0
@@ -3593,6 +3608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: 9803fd465b588dd48a4e28f4997b9bc2, type: 2}
   _masterSlider: {fileID: 1933060185349583929}
+  _exitButton: {fileID: 3045014887923381233}
 --- !u!1001 &1465475558457762075
 PrefabInstance:
   m_ObjectHideFlags: 0

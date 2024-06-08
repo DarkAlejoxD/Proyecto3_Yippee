@@ -9,9 +9,7 @@ public class NavItem : MonoBehaviour
 
     [Header("Refereces")]
     [SerializeField] private GameObject _panel;
-    [SerializeField] private GameObject _select;
     [SerializeField] private Image _background;
-    [SerializeField] private EventSystem _eventSystem;
 
     [SerializeField] private Color _activeColor;
     [SerializeField] private Color _disabledColor;
@@ -41,7 +39,6 @@ public class NavItem : MonoBehaviour
     {
         _active = true;
         _background.color = _activeColor;
-        _eventSystem.SetSelectedGameObject(_select);
         _panel.SetActive(true);
     }
 
