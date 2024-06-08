@@ -11,7 +11,8 @@ namespace AudioController
         #region Fields
         [Header("References")]
         private AudioReferences _playerAudioData;
-        private List<EventInstance> _audioInstances;
+        private Dictionary<EventReference, EventInstance> _audioInstances = new();
+        private EventInstance? _currentAmbienceSound = null;
 
         public ISingleton<AudioManager> Instance => this;
         #endregion
@@ -68,10 +69,26 @@ namespace AudioController
             PlayOneShot(audioEvent, worldPos);
         }
 
+        public void CrossFadeMusic(EventReference eventRef, float time = 1)
+        {
+            EventInstance instance;
+
+            if (_audioInstances.ContainsKey(eventRef))
+                instance = _audioInstances[eventRef];
+            else
+                instance = CreateEventInstance(eventRef);
+
+            if (_currentAmbienceSound == null)
+            {
+                _currentAmbienceSound = instance;
+                _currentAmbienceSound.Value.start();
+            }
+        }
+
         public EventInstance CreateEventInstance(EventReference eventRef)
         {
             EventInstance eventInstance = RuntimeManager.CreateInstance(eventRef);
-            _audioInstances.Add(eventInstance);
+            _audioInstances.Add(eventRef, eventInstance);
             return eventInstance;
         }
 
@@ -93,12 +110,21 @@ namespace AudioController
             return CreateEventInstance(eventRef);
         }
 
-        public void RemoveInstance(EventInstance instance)
+        public bool CheckIfEventInstanceExists(EventReference eventRef)
         {
+            return _audioInstances.ContainsKey(eventRef);
+        }
+
+        public void RemoveInstance(EventReference eventRef)
+        {
+            if (!_audioInstances.ContainsKey(eventRef))
+                return;
+
+            EventInstance instance = _audioInstances[eventRef];
             instance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             instance.release();
-            if (_audioInstances.Contains(instance))
-                _audioInstances.Remove(instance);
+
+            _audioInstances.Remove(eventRef);
         }
         #endregion
 
@@ -107,8 +133,8 @@ namespace AudioController
         {
             foreach (var item in _audioInstances)
             {
-                item.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-                item.release();
+                item.Value.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                item.Value.release();
             }
         }
         #endregion
