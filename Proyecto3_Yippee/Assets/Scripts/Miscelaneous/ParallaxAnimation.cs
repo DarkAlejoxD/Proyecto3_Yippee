@@ -85,8 +85,6 @@ namespace Miscelaneous
             _skyboxMaterial.SetFloat(BLEND_VALUE, _blendFactor);
             _skyboxMaterial.SetFloat(EXPOSURE1_VALUE, _exposure1);
             _skyboxMaterial.SetFloat(EXPOSURE2_VALUE, _exposure2);
-
-            Debug.Log("Something Changed");
         }
         #endregion
     }

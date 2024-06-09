@@ -8,6 +8,8 @@ using static UtilsComplements.AsyncTimer;
 
 namespace AvatarController.PlayerFSM
 {
+    using AudioController;
+    using FMOD.Studio;
     using FSM;
 
     /// <summary>
@@ -47,6 +49,8 @@ namespace AvatarController.PlayerFSM
         private float _inputHandler;
         private float _timeControl;
 
+        private EventInstance? _polterStaySound;
+
         private Poltergeist_Item Item
         {
             get => _poltergeistController.Item;
@@ -69,6 +73,18 @@ namespace AvatarController.PlayerFSM
         public override void OnEnter()
         {
             base.OnEnter();
+
+            AudioManager.GetAudioManager().PlayOneShot(Database.Player, "POLTER_START",
+                                                       _playerController.transform.position);
+
+            if (_polterStaySound == null)
+                _polterStaySound = AudioManager.GetAudioManager().
+                    CreateEventInstance(Database.Player, "POLTER_STAY");
+
+            _playerController.StartCoroutine(TimerCoroutine(1, () =>
+            {
+                _polterStaySound.Value.start();
+            }));
 
             if (Anim)
                 Anim.SetBool(POLTER_ANIM_BOOL, true);
@@ -96,7 +112,6 @@ namespace AvatarController.PlayerFSM
             _playerController._polterFound = true;
             _poltManager.StartPoltergeist(_playerController.transform,
                                          Data.DefPoltValues.PoltergeistRadius);
-
         }
 
         public override void OnPlayerStay(InputValues inputs)
@@ -161,6 +176,15 @@ namespace AvatarController.PlayerFSM
         public override void OnExit()
         {
             base.OnExit();
+
+            _polterStaySound.Value.stop(STOP_MODE.ALLOWFADEOUT);
+
+            //_playerController.StartCoroutine(TimerCoroutine(1, () =>
+            {
+                AudioManager.GetAudioManager().PlayOneShot(Database.Player, "POLTER_EXIT",
+                                                           _playerController.transform.position);
+            }//));
+
             CameraPolter.DeactivatePolterMode();
             _playerController.EndPoltergeist();
             _poltManager.EndPoltergeist();

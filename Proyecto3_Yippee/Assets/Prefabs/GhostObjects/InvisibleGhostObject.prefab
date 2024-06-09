@@ -49,7 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _art: {fileID: 863035092228539115}
   _inversed: 0
-  _startColor: {r: 0.08627451, g: 0.11372549, b: 0.34901962, a: 0.5803922}
 --- !u!65 &7201467048872673990
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -83,6 +82,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: nubecita
+      objectReference: {fileID: 0}
+    - target: {fileID: 269330518772942561, guid: f0af6cc232744db4c98ecce2bd99bffd,
+        type: 3}
+      propertyPath: m_TagString
+      value: CLOUD
       objectReference: {fileID: 0}
     - target: {fileID: 645996077674290267, guid: f0af6cc232744db4c98ecce2bd99bffd,
         type: 3}

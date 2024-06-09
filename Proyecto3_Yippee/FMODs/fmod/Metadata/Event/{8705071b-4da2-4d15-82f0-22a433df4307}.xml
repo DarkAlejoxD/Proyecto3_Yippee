@@ -11,7 +11,7 @@
 			<value>2</value>
 		</property>
 		<relationship name="folder">
-			<destination>{de10db03-5e68-4d39-9234-eacdb1ff2bcb}</destination>
+			<destination>{146705a5-0f36-4571-82d8-21ee3b50f546}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{da54f5e5-62cc-4189-a387-d619f5d6d934}</destination>
@@ -96,13 +96,19 @@
 	<object class="MixerBusPanner" id="{a24aa9a1-7290-4569-9b7f-4b84fb0a396b}" />
 	<object class="SingleSound" id="{d0abe400-8946-4301-9f30-9683ad7970a2}">
 		<property name="length">
-			<value>1.9040362811791383</value>
+			<value>3.5</value>
+		</property>
+		<property name="timelockedOffset">
+			<value>0.5</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{c08e9cdd-f01d-4bc8-82ac-b07d92d9143a}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{69c921fa-1738-4ed4-86c2-80e1573c9063}">
+		<property name="volume">
+			<value>-13</value>
+		</property>
 		<property name="name">
 			<value>maleta cayendo</value>
 		</property>
@@ -138,10 +144,25 @@
 	<object class="MixerBusEffectChain" id="{a17b4467-7253-451a-aa67-d172d77b1e16}">
 		<relationship name="effects">
 			<destination>{e083d976-b149-4be1-9f32-9d819ee4298e}</destination>
+			<destination>{eb43e9a6-8d9f-4fe1-9954-82db55bf2e47}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{fa5a6856-bf36-499d-ac2d-106c565f0439}" />
 	<object class="MixerBusFader" id="{07f0c589-985b-41ee-bf3f-24db2009ddd4}" />
 	<object class="SpatialiserEffect" id="{96986ebe-9edd-4337-a6fe-073ccd24167a}" />
 	<object class="MixerBusFader" id="{e083d976-b149-4be1-9f32-9d819ee4298e}" />
+	<object class="SFXReverbEffect" id="{eb43e9a6-8d9f-4fe1-9954-82db55bf2e47}">
+		<property name="decayTime">
+			<value>4400</value>
+		</property>
+		<property name="lateDelay">
+			<value>71</value>
+		</property>
+		<property name="HFDecayRatio">
+			<value>68</value>
+		</property>
+		<property name="wetLevel">
+			<value>-0.5</value>
+		</property>
+	</object>
 </objects>

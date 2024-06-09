@@ -1,6 +1,6 @@
 using UnityEngine;
 using AudioController;
-using UtilsComplements;
+using AvatarController.Misc;
 
 namespace AvatarController.Animations
 {
@@ -8,6 +8,7 @@ namespace AvatarController.Animations
     {
         [Header("Player References")]
         [SerializeField] private PlayerController _player;
+        [SerializeField] private FootDetection _foot;
 
         [Header("Step References")]
         [SerializeField] private ParticleSystem _stepsSmoke;
@@ -34,9 +35,27 @@ namespace AvatarController.Animations
             float maxSpeed = _player.DataContainer.DefaultMovement.MaxSpeed;
             float minSpeedPct = Mathf.Lerp(minSpeed, maxSpeed, _stepSpeedThreshold);
 
+            string stepType;
+
+            switch (_foot.FloorType)
+            {
+                case FloorType.METAL:
+                    stepType = "STEP_METAL";
+                    break;
+                case FloorType.CARPET:
+                    stepType = "STEP_CARPET";
+                    break;
+                case FloorType.CLOUD:
+                    stepType = "STEP_CLOUD";
+                    break;
+                default:
+                    stepType = "STEP_WOOD";
+                    break;
+            }
+
             if (current > minSpeedPct)
             {
-                PlayOneShot(Database.Player, "STEP", transform.position);
+                PlayOneShot(Database.Player, stepType, transform.position);
                 _stepsSmoke.Play();
             }
             else
@@ -71,5 +90,13 @@ namespace AvatarController.Animations
             AudioManager.GetAudioManager().PlayOneShot(database, name, position);
         }
         #endregion
+    }
+
+    public enum FloorType
+    {
+        WOODY,
+        METAL,
+        CARPET,
+        CLOUD
     }
 }

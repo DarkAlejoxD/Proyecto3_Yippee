@@ -8,7 +8,7 @@ namespace AvatarController.Misc
         #region Fields
         [Header("References")]
         [SerializeField] private PlayerController _controller;
-        [SerializeField] private LayerMask _slipperyLayers;
+        [SerializeField] private LayerMask _slipperyLayers;        
         [SerializeField, Range(0, 0.5f)] private float _slipperyThreshold;
         private Collider _collider;
 
@@ -31,6 +31,9 @@ namespace AvatarController.Misc
                     return;
                 AddForce(col);
             }
+
+            Ray ray = new(transform.position, Vector3.down);
+
 
             //Debug.Log(Camera.main.WorldToViewportPoint(_collider.transform.position));
         }
@@ -85,5 +88,7 @@ namespace AvatarController.Misc
             }
         }
         #endregion
+
+        
     }
 }

@@ -13,14 +13,38 @@ MonoBehaviour:
   m_Name: PlayerAudioData
   m_EditorClassIdentifier: 
   _audioFiles:
-  - Name: STEP
+  - Name: STEP_METAL
+    Event:
+      Guid:
+        Data1: 695373031
+        Data2: 1116393387
+        Data3: -2118456392
+        Data4: 248940137
+      Path: event:/SONIDOS FINALES/Pasos metal_Gerard
+  - Name: STEP_CARPET
+    Event:
+      Guid:
+        Data1: -1135621671
+        Data2: 1303477953
+        Data3: 148661915
+        Data4: 739499419
+      Path: event:/SONIDOS FINALES/Pasos maleta_Gerard
+  - Name: STEP_CLOUD
+    Event:
+      Guid:
+        Data1: 523252124
+        Data2: 1164417981
+        Data3: 1986426774
+        Data4: -1346921192
+      Path: event:/SONIDOS FINALES/Paso nube
+  - Name: STEP_WOOD
     Event:
       Guid:
         Data1: -152139441
         Data2: 1089866502
         Data3: -1461152379
         Data4: 579065501
-      Path: event:/CHIARA/ANDAR/Pasos_Gerard
+      Path: event:/SONIDOS FINALES/Pasos_Gerard
   - Name: FALL_HIT
     Event:
       Guid:
@@ -32,8 +56,32 @@ MonoBehaviour:
   - Name: JUMP
     Event:
       Guid:
-        Data1: 888737182
-        Data2: 1230244826
-        Data3: 1784704926
-        Data4: -883992690
-      Path: event:/CHIARA/IMPULSO/Madera
+        Data1: 211280367
+        Data2: 1235153051
+        Data3: -2060072318
+        Data4: -795588365
+      Path: event:/SONIDOS FINALES/Impulso
+  - Name: POLTER_START
+    Event:
+      Guid:
+        Data1: -727954449
+        Data2: 1243919838
+        Data3: -43052619
+        Data4: 1263721203
+      Path: event:/SONIDOS FINALES/Entrar del modo poltergeist
+  - Name: POLTER_STAY
+    Event:
+      Guid:
+        Data1: 230535891
+        Data2: 1311179427
+        Data3: 767404169
+        Data4: 394104714
+      Path: event:/SONIDOS FINALES/Poltergeist
+  - Name: POLTER_EXIT
+    Event:
+      Guid:
+        Data1: 1786329275
+        Data2: 1170624024
+        Data3: 1227366828
+        Data4: 14726954
+      Path: event:/SONIDOS FINALES/Salir del modo poltergeist

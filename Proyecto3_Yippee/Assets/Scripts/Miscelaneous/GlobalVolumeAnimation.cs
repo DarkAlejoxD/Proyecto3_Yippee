@@ -5,6 +5,18 @@ using UnityEngine.Rendering.Universal;
 
 namespace Miscelaneous
 {
+    /// <summary>
+    /// 1. Añadir la variable reflejo en el script para que se muestre en el inspector.
+    /// 2. Crear referencia al subapartado del perfil del Volume. (Variable)
+    /// 3. Crear Propiedad para obtenerlo y que no sea nulo. (Comprobación de Variable)
+    /// 4. Crear reflejo de variable en el Animator.
+    /// 
+    /// 5. Añadir logica en UpdateAninator()
+    /// 6. Añadir logica en el GLobalVopmueUpdate().
+    /// 7. Testear que al tocar la variable en el script, se vea reflejado en el volumen.
+    /// 
+    /// 8. Hacer la animacion
+    /// </summary>
     [ExecuteAlways]
     [RequireComponent(typeof(Animator))]
     public class GlobalVolumeAnimation : MonoBehaviour
@@ -13,10 +25,20 @@ namespace Miscelaneous
         [Header("Global Volume")]
         [SerializeField] private Volume _globalVolume;
         private ColorAdjustments _gvColorAdjust;
+        private DepthOfField _gvDepthOfField;
+        //private DepthOfField _gvDepthOfField;
 
         [Header("Color Adjusment Control")]
         [SerializeField, Range(-100, 100)] private float _contrast;
 
+        [Header("Focal Lenght")] // Min(1) or Max(1)
+        [SerializeField, Range(1f, 100)] private float _focalLength =40;
+        [SerializeField, Range(1f, 100)] private float _focusDistance =40;
+
+        /*
+        [Header("[NAME] Control")]
+        [SerializeField, Range(-100, 100)] private float _contrast;
+        */
         private Animator _animator;
 
         private ColorAdjustments GlobalColorAdjust
@@ -27,8 +49,25 @@ namespace Miscelaneous
                 {
                     if (_globalVolume.profile.TryGet(out _gvColorAdjust))
                         return _gvColorAdjust;
+                    else
+                        return null;
                 }
                 return _gvColorAdjust;
+            }
+        }
+
+        private DepthOfField DepthOfFieldControl
+        {
+            get
+            {
+                if (_gvDepthOfField == null)
+                {
+                    if (_globalVolume.profile.TryGet(out _gvDepthOfField))
+                        return _gvDepthOfField;
+                    else
+                        return null;
+                }
+                return _gvDepthOfField;
             }
         }
 
@@ -61,7 +100,10 @@ namespace Miscelaneous
         #region Animator Logic //Do touch
         private bool UpdateAnimatorValues()
         {
-            bool anyChange = false;            
+            bool anyChange = false;    
+            //*******************
+
+
 
             const string CONTRAST_VALUE = "Contrast";
 
@@ -72,6 +114,14 @@ namespace Miscelaneous
                 anyChange = true;
             }
 
+            const string DEPTH_FIELD_VALUE = "DepthField";
+
+            float lastDepthField = AnimController.GetFloat(DEPTH_FIELD_VALUE);
+            if (lastDepthField != _focalLength)
+            {
+                AnimController.SetFloat(CONTRAST_VALUE, _contrast);
+                anyChange = true;
+            }
             /*
             const string ANIM_VALUE = "[Parameter name]";
             float lastParamName = AnimController.GetFloat(ANIM_VALUE);
@@ -81,6 +131,9 @@ namespace Miscelaneous
                 anyChange = true;
             }
             */
+
+
+            //********************
             return anyChange;
         }
 
@@ -90,6 +143,12 @@ namespace Miscelaneous
             {
                 GlobalColorAdjust.contrast.Override(_contrast);
                 //Write some code here
+            }
+
+            if (DepthOfFieldControl != null)
+            {
+                DepthOfFieldControl.focalLength.Override(_focalLength);
+                DepthOfFieldControl.focusDistance.Override(_focusDistance);
             }
 
             Debug.Log("Something Changed");
