@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638535629495132400
+  lastModified: 638535512706973730
   FileSizes:
   - Name: Desktop
     Value: 3592
@@ -74,6 +74,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 929410
+--- !u!114 &-7614065205112226684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/VAGON/poltergeist 2
+  m_EditorClassIdentifier: 
+  Path: event:/VAGON/poltergeist 2
+  Guid:
+    Data1: -1875685639
+    Data2: 1280175367
+    Data3: -803961693
+    Data4: 2134591351
+  Banks:
+  - {fileID: -4470350354421804214}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 25854
 --- !u!114 &-7549738739406920131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +170,7 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638534960177096887
+  lastModified: 638535502161292968
   FileSizes:
   - Name: Desktop
     Value: 40420
@@ -244,10 +271,10 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Sonidos_Camilo.assets.bank
   Name: Sonidos_Camilo.assets
   StudioPath: bank:/Sonidos_Camilo.assets
-  lastModified: 638534926992666755
+  lastModified: 638535502208903803
   FileSizes:
   - Name: Desktop
-    Value: 332864
+    Value: 521184
   Exists: 1
 --- !u!114 &-6569767874601422422
 MonoBehaviour:
@@ -480,10 +507,10 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Sonidos_Camilo.bank
   Name: Sonidos_Camilo
   StudioPath: bank:/Sonidos_Camilo
-  lastModified: 638534926992413002
+  lastModified: 638535502208689700
   FileSizes:
   - Name: Desktop
-    Value: 8934
+    Value: 12520
   Exists: 1
 --- !u!114 &-4167025274107754384
 MonoBehaviour:
@@ -856,12 +883,13 @@ MonoBehaviour:
   - {fileID: -4617934868756082000}
   - {fileID: -4619419607902573183}
   - {fileID: 5801801416308392629}
+  - {fileID: -7614065205112226684}
   EditorParameters: []
   MasterBanks:
   - {fileID: -7305167286931888775}
   StringsBanks:
   - {fileID: -9154328947442167584}
-  cacheTime: 638535629495132400
+  cacheTime: 638535512706973730
   cacheVersion: 131609
 --- !u!114 &114327667338995835
 MonoBehaviour:
@@ -1364,7 +1392,7 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Sonidos_Gerard.assets.bank
   Name: Sonidos_Gerard.assets
   StudioPath: bank:/Sonidos_Gerard.assets
-  lastModified: 638534946239084410
+  lastModified: 638535502213487559
   FileSizes:
   - Name: Desktop
     Value: 1150784
@@ -1411,7 +1439,7 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Master.assets.bank
   Name: Master.assets
   StudioPath: bank:/Master.assets
-  lastModified: 638534901848274551
+  lastModified: 638535502208390712
   FileSizes:
   - Name: Desktop
     Value: 17715392
@@ -1620,7 +1648,7 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Sonidos_Gerard.bank
   Name: Sonidos_Gerard
   StudioPath: bank:/Sonidos_Gerard
-  lastModified: 638534946238551642
+  lastModified: 638535502209413965
   FileSizes:
   - Name: Desktop
     Value: 25082
