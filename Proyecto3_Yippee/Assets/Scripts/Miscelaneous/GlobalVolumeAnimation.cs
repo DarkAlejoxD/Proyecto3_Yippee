@@ -35,8 +35,9 @@ namespace Miscelaneous
 
 
         [Header("Focal Lenght")] // Min(1) or Max(1)
+        [SerializeField, Range(0.5f, 100)] private float _focusDistance =0.86f;
         [SerializeField, Range(1f, 100)] private float _focalLength =40;
-        [SerializeField, Range(1f, 100)] private float _focusDistance =40;
+        
 
         /*
         [Header("[NAME] Control")]
