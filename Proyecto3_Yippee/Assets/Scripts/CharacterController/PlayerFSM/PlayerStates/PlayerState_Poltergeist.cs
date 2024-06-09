@@ -112,7 +112,6 @@ namespace AvatarController.PlayerFSM
             _playerController._polterFound = true;
             _poltManager.StartPoltergeist(_playerController.transform,
                                          Data.DefPoltValues.PoltergeistRadius);
-
         }
 
         public override void OnPlayerStay(InputValues inputs)
