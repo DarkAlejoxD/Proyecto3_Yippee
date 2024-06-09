@@ -1,3 +1,5 @@
+using AudioController;
+using FMOD.Studio;
 using System;
 using UnityEngine;
 using UtilsComplements;
@@ -22,6 +24,8 @@ namespace GhostView
         public static Action<Vector3, float> OnActivateGhostView;
         public static Action OnActivate;
         public static Action OnDeactivate;
+
+        private EventInstance? _ghostModeAudio;
 
         public GhostValues _values;
         public static GhostValues Values
@@ -54,10 +58,18 @@ namespace GhostView
         #region Public Methods
         public void ActivateGhostView(Vector3 origin, float radius)
         {
+            if (_ghostModeAudio == null)
+                _ghostModeAudio = AudioManager.GetAudioManager().CreateEventInstance(Database.Player, "GhostMode");
+
+            _ghostModeAudio.Value.start();
             OnActivateGhostView?.Invoke(origin, radius);
             OnActivate?.Invoke();
             StartCoroutine(TimerCoroutine(_values.AppearTime + _values.Staytime,
-                () => { OnDeactivate?.Invoke(); }));
+                () =>
+                {
+                    OnDeactivate?.Invoke();
+                    _ghostModeAudio.Value.stop(STOP_MODE.ALLOWFADEOUT);
+                }));
         }
         #endregion
     }

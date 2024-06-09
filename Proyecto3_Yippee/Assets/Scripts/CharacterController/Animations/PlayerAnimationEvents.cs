@@ -36,7 +36,7 @@ namespace AvatarController.Animations
             float minSpeedPct = Mathf.Lerp(minSpeed, maxSpeed, _stepSpeedThreshold);
 
             string stepType;
-
+            Debug.Log("FloorType: " + _foot.FloorType);
             switch (_foot.FloorType)
             {
                 case FloorType.METAL:
@@ -74,13 +74,18 @@ namespace AvatarController.Animations
         public void Jump()
         {
             _jumpSmoke.transform.position = _jumpPivot.position;
-            PlayOneShot(Database.Player, "JUMP", transform.position);
+            //PlayOneShot(Database.Player, "JUMP", transform.position);
             _jumpSmoke.Emit(_jumpParticlesCount);
         }
 
         public void FallHit()
         {
             PlayOneShot(Database.Player, "FALL_HIT", transform.position);
+        }
+
+        public void Frontflip()
+        {
+            PlayOneShot(Database.Player, "FRONTFLIP", transform.position);
         }
         #endregion
 
@@ -89,6 +94,7 @@ namespace AvatarController.Animations
         {
             AudioManager.GetAudioManager().PlayOneShot(database, name, position);
         }
+
         #endregion
     }
 

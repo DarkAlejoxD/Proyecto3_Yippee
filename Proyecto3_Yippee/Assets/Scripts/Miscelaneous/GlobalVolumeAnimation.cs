@@ -11,7 +11,7 @@ namespace Miscelaneous
     /// 3. Crear Propiedad para obtenerlo y que no sea nulo. (Comprobación de Variable)
     /// 4. Crear reflejo de variable en el Animator.
     /// 
-    /// 5. Añadir logica en UpdateAninator()
+    /// 5. Añadir logica en UpdateAnimator()
     /// 6. Añadir logica en el GLobalVopmueUpdate().
     /// 7. Testear que al tocar la variable en el script, se vea reflejado en el volumen.
     /// 
@@ -30,10 +30,14 @@ namespace Miscelaneous
 
         [Header("Color Adjusment Control")]
         [SerializeField, Range(-100, 100)] private float _contrast;
+        [SerializeField, Range(-10, 10)] private float _postexposure = 0;
+        [SerializeField, Range(-100, 15)] private float _saturation = 10;
+
 
         [Header("Focal Lenght")] // Min(1) or Max(1)
+        [SerializeField, Range(0.5f, 100)] private float _focusDistance =0.86f;
         [SerializeField, Range(1f, 100)] private float _focalLength =40;
-        [SerializeField, Range(1f, 100)] private float _focusDistance =40;
+        
 
         /*
         [Header("[NAME] Control")]
@@ -100,10 +104,17 @@ namespace Miscelaneous
         #region Animator Logic //Do touch
         private bool UpdateAnimatorValues()
         {
-            bool anyChange = false;    
+            bool anyChange = false;
             //*******************
 
+            const string POSTEXPOSURE_VALUE = "PostExposure";
 
+            float lastPostExposure = AnimController.GetFloat(POSTEXPOSURE_VALUE);
+            if (lastPostExposure != _postexposure)
+            {
+                AnimController.SetFloat(POSTEXPOSURE_VALUE, _postexposure);
+                anyChange = true;
+            }
 
             const string CONTRAST_VALUE = "Contrast";
 
@@ -114,12 +125,30 @@ namespace Miscelaneous
                 anyChange = true;
             }
 
+            const string SATURATION_VALUE = "Saturation";
+
+            float saturationValue = AnimController.GetFloat(SATURATION_VALUE);
+            if (lastContrastValue != _saturation)
+            {
+                AnimController.SetFloat(SATURATION_VALUE, _saturation);
+                anyChange = true;
+            }
+
             const string DEPTH_FIELD_VALUE = "DepthField";
 
             float lastDepthField = AnimController.GetFloat(DEPTH_FIELD_VALUE);
             if (lastDepthField != _focalLength)
             {
-                AnimController.SetFloat(CONTRAST_VALUE, _contrast);
+                AnimController.SetFloat(DEPTH_FIELD_VALUE, _focalLength);
+                anyChange = true;
+            }
+
+            const string FOCUS_DISTANCE_VALUE = "FocusDistance";
+
+            float focusDistance = AnimController.GetFloat(FOCUS_DISTANCE_VALUE);
+            if (lastDepthField != _focusDistance)
+            {
+                AnimController.SetFloat(FOCUS_DISTANCE_VALUE, _focusDistance);
                 anyChange = true;
             }
             /*
@@ -142,6 +171,8 @@ namespace Miscelaneous
             if (GlobalColorAdjust != null)
             {
                 GlobalColorAdjust.contrast.Override(_contrast);
+                GlobalColorAdjust.postExposure.Override(_postexposure);
+                GlobalColorAdjust.saturation.Override(_saturation);
                 //Write some code here
             }
 
@@ -151,7 +182,7 @@ namespace Miscelaneous
                 DepthOfFieldControl.focusDistance.Override(_focusDistance);
             }
 
-            Debug.Log("Something Changed");
+            //Debug.Log("Something Changed");
         }
         #endregion
     }
