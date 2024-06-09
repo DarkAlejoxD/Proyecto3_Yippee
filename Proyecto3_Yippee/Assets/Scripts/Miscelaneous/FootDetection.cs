@@ -17,9 +17,9 @@ namespace AvatarController.Misc
 
         private void Update()
         {
-            Ray ray = new(transform.position, Vector3.down);
+            Ray ray = new(transform.position + Vector3.up * _detectionDistance, Vector3.down);
 
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, _detectionDistance, _floorsLayers))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, _detectionDistance * 2, _floorsLayers))
             {
                 if (hitInfo.collider.CompareTag("WOOD"))
                 {
@@ -44,6 +44,10 @@ namespace AvatarController.Misc
                     FloorType = FloorType.CLOUD;
                     return;
                 }
+            }
+            else
+            {
+                FloorType = FloorType.WOODY;
             }
         }
 

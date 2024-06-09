@@ -2,6 +2,7 @@
 using AvatarController.Data;
 using UtilsComplements.Editor;
 using AvatarController.LedgeGrabbing;
+using AudioController;
 
 namespace AvatarController
 {
@@ -137,6 +138,8 @@ namespace AvatarController
                 else
                     _controller.ThisAnimator.SetTrigger(ANIM_JUMP_TRIGGER);
             }
+
+            AudioManager.GetAudioManager().PlayOneShot(Database.Player, "JUMP", transform.position);
 
             #region DEBUG
 #if UNITY_EDITOR

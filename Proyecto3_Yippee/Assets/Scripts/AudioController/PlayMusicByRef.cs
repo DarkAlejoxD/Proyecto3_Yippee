@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using FMODUnity;
+using FMOD.Studio;
 
 namespace AudioController
 {

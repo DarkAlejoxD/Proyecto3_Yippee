@@ -8,7 +8,7 @@
 			<value>Stinger Alma</value>
 		</property>
 		<property name="outputFormat">
-			<value>2</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{146705a5-0f36-4571-82d8-21ee3b50f546}</destination>
@@ -130,7 +130,6 @@
 	<object class="MixerBusEffectChain" id="{1a26f1ef-4a56-432c-b868-74d8308cb16d}">
 		<relationship name="effects">
 			<destination>{dac73068-435d-4d16-bcc0-edb4b84bd285}</destination>
-			<destination>{a06e3197-4072-4894-8089-122c67bf8afe}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{380bd421-fcde-46ce-b38b-b85c85159ab2}" />
@@ -143,7 +142,6 @@
 	</object>
 	<object class="MixerBusPanner" id="{57dd2ded-aeb4-4546-89ae-7de1a4cbae2c}" />
 	<object class="MixerBusFader" id="{dac73068-435d-4d16-bcc0-edb4b84bd285}" />
-	<object class="SpatialiserEffect" id="{a06e3197-4072-4894-8089-122c67bf8afe}" />
 	<object class="SFXReverbEffect" id="{bdf51961-d919-4f20-90a8-3ec3810e7a39}">
 		<property name="decayTime">
 			<value>5500</value>

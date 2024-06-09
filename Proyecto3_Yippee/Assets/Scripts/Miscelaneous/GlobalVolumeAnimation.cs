@@ -26,7 +26,6 @@ namespace Miscelaneous
         [SerializeField] private Volume _globalVolume;
         private ColorAdjustments _gvColorAdjust;
         private DepthOfField _gvDepthOfField;
-        private Tonemapping _gvToneMapping;
         //private DepthOfField _gvDepthOfField;
 
         [Header("Color Adjusment Control")]
@@ -38,10 +37,7 @@ namespace Miscelaneous
         [Header("Focal Lenght")] // Min(1) or Max(1)
         [SerializeField, Range(0.5f, 100)] private float _focusDistance =0.86f;
         [SerializeField, Range(1f, 100)] private float _focalLength =40;
-
-        [Header("Tonemapping")] // Min(1) or Max(1)
-        [SerializeField] private bool _tonemappingmode = true;
-
+        
 
         /*
         [Header("[NAME] Control")]
@@ -76,21 +72,6 @@ namespace Miscelaneous
                         return null;
                 }
                 return _gvDepthOfField;
-            }
-        }
-
-        private Tonemapping TonemappingControl
-        {
-            get
-            {
-                if (_gvToneMapping == null)
-                {
-                    if (_globalVolume.profile.TryGet(out _gvToneMapping))
-                        return _gvToneMapping;
-                    else
-                        return null;
-                }
-                return _gvToneMapping;
             }
         }
 
@@ -165,21 +146,11 @@ namespace Miscelaneous
             const string FOCUS_DISTANCE_VALUE = "FocusDistance";
 
             float focusDistance = AnimController.GetFloat(FOCUS_DISTANCE_VALUE);
-            if (focusDistance != _focusDistance)
+            if (lastDepthField != _focusDistance)
             {
                 AnimController.SetFloat(FOCUS_DISTANCE_VALUE, _focusDistance);
                 anyChange = true;
             }
-
-            const string TONEMAPPING_MODE = "ToneMaping";
-
-            bool tonemappingmode = AnimController.GetBool(TONEMAPPING_MODE);
-            if (tonemappingmode != _tonemappingmode)
-            {
-                AnimController.SetBool(TONEMAPPING_MODE, _tonemappingmode);
-                anyChange = true;
-            }
-
             /*
             const string ANIM_VALUE = "[Parameter name]";
             float lastParamName = AnimController.GetFloat(ANIM_VALUE);
@@ -211,13 +182,7 @@ namespace Miscelaneous
                 DepthOfFieldControl.focusDistance.Override(_focusDistance);
             }
 
-            if (TonemappingControl != null)
-            {
-                TonemappingControl.active = _tonemappingmode;
-                TonemappingControl.mode.Override(TonemappingMode.ACES);
-            }
-
-            Debug.Log("Something Changed");
+            //Debug.Log("Something Changed");
         }
         #endregion
     }

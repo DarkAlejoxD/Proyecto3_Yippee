@@ -275,7 +275,7 @@ namespace AvatarController
 
             _playerFSM.SetRoot(PlayerStates.OnGround, new PlayerState_DefaultMovement(this));
             _playerFSM.AddState(PlayerStates.OnlyMove, new PlayerState_OnlyMove(this));
-            Debug.Log("a");
+            //Debug.Log("a");
             _playerFSM.AddState(PlayerStates.OnAir, new PlayerState_OnAir(this));
             _playerFSM.AddState(PlayerStates.Grabbing, new PlayerState_Grabbing(this));
             _playerFSM.AddState(PlayerStates.OnDive, new PlayerState_OnDive(this));

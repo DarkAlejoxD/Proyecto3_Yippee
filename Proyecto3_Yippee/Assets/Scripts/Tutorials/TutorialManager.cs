@@ -4,6 +4,7 @@ using UnityEngine;
 using BaseGame;
 using InputController;
 using UtilsComplements;
+using AudioController;
 
 namespace Tutorials
 {
@@ -156,6 +157,11 @@ namespace Tutorials
             PauseManager.SetCanPause(false);
 
             _timeControl = Time.time;
+
+            AudioManager.GetAudioManager().PlayOneShot(Database.Player, "STINGER",
+                                                       transform.position);
+            AudioManager.GetAudioManager().PlayOneShot(Database.Player, "HMM",
+                                                       transform.position);
             //Debug.Log("ActivateTutorialCanavs");
         }
 
@@ -195,12 +201,14 @@ namespace Tutorials
 
                         _polter2KeyRef.SetActive(true);
                         _polter2ConRef.SetActive(true);
+                        _timeControl = Time.time;
                         break;
                     case 2:
                         _controlIndex = 3;
 
                         _polter2KeyRef.gameObject.SetActive(false);
                         _polter2ConRef.gameObject.SetActive(false);
+                        _timeControl = Time.time;
 
                         if (_controlStyle == ControllerStyle.Keyboard)
                             _polter3KeyRef.SetActive(true);
@@ -229,7 +237,7 @@ namespace Tutorials
                         bool triggered = _menuInputs.Tutorials.GamepadHandler.WasPressedThisFrame();
                         if (triggered)
                         {
-                        Debug.Log("Gamepad DEtected");
+                            Debug.Log("Gamepad DEtected");
                             _controlStyle = ControllerStyle.Gamepad;
                             ChangeInputStyle();
                         }

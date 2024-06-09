@@ -1,6 +1,5 @@
 using AudioController;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine.UI;
 
 using UnityEngine;
@@ -46,6 +45,7 @@ namespace BaseGame
         #region Private Methods
         private IEnumerator DeadCoroutine()
         {
+            AudioManager.GetAudioManager().PlayOneShot(Database.Player, "DEAD", transform.position);
             Singleton.GetSingleton<FakeTransparenceControl>()?.SphereMeshSetActive(false);
             Color color = _image.color;
             color.a = 0;
