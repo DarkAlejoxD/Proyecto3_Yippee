@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638535659630389987
+  lastModified: 638535512706973730
   FileSizes:
   - Name: Desktop
     Value: 3592
@@ -74,6 +74,87 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 929410
+--- !u!114 &-7614065205112226684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/VAGON/poltergeist 2
+  m_EditorClassIdentifier: 
+  Path: event:/VAGON/poltergeist 2
+  Guid:
+    Data1: -1875685639
+    Data2: 1280175367
+    Data3: -803961693
+    Data4: 2134591351
+  Banks:
+  - {fileID: -4470350354421804214}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 25854
+--- !u!114 &-7549738739406920131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SONIDOS FINALES/Stinger Alma
+  m_EditorClassIdentifier: 
+  Path: event:/SONIDOS FINALES/Stinger Alma
+  Guid:
+    Data1: -1730474141
+    Data2: 1338825528
+    Data3: -454643791
+    Data4: 659037726
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 8000
+--- !u!114 &-7413445325954595667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SONIDOS FINALES/Ventana abrir
+  m_EditorClassIdentifier: 
+  Path: event:/SONIDOS FINALES/Ventana abrir
+  Guid:
+    Data1: -1292163866
+    Data2: 1130361813
+    Data3: -1437820234
+    Data4: -1488221055
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &-7305167286931888775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,7 +170,7 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638535157129013862
+  lastModified: 638535502161292968
   FileSizes:
   - Name: Desktop
     Value: 40420
@@ -190,11 +271,38 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Sonidos_Camilo.assets.bank
   Name: Sonidos_Camilo.assets
   StudioPath: bank:/Sonidos_Camilo.assets
-  lastModified: 638533731900271143
+  lastModified: 638535502208903803
   FileSizes:
   - Name: Desktop
-    Value: 332864
+    Value: 521184
   Exists: 1
+--- !u!114 &-6569767874601422422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SONIDOS FINALES/Door-Slam
+  m_EditorClassIdentifier: 
+  Path: event:/SONIDOS FINALES/Door-Slam
+  Guid:
+    Data1: 1746161419
+    Data2: 1245721911
+    Data3: -2103804794
+    Data4: -1167679143
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3253
 --- !u!114 &-6367427498119331789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +330,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2487
+--- !u!114 &-6043554858299975909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SONIDOS FINALES/Paso nube
+  m_EditorClassIdentifier: 
+  Path: event:/SONIDOS FINALES/Paso nube
+  Guid:
+    Data1: 523252124
+    Data2: 1164417981
+    Data3: 1986426774
+    Data4: -1346921192
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
+--- !u!114 &-5924437733388961631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SONIDOS FINALES/Salir del modo poltergeist
+  m_EditorClassIdentifier: 
+  Path: event:/SONIDOS FINALES/Salir del modo poltergeist
+  Guid:
+    Data1: 1786329275
+    Data2: 1170624024
+    Data3: 1227366828
+    Data4: 14726954
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3564
 --- !u!114 &-4766978605095823753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +411,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 126538
+--- !u!114 &-4619419607902573183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SONIDOS FINALES/Entrar del modo poltergeist
+  m_EditorClassIdentifier: 
+  Path: event:/SONIDOS FINALES/Entrar del modo poltergeist
+  Guid:
+    Data1: -727954449
+    Data2: 1243919838
+    Data3: -43052619
+    Data4: 1263721203
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5063
+--- !u!114 &-4617934868756082000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SONIDOS FINALES/Pasos metal_Gerard
+  m_EditorClassIdentifier: 
+  Path: event:/SONIDOS FINALES/Pasos metal_Gerard
+  Guid:
+    Data1: 695373031
+    Data2: 1116393387
+    Data3: -2118456392
+    Data4: 248940137
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 253
 --- !u!114 &-4614758919431006077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,11 +507,38 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Sonidos_Camilo.bank
   Name: Sonidos_Camilo
   StudioPath: bank:/Sonidos_Camilo
-  lastModified: 638533731895673720
+  lastModified: 638535502208689700
   FileSizes:
   - Name: Desktop
-    Value: 8934
+    Value: 12520
   Exists: 1
+--- !u!114 &-4167025274107754384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SONIDOS FINALES/Lampara Cayendo
+  m_EditorClassIdentifier: 
+  Path: event:/SONIDOS FINALES/Lampara Cayendo
+  Guid:
+    Data1: 1599278489
+    Data2: 1215682623
+    Data3: 1430762408
+    Data4: 1912232563
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 7073
 --- !u!114 &-4107272735059539957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,6 +566,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 126538
+--- !u!114 &-3993322293475716790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SONIDOS FINALES/Botella rodando
+  m_EditorClassIdentifier: 
+  Path: event:/SONIDOS FINALES/Botella rodando
+  Guid:
+    Data1: -948657461
+    Data2: 1228464485
+    Data3: -447515716
+    Data4: -771231567
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 9.6
+  Length: 3625
+--- !u!114 &-3936679576111528642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: "event:/SONIDOS FINALES/\xD1ec-\xD1ec"
+  m_EditorClassIdentifier: 
+  Path: "event:/SONIDOS FINALES/\xD1ec-\xD1ec"
+  Guid:
+    Data1: 1315121469
+    Data2: 1336725718
+    Data3: -1719947870
+    Data4: -1262715357
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2250
 --- !u!114 &-3719634820421054834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,12 +869,27 @@ MonoBehaviour:
   - {fileID: 1851888010903253173}
   - {fileID: -3184055547932663020}
   - {fileID: -507552105818540550}
+  - {fileID: -6569767874601422422}
+  - {fileID: -3936679576111528642}
+  - {fileID: -7549738739406920131}
+  - {fileID: 4531873482617202610}
+  - {fileID: -4167025274107754384}
+  - {fileID: -6043554858299975909}
+  - {fileID: -5924437733388961631}
+  - {fileID: -3993322293475716790}
+  - {fileID: 1637687424808942956}
+  - {fileID: 4661181987371702999}
+  - {fileID: -7413445325954595667}
+  - {fileID: -4617934868756082000}
+  - {fileID: -4619419607902573183}
+  - {fileID: 5801801416308392629}
+  - {fileID: -7614065205112226684}
   EditorParameters: []
   MasterBanks:
   - {fileID: -7305167286931888775}
   StringsBanks:
   - {fileID: -9154328947442167584}
-  cacheTime: 638535659630389987
+  cacheTime: 638535512706973730
   cacheVersion: 131609
 --- !u!114 &114327667338995835
 MonoBehaviour:
@@ -660,6 +972,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4040
+--- !u!114 &1637687424808942956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SONIDOS FINALES/Poltergeist
+  m_EditorClassIdentifier: 
+  Path: event:/SONIDOS FINALES/Poltergeist
+  Guid:
+    Data1: 230535891
+    Data2: 1311179427
+    Data3: 767404169
+    Data4: 394104714
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 25854
 --- !u!114 &1851888010903253173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -876,6 +1215,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 8222
+--- !u!114 &4531873482617202610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SONIDOS FINALES/maleta cayendo con madera
+  m_EditorClassIdentifier: 
+  Path: event:/SONIDOS FINALES/maleta cayendo con madera
+  Guid:
+    Data1: -2033747596
+    Data2: 1134026581
+    Data3: -971819898
+    Data4: 723003537
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2466
+--- !u!114 &4661181987371702999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SONIDOS FINALES/Pasos maleta_Gerard
+  m_EditorClassIdentifier: 
+  Path: event:/SONIDOS FINALES/Pasos maleta_Gerard
+  Guid:
+    Data1: -1135621671
+    Data2: 1303477953
+    Data3: 148661915
+    Data4: 739499419
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 406
 --- !u!114 &4811052174051041529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -957,6 +1350,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 42198
+--- !u!114 &5801801416308392629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SONIDOS FINALES/Impulso
+  m_EditorClassIdentifier: 
+  Path: event:/SONIDOS FINALES/Impulso
+  Guid:
+    Data1: 211280367
+    Data2: 1235153051
+    Data3: -2060072318
+    Data4: -795588365
+  Banks:
+  - {fileID: 8484751595707647245}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 187
 --- !u!114 &5983155238584476866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -972,10 +1392,10 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Sonidos_Gerard.assets.bank
   Name: Sonidos_Gerard.assets
   StudioPath: bank:/Sonidos_Gerard.assets
-  lastModified: 638533731901514565
+  lastModified: 638535502213487559
   FileSizes:
   - Name: Desktop
-    Value: 4096
+    Value: 1150784
   Exists: 1
 --- !u!114 &6035560107975027691
 MonoBehaviour:
@@ -1019,10 +1439,10 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Master.assets.bank
   Name: Master.assets
   StudioPath: bank:/Master.assets
-  lastModified: 638533731895344739
+  lastModified: 638535502208390712
   FileSizes:
   - Name: Desktop
-    Value: 14637568
+    Value: 17715392
   Exists: 1
 --- !u!114 &6532839724764567540
 MonoBehaviour:
@@ -1228,10 +1648,10 @@ MonoBehaviour:
   Path: FMODs/fmod/Build/Desktop/Sonidos_Gerard.bank
   Name: Sonidos_Gerard
   StudioPath: bank:/Sonidos_Gerard
-  lastModified: 638533731900647256
+  lastModified: 638535502209413965
   FileSizes:
   - Name: Desktop
-    Value: 2458
+    Value: 25082
   Exists: 1
 --- !u!114 &8612007844373578919
 MonoBehaviour:
