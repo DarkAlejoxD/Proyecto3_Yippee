@@ -10,6 +10,11 @@ namespace AvatarController.Misc
         [SerializeField, Min(0.01f)] private float _detectionDistance = 0.1f;
         public FloorType FloorType { get; private set; }
 
+        private void Awake()
+        {
+            FloorType = FloorType.WOODY;
+        }
+
         private void Update()
         {
             Ray ray = new(transform.position, Vector3.down);
@@ -28,9 +33,15 @@ namespace AvatarController.Misc
                     return;
                 }
 
-                if (hitInfo.collider.CompareTag("CARPET")) ;
+                if (hitInfo.collider.CompareTag("CARPET"))
                 {
                     FloorType = FloorType.CARPET;
+                    return;
+                }
+
+                if (hitInfo.collider.CompareTag("CLOUD"))
+                {
+                    FloorType = FloorType.CLOUD;
                     return;
                 }
             }
