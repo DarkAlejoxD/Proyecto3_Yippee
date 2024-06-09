@@ -2113,6 +2113,7 @@ GameObject:
   - component: {fileID: 235406526}
   - component: {fileID: 235406528}
   - component: {fileID: 235406527}
+  - component: {fileID: 235406529}
   m_Layer: 5
   m_Name: Camilo
   m_TagString: Untagged
@@ -2237,6 +2238,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 235406525}
   m_CullTransparentMesh: 1
+--- !u!111 &235406529
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235406525}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 5bd53c6b8e917e24f8afbdb8eca5db94, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1001 &236077833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2353,13 +2370,14 @@ GameObject:
   - component: {fileID: 271306906}
   - component: {fileID: 271306908}
   - component: {fileID: 271306907}
+  - component: {fileID: 271306909}
   m_Layer: 5
   m_Name: 'Gerard '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &271306906
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2409,8 +2427,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 16777215
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2477,6 +2495,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 271306905}
   m_CullTransparentMesh: 1
+--- !u!95 &271306909
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271306905}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 31262cd390c74e043ae3742a17e8dcd3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &279990431
 GameObject:
   m_ObjectHideFlags: 0
@@ -6144,6 +6183,7 @@ Animation:
   m_Animation: {fileID: 0}
   m_Animations:
   - {fileID: 7400000, guid: a20b455a2a600804fbb3a09fdac3b696, type: 2}
+  - {fileID: 7400000, guid: c7bc2ed9f7cd47d43bbdc5115599d9ab, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -10764,13 +10804,14 @@ GameObject:
   - component: {fileID: 1041378846}
   - component: {fileID: 1041378848}
   - component: {fileID: 1041378847}
+  - component: {fileID: 1041378849}
   m_Layer: 5
   m_Name: Grazielly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1041378846
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10888,6 +10929,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041378845}
   m_CullTransparentMesh: 1
+--- !u!95 &1041378849
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041378845}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 31262cd390c74e043ae3742a17e8dcd3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1044546213
 GameObject:
   m_ObjectHideFlags: 0
@@ -12169,7 +12231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1169469912
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12489,13 +12551,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1194909494}
+  - component: {fileID: 1194909495}
   m_Layer: 5
   m_Name: Camilo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1194909494
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12517,6 +12580,27 @@ RectTransform:
   m_AnchoredPosition: {x: -13, y: 7}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &1194909495
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194909493}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 31262cd390c74e043ae3742a17e8dcd3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1200463193
 GameObject:
   m_ObjectHideFlags: 0
@@ -16821,6 +16905,7 @@ GameObject:
   - component: {fileID: 1489173259}
   - component: {fileID: 1489173261}
   - component: {fileID: 1489173260}
+  - component: {fileID: 1489173262}
   m_Layer: 5
   m_Name: GroupGMA2
   m_TagString: Untagged
@@ -16946,6 +17031,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489173258}
   m_CullTransparentMesh: 1
+--- !u!95 &1489173262
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489173258}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 31262cd390c74e043ae3742a17e8dcd3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1495031224
 GameObject:
   m_ObjectHideFlags: 0
@@ -17028,13 +17134,14 @@ GameObject:
   - component: {fileID: 1499847626}
   - component: {fileID: 1499847628}
   - component: {fileID: 1499847627}
+  - component: {fileID: 1499847629}
   m_Layer: 5
   m_Name: GroupGMA1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1499847626
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17153,6 +17260,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499847625}
   m_CullTransparentMesh: 1
+--- !u!95 &1499847629
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499847625}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 31262cd390c74e043ae3742a17e8dcd3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1504424637
 GameObject:
   m_ObjectHideFlags: 0
@@ -21562,7 +21690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1886511427
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21934,7 +22062,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1903303063
 RectTransform:
   m_ObjectHideFlags: 0
