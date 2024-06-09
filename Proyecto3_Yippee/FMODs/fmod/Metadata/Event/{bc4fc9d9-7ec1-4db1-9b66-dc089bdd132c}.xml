@@ -78,9 +78,6 @@
 		<property name="volume">
 			<value>10</value>
 		</property>
-		<relationship name="modulators">
-			<destination>{dc7466f0-0253-413a-9786-6eeeee733888}</destination>
-		</relationship>
 		<relationship name="effectChain">
 			<destination>{232dc6dc-d23d-475c-b6e7-473265c99ee9}</destination>
 		</relationship>
@@ -110,6 +107,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{302ea197-656c-469a-b3cc-77087c94a799}">
+		<property name="volume">
+			<value>-41</value>
+		</property>
 		<property name="name">
 			<value>ventana</value>
 		</property>
@@ -122,17 +122,6 @@
 		<relationship name="output">
 			<destination>{c22ee626-4dcd-44c6-9390-ca0e0d78d720}</destination>
 		</relationship>
-	</object>
-	<object class="ADSRModulator" id="{dc7466f0-0253-413a-9786-6eeeee733888}">
-		<property name="nameOfPropertyBeingModulated">
-			<value>volume</value>
-		</property>
-		<property name="initialValue">
-			<value>-80</value>
-		</property>
-		<property name="finalValue">
-			<value>-80</value>
-		</property>
 	</object>
 	<object class="MixerBusEffectChain" id="{232dc6dc-d23d-475c-b6e7-473265c99ee9}">
 		<relationship name="effects">

@@ -81,10 +81,10 @@ namespace AvatarController.PlayerFSM
                 _polterStaySound = AudioManager.GetAudioManager().
                     CreateEventInstance(Database.Player, "POLTER_STAY");
 
-            _playerController.StartCoroutine(TimerCoroutine(1, () =>
-            {
-                _polterStaySound.Value.start();
-            }));
+            //_playerController.StartCoroutine(TimerCoroutine(1, () =>
+            //{
+            _polterStaySound.Value.start();
+            //}));
 
             if (Anim)
                 Anim.SetBool(POLTER_ANIM_BOOL, true);

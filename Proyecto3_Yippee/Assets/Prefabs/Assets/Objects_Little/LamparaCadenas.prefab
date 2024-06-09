@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 96249850383630591}
   m_Layer: 0
   m_Name: Cone (1)
-  m_TagString: Untagged
+  m_TagString: METAL
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 3660446773025901049}
   m_Layer: 0
   m_Name: Cylinder (1)
-  m_TagString: Untagged
+  m_TagString: METAL
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -293,6 +293,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 64abdfed98a14754eaa8eac2eb6a648a, type: 2}
+    - target: {fileID: -5991751032257374315, guid: 5394d2d68d26d5540abfe652e66d8a2a,
+        type: 3}
+      propertyPath: m_TagString
+      value: METAL
+      objectReference: {fileID: 0}
+    - target: {fileID: -5568371526223589888, guid: 5394d2d68d26d5540abfe652e66d8a2a,
+        type: 3}
+      propertyPath: m_TagString
+      value: METAL
+      objectReference: {fileID: 0}
     - target: {fileID: -4276325327261444347, guid: 5394d2d68d26d5540abfe652e66d8a2a,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -303,10 +313,30 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 64abdfed98a14754eaa8eac2eb6a648a, type: 2}
+    - target: {fileID: -2634470130666490610, guid: 5394d2d68d26d5540abfe652e66d8a2a,
+        type: 3}
+      propertyPath: m_TagString
+      value: METAL
+      objectReference: {fileID: 0}
+    - target: {fileID: -1025663018108745142, guid: 5394d2d68d26d5540abfe652e66d8a2a,
+        type: 3}
+      propertyPath: m_TagString
+      value: METAL
+      objectReference: {fileID: 0}
+    - target: {fileID: -986254541668532754, guid: 5394d2d68d26d5540abfe652e66d8a2a,
+        type: 3}
+      propertyPath: m_TagString
+      value: METAL
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5394d2d68d26d5540abfe652e66d8a2a,
         type: 3}
       propertyPath: m_Name
       value: LamparaCadenas
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5394d2d68d26d5540abfe652e66d8a2a,
+        type: 3}
+      propertyPath: m_TagString
+      value: METAL
       objectReference: {fileID: 0}
     - target: {fileID: 6643002500141050826, guid: 5394d2d68d26d5540abfe652e66d8a2a,
         type: 3}

@@ -182,7 +182,7 @@ namespace Miscelaneous
                 DepthOfFieldControl.focusDistance.Override(_focusDistance);
             }
 
-            Debug.Log("Something Changed");
+            //Debug.Log("Something Changed");
         }
         #endregion
     }

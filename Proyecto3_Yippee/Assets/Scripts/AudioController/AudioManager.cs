@@ -11,6 +11,7 @@ namespace AudioController
         #region Fields
         [Header("References")]
         private AudioReferences _playerAudioData;
+        private AudioReferences _sfxAudioData;
         private Dictionary<EventReference, EventInstance> _audioInstances = new();
         private EventInstance? _currentAmbienceSound = null;
 
@@ -24,6 +25,7 @@ namespace AudioController
             _audioInstances = new();
             DontDestroyOnLoad(gameObject);
             _playerAudioData = Resources.Load<AudioReferences>("AudioData/PlayerAudioData");
+            _sfxAudioData = Resources.Load<AudioReferences>("AudioData/SFXAudioData");
         }
 
         private void OnDestroy()
@@ -61,7 +63,8 @@ namespace AudioController
                 case Database.Player:
                     audioEvent = _playerAudioData.GetEvent(name);
                     break;
-                case Database.Ambience:
+                case Database.SFX:
+                    audioEvent = _sfxAudioData.GetEvent(name);
                     break;
                 case Database.Music:
                     break;

@@ -1,4 +1,5 @@
-﻿using InputController;
+﻿using AudioController;
+using InputController;
 using UnityEngine;
 using UtilsComplements;
 
@@ -30,6 +31,8 @@ namespace AvatarController.PlayerFSM
             {
                 Anim.SetTrigger(DIVE_ANIM_TRIGGER);
             }
+
+            AudioManager.GetAudioManager().PlayOneShot(Database.Player, "JUMP", _playerController.transform.position);
         }
         public override void OnPlayerStay(InputValues inputs)
         {
@@ -52,7 +55,7 @@ namespace AvatarController.PlayerFSM
                 Anim.SetTrigger(DIVE_END_ANIM_TRIGGER);
                 float yImpulse = Data.DefaultDiveValues.VerticalImpulse *
                     Data.DefOtherValues.ScaleMultiplicator;
-                _playerController.AddImpulse(new(0,yImpulse, 0));
+                _playerController.AddImpulse(new(0, yImpulse, 0));
             }
         }
 
