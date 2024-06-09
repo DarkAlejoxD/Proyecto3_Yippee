@@ -45,6 +45,9 @@ namespace AvatarController.Animations
                 case FloorType.CARPET:
                     stepType = "STEP_CARPET";
                     break;
+                case FloorType.CLOUD:
+                    stepType = "STEP_CLOUD";
+                    break;
                 default:
                     stepType = "STEP_WOOD";
                     break;
@@ -94,5 +97,6 @@ namespace AvatarController.Animations
         WOODY,
         METAL,
         CARPET,
+        CLOUD
     }
 }
