@@ -180,11 +180,11 @@ namespace AvatarController.PlayerFSM
 
             _polterStaySound.Value.stop(STOP_MODE.ALLOWFADEOUT);
 
-            _playerController.StartCoroutine(TimerCoroutine(1, () =>
+            //_playerController.StartCoroutine(TimerCoroutine(1, () =>
             {
                 AudioManager.GetAudioManager().PlayOneShot(Database.Player, "POLTER_EXIT",
                                                            _playerController.transform.position);
-            }));
+            }//));
 
             CameraPolter.DeactivatePolterMode();
             _playerController.EndPoltergeist();
