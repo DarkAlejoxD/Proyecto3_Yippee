@@ -96,13 +96,16 @@
 	<object class="MixerBusPanner" id="{5e39330a-faed-4618-b16b-1859f628c03a}" />
 	<object class="SingleSound" id="{6c7218c0-b1e0-43ac-85d0-41616e5917eb}">
 		<property name="length">
-			<value>9.3416326530612253</value>
+			<value>2.5</value>
 		</property>
 		<relationship name="audioFile">
-			<destination>{13a9afb0-ac89-495a-9d09-00e8d02b7847}</destination>
+			<destination>{38aee067-11a0-4278-878c-3a868ab01a04}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{bcfb9f3a-bf89-437e-a571-248d37ea3474}">
+		<property name="volume">
+			<value>-10.5</value>
+		</property>
 		<property name="name">
 			<value>puerta 1</value>
 		</property>
@@ -137,9 +140,15 @@
 	<object class="MixerBusEffectChain" id="{e65d108f-ad17-4308-b477-9e6448bc798e}">
 		<relationship name="effects">
 			<destination>{157c14bc-9dec-4c9f-b905-56e09ead0d8c}</destination>
+			<destination>{598771f4-cad3-4548-98e3-c0dcb5c23ed2}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{c8775f35-5046-4f2f-81a0-afc6b2c055a1}" />
 	<object class="MixerBusFader" id="{17a74437-ac07-4cd4-b91a-98b7e356e137}" />
 	<object class="MixerBusFader" id="{157c14bc-9dec-4c9f-b905-56e09ead0d8c}" />
+	<object class="SFXReverbEffect" id="{598771f4-cad3-4548-98e3-c0dcb5c23ed2}">
+		<property name="decayTime">
+			<value>3400</value>
+		</property>
+	</object>
 </objects>
