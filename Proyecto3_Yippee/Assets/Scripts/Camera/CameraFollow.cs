@@ -5,6 +5,10 @@ using UtilsComplements;
 
 namespace Cameras
 {
+    /// <summary>
+    /// This script is old and does nothing.
+    /// I just take advantage is attached to virtual cameras to deactivate them
+    /// </summary>
     //[ExecuteAlways]
     public class CameraFollow : MonoBehaviour
     {
@@ -20,6 +24,12 @@ namespace Cameras
         private CinemachineVirtualCamera _camera;
         private CinemachineTransposer _bodyTransposer;
         private CinemachineComposer _aimComposer;
+
+        private void Awake()
+        {
+            _camera = GetComponent<CinemachineVirtualCamera>();
+            _camera.enabled = false;
+        }
 
         //void Start()
         //{

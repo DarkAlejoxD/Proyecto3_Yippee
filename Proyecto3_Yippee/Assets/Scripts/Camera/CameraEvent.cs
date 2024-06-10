@@ -15,7 +15,7 @@ namespace Cameras
 
         [SerializeField] private float _timeStolen = 3;
 
-        private void Start()
+        private void Awake()
         {
             _thisCamera = GetComponent<CinemachineVirtualCamera>();
             _thisCamera.enabled = false;

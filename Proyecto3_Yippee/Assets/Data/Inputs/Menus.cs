@@ -121,6 +121,28 @@ namespace InputController
                 },
                 {
                     ""name"": """",
+                    ""id"": ""970df2f8-2156-4e56-9493-974354409d7d"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""PassTutorial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""57ff009b-4338-4738-a821-12f5e7da1322"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""PassTutorial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""2c3f402a-3e65-4d43-90c9-b9096ef59898"",
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
