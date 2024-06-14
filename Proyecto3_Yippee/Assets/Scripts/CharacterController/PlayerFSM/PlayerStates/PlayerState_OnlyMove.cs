@@ -111,5 +111,10 @@ namespace AvatarController.PlayerFSM
 
             _isAFK = false;
         }
+
+        public override bool CanAutoTransition()
+        {
+            return false;
+        }
     }
 }

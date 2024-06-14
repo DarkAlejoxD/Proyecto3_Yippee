@@ -40,7 +40,7 @@ namespace AvatarController.PlayerFSM
         {
             base.OnEnter();
             if (Anim)
-            {                
+            {
                 Anim.SetTrigger(GRAB_ANIM_TRIGGER);
                 Anim.SetBool(GRAB_ANIM_BOOL, true);
             }
@@ -54,6 +54,8 @@ namespace AvatarController.PlayerFSM
 
         public override void OnPlayerStay(InputValues inputs)
         {
+            _playerController.OnGrabUpdate?.Invoke();
+
             if (_timeControl > _timeToIdle)
             {
                 _timeControl = 0;
@@ -110,7 +112,7 @@ namespace AvatarController.PlayerFSM
                 Anim.ResetTrigger(GRAB_ANIM_TRIGGER);
                 Anim.SetBool(GRAB_ANIM_BOOL, false);
             }
-                
+
             //_playerController.SetGravityActive(true);
         }
     }

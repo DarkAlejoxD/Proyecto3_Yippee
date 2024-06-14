@@ -37,6 +37,7 @@ namespace AvatarController.PlayerFSM
         public override void OnPlayerStay(InputValues inputs)
         {
             _playerController.OnMovement?.Invoke(inputs.MoveInput);
+
             if (Data.Powers.HasGhostView)
                 _playerController.OnGhostView?.Invoke(inputs.GhostViewInput);
 
@@ -56,18 +57,23 @@ namespace AvatarController.PlayerFSM
                 _playerController.TwistGravity = Deceleration;
                 _playerController.UseTwikedGravity = true;
                 _playerController.ForceChangeState(PlayerStates.OnAir);
+                return;
             }
 
             if (_timeWhenJumpStarted + _timeToPeak < Time.time)
             {
                 _isJumping = false;
                 _playerController.ForceChangeState(PlayerStates.OnAir);
+                return;
             }
+
+            _playerController.OnGrabCheck?.Invoke();
         }
 
         public override void OnExit()
         {
             base.OnExit();
+            _isJumping = false;
             _playerController._wasGrabbed = false;
         }
     }

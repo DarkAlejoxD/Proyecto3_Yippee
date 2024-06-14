@@ -30,6 +30,8 @@ namespace AvatarController
         public Action<bool> OnInteract;
         public Action<bool> OnGhostView;
         public Action<bool> OnSprint;
+        public Action OnGrabCheck;
+        public Action OnGrabUpdate;
 
         [Header("Random Attributes")]
         private PlayerJump _playerJump;
@@ -106,16 +108,16 @@ namespace AvatarController
         {
             UpdateVy();
 
-//#if UNITY_EDITOR
-//            if (!DEBUG_TextTest)
-//                return;
-//            if (!_playerFSM.Equals(null))
-//                DEBUG_TextTest.text = "Current State: " + _playerFSM.Name;
+            //#if UNITY_EDITOR
+            //            if (!DEBUG_TextTest)
+            //                return;
+            //            if (!_playerFSM.Equals(null))
+            //                DEBUG_TextTest.text = "Current State: " + _playerFSM.Name;
 
-//            //Debug.Log("Velocity: " + new Vector3(Velocity.x, VelocityY, Velocity.z) +
-//            //          "Magnitude: " + Velocity.magnitude +
-//            //          "\nDeltaTime: " + Time.deltaTime);
-//#endif
+            //            //Debug.Log("Velocity: " + new Vector3(Velocity.x, VelocityY, Velocity.z) +
+            //            //          "Magnitude: " + Velocity.magnitude +
+            //            //          "\nDeltaTime: " + Time.deltaTime);
+            //#endif
         }
         #endregion
 

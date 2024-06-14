@@ -44,35 +44,53 @@ namespace AvatarController.LedgeGrabbing
             _playerController = GetComponent<PlayerController>();
         }
 
-        void LateUpdate()
+        private void OnEnable()
         {
-            bool canGrab = _playerController.CurrentState.Equals(PlayerStates.OnAir) ||
-                _playerController.CurrentState.Equals(PlayerStates.OnDive);
+            if (_playerController == null)
+                _playerController = GetComponent<PlayerController>();
 
-            if (!canGrab && !_grabbingLedge)
-            {
-                return;
-            }
+            _playerController.OnGrabCheck += GrabUpdate;
+            _playerController.OnGrabUpdate += OnGrabUpdate;
+        }
+
+        private void OnDisable()
+        {
+            if (_playerController == null)
+                _playerController = GetComponent<PlayerController>();
+
+            _playerController.OnGrabCheck -= GrabUpdate;
+            _playerController.OnGrabUpdate -= OnGrabUpdate;
+        }
+
+        void GrabUpdate()
+        {
+            //if (_grabbingLedge)
+            //    return;
 
             CastCheckerRays();
             HandleLedgeLogic();
-
-            if (_playerController.CurrentState.Equals(PlayerStates.Grabbing))
-            {
-                //Cast dos raycast a los lados para detectar cuando llegamos a un borde y no dejar moverse?
-                HandleNormalRotation();
-                CastEdgeDetectionRays();
-
-                Vector3 pos = _hitInfo.point;
-                pos.y = transform.position.y;
-                pos.z += _positionToWallOffset * _hitInfo.normal.z;
-                pos.x += _positionToWallOffset * _hitInfo.normal.x;
-
-                //transform.position = pos;
-                _playerController.transform.position = pos;
-            }
         }
 
+        private void OnGrabUpdate()
+        {
+            //Cast dos raycast a los lados para detectar cuando llegamos a un borde y no dejar moverse?
+            HandleNormalRotation();
+            CastEdgeDetectionRays();
+
+            //Get nearestPoint To the player
+            Vector3 hitNormal = _hitInfo.normal;
+            //Ray rayToNearPos = new(_headRayOrigin.position, -hitNormal);
+            //CastRay(rayToNearPos);
+
+            //Attach to the ledge
+            Vector3 pos = _hitInfo.point;
+            pos.y = transform.position.y;
+            pos.z += _positionToWallOffset * _hitInfo.normal.z;
+            pos.x += _positionToWallOffset * _hitInfo.normal.x;
+
+            //transform.position = pos;
+            transform.position = pos;
+        }
         #endregion
 
         #region Private Methods
@@ -117,26 +135,23 @@ namespace AvatarController.LedgeGrabbing
             if (!_ledgeDetected)
             {
                 if (_chestHit && !_headHit)
+                {
                     _ledgeDetected = true;
+                    GrabLedge();
+                }
             }
 
             //Si el borde esta detectado y choca el de la cabeza agarrarse
-            if (_ledgeDetected)
-            {
-                if (_chestHit && _headHit)
-                {
-                    if (!_grabbingLedge)
-                    {
-                        GrabLedge();
-                    }
-                }
-
-                //Soltarse? DEBUG                
-                if (Input.GetKeyDown(KeyCode.F))
-                {
-                    //LetGoLedge();
-                }
-            }
+            //if (_ledgeDetected)
+            //{
+            //    if (_chestHit && _headHit)
+            //    {
+            //        if (!_grabbingLedge)
+            //        {
+            //            GrabLedge();
+            //        }
+            //    }
+            //}
         }
 
         private void GrabLedge()
@@ -176,15 +191,12 @@ namespace AvatarController.LedgeGrabbing
                 GetComponent<PlayerMovement>().SetGrabbingLedgeMode(_hitInfo.normal);
 
                 //update position
-                //GetComponent<PlayerMovement>().enabled = false;
-                Vector3 pos = _hitInfo.point;
-                pos.y = transform.position.y;
-                pos.z += _positionToWallOffset * _hitInfo.normal.z;
-                pos.x += _positionToWallOffset * _hitInfo.normal.x;
+                //Vector3 pos = _hitInfo.point;
+                //pos.y = transform.position.y;
+                //pos.z += _positionToWallOffset * _hitInfo.normal.z;
+                //pos.x += _positionToWallOffset * _hitInfo.normal.x;
 
-                //transform.position = pos;
-                _playerController.RequestTeleport(pos);
-                //GetComponent<PlayerMovement>().enabled = true;
+                //_playerController.RequestTeleport(pos);
             }
         }
 

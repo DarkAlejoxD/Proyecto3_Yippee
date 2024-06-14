@@ -153,6 +153,8 @@ namespace Tutorials
                 _keyboardPanelRef.SetActive(true);
             }
 
+
+            GameManager.GetGameManager().PlayerInstance?.SetOnlyMove();
             GameManager.GetGameManager().PlayerInstance?.BlockMovement();
             PauseManager.SetCanPause(false);
 
@@ -175,6 +177,7 @@ namespace Tutorials
             _isAppearing = false;
 
             GameManager.GetGameManager().PlayerInstance?.UnBlockMovement();
+            GameManager.GetGameManager().PlayerInstance?.SetDefaultMovement();
             PauseManager.SetCanPause(true);
         }
 

@@ -37,6 +37,8 @@ namespace AvatarController.PlayerFSM
 
             if (Data.Powers.HasGhostView)
                 _playerController.OnGhostView?.Invoke(inputs.GhostViewInput);
+
+            _playerController.OnGrabCheck?.Invoke();
         }
 
         public override void OnExit()

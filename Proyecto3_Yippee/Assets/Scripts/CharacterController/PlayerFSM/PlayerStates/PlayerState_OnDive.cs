@@ -44,6 +44,8 @@ namespace AvatarController.PlayerFSM
 
             else
                 _playerController.RequestChangeState(PlayerStates.OnAir);
+
+            _playerController.OnGrabCheck?.Invoke();
         }
 
         public override void OnExit()
