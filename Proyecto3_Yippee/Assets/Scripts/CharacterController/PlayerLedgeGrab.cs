@@ -243,6 +243,7 @@ namespace AvatarController.LedgeGrabbing
         #region DEBUG
         public static List<Transform> DEBUG_Ledges = new();
         public bool DEBUG_drawLedge = true;
+#if UNITY_EDITOR
 
         private void OnDrawGizmos()
         {
@@ -264,7 +265,6 @@ namespace AvatarController.LedgeGrabbing
                 Gizmos.color = Color.white;
             }
 
-#if UNITY_EDITOR
             if (!_hitInfo.Equals(null))
             {
 
@@ -287,13 +287,11 @@ namespace AvatarController.LedgeGrabbing
 
                 Handles.DrawLine(start, end, thick);
                 Handles.color = Color.white;
-#endif
             }
         }
 
         private void DrawLedges()
         {
-#if UNITY_EDITOR
             Handles.color = Color.blue;
             foreach (var ledge in DEBUG_Ledges)
             {
@@ -316,7 +314,6 @@ namespace AvatarController.LedgeGrabbing
                 Handles.DrawLine(start, end, thickHighs);
             }
             Handles.color = Color.white;
-#endif
         }
 
         private void DrawLedgeDetectionRays()
@@ -343,7 +340,7 @@ namespace AvatarController.LedgeGrabbing
             Gizmos.color = _chestHit ? Color.green : Color.red;
             Gizmos.DrawLine(pos, pos + transform.forward * _edgeRayLength);
         }
-
-        #endregion
+#endif
+#endregion
     }
 }
