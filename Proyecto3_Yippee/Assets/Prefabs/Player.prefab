@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e695705bc7f74eb47b739c7137b99063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _grabPoint: {fileID: 6518382203911507899}
   _headRayOrigin: {fileID: 5491929187026320153}
   _chestRayOrigin: {fileID: 395495644288115700}
   _rayLength: 0.2
@@ -239,6 +240,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16384
   _sideEdgeDetectionOffset: 0.045
+  DEBUG_drawLedge: 1
 --- !u!114 &5136656664774719619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,6 +764,7 @@ Transform:
   - {fileID: 6214200512913042082}
   - {fileID: 2933091683059469222}
   - {fileID: 4802186585339618782}
+  - {fileID: 6518382203911507899}
   m_Father: {fileID: 7089038600567389254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6321102957681023381
@@ -797,6 +800,37 @@ Transform:
   - {fileID: 6010000701882054188}
   - {fileID: 6040683021551123106}
   m_Father: {fileID: 359354712623499296}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6507345477546021516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6518382203911507899}
+  m_Layer: 3
+  m_Name: LedgeGrabPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6518382203911507899
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507345477546021516}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0.02}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7933144795610697111}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7174563746312731475
 GameObject:

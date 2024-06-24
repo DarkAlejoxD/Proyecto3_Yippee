@@ -131,12 +131,13 @@ namespace AvatarController
                     movement = right * dotInput;
                 }
                 //Debug.Log($"CurrentSpeed: {_playerController.Velocity.magnitude}"
-                 //         + $"\nMaxSpeed: {_playerController.DataContainer.GrabbingLedgeMovement.MaxSpeed}");
+                //         + $"\nMaxSpeed: {_playerController.DataContainer.GrabbingLedgeMovement.MaxSpeed}");
             }
             else
+            {
                 movement = right * moveInput.x;
-
-            movement += forward * moveInput.y;
+                movement += forward * moveInput.y;
+            }
 
             if (moveInput.magnitude == 0)
             {

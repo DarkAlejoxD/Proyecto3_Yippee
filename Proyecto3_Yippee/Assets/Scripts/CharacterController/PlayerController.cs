@@ -108,16 +108,16 @@ namespace AvatarController
         {
             UpdateVy();
 
-            //#if UNITY_EDITOR
-            //            if (!DEBUG_TextTest)
-            //                return;
-            //            if (!_playerFSM.Equals(null))
-            //                DEBUG_TextTest.text = "Current State: " + _playerFSM.Name;
+#if UNITY_EDITOR
+            if (!DEBUG_TextTest)
+                return;
+            if (!_playerFSM.Equals(null))
+                DEBUG_TextTest.text = "Current State: " + _playerFSM.Name;
 
-            //            //Debug.Log("Velocity: " + new Vector3(Velocity.x, VelocityY, Velocity.z) +
-            //            //          "Magnitude: " + Velocity.magnitude +
-            //            //          "\nDeltaTime: " + Time.deltaTime);
-            //#endif
+            //Debug.Log("Velocity: " + new Vector3(Velocity.x, VelocityY, Velocity.z) +
+            //          "Magnitude: " + Velocity.magnitude +
+            //          "\nDeltaTime: " + Time.deltaTime);
+#endif
         }
         #endregion
 
@@ -156,7 +156,8 @@ namespace AvatarController
             forward.y = 0;
             transform.rotation = Quaternion.LookRotation(forward);
 
-            UnBlockMovement();
+            StartCoroutine(TimerCoroutine(0.2f, UnBlockMovement));
+            //UnBlockMovement();
         }
 
         public void SetOnlyMove()

@@ -1,13 +1,22 @@
+using System.Collections.Generic;
 using UnityEngine;
 using AvatarController.PlayerFSM;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace AvatarController.LedgeGrabbing
 {
     [RequireComponent(typeof(PlayerJump), typeof(PlayerMovement), typeof(PlayerController))]
     public class PlayerLedgeGrab : MonoBehaviour
     {
+        [Header("References")]
+        [SerializeField] private Transform _grabPoint;
         [SerializeField] private Transform _headRayOrigin;
         [SerializeField] private Transform _chestRayOrigin;
+
+        [Header("Attributes")]
         [SerializeField] private float _rayLength = 0.75f;
         [SerializeField] private float _edgeRayLength = 1.5f;
         [SerializeField] private float _positionToWallOffset = 0.5f;
@@ -35,6 +44,13 @@ namespace AvatarController.LedgeGrabbing
         //DEBUG
         private bool ShowLedgeDetectionRays => true;//=> (_jumpController.IsFailling || _grabbingLedge) && !_jumpController.IsGrounded;
 
+        private Vector3 GrabPointOffset
+        {
+            get
+            {
+                return transform.position - _grabPoint.position;
+            }
+        }
 
         #region Unity Logic
 
@@ -77,19 +93,25 @@ namespace AvatarController.LedgeGrabbing
             HandleNormalRotation();
             CastEdgeDetectionRays();
 
+
             //Get nearestPoint To the player
             Vector3 hitNormal = _hitInfo.normal;
             //Ray rayToNearPos = new(_headRayOrigin.position, -hitNormal);
             //CastRay(rayToNearPos);
 
+            Transform ledge = _hitInfo.collider.transform;
+            float desiredY = ledge.position.y + ledge.localScale.y / 2;
+
             //Attach to the ledge
             Vector3 pos = _hitInfo.point;
-            pos.y = transform.position.y;
-            pos.z += _positionToWallOffset * _hitInfo.normal.z;
-            pos.x += _positionToWallOffset * _hitInfo.normal.x;
+            pos.y = desiredY;
+            pos += hitNormal * _positionToWallOffset;
 
-            //transform.position = pos;
+            pos += GrabPointOffset;
+
+            //_playerController.RequestTeleport(pos);
             transform.position = pos;
+
         }
         #endregion
 
@@ -125,7 +147,11 @@ namespace AvatarController.LedgeGrabbing
 
         private bool CastRay(Ray ray)
         {
-            return Physics.Raycast(ray, out _hitInfo, _rayLength, _grabbableLayers);
+            RaycastHit info;
+            bool hitted = Physics.Raycast(ray, out info, _rayLength, _grabbableLayers);
+            if (hitted)
+                _hitInfo = info;
+            return hitted;
         }
 
 
@@ -137,21 +163,21 @@ namespace AvatarController.LedgeGrabbing
                 if (_chestHit && !_headHit)
                 {
                     _ledgeDetected = true;
-                    GrabLedge();
+                    //GrabLedge();
                 }
             }
 
             //Si el borde esta detectado y choca el de la cabeza agarrarse
-            //if (_ledgeDetected)
-            //{
-            //    if (_chestHit && _headHit)
-            //    {
-            //        if (!_grabbingLedge)
-            //        {
-            //            GrabLedge();
-            //        }
-            //    }
-            //}
+            if (_ledgeDetected)
+            {
+                if (_chestHit && _headHit)
+                {
+                    if (!_grabbingLedge)
+                    {
+                        GrabLedge();
+                    }
+                }
+            }
         }
 
         private void GrabLedge()
@@ -162,6 +188,18 @@ namespace AvatarController.LedgeGrabbing
             GetComponent<PlayerMovement>().SetGrabbingLedgeMode(_hitInfo.normal);
 
             //GetComponent<PlayerMovement>().enabled = true;
+
+            Transform ledge = _hitInfo.collider.transform;
+            float desiredY = ledge.position.y + ledge.localScale.y / 2;
+
+            //Attach to the ledge
+            Vector3 pos = _hitInfo.point;
+            pos.y = desiredY;
+            pos += _hitInfo.normal * _positionToWallOffset;
+
+            pos += GrabPointOffset;
+
+            _playerController.RequestTeleport(pos);
 
             _playerController.ForceChangeState(PlayerStates.Grabbing);
             _grabbingLedge = true;
@@ -203,8 +241,14 @@ namespace AvatarController.LedgeGrabbing
         #endregion
 
         #region DEBUG
+        public static List<Transform> DEBUG_Ledges = new();
+        public bool DEBUG_drawLedge = true;
+
         private void OnDrawGizmos()
         {
+            if (DEBUG_drawLedge)
+                DrawLedges();
+
             if (!Application.isPlaying) return;
 
             if (ShowLedgeDetectionRays)
@@ -219,6 +263,60 @@ namespace AvatarController.LedgeGrabbing
                 Gizmos.DrawWireSphere(_hitInfo.point, 0.1f);
                 Gizmos.color = Color.white;
             }
+
+#if UNITY_EDITOR
+            if (!_hitInfo.Equals(null))
+            {
+
+                if (_hitInfo.collider == null)
+                    return;
+                const float thick = 2;
+
+                Handles.color = Color.yellow;
+
+                Transform ledge = _hitInfo.collider.transform;
+                float desiredY = ledge.position.y + ledge.localScale.y / 2;
+
+                //Attach to the ledge
+                Vector3 pos = _hitInfo.point;
+                pos.y = desiredY;
+                pos += _hitInfo.normal * _positionToWallOffset;
+
+                Vector3 start = _hitInfo.point;
+                Vector3 end = pos;
+
+                Handles.DrawLine(start, end, thick);
+                Handles.color = Color.white;
+#endif
+            }
+        }
+
+        private void DrawLedges()
+        {
+#if UNITY_EDITOR
+            Handles.color = Color.blue;
+            foreach (var ledge in DEBUG_Ledges)
+            {
+                Vector3 forward = ledge.forward.normalized;
+                Vector3 right = ledge.right.normalized;
+                Vector3 up = Vector3.up;
+                Vector3 scale = ledge.localScale;
+
+                const float thickHighs = 2;
+
+                Vector3 possibleHitPoint = ledge.position +
+                                           right * scale.x / 2 +
+                                           up * scale.y / 2;
+
+                Vector3 grabPos = possibleHitPoint + right * _positionToWallOffset;
+
+                Vector3 start = grabPos + forward * scale.z / 2;
+                Vector3 end = grabPos - forward * scale.z / 2;
+
+                Handles.DrawLine(start, end, thickHighs);
+            }
+            Handles.color = Color.white;
+#endif
         }
 
         private void DrawLedgeDetectionRays()

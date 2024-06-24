@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4831345066078839159}
   - component: {fileID: 2152794637855170537}
   - component: {fileID: 1117043520074935607}
+  - component: {fileID: 6385191490053333936}
   m_Layer: 14
   m_Name: Ledge_Cubic
   m_TagString: Untagged
@@ -105,3 +106,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6385191490053333936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747292856929734954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d61e818f4384e4479d8f3c85f205d87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
