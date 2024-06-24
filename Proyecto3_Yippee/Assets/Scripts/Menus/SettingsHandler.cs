@@ -43,5 +43,4 @@ namespace MenuManagement.Settings
             _masterBus.setVolume(_masterSlider.value);
         }
     }
-
 }

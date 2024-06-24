@@ -56,7 +56,7 @@
 			<destination>{d2404788-4b11-4415-8dc9-11581757b593}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{2226eaa1-9aaa-47b8-a8f1-3bf541e0ca49}</destination>
+			<destination>{973270a6-532e-4443-b9fb-0ce9e726e404}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{cafa3092-d0aa-4008-8e02-9033e7272c0d}" />
@@ -75,9 +75,6 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{c22ee626-4dcd-44c6-9390-ca0e0d78d720}">
-		<property name="volume">
-			<value>10</value>
-		</property>
 		<relationship name="effectChain">
 			<destination>{232dc6dc-d23d-475c-b6e7-473265c99ee9}</destination>
 		</relationship>
@@ -108,7 +105,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{302ea197-656c-469a-b3cc-77087c94a799}">
 		<property name="volume">
-			<value>-41</value>
+			<value>-14.5</value>
 		</property>
 		<property name="name">
 			<value>ventana</value>
